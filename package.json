@@ -1,0 +1,48 @@
+{
+  "name": "easy-values",
+  "version": "2.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@grapecity/spread-excelio": "12.0.10",
+    "@grapecity/spread-sheets": "12.0.10",
+    "@grapecity/spread-sheets-vue": "12.0.10",
+    "@mdi/font": "7.0.96",
+    "@mui/x-data-grid": "^4.0.1",
+    "apexcharts": "^3.44.0",
+    "axios": "^1.6.8",
+    "chromedriver": "^124.0.1",
+    "express": "^4.18.1",
+    "file-saver": "^2.0.5",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.28",
+    "keycloak-js": "^20.0.1",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
+    "roboto-fontface": "*",
+    "selenium-webdriver": "^4.11.1",
+    "serve-static": "^1.15.0",
+    "vue": "^3.4.0",
+    "vue-apexcharts": "^1.6.2",
+    "vue-router": "^4.3.2",
+    "vuetify": "^3.5.0",
+    "vuex": "^4.0.2",
+    "vuex-persistedstate": "^4.1.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^24.0.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "sass": "^1.71.1",
+    "unplugin-fonts": "^1.1.1",
+    "unplugin-vue-components": "^0.26.0",
+    "vite": "^5.1.5",
+    "vite-plugin-vuetify": "^2.0.3",
+    "vitest": "^1.6.0"
+  }
+}

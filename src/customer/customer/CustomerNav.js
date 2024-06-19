@@ -1,0 +1,90 @@
+import Customer from './Customer.vue'
+import Customers from './Customers.vue'
+const customerNav = {
+        routes:[
+                {
+                        path: '/customer/:mode',
+                        name: 'customer',
+                        component: Customer,
+                        meta: { auth: true },
+                 },
+                 {
+                        path: '/customers',
+                        name: 'customers',
+                        component: Customers,
+                        meta: { auth: true },
+                 },
+
+                ], menu: {
+                id: "customer.customer",
+                title: "Customers",
+                component: Customer,
+                path: "customers",
+                width: "1000px",
+                editHeaders: [{ text: "Customer Name", value: "customerName" },
+                { text: "Phone No", value: "phoneNo" },
+                { text: "Email", value: "email" },
+                { text: "Balance", value: "balance" ,isNumeric:true},
+                { text: "Address", value: "address" },
+                { text: "Price Group", value: "priceGroupId.displayKey" },
+                { text: "Price Group", value: "priceGroup" },
+                { text: "Default Sponsor", value: "defaultSponsor.displayKey" },
+                { text: "Can Sponsor", value: "canSponsor" },
+                { text: "Sponsor Only", value: "sponsorOnly" },
+                { text: "Allow Credit", value: "allowCredit" },
+                { text: "Credit Limit", value: "creditLimit" ,isNumeric:true},
+                { text: "Customer Accounts Group Id", value: "customerAccountsGroupId" },
+                { text: "Customer Accounts Group", value: "customerAccountsGroup" },
+                { text: "Hidden", value: "hidden" },
+                { Actions: "actions" }],
+                 headers: [{
+                        text: "Id",
+                        align: "start",
+                        // sortable: false,
+                        value: "id",
+                },
+                { text: "Customer Name", value: "customerName" },
+                { text: "Phone No", value: "phoneNo" },
+                { text: "Balance", value: "balance" ,isNumeric:true},
+                { text: "Last Receipt Date", value: "lastReceiptDate", isDate: true },
+                { text: "Last Invoice Date", value: "lastInvoiceDate", isDate: true},
+                { text: "Last Engagement Date ", value: "lastEngagementDate", isDate: true },
+                { text: "Email", value: "email" },
+                { text: "Address", value: "address" },
+                { text: "Price Group", value: "priceGroup" },
+                { text: "Default Sponsor", value: "defaultSponsor.displayKey" },
+                { text: "Can Sponsor", value: "canSponsor" },
+                { text: "Sponsor Only", value: "sponsorOnly" },
+                { text: "Allow Credit", value: "allowCredit" },
+                { text: "Credit Limit", value: "creditLimit" ,isNumeric:true},
+                 { text: "Business Section", value: "businessSection" },
+                { text: "Reference Type", value: "referenceType" },
+                { text: "Reference No", value: "referenceNo" },
+                { text: "Reference No", value: "referenceNo" },
+                { text: "Hidden", value: "hidden" },
+                { text: "Branch", value: "branch", label: "Branch", field: "branch" },
+                { text: "Creation Date", value: "creationDate", isDateTime: true },
+                { text: "Last Modified Date", value: "lastModifiedDate", isDateTime: true},
+                { text: "Created By", value: "createdBy"},
+                { text: "Modified By", value: "modifiedBy"},
+                ],
+                miniHeaders: [{
+                        text: "Id",
+                        align: "start",
+                        value: "id",
+                },
+                { text: "Customer Name", value: "customerName" },
+                { text: "Phone No", value: "phoneNo" },
+                { text: "Balance", value: "balance" ,isNumeric:true},
+                { text: "Address", value: "address" },
+
+                ],
+                children: [{ id: "customer.customer.new", title: "New", route: "customer", mode: 0, locked:true },
+                { id: "customer.customer.edit", title: "Edit", route: "customer", mode: 1, locked:true },
+                { id: "customer.customer.history", title: "History", route: "customer", mode: 2, locked:false },
+                ]
+        }
+}
+export default customerNav;
+
+

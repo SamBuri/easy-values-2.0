@@ -1,0 +1,171 @@
+import SalesAccountingSetup from "./SalesAccountingSetup.vue";
+const salesAccountingSetupNav = {
+  route: {
+    path: "/salesAccountingSetup/:mode",
+    name: "salesAccountingSetup",
+    component: SalesAccountingSetup,
+    meta: { auth: true },
+  },
+  menu: {
+    id: "sales.salesaccountingsetup",
+    name: "Accounting Setups",
+    component: SalesAccountingSetup,
+    path: "salesaccountingsetups",
+    width: "1000px",
+    editHeaders: [
+      { title: "Name", key: "name", label: "Name", field: "name" },
+      {
+        title: "Customer Type",
+        key: "customerTypeId",
+        label: "Customer Type",
+        field: "customerTypeId",
+      },
+      {
+        title: "Customer Type",
+        key: "customerType",
+        label: "Customer Type",
+        field: "customerType",
+      },
+      {
+        title: "Item Category",
+        key: "itemCategoryId",
+        label: "Item Category",
+        field: "itemCategoryId",
+      },
+      {
+        title: "Item Category",
+        key: "itemCategory",
+        label: "Item Category",
+        field: "itemCategory",
+      },
+      {
+        title: "Sales Account",
+        key: "salesAccountId",
+        label: "Sales Account",
+        field: "salesAccountId",
+      },
+      {
+        title: "Sales Account",
+        key: "salesAccount",
+        label: "Sales Account",
+        field: "salesAccount",
+      },
+      {
+        title: "Sales Return Account",
+        key: "salesReturnAccountId",
+        label: "Sales Return Account",
+        field: "salesReturnAccountId",
+      },
+      {
+        title: "Sales Return Account",
+        key: "salesReturnAccount",
+        label: "Sales Return Account",
+        field: "salesReturnAccount",
+      },
+      { title: "Actions", key: "actions" },
+    ],
+    headers: [
+      {
+        title: "Id",
+        align: "start",
+        // sortable: false,
+        key: "id",
+      },
+      { title: "Name", key: "name", label: "Name", field: "name" },
+      {
+        title: "Customer Type",
+        key: "customerTypeId",
+        label: "Customer Type",
+        field: "customerTypeId",
+      },
+      {
+        title: "Customer Type",
+        key: "customerType",
+        label: "Customer Type",
+        field: "customerType",
+      },
+      {
+        title: "Item Category",
+        key: "itemCategoryId",
+        label: "Item Category",
+        field: "itemCategoryId",
+      },
+      {
+        title: "Item Category",
+        key: "itemCategory",
+        label: "Item Category",
+        field: "itemCategory",
+      },
+      {
+        title: "Sales Account",
+        key: "salesAccountId",
+        label: "Sales Account",
+        field: "salesAccountId",
+      },
+      {
+        title: "Sales Account",
+        key: "salesAccount",
+        label: "Sales Account",
+        field: "salesAccount",
+      },
+      {
+        title: "Sales Return Account",
+        key: "salesReturnAccountId",
+        label: "Sales Return Account",
+        field: "salesReturnAccountId",
+      },
+      {
+        title: "Sales Return Account",
+        key: "salesReturnAccount",
+        label: "Sales Return Account",
+        field: "salesReturnAccount",
+      },
+      { title: "Branch", key: "branch", label: "Branch", field: "branch" },
+      {
+        title: "Creation Date",
+        key: "creationDate",
+        label: "Creation Date",
+        field: "creationDate",
+        isDateTime: true,
+      },
+      {
+        title: "Last Modified Date",
+        key: "lastModifiedDate",
+        isDateTime: true,
+      },
+      {
+        title: "Created By",
+        key: "createdBy",
+        label: "Created By",
+        field: "createdBy",
+      },
+      {
+        title: "Modified By",
+        key: "modifiedBy",
+        label: "Modified By",
+        field: "modifiedBy",
+      },
+    ],
+    children: [
+      {
+        id: "sales.salesAccountingSetup.new",
+        title: "New",
+        route: "salesAccountingSetup",
+        mode: 0,
+      },
+      {
+        id: "sales.salesAccountingSetup.edit",
+        title: "Edit",
+        route: "salesAccountingSetup",
+        mode: 1,
+      },
+      {
+        id: "sales.salesAccountingSetup.history",
+        title: "History",
+        route: "salesAccountingSetup",
+        mode: 2,
+      },
+    ],
+  },
+};
+export default salesAccountingSetupNav;
