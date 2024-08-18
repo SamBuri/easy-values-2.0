@@ -1,38 +1,20 @@
-<template>
-  <search :menu="menu" :menuItems ="menuItems"  @itemSelected="itemSelected"></search>
-</template>
-<script>
-import customerNav from './CustomerNav';export default {
-  name: "Customer",
- data: () => ({
-  
-     menu: customerNav.menu,
-     menuItems: [
-      { title: "Add", icon: "mdi-plus" },
-      { title: "Edit", icon: "mdi-pencil" },
-      { title: "Delete", icon: "mdi-delete" },
-     { title: "Re-post", icon: "mdi-send" },
-    ],
-  
-  }),
+<script setup>
+import customerNav from './CustomerNav';
+import customerController from "./CustomerController";
+import searchMenuController from "@/search/SearchMenuController";
+const controller= customerController();
+const {save, edit, deleteItem, republish}=searchMenuController(controller)
+const menu= customerNav.menu;
+const menuItems = [
+      { title: "Add", icon: "mdi-plus", click: (options)=>save(options)},
+      { title: "Edit", icon: "mdi-pencil",click: (options)=>edit(options) },
+      { title: "Delete", icon: "mdi-delete",click:(options)=>deleteItem(options) },
+      { title: "Re-post", icon: "mdi-send",click: (options)=>republish(options) },
+    ]
 
-methods: {
- itemSelected(selectedItem, items) {
-      switch (selectedItem) {
-        case 0:
-          this.saveClicked();
-          break;
-        case 1:
-          this.editClicked(items);
-          break;
-        case 2:
-          this.dialogDelete = true;
-          break;
-          case 3:
-          this.republishClicked(items);
-          break;
-      }
-    },
- },
-};
+    
 </script>
+<template>
+  <search :menu="menu" :menuItems ="menuItems"></search>
+</template>
+

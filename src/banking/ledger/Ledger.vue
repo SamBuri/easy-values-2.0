@@ -1,10 +1,22 @@
+<script setup>
+import { onMounted } from "vue";
+import ledgerNav from './LedgerNav'
+import bankAccountNav from '../bankaccount/BankAccountNav'
+import { defineBankAccountStore } from '../bankaccount/BankAccountStore'
+const bankAccountStore =  defineBankAccountStore();
+
+onMounted(() => {
+  bankAccountStore.getMini();
+});
+</script>
+
 <template>
-  <s-ledger :maxWidth="maxWidth" :headers="accountLedgerNav.headers" :model="model" :title="title"
-    :passedColumn="passedColumn" :accountHeaders="bankAccountNav.menu.miniHeaders" :accountItems="accounts"
-    @setAccountIdData="setAccountIdData" @accountIdChanged="accountIdChanged">
+  <s-ledger :passedData="ledgerNav"
+    :accountItems="bankAccountStore.mini"
+    :accountHeaders = bankAccountNav.menu.miniHeaders>
   </s-ledger>
 </template>
-<script>
+<!-- <script>
 
 import ledgerNav from './LedgerNav'
 import bankAccountNav from '../bankaccount/BankAccountNav'
@@ -58,5 +70,4 @@ export default {
 
   },
 };
-</script>
-  
+</script> -->

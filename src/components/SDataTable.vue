@@ -132,6 +132,7 @@ export default {
             let allItems = this.items
             if (this.items.length > 1) {
                 let totalRow = funcs.getTotalRow(this.headers, this.items)
+                console.log("Excetung all items ", totalRow)
                 allItems.push(totalRow);
             }
             return allItems;

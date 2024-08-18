@@ -184,7 +184,7 @@ export const defineRootStore = defineStore("root", {
           this.results = { success: false, message: error, show: true };
         });
     },
-    async fetch(endpoint,  pre, success, end, ) {
+    async fetch(endpoint,  pre, success, end) {
      if(pre) pre();
 
       let res = await httpMethods
@@ -207,5 +207,53 @@ export const defineRootStore = defineStore("root", {
         .finally(() =>end());
       return res;
     },
+
+    async doPost(endpoint, payload,  pre, success, end) {
+      if(pre) pre();
+
+       let res = await httpMethods
+         .post(endpoint, payload)
+         .then((res) => {
+
+           success(res)
+           return res.data;
+         })
+         .catch((error) => {
+           console.log("Error Posting data", error);
+           this.results = {
+             success: false,
+             message: "Error Posting data",
+             show: true,
+           };
+
+           return [];
+         })
+         .finally(() =>end());
+       return res;
+     },
+
+
+
+    republish(path, id) {
+      let fullPath = `${path}/republish/${id}`;
+
+      httpMethods
+        .get(fullPath)
+        .then((response) => {
+          console.log("Data url", fullPath);
+          let res = response.data;
+
+          this.setResults({
+            success: res.success,
+            message: res.message,
+            show: true,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+          this.setResults({ success: false, message: e.message, show: true });
+        });
+    },
+
   },
 });

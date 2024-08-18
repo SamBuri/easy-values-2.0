@@ -19,9 +19,7 @@ const menuItems = [
       { title: "Re-post", icon: "mdi-send",click: (options)=>republish(options) },
     ]
 
-    const selectedItem= (item)=>{
 
-    }
 </script>
 <!-- <script>
 import lookupDataNav from "./LookupDataNav";

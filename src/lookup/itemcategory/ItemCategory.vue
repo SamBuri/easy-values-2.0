@@ -3,11 +3,16 @@ import itemCategoryController from "./ItemCategoryController";
 const cols = 12;
 const sm = 6;
 const md = 6;
-const {model, rules, lookupStore} = itemCategoryController();
+
+const controller= itemCategoryController();
+
+const model =  controller.model;
+const rules= controller.rules;
+// const lookupStore =  controller.lookupStore
 
 </script>
 <template>
-  <crud-form :controller="itemCategoryController">
+  <crud-form :controller="controller">
     <template #heading>Item Category</template>
 
     <template #form-data ="{ isUpdate }">
@@ -25,8 +30,8 @@ const {model, rules, lookupStore} = itemCategoryController();
           v-model="model.itemGroup"
           :rules="rules.itemGroup"
           :counter="100"
-          :items="lookupStore.itemCategoryGroups"
-          :loading="lookupStore.itemCategoryGroupsLoading"
+          :items="controller.lookupStore.itemCategoryGroups"
+          :loading="controller.lookupStore.itemCategoryGroupsLoading"
           return-object
         ></v-select>
       </v-col>

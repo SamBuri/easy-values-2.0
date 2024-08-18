@@ -23,6 +23,9 @@ const lookupDataModel = {
       this.isDefault = obj.isDefault;
     },
   },
+  copy(obj){
+    this.model = Object.assign({}, obj);
+  },
   rules: {
     lookupObject: [(v) => !!v || "Lookup Object is required"],
     lookupDataName: [

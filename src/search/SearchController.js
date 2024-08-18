@@ -61,12 +61,7 @@ export default function searchController(menu, menuItems) {
     );
   });
 
-  const showAggregate = computed(() => {
-    if (numericHeader.value) {
-      return true;
-    }
-    return false;
-  });
+  const showAggregate = computed(() => numericHeader.value);
 
   const showAggregateValue = computed(
     () => showAggregate.value && aggregate.value
@@ -339,6 +334,7 @@ export default function searchController(menu, menuItems) {
     menuY,
     formatTableData,
     aggregates,
+    aggregate,
     showAggregateValue,
     aggregateValue,
     searchCriteriaDialog,
@@ -359,6 +355,8 @@ export default function searchController(menu, menuItems) {
     column,
     additionalFilters,
     hasNumericHeaders,
+    numericHeaders,
+    numericHeader,
     editDialog,openEditDialog, closeEditDialog,
     openDeleteDialog,
     contextMenuOption,

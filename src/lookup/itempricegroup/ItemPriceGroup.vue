@@ -1,128 +1,50 @@
-<template>
-  <crud-form
-    @save="save"
-    @update="update"
-    @search="search"
-    @updateDialog="updateDialog"
-    @reset="reset"
-    @done="done"
-    @updateCrudTableDialog="updateCrudTableDialog"
-    @resetCrudTableDialog="resetCrudTableDialog"
-    :path="path"
-    :maxWidth="maxWidth"
-  >
-    <template slot="heading">Item Price Group</template>
+<script setup>
+import itemPriceGroupController from "./ItemPriceGroupController";
+const cols = 12;
+const sm = 12;
+const md = 12;
+const controller = itemPriceGroupController();
 
-    <template slot="form-data">
-    
+const model = controller.model;
+const rules = controller.rules;
+</script>
+<template>
+  <crud-form :controller="controller">
+    <template #heading>Item Price Group</template>
+
+    <template #form-data>
+
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-select
+        <s-autocomplete
+          id="priceGroupId"
           label="Price Group"
-          v-model="itemPriceGroup.priceGroupObj"
-          :rules="priceGroupIdRules"
+          v-model="model.priceGroupId"
+          :rules="rules.priceGroupId"
           :counter="100"
-          required
-          :items="$store.state.lookup.lookupdata.priceGroups"
-          item-text="lookupDataName"
+          :items="controller.lookupDataStore.priceGroups"
+          :loading="controller.lookupDataStore.priceGroupsLoading"
+          item-title="lookupDataName"
           item-value="id"
-          return-object
-        ></v-select>
+        ></s-autocomplete>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-number-input
+          id="unitPrice"
           label="Unit Price"
-          v-model="itemPriceGroup.unitPrice"
+          v-model="model.unitPrice"
+          :rules="rules.unitPrice"
           :counter="100"
-          required
-        ></v-text-field>
+        ></s-number-input>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-number-input
+          id="discount"
           label="Discount"
-          v-model="itemPriceGroup.discount"
+          v-model="model.discount"
+          :rules="rules.discount"
           :counter="100"
-          required
-        ></v-text-field>
+        ></s-number-input>
       </v-col>
     </template>
   </crud-form>
 </template>
-<script>
-import itemPriceGroupModel from "./ItemPriceGroupModel";
-import CrudForm from "../../components/CrudForm.vue";
-export default {
-  components: { CrudForm },
-  name: "ItemPriceGroup",
-  data: () => ({
-    cols: 12,
-    sm: 6,
-    md: 4,
-    maxWidth: 700,
-    path: itemPriceGroupModel.path,
-    itemPriceGroup: itemPriceGroupModel.itemPriceGroup,
-    itemRules: [(v) => !!v || "Item is required"],
-    priceGroupIdRules: [(v) => !!v || "Price Group is required"],
-  }),
-  created() {
-    this.$store.dispatch("items/item/getMini");
-    this.$store.dispatch("lookup/lookupdata/getPriceGroups");
-  },
-  computed: {
-    priceGroupObj(){
-      return this.itemPriceGroup.priceGroupObj;
-    }
-  },
-
-  watch: {
-     priceGroupObj(){
-      this.itemPriceGroup.priceGroupId = this.priceGroupObj.id;
-    }
-  },
-
-  methods: {
-    save() {
-      this.$store.dispatch("post", {
-        path: this.path,
-        body: this.itemPriceGroup,
-      });
-    },
-    update() {
-      this.$store.dispatch("put", {
-        path: `${this.path}/${this.itemPriceGroup.id}`,
-        body: this.itemPriceGroup,
-      });
-    },
-    updateDialog() {
-      var obj = this.$store.state.search.selectedData[0].value;
-      this.setDialog(obj);
-    },
-    async search() {
-      var obj = this.$store.state.obj;
-      this.itemPriceGroup = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    reset() {
-      this.itemPriceGroup.clear();
-    },
-    setObjects(obj) {
-      console.log(obj);
-    },
-    setDialog(obj) {
-      this.itemPriceGroup = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    done() {
-      this.$store.commit(
-        "crudtable/data",
-        Object.assign({}, this.itemPriceGroup)
-      );
-    },
-    updateCrudTableDialog() {
-      this.setDialog(this.$store.state.crudtable.data);
-    },
-    resetCrudTableDialog() {
-      this.reset();
-    },
-  },
-};
-</script>

@@ -13,6 +13,7 @@ import { VTreeview } from 'vuetify/labs/VTreeview'
 import { createVuetify } from 'vuetify'
 import { VTextField } from 'vuetify/components/VTextField'
 import { VTextarea } from 'vuetify/components/VTextarea'
+import { VAutocomplete } from 'vuetify/components/VAutocomplete'
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
@@ -21,7 +22,8 @@ export default createVuetify({
   },
   aliases: {
      STextField: VTextField,
-     STextarea: VTextarea
+     STextarea: VTextarea,
+     SAutocomplete: VAutocomplete,
   },
   defaults: {
     STextField: {
@@ -36,6 +38,10 @@ export default createVuetify({
       density: "compact"
     },
     VAutocomplete: {
+      density: "compact"
+    },
+
+    SAutocomplete: {
       density: "compact"
     },
     STextarea: {

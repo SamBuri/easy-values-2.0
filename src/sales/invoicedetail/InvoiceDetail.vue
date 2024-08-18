@@ -1,279 +1,132 @@
-<template>
-  <crud-form
-    @save="save"
-    @update="update"
-    @search="search"
-    @updateDialog="updateDialog"
-    @reset="reset"
-    @done="done"
-    @updateCrudTableDialog="updateCrudTableDialog"
-    @resetCrudTableDialog="resetCrudTableDialog"
-    :path="path"
-    :maxWidth="maxWidth"
-  >
-    <template slot="heading">Invoice Details</template>
+<script setup>
+import invoiceDetailController from "./InvoiceDetailController";
+import rootOptions from "@/root/RootOptions"
+const cols = 12;
+const sm = 4;
+const md = 3;
+const controller = invoiceDetailController();
+rootOptions.maxWidth =1300;
 
-    <template slot="form-data">
-      <!-- <v-col :cols="cols" :sm="sm" :md="md">
-        <v-select
-          label="Invoice"
-          v-model="invoiceDetails.invoice"
-          :rules="invoiceRules"
-          :counter="100"
-          required
-          :items="$store.state.invoices.invoice.mini"
-          item-text="invoiceName"
-          item-value="id"
-          return-object
-        ></v-select>
-      </v-col> -->
+const model = controller.model;
+const rules = controller.rules;
+</script>
+<template>
+  <crud-form :controller="controller">
+    <template #heading>Invoice Detail</template>
+
+    <template #form-data>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-select
+        <s-autocomplete
+          id="itemId"
           label="Item"
-          v-model="invoiceDetails.itemObj"
-          :rules="itemIdRules"
+          v-model="model.itemId"
+          :rules="rules.itemId"
           :counter="100"
-          required
-          :items="$store.state.lookup.item.mini"
-          :loading="$store.state.lookup.item.miniLoading"
-          item-text="itemName"
+          :items="controller.itemStore.mini"
+          :loading="controller.itemStore.miniLoading"
+          item-title="itemName"
           item-value="id"
-          return-object
-        ></v-select>
+        ></s-autocomplete>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-select
+        <s-text-field
+          id="itemName"
+          label="Item Name"
+          v-model="model.itemName"
+          :rules="rules.itemName"
+          :counter="100"
+        ></s-text-field>
+      </v-col>
+      <v-col :cols="cols" :sm="sm" :md="md">
+        <s-text-field
+          id="measure"
           label="Measure"
-          v-model="invoiceDetails.measureObj"
-          :rules="measureRules"
-          :items="itemUnitMeasures"
-           :loading="$store.state.lookup.item.itemLoading"
-          item-value="id"
-          item-text="measureName"
-          required
-          return-object
-        ></v-select>
+          v-model="model.measure"
+          :rules="rules.measure"
+          :counter="100"
+        ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-number-input
+          id="measureQuantity"
           label="Measure Quantity"
-          v-model="invoiceDetails.measureQuantity"
+          v-model="model.measureQuantity"
+          :rules="rules.measureQuantity"
           :counter="100"
-          required
-        ></v-text-field>
+        ></s-number-input>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-number-input
+          id="measureSize"
           label="Measure Size"
-          v-model="invoiceDetails.measureSize"
+          v-model="model.measureSize"
+          :rules="rules.measureSize"
           :counter="100"
-          required
-          disabled
-        ></v-text-field>
+        ></s-number-input>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-text-field
+          id="unitMeasure"
           label="Unit Measure"
-          v-model="invoiceDetails.unitMeasure"
-          :rules="unitMeasureRules"
+          v-model="model.unitMeasure"
+          :rules="rules.unitMeasure"
           :counter="100"
-          required
-          disabled
-        ></v-text-field>
+        ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-number-input
+          id="quantity"
           label="Quantity"
-          v-model="invoiceDetails.quantity"
+          v-model="model.quantity"
+          :rules="rules.quantity"
           :counter="100"
-          required
-          disabled
-        ></v-text-field>
+        ></s-number-input>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
-          label="Unit Cost"
-          v-model="invoiceDetails.unitCost"
+        <s-number-input
+          id="unitCost"
+          label="UnitCost"
+          v-model="model.unitCost"
+          :rules="rules.unitCost"
           :counter="100"
-          required
-          disabled
-        ></v-text-field>
+        ></s-number-input>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
-          label="Unit Price"
-          v-model="invoiceDetails.unitPrice"
+        <s-number-input
+          id="unitPrice"
+          label="UnitPrice"
+          v-model="model.unitPrice"
+          :rules="rules.unitPrice"
           :counter="100"
-          required
-          disabled
-        ></v-text-field>
+        ></s-number-input>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-number-input
+          id="discount"
           label="Discount"
-          v-model="invoiceDetails.discount"
+          v-model="model.discount"
+          :rules="rules.discount"
           :counter="100"
-          required
-        ></v-text-field>
+        ></s-number-input>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-text-field
+          id="amount"
           label="Amount"
-          v-model="invoiceDetails.amount"
-          :rules="amountRules"
+          v-model="model.amount"
+          :rules="rules.amount"
           :counter="100"
-          required
-          disabled
-        ></v-text-field>
+        ></s-text-field>
       </v-col>
-      <!-- <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+      <v-col :cols="cols" :sm="sm" :md="md">
+        <s-text-field
+          id="location"
           label="Location"
-          v-model="invoiceDetails.location"
-         
-        ></v-text-field>
-      </v-col> -->
+          v-model="model.location"
+          :rules="rules.location"
+          :counter="100"
+        ></s-text-field>
+      </v-col>
     </template>
   </crud-form>
 </template>
-<script>
-import invoiceDetailModel from "./InvoiceDetailModel";
-import CrudForm from "../../components/CrudForm.vue";
-export default {
-  components: { CrudForm },
-  name: "InvoiceDetails",
-  data: () => ({
-    cols: 12,
-    sm: 6,
-    md: 4,
-    maxWidth: 1000,
-    path: invoiceDetailModel.path,
-    invoiceDetails: invoiceDetailModel.invoiceDetails,
-    invoiceRules: [(v) => !!v || "Invoice is required"],
-    itemIdRules: [(v) => !!v || "Item is required"],
-    
-   
-    measureRules: [
-      (v) => !!v || "Measure is required",
-    ],
-    unitMeasureRules: [
-      (v) => !!v || "Unit Measure is required",
-    ],
-    amountRules: [
-      (v) => !!v || "Amount is required",
-    ],
-
-    itemUnitMeasures: [],
-  
-  }),
-  created() {
-    this.$store.dispatch("lookup/item/getMini");
-  },
-  computed: {
-    itemObj(){
-      return this.invoiceDetails.itemObj;
-    },
-    measureObj(){
-      return this.invoiceDetails.measureObj;
-    },
-    measureQuantity(){
-      return this.invoiceDetails.measureQuantity;
-    },
-   discount(){return this.invoiceDetails.discount;},
-
-  },
-
-  watch: {
-     itemObj(){
-       if(!this.itemObj)return;
-      this.invoiceDetails.itemId = this.itemObj.id;
-       this.invoiceDetails.itemName = this.itemObj.itemName;
-       console.log("Item Obj", this.itemObj);
-      this.setItem();
-
-    },
-    measureObj(){
-      this.invoiceDetails.measure = this.invoiceDetails.measureObj.measureName;
-      this.invoiceDetails.measureSize = this.invoiceDetails.measureObj.measureSize;
-      this.calcQuantity();
-    },
-    measureQuantity(){
-      this.calcQuantity();
-    }, 
-    discount(){
-      this.calcAmount();
-    }
-  },
-
-  methods: {
-    save() {
-      this.$store.dispatch("post", {
-        path: this.path,
-        body: this.invoiceDetails,
-      });
-    },
-    update() {
-      this.$store.dispatch("put", {
-        path: `${this.path}/${this.invoiceDetails.id}`,
-        body: this.invoiceDetails,
-      });
-    },
-    updateDialog() {
-      var obj = this.$store.state.search.selectedData[0].value;
-      this.setDialog(obj);
-    },
-    async search() {
-      var obj = this.$store.state.obj;
-      this.invoiceDetails = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    reset() {
-      this.invoiceDetails.clear();
-    },
-    setObjects(obj) {
-      console.log(obj);
-    },
-    setDialog(obj) {
-      this.invoiceDetails = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    done() {
-      this.$store.commit(
-        "crudtable/data",
-        Object.assign({}, this.invoiceDetails)
-      );
-    },
-    updateCrudTableDialog() {
-      this.setDialog(this.$store.state.crudtable.data);
-    },
-    resetCrudTableDialog() {
-      this.reset();
-    },
-    async setItem(){
-      if(!this.invoiceDetails.itemId) return;
-       await this.$store.dispatch("lookup/item/getItem", this.invoiceDetails.itemId);
-       let item = this.$store.state.lookup.item.item;
-       this.invoiceDetails.unitCost = item.unitCost;
-       this.invoiceDetails.unitPrice = item.unitPrice;
-       this.itemUnitMeasures = item.measureGroup.measureRelation;
-       let basicUnitMeasure = this.itemUnitMeasures.filter(itm=>itm.basic===true);
-       let defaultInvoicingMeasures = this.itemUnitMeasures.filter(itm=>itm.defaultUsage==="Invoicing");
-       let defaultInvoicingMeasure = defaultInvoicingMeasures.length>0?defaultInvoicingMeasures[0]:'basicUnitMeasure'[0];
-
-       this.invoiceDetails.unitMeasure = basicUnitMeasure.length>0?basicUnitMeasure[0].measureName:"";
-       this.invoiceDetails.measureObj = defaultInvoicingMeasure
-       this.invoiceDetails.measure = this.invoiceDetails.measureObj.measureName
-       this.invoiceDetails.measureSize = this.invoiceDetails.measureObj.measureSize;
-    },
-    calcQuantity(){
-    this.invoiceDetails.quantity = this.invoiceDetails.measureQuantity*this.invoiceDetails.measureSize;
-    this.calcAmount();
-  },
-
-  calcAmount(){
-    this.invoiceDetails.amount = (this.invoiceDetails.quantity* this.invoiceDetails.unitPrice)-this.invoiceDetails.discount;
-  }
-  },
-  
-};
-</script>

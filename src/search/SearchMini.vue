@@ -25,8 +25,8 @@
 
                 </v-toolbar>
             </template>
-            <template v-for="(header, i) in toFormatHeaders" v-slot:[`item.${header.value}`]="{ item }">
-                <span :key="i"> {{ formatTableData(header, item, header.value) }} </span>
+            <template v-for="(header, i) in toFormatHeaders" v-slot:[`item.${header.key}`]="{ item }">
+                <span :key="i"> {{ formatTableData(header, item, header.key) }} </span>
             </template>
 
         </v-data-table>
@@ -55,7 +55,7 @@ export default {
     components: { SnackBar },
     name: "SearchMini",
     data: () => ({
-       
+
         menuItems: [
             { title: "Add", icon: "mdi-plus" },
             { title: "Edit", icon: "mdi-pencil" },
@@ -85,15 +85,15 @@ export default {
             if(this.headers){
                 return this.headers;
             }
-             
-              
+
+
              return this.$store.state.search.miniSelected.headers;
         },
 
         data() {
-            if(this.items){
-                return this.items;
-            }
+            // if(this.items){
+            //     return this.items;
+            // }
 
             return this.items||this.$store.state.search.miniData;
         },
@@ -112,7 +112,7 @@ export default {
     },
 
     methods: {
-     
+
 
         onRowContextmenu(event, data) {
             event.preventDefault();

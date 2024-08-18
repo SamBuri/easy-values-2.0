@@ -1,48 +1,79 @@
 <template>
-  <v-text-field :label="label" :rules="inputRules" :value="formatNumber(value)" @keypress="isNumber($event)"
-    @input="handleInput($event)" :disabled="inputDisabled"></v-text-field>
+  <v-text-field
+    :label="label"
+    v-model="displayValue"
+    @blur="formatValue"
+    @focus="unformatValue"
+    :rules="rules"
+    :required="required"
+  ></v-text-field>
 </template>
- 
- 
+
 <script>
-import funcs from "../utils/funcs";
+import { ref, watch } from "vue";
 export default {
-  name: "SNumberInput",
-  props: ["value", "label", "rules", "min", "max", "disabled"],
 
-  data: () => ({
-    menu: false,
-    // number: 0,
-  }),
-
-  computed: {
-    inputRules() {
-      if (this.rules) return this.rules;
-      return [];
+  props: {
+    modelValue: {
+      type: [Number, String],
+      required: true,
     },
-    inputDisabled() {
-      if (!this.disabled) return false;
-      return this.disabled;
+    label: {
+      type: String,
+      required: false,
     },
-  },
-  watch: {},
-
-  methods: {
-    handleInput(input) {
-      if (input)
-        input = input.replace(/[,]/g, "");
-      this.$emit("input", input);
+    rules: {
+      type: Array,
+      required: false,
     },
-
-    formatNumber(n) {
-      if (n == 0) return 0;
-      return funcs.formatNumber(n);
-    },
-
-    isNumber(event) {
-      if (!/\d/.test(event.key) && (event.key !== "." || /\./.test(this.value)))
-        return event.preventDefault();
+    required: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
-};
+  emits: ["update:modelValue"],
+  setup(props, { emit }) {
+    const displayValue = ref("");
+
+    const formatNumber = (num) => {
+      if(!num)return 0;
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
+    const unformatNumber = (str) => {
+      return str?str.replace(/,/g, ""):0;
+    };
+
+    const formatValue = () => {
+      displayValue.value = formatNumber(props.modelValue);
+    };
+
+    const unformatValue = () => {
+      displayValue.value = props.modelValue.toString();
+    };
+
+    watch(displayValue, (newValue) => {
+      const unformatted = unformatNumber(newValue);
+      const numericValue = isNaN(unformatted) ? 0 : parseFloat(unformatted);
+      emit("update:modelValue", numericValue);
+    });
+
+    watch(
+      () => props.modelValue,
+      (newValue) => {
+        displayValue.value = formatNumber(newValue);
+      },
+      { immediate: true }
+    );
+
+    return {
+      displayValue,
+      formatValue,
+      unformatValue,
+    };
+  }
+  };
+
+
 </script>

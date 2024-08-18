@@ -1,13 +1,27 @@
+<script setup>
+import accountLedgerNav from "./AccountLedgerNav";
+import accountNav from "../account/AccountNav";
+import { onMounted } from "vue";
+import { defineAccountStore } from "../account/AccountStore";
+
+const accountStore = defineAccountStore();
+onMounted(() => {
+  accountStore.getMini();
+});
+
+</script>
+
 <template>
-  <s-ledger :maxWidth="maxWidth" :headers="accountLedgerNav.headers" :model="model" :title="title"
-    :passedColumn="passedColumn" :accountHeaders="accountNav.menu.miniHeaders" :accountItems="accounts"
-    @setAccountIdData="setAccountIdData" @accountIdChanged="accountIdChanged">
+  <s-ledger
+
+    :passedData="accountLedgerNav"
+    :accountItems="accountStore.mini"
+    :accountHeaders = accountNav.menu.miniHeaders>
   </s-ledger>
 </template>
-<script>
-
-import accountLedgerNav from './AccountLedgerNav';
-import accountNav from '../account/AccountNav';
+<!-- <script>
+import accountLedgerNav from "./AccountLedgerNav";
+import accountNav from "../account/AccountNav";
 export default {
   name: "AccountLedger",
 
@@ -20,24 +34,18 @@ export default {
     title: "Account Ledger",
     passedColumn: "amount",
     accountNav: accountNav,
-    model: accountLedgerNav.model
-
-
-
+    model: accountLedgerNav.model,
   }),
   created() {
     this.$store.dispatch("accounting/account/getMini");
-
   },
   computed: {
     accounts() {
       return this.$store.state.accounting.account.mini;
-    }
+    },
   },
 
-  watch: {
-
-  },
+  watch: {},
 
   methods: {
     setAccountIdData(data) {
@@ -45,18 +53,15 @@ export default {
       this.model.accountName = data.accountName;
     },
 
-    accountIdChanged(id){
-      if(this.accounts.length>0){
-          let filteredAccounts = this.accounts.filter(a=>a.id==id);
-          if(filteredAccounts.length>0){
-            let account = filteredAccounts[0];
-            this.model.accountName = account.accountName;
-          }
+    accountIdChanged(id) {
+      if (this.accounts.length > 0) {
+        let filteredAccounts = this.accounts.filter((a) => a.id == id);
+        if (filteredAccounts.length > 0) {
+          let account = filteredAccounts[0];
+          this.model.accountName = account.accountName;
+        }
       }
-
-    }
-
+    },
   },
 };
-</script>
-  
+</script> -->

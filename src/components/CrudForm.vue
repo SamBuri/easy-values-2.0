@@ -1,7 +1,7 @@
 <script setup>
-import { ref, onMounted,computed, defineEmits } from "vue";
+import { ref, onMounted,computed } from "vue";
 import { defineRootStore } from "@/root/RootStore";
-
+import constants from "@/utils/constants";
 const props = defineProps([
   "inner",
   "dialog",
@@ -9,45 +9,37 @@ const props = defineProps([
   "buttonLabel",
   "controller",
 ]);
-const emit = defineEmits("done");
-props.controller.props(props)
+const emit = defineEmits("add");
 const rootState= props.controller.rootState;
 const options = props.controller.options;
 const isUpdate = props.controller.isUpdate;
-// const buttonText = computed(()=>rootState.value.buttonText)
-// const {
-//   clear,
-//   search,
-//   cancelEdit,
-//   editClicked,
-//   editConfirmOk,
-//   // options,
-//   // rootState,
-//   cancelDelete,
-//   deleteOk,
-//   deleteData,
-//   isUpdate,
-//   isPreview,
-//   buttonText,
-// } = props.controller();
 
 const form = ref(null);
 const idForm = ref(null);
 
-// watch(
-//   () => props.mode,
-//   (value) => {
-//     alert(value)
-//     if (value) setButtonText(value);
-//   }
-// );
+
 
 onMounted(() => {
   form.value.validate();
-  if (!props.dialog) {
+  if (!props.dialog||props.buttonLabel ===constants.buttonTexts.save) {
     props.controller.clear();
+
   }
+
+ if(props.buttonLabel) {
+  props.controller.setButtonText(props.buttonLabel);
+  props.controller.rootState.value.showSearch =false;
+ }
+
 });
+
+const edit = ()=>{
+     if(props.buttonLabel===constants.buttonTexts.done){
+        emit('add', props.controller.model.value, ()=>props.controller.clear());
+        // props.controller.clear()
+     }
+     else props.controller.editClicked()
+ }
 
 const rootStore = defineRootStore();
 </script>
@@ -152,7 +144,7 @@ const rootStore = defineRootStore();
         <span
           ><v-checkbox
             label="Print"
-            v-model="printData"
+            v-model="rootState.printData"
             v-if="options.showPrintPrompt"
           >
           </v-checkbox
@@ -160,7 +152,7 @@ const rootStore = defineRootStore();
         <v-btn
           color="primary"
           text
-          @click="controller.editClicked"
+          @click="edit"
           :loading="rootStore.loading"
           :disabled="!rootState.valid"
         >
@@ -168,7 +160,7 @@ const rootStore = defineRootStore();
         </v-btn>
 
         <v-btn
-          v-if="isUpdate"
+          v-if="(isUpdate && options.showDelete)"
           color="primary"
           text
           @click="controller.deleteData"

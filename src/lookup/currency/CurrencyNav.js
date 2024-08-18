@@ -39,7 +39,7 @@ const currencyNav = {
       { title: "Buying", key: "buying", isNumeric: true },
       { title: "Selling", key: "selling", isNumeric: true },
       { title: "Is Default", key: "isDefault" },
-      { title: "Branch", key: "branch", label: "Branch", field: "branch" },
+      { title: "Branch", key: "branch" },
       {
         title: "Creation Date",
         key: "creationDate",
@@ -52,27 +52,25 @@ const currencyNav = {
         key: "lastModifiedDate",
         isDateTime: true,
       },
-      {
-        title: "Created By",
-        key: "createdBy",
-        label: "Created By",
-        field: "createdBy",
-      },
-      {
-        title: "Modified By",
-        key: "modifiedBy",
-        label: "Modified By",
-        field: "modifiedBy",
-      },
+      { title: "Created By", key: "createdBy" },
+      { title: "Modified By", key: "modifiedBy" },
     ],
     children: [
-      { id: "lookup.currency.view", title: "View",  to: {name: 'views'} },
-      { id: "lookup.currency.new", title: "New", to: {name: 'view', params: {mode:0}} },
-      { id: "lookup.currency.edit", title: "Edit", to: {name: 'view', params: {mode:1}} },
+      { id: "lookup.currency.view", title: "View", to: { name: "currencies" } },
+      {
+        id: "lookup.currency.new",
+        title: "New",
+        to: { name: "currency", params: { mode: 0 } },
+      },
+      {
+        id: "lookup.currency.edit",
+        title: "Edit",
+        to: { name: "currency", params: { mode: 1 } },
+      },
       {
         id: "lookup.currency.history",
         title: "History",
-        to: {name: 'view', params: {mode:2}}
+        to: { name: "currency", params: { mode: 2 } },
       },
     ],
   },

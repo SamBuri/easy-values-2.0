@@ -1,19 +1,19 @@
-import { ref, computed,watch } from "vue";
+import { ref, computed, watch } from "vue";
 import { defineRootStore } from "./RootStore";
+import printPDF from "@/utils/PrintPDF";
 import { useRoute } from "vue-router";
 import constants from "@/utils/constants";
 import rootOptions from "./RootOptions";
+import funcs from "@/utils/funcs";
 
-
-export default function rootController(  rawModel, options = rootOptions ) {
-
+export default function rootController(rawModel, rawOptions = rootOptions) {
   const path = rawModel.path;
   const rules = rawModel.rules;
   const model = ref(rawModel.model);
   const rootStore = defineRootStore();
 
   const rootState = ref({
-    id: '',
+    id: "",
     valid: false,
     idValid: false,
     idRules: [(v) => !!v || "Please enter the Id"],
@@ -21,68 +21,62 @@ export default function rootController(  rawModel, options = rootOptions ) {
     confirmEdit: false,
     showSearch: false,
     confirmDelete: false,
+    printData: false,
   });
 
-  const props = (props)=>props;
+  const options = ref(rawOptions);
 
+  // const buttonText = ref(options);
 
+  // const props = (props) => props;
 
   const clear = () => model.value.clear();
 
-  const mode = ref(0);
-  const setMode = (v)=>  mode.value=v;
-
-  const setButtonText = (mode) => {
-   if(props.buttonLable) { rootState.value.buttonLabel =props.buttonLabel; return;}
-    rootState.value.buttonText =
-      mode == 1
-        ? constants.buttonTexts.update
-        : mode == 2
-        ? constants.buttonTexts.print
-        : mode == 3
-        ? constants.buttonTexts.done
-        : constants.buttonTexts.save;
+  const setButtonText = ( text) => {
+     rootState.value.buttonText = text;
   };
 
   const route = useRoute();
   watch(
     () => route.params,
     (params) => {
-      // mode.value = params.mode;
-      rootState.value.showSearch = params.mode == 1;
-      setButtonText(params.mode);
+
+
+       rootState.value.showSearch = params.mode == 1||params.mode==2;
+      const mode= params.mode;
+       let text=  mode == 1
+        ? constants.buttonTexts.update
+        : mode == 2
+        ? constants.buttonTexts.print
+        : mode == 3
+        ? constants.buttonTexts.done
+        : constants.buttonTexts.save;
+      setButtonText(text);
+
     },
     { immediate: true }
   );
 
-  // watch(mode, (v)=>{
-  //   if(v){setButtonText(v);
-  //    };
-  // }, {immediate:true})
-
-  // const buttonText = computed(()=>{
-  //     return  mode.value == 1
-  //     ? constants.buttonTexts.update
-  //     : mode.value == 2
-  //     ? constants.buttonTexts.print
-  //     : mode.value == 3
-  //     ? constants.buttonTexts.done
-  //     : constants.buttonTexts.save;
-  // })
-
-  // watch(mode, (value)=>setButtonText(value))
-
+  const print = async ()=>printPDF(model.value.printOptions());
 
 
   const save = async () => {
-    if(!rootState.value.valid) return;
+
+    if (!rootState.value.valid) return;
+    model.value.receiptDate = funcs.formatDate(model.value.receiptDate);
+    console.log("Model ", model.value)
+    if (model.value.modify) model.value.modify();
     let res = await rootStore.post({ path: path, body: model.value });
     //  await nextTick();
-    if (res.success) clear();
+    if (res.success) {
+     if(rootState.value.printData) await print();
+      clear();
+    }
   };
 
   const update = async () => {
-    if(!(rootState.value.valid && rootState.value.idValid)) return;
+    if (!rootState.value.valid) return;
+    if (model.value.modify) model.value.modify();
     await rootStore.put({
       path: `${path}/${model.value.id}`,
       body: model.value,
@@ -90,15 +84,20 @@ export default function rootController(  rawModel, options = rootOptions ) {
   };
 
   const setData = (data) => model.value.copy(data);
+  // const setData = (data) => rawModel.model.copy(data);
 
   const search = async (e) => {
     e.preventDefault();
     if (!rootState.value.idValid) return;
-    console.log("Path", `${path}/${rootState.value.id}`)
+    console.log("Path", `${path}/${rootState.value.id}`);
     let data = await rootStore.get(`${path}/${rootState.value.id}`);
     console.log("Returned data", data);
     if (data) setData(data);
   };
+
+  const republish = (id)=>{
+    rootStore.republish(path, id);
+  }
 
   const deleteData = async () => {
     let res = await rootStore.delete(`${path}/${rootState.value.id}`);
@@ -110,8 +109,6 @@ export default function rootController(  rawModel, options = rootOptions ) {
     rootState.value.confirmDelete = false;
   };
 
-
-
   const isUpdate = computed(
     () => rootState.value.buttonText === constants.buttonTexts.update
   );
@@ -120,22 +117,21 @@ export default function rootController(  rawModel, options = rootOptions ) {
   );
 
   const showPrintCheck = computed(
-    () => isPreview.value || options.showPrintPrompt
+    () => isPreview.value || options.value.showPrintPrompt
   );
 
-  const editClicked = () => {
+  const editClicked = (add) => {
     if (!rootState.value.valid) return;
 
     if (rootState.value.buttonText === constants.buttonTexts.done) {
-      emit("done");
-      clear();
+      return;
+      // clear();
     } else if (rootState.value.buttonText === constants.buttonTexts.print) {
       print();
     } else {
       rootState.value.confirmEdit = true;
     }
   };
-
 
   const showEditConfirm = () => {
     rootState.value.confirmEdit = true;
@@ -154,7 +150,6 @@ export default function rootController(  rawModel, options = rootOptions ) {
     rootState.value.confirmEdit = false;
   };
 
-
   const deleteOk = () => {
     deleteData();
     rootState.confirmDelete.value = false;
@@ -164,20 +159,23 @@ export default function rootController(  rawModel, options = rootOptions ) {
     rootState.confirmDelete = false;
   };
 
+
   return {
-    props,
     path,
     rules,
     model,
     save,
     update,
     setData,
+    republish,
+    print,
     clear,
     search,
     showEditConfirm,
     cancelEdit,
     editClicked,
     editConfirmOk,
+    rawOptions,
     options,
     rootState,
     cancelDelete,
@@ -185,8 +183,6 @@ export default function rootController(  rawModel, options = rootOptions ) {
     deleteData,
     isUpdate,
     isPreview,
-    setMode,
     setButtonText,
-
   };
 }

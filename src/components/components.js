@@ -5,11 +5,11 @@ state: {
     dialog: false,
     obj: null,
     source: "",
-    data: null,
+    data: [],
     periodicReportData: [],
     periodicReportDataLoading: false,
     saveDialog: false,
-    
+
   },
   mutations: {
     dialog(state, dialog) {
@@ -18,7 +18,7 @@ state: {
     obj(state, obj) {
       state.obj = obj;
     },
-   
+
     data(state, data){
       state.data = data;
     },
@@ -47,7 +47,7 @@ state: {
           context.state.periodicReportData = response.data;
           context.state.periodicReportDataLoading = false;
       }).catch(e => {
-          
+
            context.state.periodicReportDataLoading = false;
           console.log(e);
           context.commit("results", { success: false, message: e , show: true}, {root:true});

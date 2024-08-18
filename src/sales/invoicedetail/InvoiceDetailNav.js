@@ -22,7 +22,7 @@ import InvoiceDetail from './InvoiceDetail.vue'
                 to: {name: "invoicedetails"},
                 width: "700px",
                 editHeaders: [
-                { title: "Item", key: "itemId" },
+                { title: "Item Id", key: "itemId" },
                 { title: "Item Name", key: "itemName" },
                 { title: "Measure", key: "measure" },
                 { title: "Measure Quantity", key: "measureQuantity" },

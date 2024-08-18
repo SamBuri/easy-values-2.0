@@ -30,7 +30,7 @@ onMounted(() => {
           :items="lookupObjectStore.mini"
           :loading="lookupObjectStore.miniLoading"
           item-title="objectName"
-          value="id"
+          item-value="id"
           return-object
         ></v-autocomplete> </v-col
       ><v-col :cols="cols" :sm="sm" :md="md"

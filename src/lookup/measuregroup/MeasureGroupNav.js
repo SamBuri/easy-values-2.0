@@ -16,15 +16,15 @@ const measureGroupNav = {
     },
   ],
   menu: {
-    id: "items.measuregroup",
+    id: "lookup.measuregroup",
     title: "Measure Groups",
     component: MeasureGroup,
     path: "measuregroups",
     width: "700px",
     editHeaders: [
       { title: "Measure Group Name", key: "measureGroupName" },
-      { title: "Measure Relation", key: "measureRelation.displayKey" },
-      { Actions: "actions" },
+      { title: "Measure Relation", key: "measureRelation" },
+      { title: "Actions", key: "actions" },
     ],
     headers: [
       {
@@ -34,26 +34,40 @@ const measureGroupNav = {
         key: "id",
       },
       { title: "Measure Group Name", key: "measureGroupName" },
-      { title: "Measure Relation", key: "measureRelation.displayKey" },
+      { title: "Branch", key: "branch" },
+      {
+        title: "Creation Date",
+        key: "creationDate",
+        label: "Creation Date",
+        field: "creationDate",
+        isDateTime: true,
+      },
+      {
+        title: "Last Modified Date",
+        key: "lastModifiedDate",
+        isDateTime: true,
+      },
+      { title: "Created By", key: "createdBy" },
+      { title: "Modified By", key: "modifiedBy" },
     ],
     children: [
       {
-        id: "items.measureGroup.view",
+        id: "lookup.measureGroup.view",
         title: "View",
         to: { name: "measuregroups" },
       },
       {
-        id: "items.measureGroup.new",
+        id: "lookup.measureGroup.new",
         title: "New",
         to: { name: "measuregroup", params: { mode: 0 } },
       },
       {
-        id: "items.measureGroup.edit",
+        id: "lookup.measureGroup.edit",
         title: "Edit",
         to: { name: "measuregroup", params: { mode: 1 } },
       },
       {
-        id: "items.measureGroup.history",
+        id: "lookup.measureGroup.history",
         title: "History",
         to: { name: "measuregroup", params: { mode: 2 } },
       },

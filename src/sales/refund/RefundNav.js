@@ -57,13 +57,11 @@ const refundNav = {
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", label: "Created By", field: "createdBy" },
                 { title: "Modified By", key: "modifiedBy", label: "Modified By", field: "modifiedBy" }],
-                children: [
-                  { id: "sales.refund.view", title: "View", to: {name:"refunds"}},
-                  { id: "sales.refund.new", title: "New", route: "refund", mode: 0, to: {name:"refund", params:0} },
-
-                { id: "sales.refund.edit", title: "Edit", route: "refund", mode: 1, to: {name:"refund", params:1} },
-                { id: "sales.refund.history", title: "History", route: "refund", mode: 2, to: {name:"refund", params:2} },
-                ]
+                children: [{ id: "sales.refund.view", title: "View",  to:{ name: "refunds", }},
+                  { id: "sales.refund.new", title: "New",  to:{ name: "refund", params: {mode:0}}},
+                  { id: "sales.refund.edit", title: "Edit",  to:{ name: "refund", params: {mode:1}}},
+                  { id: "sales.refund.history", title: "History",  to:{ name: "refund", params: {mode:2}}},
+                  ]
         }
 }
 export default refundNav;

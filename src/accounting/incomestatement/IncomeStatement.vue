@@ -1,9 +1,12 @@
+<script setup>
+import incomeStatementNav from './IncomeStatementNav'
 
+</script>
 
 <template>
-   <s-statement :title="title" :model="model" :headers="headers" :data="data" :loading="loading" :accountTypes="accountTypes" :balanceName="balanceName" :balance="balance"></s-statement>
+   <s-statement :passedData="incomeStatementNav" :balance="balance"></s-statement>
 </template>
-    
+<!--
 <script>
 
 
@@ -20,14 +23,14 @@ export default {
         headers: incomeStatementNav.headers,
         accountTypes: ['Income', "Expense"],
         balanceName: "Profit",
-        
+
 
     }),
 
 
     computed: {
 
-       
+
         data() {
          return this.$store.state.components.periodicReportData.filter(a=>a.accountType==='Income'||a.accountType==='Expense');
         },
@@ -39,17 +42,17 @@ export default {
             return this.sum("Income") -  this.sum("Expense");
         }
 
-        
+
     },
 
     watch: {
 
-        
+
     },
 
 
     mounted() {
-       
+
     },
 
     methods: {
@@ -72,7 +75,7 @@ export default {
 
     },
 };
-</script>
+</script> -->
 
 <style>
 .grid-container {

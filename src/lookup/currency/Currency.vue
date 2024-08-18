@@ -1,115 +1,49 @@
-<template>
-  <crud-form
-    @save="save"
-    @update="update"
-    @search="search"
-    @updateDialog="updateDialog"
-    @reset="reset"
-    @done="done"
-    @updateCrudTableDialog="updateCrudTableDialog"
-    @resetCrudTableDialog="resetCrudTableDialog"
-    :path="path"
-    :maxWidth="maxWidth"
-  >
-    <template slot="heading">Currency</template>
+<script setup>
+import currencyController from "./CurrencyController";
+const cols = 12;
+const sm = 6;
+ const md = 6;
+const controller= currencyController();
 
-    <template slot="form-data">
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
-          label="Currency"
-          v-model="currency.currency"
-          :rules="currencyRules"
-          :counter="100"
-          required
-        ></v-text-field>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
-          label="Buying"
-          v-model="currency.buying"
-          :counter="100"
-          required
-        ></v-text-field>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
-          label="Selling"
-          v-model="currency.selling"
-          :counter="100"
-          required
-        ></v-text-field>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-checkbox
-          label="Is Default"
-          v-model="currency.isDefault"
-        ></v-checkbox>
-      </v-col>
+const model =  controller.model;
+const rules= controller.rules;
+</script><template>
+  <crud-form
+    :controller="controller"
+>
+    <template #heading>Currency</template>
+
+    <template #form-data>
+<v-col :cols="cols" :sm="sm" :md="md">
+<s-text-field
+ id="currency" label="Currency"
+          v-model="model.currency"
+ :rules="rules.currency"
+:counter="100"
+></s-text-field>
+</v-col>
+<v-col :cols="cols" :sm="sm" :md="md">
+<s-number-input
+ id="buying" label="Buying"
+          v-model="model.buying"
+ :rules="rules.buying"
+:counter="100"
+></s-number-input>
+</v-col>
+<v-col :cols="cols" :sm="sm" :md="md">
+<s-number-input
+ id="selling" label="Selling"
+          v-model="model.selling"
+ :rules="rules.selling"
+:counter="100"
+></s-number-input>
+</v-col>
+<v-col :cols="cols" :sm="sm" :md="md">
+<v-checkbox id="isDefault" label="Is Default"
+          v-model="model.isDefault"
+></v-checkbox>
+</v-col>
     </template>
   </crud-form>
 </template>
-<script>
-import currencyModel from "./CurrencyModel";
-import constants from "../../utils/constants";
-import CrudForm from "../../components/CrudForm.vue";
-export default {
-  components: { CrudForm },
-  name: "Currency",
-  data: () => ({
-    cols: 12,
-    sm: 6,
-    md: 6,
-    maxWidth: 700,
-    path: constants.endPoints.currencies,
-    currency: currencyModel.currency,
-    currencyRules: [
-      (v) => !!v || "Currency is required",
-      (v) => v.length < 100 || "Currency length must be less or equal to 100",
-    ],
-  }),
-  created() {},
-  computed: {},
 
-  watch: {},
-
-  methods: {
-    save() {
-      this.$store.dispatch("post", { path: this.path, body: this.currency });
-    },
-    update() {
-      this.$store.dispatch("put", {
-        path: `${this.path}/${this.currency.id}`,
-        body: this.currency,
-      });
-    },
-    updateDialog() {
-      var obj = this.$store.state.search.selectedData[0].value;
-      this.setDialog(obj);
-    },
-    async search() {
-      var obj = this.$store.state.obj;
-      this.currency = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    reset() {
-      this.currency.clear();
-    },
-    setObjects(obj) {
-      console.log(obj);
-    },
-    setDialog(obj) {
-      this.currency = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    done() {
-      this.$store.commit("crudtable/data", Object.assign({}, this.currency));
-    },
-    updateCrudTableDialog() {
-      this.setDialog(this.$store.state.crudtable.data);
-    },
-    resetCrudTableDialog() {
-      this.reset();
-    },
-  },
-};
-</script>

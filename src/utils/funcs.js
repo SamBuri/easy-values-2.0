@@ -107,6 +107,12 @@ const funcs = {
 
     },
 
+    calculateAmount(model){
+      if(model.amountTendered && model.exchangeRate) model.amount = model.amountTendered*model.exchangeRate;
+      else model.amount = 0;
+      model.amountWords = this.toWords(model.amount)
+   },
+
     getTotalRow(headers, data) {
         if (data.length < 1) { return null }
         let obj = { isTotal: true };
@@ -114,7 +120,7 @@ const funcs = {
 
         for (let i = 0; i < headers.length; i++) {
             let h = headers[i];
-            obj[h.value] = this.getTotalValue(h, data, i)
+            obj[h.key] = this.getTotalValue(h, data, i)
         }
 
 
@@ -125,7 +131,7 @@ const funcs = {
 
 
         if (h.isNumeric) {
-            return this.sum(data, h.value)
+            return this.sum(data, h.key)
         }
         else {
             if (index === 0) {
@@ -141,12 +147,13 @@ const funcs = {
 
 
     wordifyDecimals(n) {
-        let y = n.split('');
+        let y = n.trim().split('');
         let words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
         let str = '';
 
         for (let n in y) {
-            str += words[y[n]] + " ";
+          let s=words[y[n]];
+            str += s||"" + " ";
         }
         // for (var i = x + 1; i < y; i++) str += words[i] + ' ';
         return str.trim();
@@ -154,7 +161,7 @@ const funcs = {
     },
 
     toWords(n) {
-        var nums = n.toString().split('.')
+        var nums = n.toString().trim().split('.')
         var whole = this.wordify(nums[0])
         if (nums.length == 2) {
             var fraction = this.wordifyDecimals(nums[1])
@@ -167,10 +174,12 @@ const funcs = {
     addDays(date, days) {
         var result = new Date(date);
         result.setDate(result.getDate() + days);
+
         return result;
     },
 
     formatDate(date) {
+      if(!date) return '';
         date = new Date(date);
         let year = date.getFullYear();
         let month = (1 + date.getMonth()).toString().padStart(2, '0');

@@ -3,6 +3,7 @@
  *
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
+import "@/utils/Prototypes"; //add protypes
 
 // Plugins
 import { registerPlugins } from "@/plugins";

@@ -1,25 +1,31 @@
 const itemCategoryModel = {
   model: {
-    itemCategory: "",
+
+    itemCategoryId: "",
     itemGroup: "",
     billable: false,
     expensable: false,
     hidden: false,
 
     clear() {
-      this.itemCategory = "";
+      this.id='';
+      this.itemCategoryId = "";
       this.itemGroup = "";
       this.billable = false;
       this.expensable = false;
       this.hidden = false;
     },
     copy(obj) {
-      this.itemCategory = obj.itemCategory;
+      this.id = obj.id;
+      this.itemCategoryId = obj.itemCategoryId;
       this.itemGroup = obj.itemGroup;
       this.billable = obj.billable;
       this.expensable = obj.expensable;
       this.hidden = obj.hidden;
     },
+  },
+  copy(obj){
+    this.model = Object.assign({}, obj);
   },
   path: "itemcategories",
   rules:{

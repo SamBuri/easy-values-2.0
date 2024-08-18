@@ -33,8 +33,8 @@ const ledgerNav = {
         model: {
                 accountId: "",
                 accountName: "",
-                startDate: funcs.formatDate(funcs.addDays(funcs.today(), -7)),
-                endDate: funcs.today(),
+                startDate: funcs.addDays(new Date, -7),
+                endDate: new Date(),
                 path: `customerledgers/ledger`,
                 branches: [],
         }

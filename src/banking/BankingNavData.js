@@ -1,6 +1,5 @@
 import bankAccountNav from "./bankaccount/BankAccountNav"
 import bankLedgerNav from "./bankledger/BankLedgerNav"
-import bankLedgerPreviewNav from "./bankledgerpreview/BankLedgerPreviewNav"
 import bankTransactionNav from "./banktransaction/BankTransactionNav"
 import bankTransferNav from "./banktransfer/BankTransferNav"
 import ledgerNav from "./ledger/LedgerNav"
@@ -9,10 +8,9 @@ import ledgerNav from "./ledger/LedgerNav"
 const bankingNavData = {
     routes: [
         ...bankAccountNav.routes,
-        ...bankLedgerNav.routes,
         ...bankTransferNav.routes,
         ...bankTransactionNav.routes,
-        bankLedgerPreviewNav.route,
+        ...bankLedgerNav.routes,
         ledgerNav.route,
     ],
     nav: {
@@ -21,10 +19,9 @@ const bankingNavData = {
         icon: "mdi-view-dashbord",
         children: [
             bankAccountNav.menu,
-            bankLedgerNav.menu,
             bankTransferNav.menu,
             bankTransactionNav.menu,
-            bankLedgerPreviewNav.menu,
+            bankLedgerNav.menu,
             ledgerNav.menu
 
         ],

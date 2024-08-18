@@ -1,125 +1,51 @@
-<template>
-  <crud-form
-    @save="save"
-    @update="update"
-    @search="search"
-    @updateDialog="updateDialog"
-    @reset="reset"
-    @done="done"
-    @updateCrudTableDialog="updateCrudTableDialog"
-    @resetCrudTableDialog="resetCrudTableDialog"
-    :path="path"
-    :maxWidth="maxWidth"
-  >
-    <template slot="heading">Measure Relation</template>
+<script setup>
+import measureRelationController from "./MeasureRelationController";
+const cols = 12;
+const sm = 6;
+const md = 6;
+const controller = measureRelationController();
 
-    <template slot="form-data">
+const model = controller.model;
+const rules = controller.rules;
+</script>
+<template>
+  <crud-form :controller="controller">
+    <template #heading>Measure Relation</template>
+
+    <template #form-data>
+
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-text-field
+          id="measureName"
           label="Measure Name"
-          v-model="measureRelation.measureName"
-          :rules="measureNameRules"
+          v-model="model.measureName"
+          :rules="rules.measureName"
           :counter="100"
-          required
-        ></v-text-field>
+        ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-number-input
+          id="measureSize"
           label="Measure Size"
-          v-model="measureRelation.measureSize"
+          v-model="model.measureSize"
+          :rules="rules.measureSize"
           :counter="100"
-          required
-        ></v-text-field>
+        ></s-number-input>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-checkbox
-          label="Basic"
-          v-model="measureRelation.basic"
-        ></v-checkbox>
+        <v-checkbox id="basic" label="Basic" v-model="model.basic"></v-checkbox>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-select
+        <s-autocomplete
+          id="defaultUsage"
           label="Default Usage"
-          v-model="measureRelation.defaultUsage"
+          v-model="model.defaultUsage"
+          :rules="rules.defaultUsage"
           :counter="100"
-          :items="$store.state.lookup.unitMeasureUsages"
-        ></v-select>
+          :items="controller.lookupStore.unitMeasureUsages"
+          :loading="controller.lookupStore.unitMeasureUsagesLoading"
+        ></s-autocomplete>
       </v-col>
     </template>
   </crud-form>
 </template>
-<script>
-import measureRelationModel from "./MeasureRelationModel";
-import CrudForm from "../../components/CrudForm.vue";
-export default {
-  components: { CrudForm },
-  name: "MeasureRelation",
-  data: () => ({
-    cols: 12,
-    sm: 6,
-    md: 4,
-    maxWidth: 700,
-    path: measureRelationModel.path,
-    measureRelation: measureRelationModel.measureRelation,
-  
-    measureNameRules: [
-      (v) => !!v || "Measure Name is required",
-      (v) =>
-        v.length < 100 || "Measure Name length must be less or equal to 100",
-    ],
-   
-  }),
-  created() {
-   this.$store.dispatch("lookup/getUnitMeasureUsages");
-  },
-  computed: {},
-
-  watch: {},
-
-  methods: {
-    save() {
-      this.$store.dispatch("post", {
-        path: this.path,
-        body: this.measureRelation,
-      });
-    },
-    update() {
-      this.$store.dispatch("put", {
-        path: `${this.path}/${this.measureRelation.id}`,
-        body: this.measureRelation,
-      });
-    },
-    updateDialog() {
-      var obj = this.$store.state.search.selectedData[0].value;
-      this.setDialog(obj);
-    },
-    async search() {
-      var obj = this.$store.state.obj;
-      this.measureRelation = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    reset() {
-      this.measureRelation.clear();
-    },
-    setObjects(obj) {
-      console.log(obj);
-    },
-    setDialog(obj) {
-      this.measureRelation = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    done() {
-      this.$store.commit(
-        "crudtable/data",
-        Object.assign({}, this.measureRelation)
-      );
-    },
-    updateCrudTableDialog() {
-      this.setDialog(this.$store.state.crudtable.data);
-    },
-    resetCrudTableDialog() {
-      this.reset();
-    },
-  },
-};
-</script>

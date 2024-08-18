@@ -16,9 +16,9 @@ import SPeriodicReport from './SPeriodicReport';
 import SLedger from './SLedger';
 import SStatement from './SStatement';
 import SMap from './SMap.vue';
-
-import Search from '../search/Search.vue'
-
+import SSelectField from './SSelectField.vue';
+import Search from '../search/Search.vue';
+import SCurrencyField from './SCurrencyField.vue';
 
 
 export default function register(Vue){
@@ -39,6 +39,8 @@ export default function register(Vue){
   Vue.component('SMap', SMap);
   Vue.component('ExportExcel', ExportExcel);
   Vue.component('Search', Search);
+  Vue.component('SSelectField', SSelectField);
+  Vue.component('SCurrencyField', SCurrencyField);
 
 }
 
