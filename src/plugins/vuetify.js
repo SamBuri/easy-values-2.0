@@ -14,6 +14,8 @@ import { createVuetify } from 'vuetify'
 import { VTextField } from 'vuetify/components/VTextField'
 import { VTextarea } from 'vuetify/components/VTextarea'
 import { VAutocomplete } from 'vuetify/components/VAutocomplete'
+import { VFileInput } from 'vuetify/components/VFileInput'
+import { VCheckbox } from 'vuetify/components/VCheckbox'
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
@@ -38,11 +40,13 @@ export default createVuetify({
       density: "compact"
     },
     VAutocomplete: {
-      density: "compact"
+      density: "compact",
+      clearable:true
     },
 
     SAutocomplete: {
-      density: "compact"
+      density: "compact",
+      clearable: true,
     },
     STextarea: {
       density: "compact",
@@ -54,7 +58,16 @@ export default createVuetify({
       density: "compact",
       rows: 1,
       autoGrow: true
-    }
+    },
+
+    VFileInput: {
+      density: "compact"
+    },
+
+    VCheckbox: {
+      density: "compact"
+    },
+
   },
   theme: {
     defaultTheme: 'light',

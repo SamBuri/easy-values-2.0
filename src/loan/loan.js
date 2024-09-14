@@ -1,7 +1,6 @@
 import httmMethods from '../utils/HttpMethods'
 import period from './period/period'
 import loanproduct from './loanproduct/loanproduct'
-import loanproductcharges from './loanproductcharges/loanproductcharges'
 import loanapplication from './loanapplication/loanapplication'
 import loanapproval from './loanapproval/loanapproval'
 import loan from './loan/loan'
@@ -95,7 +94,7 @@ export default {
     },
     modules:
     {
-        period, loanproduct, loanproductcharges, loanapplication,
+        period, loanproduct, loanapplication,
         loanapproval, loan, loanbill, loantransaction, loanTransition,
         loanbilldetail,
     }

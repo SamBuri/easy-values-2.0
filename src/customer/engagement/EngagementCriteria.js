@@ -1,6 +1,8 @@
-import storeFuncs from "../../utils/storeFuncs";
+
+import { defineBranchStore } from "@/organisation/branch/BranchStore";
 
  const engagementCriteria = {
+
     getDueCriteria() {
         var currentDate = new Date();
         var todayDate = currentDate.toISOString().slice(0, 10)
@@ -26,10 +28,12 @@ import storeFuncs from "../../utils/storeFuncs";
             statusEqualOpen
         ]
 
-        if (storeFuncs.hasBranches) {
-            datesCriteria.push(storeFuncs.getCurrentBranchCriterion());
+        const branchStore = defineBranchStore();
+
+        if (branchStore.currentBranch) {
+            datesCriteria.push(branchStore.getCurrentBranchCriterion);
         }
-        
+
         return datesCriteria;
     },
 
@@ -42,7 +46,7 @@ import storeFuncs from "../../utils/storeFuncs";
             value2: "",
 
         }
-       
+
         var engagementDateGreaterThanOrEqualToStartDate = {
             key: 'engagementDate',
             operation: 'GREATER_THAN_OR_EQUAL',
@@ -59,7 +63,7 @@ import storeFuncs from "../../utils/storeFuncs";
 
         }
 
-        
+
 
         let criteria = [
             customerIdEqual,
@@ -67,7 +71,7 @@ import storeFuncs from "../../utils/storeFuncs";
             engagementDatLessThanOrEqualToEndDate
         ]
 
-        
+
         return criteria;
     }
 

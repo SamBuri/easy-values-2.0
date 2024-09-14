@@ -1,15 +1,28 @@
-<template>
-  <s-ledger :maxWidth="maxWidth" :headers="accountLedgerNav.headers" :model="model" :title="title"
-    :passedColumn="passedColumn" :accountHeaders="customerNav.menu.miniHeaders" :accountItems="accounts"
-    @setAccountIdData="setAccountIdData" @accountIdChanged="accountIdChanged">
+<script setup>
+import ledgerNav from './LedgerNav'
+import customerNav from '../customer/CustomerNav';
+import { defineCustomerStore }  from '@/customer/customer/CustomerStore';
+import { onMounted, ref } from 'vue';
 
-    <v-toolbar slot="extra" flat>
+const customerStore = defineCustomerStore();
+const model = ref(ledgerNav.model);
+onMounted(()=>{
+  customerStore.getMini();
+})
+</script>
+
+<template>
+  <s-ledger :passedData="ledgerNav"
+  :accountHeaders="customerNav.menu.miniHeaders"
+  :accountItems="customerStore.mini">
+
+    <template #extra>
       <v-col :cols="cols" :sm="sm" :md="lmd" compact>
         Phone Number
       </v-col>
 
       <v-col :cols="cols" :sm="sm" :md="lmd" compact class="bold-text">
-        {{phoneNo}}
+        {{model.phoneNo}}
       </v-col>
 
       <v-col :cols="cols" :sm="sm" :md="lmd" compact>
@@ -17,14 +30,14 @@
       </v-col>
 
       <v-col :cols="cols" :sm="sm" :md="4" compact class="bold-text">
-        {{address}}
+        {{model.address}}
       </v-col>
-    </v-toolbar>
+    </template>
 
 
   </s-ledger>
 </template>
-<script>
+<!-- <script>
 
 import ledgerNav from './LedgerNav'
 import customerNav from '../customer/CustomerNav';
@@ -87,7 +100,7 @@ export default {
 
   },
 };
-</script>
+</script> -->
 <style>
 .bold-text {
   font-weight: bold;

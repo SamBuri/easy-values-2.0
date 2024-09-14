@@ -1,7 +1,7 @@
 import EngagementPreview from './EngagementPreview.vue'
 const engagementPreviewNav = {
         route: {
-                path: '/engagementpreview/:mode',
+                path: '/engagementpreview',
                 name: 'engagementpreview',
                 component: EngagementPreview,
                 meta: { auth: true },
@@ -10,6 +10,7 @@ const engagementPreviewNav = {
                 title: "Cus. Engagements",
                 component: EngagementPreview,
                 path: "engagementpreviews",
+                to:{ name: "engagementpreview"},
                 width: "1000px",
                 route: "engagementpreview",
                 mode: 0,

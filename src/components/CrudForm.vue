@@ -5,11 +5,12 @@ import constants from "@/utils/constants";
 const props = defineProps([
   "inner",
   "dialog",
+  "retain",
   "data",
   "buttonLabel",
   "controller",
 ]);
-const emit = defineEmits("add");
+const emit = defineEmits(["add"]);
 const rootState= props.controller.rootState;
 const options = props.controller.options;
 const isUpdate = props.controller.isUpdate;
@@ -20,9 +21,11 @@ const idForm = ref(null);
 
 
 onMounted(() => {
+ try{
+  console.log("Controller", props.controller)
   form.value.validate();
   if (!props.dialog||props.buttonLabel ===constants.buttonTexts.save) {
-    props.controller.clear();
+   if(!props.retain) props.controller.clear();
 
   }
 
@@ -30,6 +33,10 @@ onMounted(() => {
   props.controller.setButtonText(props.buttonLabel);
   props.controller.rootState.value.showSearch =false;
  }
+}catch(e){
+  console.log("Error",e)
+  alert("Error")
+}
 
 });
 
@@ -53,6 +60,7 @@ const rootStore = defineRootStore();
         <!-- </span> -->
       </v-card-title>
       <v-spacer></v-spacer>
+      <slot name="right"> </slot>
       <v-btn color="primary" v-if="props.dialog" text @click="$emit('cancel')">
         <v-icon>mdi-close</v-icon>
       </v-btn>

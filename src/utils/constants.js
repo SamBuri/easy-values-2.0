@@ -14,6 +14,8 @@ const constants = {
     approvalStatuses: ["Rejected", "Approved"],
     ENTRY_MODES: {MANUAL: "Manual", SYSTEM: "System"},
     LOCAL_STORAGE_KEYS: {USERNAME: "USERNAME", VUE_TOKEN: "VUE_TOKEN"},
+    BILL_DETERMING_METHODS: {value:"Value",
+      percentage: "Percentage"}
 
 
 }

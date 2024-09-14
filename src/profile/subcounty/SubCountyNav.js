@@ -13,32 +13,34 @@ import SubCounty from './SubCounty.vue'
                 component: SubCounties,
                 meta: { auth: true },
          },
-
-        ], menu: {
-                id: "address.subcounty",
-                title: "Sub Counties",
-                component: SubCounty,
-                path: "subcounties",
-                width: "700px",
-                editHeaders: [{ title: "County", key: "county.displayKey" },
-                { title: "Sub County Name", key: "subCountyName" },
-                { title: "Hidden", key: "hidden" },
-                { title: "Actions", key: "actions" }], headers: [{
-                        title: "Id",
-                        align: "start",
-                        // sortable: false,
-                        key: "id",
-                },
-                { title: "County", key: "county.displayKey" },
-                { title: "Sub County Name", key: "subCountyName" },
-                { title: "Hidden", key: "hidden" },
-                ],
-                children: [
-                  { id: "address.subCounty.view", title: "View", to:{ name: "subcounties" } },
-                { id: "address.subCounty.new", title: "New", to:{ name: "subcounty",params: { mode: 0}} },
-                { id: "address.subCounty.edit", title: "Edit", to:{ name: "subcounty",params: { mode: 1}} },
-                { id: "address.subCounty.history", title: "History", to:{ name: "subcounty",params: { mode: 2}} },
-                ]
-        }
+        
+        ],
+menu:{id: "profile.subcounty",
+        title: "Sub Counties",
+        component: SubCounty,
+        path: "subcounties",
+        width: "700px",
+editHeaders: [{ title: "County", key: "countyId"    },
+{ title: "Sub County Name", key: "subCountyName"    },
+{ title: "Hidden", key: "hidden"    },
+{title: "Actions", key: "actions"}],headers: [{
+                title: "Id",
+                align: "start",
+                // sortable: false,
+                key: "id",
+            },
+{ title: "County", key: "countyId"    },
+{ title: "Sub County Name", key: "subCountyName"    },
+{ title: "Hidden", key: "hidden"    },
+ { title: "Branch", key: "branch",},
+{ title: "Creation Date", key: "creationDate",  label: "Creation Date", field: "creationDate", isDateTime: true },
+                { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true},
+                { title: "Created By", key: "createdBy", },
+                { title: "Modified By", key: "modifiedBy", }],
+children: [{ id: "profile.subCounty.view", title: "View",  to:{ name: "subcounties", }},
+{ id: "profile.subCounty.new", title: "New",  to:{ name: "subcounty", params: {mode:0}}},
+{ id: "profile.subCounty.edit", title: "Edit",  to:{ name: "subcounty", params: {mode:1}}},
+{ id: "profile.subCounty.history", title: "History",  to:{ name: "subcounty", params: {mode:2}}},
+]}
 }
 export default subCountyNav;

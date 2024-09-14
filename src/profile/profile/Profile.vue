@@ -1,208 +1,458 @@
+<script setup>
+import profileController from "./ProfileController";
+import rootOptions from "@/root/RootOptions";
+import ProfilePicture from "../profilepicture/ProfilePicture.vue";
+const cols = 12;
+const sm = 4;
+const md = 4;
+rootOptions.maxWidth = 1000;
+const controller = profileController();
+
+const model = controller.model;
+const rules = controller.rules;
+
+const profilePictures = controller.profilePictures;
+const showPictures = controller.showPictures;
+const isOrganisation = controller.isOrganisation;
+const isUpdate = controller.isUpdate;
+const photoWidth = 100;
+
+const addPictureDialog = controller.addPictureDialog;
+const showPictureDialog = true;
+const pictureDialog = true;
+const pictureDialogWidth = 600;
+const displayPhotoWidth = 200;
+const saveProfilePictureDialog = true;
+const maxWidth = 700;
+const menuItems = [
+  { title: "Make Profile" },
+  { title: "Delete" },
+  { title: "Edit Caption" },
+];
+</script>
+
 <template>
   <div>
+    <span>
+      <v-card
+        :max-width="photoWidth"
+        :max-height="photoWidth"
+        v-for="(pic, i) in profilePictures"
+        :key="i"
+        class="card-right"
+      >
+        <s-image
+          v-if="pic.imageType == 'Primary'"
+          :width="displayPhotoWidth"
+          :height="displayPhotoWidth"
+          :imageData="pic.photo"
+        >
+        </s-image>
+      </v-card>
+    </span>
+    <crud-form :controller="controller">
+      <template #heading> Profile </template>
 
-    <crud-form @save="save" @update="update" @search="search" @updateDialog="updateDialog" @reset="reset" @done="done"
-      @updateCrudTableDialog="updateCrudTableDialog" @resetCrudTableDialog="resetCrudTableDialog" @postSave="postSave"
-      :path="path" :maxWidth="maxWidth" :inner="inner" :deletable="deletable">
-
-
-      <template slot="heading">
-        <v-toolbar flat>
-          Profile
-
-        </v-toolbar>
-
-      </template>
-
-      <template slot="right" v-if="showPictures">
-        <v-card :max-width="photoWidth" :max-height="photoWidth" v-for="pic, i in profilePictures" :key="i">
-          <s-image v-if="pic.imageType == 'Primary'" :width="displayPhotoWidth" :height="displayPhotoWidth"
-            :imageData="pic.photo">
+      <template #right v-if="showPictures">
+        <v-card
+          :max-width="photoWidth"
+          :max-height="photoWidth"
+          v-for="(pic, i) in profilePictures"
+          :key="i"
+        >
+          <s-image
+            v-if="pic.imageType == 'Primary'"
+            :width="displayPhotoWidth"
+            :height="displayPhotoWidth"
+            :imageData="pic.photo"
+          >
           </s-image>
         </v-card>
       </template>
 
-      <template slot="form-data" slot-scope="{ isUpdate }">
-
+      <template #form-data>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <v-select label="Profile Type" v-model="profile.profileType" :rules="profileTypeRules" required
-            :items="$store.state.profile.profileTypes" :loading="$store.state.profile.profileTypesLoading">
-          </v-select>
+          <s-autocomplete
+            id="profileType"
+            label="Profile Type"
+            v-model="model.profileType"
+            :rules="rules.profileType"
+            :items="controller.profileStore.profileTypes"
+            :loading="controller.profileStore.profileTypesLoading"
+          ></s-autocomplete>
         </v-col>
-
-
-        <template v-if="isIndividual">
-
+        <template v-if="!isOrganisation">
           <v-col :cols="cols" :sm="sm" :md="md">
-            <v-text-field label="First Name" v-model="profile.firstName" :rules="firstNameRules" :counter="20" required>
-            </v-text-field>
+            <s-text-field
+              id="firstName"
+              label="First Name"
+              v-model="model.firstName"
+              :rules="rules.firstName"
+              :counter="20"
+            ></s-text-field>
           </v-col>
           <v-col :cols="cols" :sm="sm" :md="md">
-            <v-text-field label="Last Name" v-model="profile.lastName" :rules="lastNameRules" :counter="20" required>
-            </v-text-field>
+            <s-text-field
+              id="lastName"
+              label="Last Name"
+              v-model="model.lastName"
+              :rules="rules.lastName"
+              :counter="20"
+            ></s-text-field>
           </v-col>
           <v-col :cols="cols" :sm="sm" :md="md">
-            <v-text-field label="Other Names" v-model="profile.otherNames" :counter="20"></v-text-field>
+            <s-text-field
+              id="otherNames"
+              label="Other Names"
+              v-model="model.otherNames"
+              :rules="rules.otherNames"
+              :counter="20"
+            ></s-text-field>
           </v-col>
           <v-col :cols="cols" :sm="sm" :md="md">
-            <v-select label="Gender" v-model="profile.gender" :rules="genderRules" :counter="10" required
-              :items="$store.state.lookup.genders" :loading="$store.state.lookup.gendersLoading"></v-select>
+            <s-date-picker
+              id="birthDate"
+              label="Birth Date"
+              v-model="model.birthDate"
+              :rules="rules.birthDate"
+          /></v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-autocomplete
+              id="gender"
+              label="Gender"
+              v-model="model.gender"
+              :rules="rules.gender"
+              :items="controller.lookupStore.gender"
+              :loading="controller.lookupStore.genderLoading"
+            ></s-autocomplete>
           </v-col>
           <v-col :cols="cols" :sm="sm" :md="md">
-            <s-date-picker label="Birth Date" v-model="profile.birthDate" />
-          </v-col>
-
-          <v-col :cols="cols" :sm="sm" :md="md">
-            <v-select label="Id Type" v-model="profile.idTypeId" :rules="idTypeIdRules" :counter="20" required
-              :items="$store.state.lookup.lookupdata.idTypes" :loading="$store.state.lookup.lookupdata.idTypesLoading"
-              item-text="lookupDataName" item-value="id"></v-select>
-          </v-col>
-          <v-col :cols="cols" :sm="sm" :md="md">
-            <v-text-field label="Id No" v-model="profile.idNo" :rules="idNoRules" :counter="100" required></v-text-field>
-          </v-col>
-
-          <v-col :cols="cols" :sm="sm" :md="md">
-            <v-textarea label="Home Address" v-model="profile.homeAddress" :rules="homeAddressRules" :counter="200"
-              required rows="1" auto-grow></v-textarea>
-          </v-col>
-          <v-col :cols="cols" :sm="sm" :md="md">
-            <v-textarea label="Residential Address" v-model="profile.residentialAddress" :rules="residentialAddressRules"
-              :counter="200" required rows="1" auto-grow></v-textarea>
-          </v-col>
-          <v-col :cols="cols" :sm="sm" :md="md">
-            <v-textarea label="Residence Coordinates" v-model="profile.residenceCoordinates" :counter="200" required
-              rows="1" auto-grow></v-textarea>
-          </v-col>
-
-
-          <v-col :cols="cols" :sm="sm" :md="md">
-            <v-select label="Occupation" v-model="profile.occupationId"
-              :items="$store.state.lookup.lookupdata.occupations"
-              :loading="$store.state.lookup.lookupdata.occupationsLoading" item-text="lookupDataName" item-value="id">
-            </v-select>
-          </v-col>
-          <v-col :cols="cols" :sm="sm" :md="md">
-            <v-select label="Work Type" v-model="profile.workType" :rules="workTypeRules" :counter="20" required
-              :items="$store.state.lookup.workTypes" :loading="$store.state.lookup.workTypesLoading"></v-select>
-          </v-col>
-
-          <v-col :cols="cols" :sm="sm" :md="md">
-            <v-text-field label="Designation" v-model="profile.designation" :rules="designationRules" :counter="100"
-              required></v-text-field>
+            <s-autocomplete
+              id="maritalStatusId"
+              label="Marital Status"
+              v-model="model.maritalStatusId"
+              :rules="rules.maritalStatusId"
+              :items="controller.lookupDataStore.maritalStatuses"
+              :loading="controller.lookupDataStore.maritalStatusesLoading"
+              item-title="lookupDataName"
+              item-value="id"
+            ></s-autocomplete>
           </v-col>
 
           <v-col :cols="cols" :sm="sm" :md="md">
-            <v-select label="Marital Status" v-model="profile.maritalStatusId" :rules="maritalStatusIdRules"
-              :counter="100" required :items="$store.state.lookup.lookupdata.maritalStatuses"
-              :loading="$store.state.lookup.lookupdata.maritalStatusesLoading" item-text="lookupDataName" item-value="id">
-            </v-select>
+            <s-text-field
+              id="spouseName"
+              label="Spouse Name"
+              v-model="model.spouseName"
+              :rules="rules.spouseName"
+              :counter="100"
+            ></s-text-field>
           </v-col>
           <v-col :cols="cols" :sm="sm" :md="md">
-            <v-text-field label="Spouse Name" v-model="profile.spouseName" :counter="100" required></v-text-field>
+            <s-text-field
+              id="spouseContact"
+              label="Spouse Contact"
+              v-model="model.spouseContact"
+              :rules="rules.spouseContact"
+              :counter="100"
+            ></s-text-field>
           </v-col>
           <v-col :cols="cols" :sm="sm" :md="md">
-            <v-text-field label="Spouse Contact" v-model="profile.spouseContact" :counter="100" required></v-text-field>
+            <s-text-field
+              id="nOKin"
+              label="NO Kin"
+              v-model="model.nOKin"
+              :rules="rules.nOKin"
+              :counter="100"
+            ></s-text-field>
           </v-col>
           <v-col :cols="cols" :sm="sm" :md="md">
-            <v-text-field label="NO Kin" v-model="profile.nokin" :counter="100" required></v-text-field>
+            <s-text-field
+              id="nOKinContact"
+              label="NO Kin Contact"
+              v-model="model.nOKinContact"
+              :rules="rules.nOKinContact"
+              :counter="100"
+            ></s-text-field>
           </v-col>
           <v-col :cols="cols" :sm="sm" :md="md">
-            <v-text-field label="NO Kin Contact" v-model="profile.nokinContact" :counter="100" required></v-text-field>
+            <s-autocomplete
+              id="idTypeId"
+              label="Id Type"
+              v-model="model.idTypeId"
+              :rules="rules.idTypeId"
+              :items="controller.lookupDataStore.idTypes"
+              :loading="controller.lookupDataStore.idTypesLoading"
+              item-title="lookupDataName"
+              item-value="id"
+            ></s-autocomplete>
+          </v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-text-field
+              id="idNo"
+              label="Id No"
+              v-model="model.idNo"
+              :rules="rules.idNo"
+              :counter="100"
+            ></s-text-field>
           </v-col>
 
+          <!-- <v-col :cols="cols" :sm="sm" :md="md">
+          <s-file-input
+            id="fingerPrint"
+            label="FingerPrint"
+            v-model="model.fingerPrint"
+          ></s-file-input>
+        </v-col> -->
+
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-textarea
+              id="homeAddress"
+              label="Home Address"
+              v-model="model.homeAddress"
+              :rules="rules.homeAddress"
+              :counter="200"
+              rows="1"
+              auto-grow
+            ></s-textarea>
+          </v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-textarea
+              id="residentialAddress"
+              label="Residential Address"
+              v-model="model.residentialAddress"
+              :rules="rules.residentialAddress"
+              :counter="200"
+              rows="1"
+              auto-grow
+            ></s-textarea>
+          </v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-textarea
+              id="residenceCoordinates"
+              label="Residence Coordinates"
+              v-model="model.residenceCoordinates"
+              :rules="rules.residenceCoordinates"
+              :counter="200"
+              rows="1"
+              auto-grow
+            ></s-textarea>
+          </v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-textarea
+              id="addressDetails"
+              label="Address Details"
+              v-model="model.addressDetails"
+              :rules="rules.addressDetails"
+              :counter="200"
+              rows="1"
+              auto-grow
+            ></s-textarea>
+          </v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-date-picker
+              id="joinDate"
+              label="Join Date"
+              v-model="model.joinDate"
+              :rules="rules.joinDate"
+          /></v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-autocomplete
+              id="occupationId"
+              label="Occupation"
+              v-model="model.occupationId"
+              :rules="rules.occupationId"
+              :items="controller.lookupDataStore.occupations"
+              :loading="controller.lookupDataStore.occupationsLoading"
+              item-title="lookupDataName"
+              item-value="id"
+            ></s-autocomplete>
+          </v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-autocomplete
+              id="workType"
+              label="Work Type"
+              v-model="model.workType"
+              :rules="rules.workType"
+              :items="controller.lookupStore.workTypes"
+              :loading="controller.lookupStore.workTypesLoading"
+            ></s-autocomplete>
+          </v-col>
+
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-autocomplete
+              id="countryId"
+              label="Country"
+              v-model="model.countryId"
+              :rules="rules.countryId"
+              :items="controller.countryStore.mini"
+              :loading="controller.countryStore.miniLoading"
+              item-title="countryName"
+              item-value="id"
+            ></s-autocomplete>
+          </v-col>
+
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-text-field
+              id="primaryPhoneNo"
+              label="Primary Phone No"
+              v-model="model.primaryPhoneNo"
+              :rules="rules.primaryPhoneNo"
+              :counter="30"
+            ></s-text-field>
+          </v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-text-field
+              id="otherPhoneNos"
+              label="Other Phone Nos"
+              v-model="model.otherPhoneNos"
+              :rules="rules.otherPhoneNos"
+              :counter="30"
+            ></s-text-field>
+          </v-col>
         </template>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <v-text-field label="Business Name" v-model="profile.businessName" :rules="businessNameRules" :counter="100"
-            required></v-text-field>
+          <s-text-field
+            id="businessName"
+            label="Business Name"
+            v-model="model.businessName"
+            :rules="rules.businessName"
+            :counter="100"
+          ></s-text-field>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <v-select label="Country" v-model="profile.countryObj" :rules="countryIdRules" :counter="100" required
-            :items="$store.state.profile.country.mini" :loading="$store.state.profile.country.miniLoading"
-            item-text="countryName" item-value="id" return-object></v-select>
+          <s-autocomplete
+            id="businessCategoryId"
+            label="Business Category"
+            v-model="model.businessCategoryId"
+            :rules="rules.businessCategoryId"
+            :items="controller.lookupDataStore.businessCategories"
+            :loading="controller.lookupDataStore.businessCategoriesLoading"
+            item-title="lookupDataName"
+            item-value="id"
+          ></s-autocomplete>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-textarea
+            id="businessDescriptions"
+            label="Business Description"
+            v-model="model.businessDescriptions"
+            :rules="rules.businessDescriptions"
+            :counter="200"
+            rows="1"
+            auto-grow
+          ></s-textarea>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-text-field
+            id="designation"
+            label="Designation"
+            v-model="model.designation"
+            :rules="rules.designation"
+            :counter="100"
+          ></s-text-field>
         </v-col>
 
         <v-col :cols="cols" :sm="sm" :md="md">
-          <v-text-field label="Primary Phone No" v-model="profile.primaryPhoneNo" :rules="primaryPhoneNoRules"
-            :counter="30" required></v-text-field>
-        </v-col>
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <v-text-field label="Other Phone Nos" v-model="profile.otherPhoneNos" :counter="30"></v-text-field>
-        </v-col>
-
-
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <v-textarea label="Address Details" v-model="profile.addressDetails" :rules="addressDetailsRules" :counter="200"
-            required rows="1" auto-grow></v-textarea>
+          <s-text-field
+            id="email"
+            label="Email"
+            v-model="model.email"
+            :rules="rules.email"
+            :counter="100"
+          ></s-text-field>
         </v-col>
 
         <v-col :cols="cols" :sm="sm" :md="md">
-          <v-select label="Business Category" v-model="profile.businessCategoryId" :rules="businessCategoryIdRules"
-            :counter="100" required :items="$store.state.lookup.lookupdata.businessCategories"
-            :loading="$store.state.lookup.lookupdata.businessCategoriesLoading" item-text="lookupDataName"
-            item-value="id"></v-select>
+          <s-text-field
+            id="businessLocation"
+            label="Business Location"
+            v-model="model.businessLocation"
+            :rules="rules.businessLocation"
+            :counter="100"
+          ></s-text-field>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <v-textarea label="Business Description" v-model="profile.businessDescriptions"
-            :rules="businessDescriptionsRules" :counter="200" required rows="1" auto-grow></v-textarea>
-        </v-col>
-
-
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <v-text-field label="Business Location" v-model="profile.businessLocation" :rules="businessLocationRules"
-            :counter="100" required></v-text-field>
-        </v-col>
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <v-text-field label="Work Coordinates" v-model="profile.workCoordinates" :counter="100" required></v-text-field>
-          <!-- <s-map></s-map> -->
-        </v-col>
-
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <s-date-picker label="Join Date" v-model="profile.joinDate" />
-        </v-col>
-
-
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <v-text-field label="Email" v-model="profile.email" :counter="100" :rules="emailRules"></v-text-field>
+          <s-text-field
+            id="workCoordinates"
+            label="Work Coordinates"
+            v-model="model.workCoordinates"
+            :rules="rules.workCoordinates"
+            :counter="100"
+          ></s-text-field>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <v-checkbox label="Id No Verified" v-model="profile.idNoVerified" :rules="idNoVerifiedRules"></v-checkbox>
+          <v-checkbox
+            id="idNoVerified"
+            label="Id No Verified"
+            v-model="model.idNoVerified"
+            :rules="rules.phoneVerified"
+          ></v-checkbox>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <v-checkbox label="Phone Verified" v-model="profile.phoneVerified" :rules="phoneVerifiedRules"></v-checkbox>
-        </v-col>
-        <v-col cols="12" v-if="isOrganisation">
-          <crud-table title="Associated Profiles" :headers="associatedProfileNav.menu.editHeaders"
-            :items="profile.associatedProfiles" :component="associatedProfileNav.menu.component" maxWidth="700px" />
+          <v-checkbox
+            id="phoneVerified"
+            label="Phone Verified"
+            v-model="model.phoneVerified"
+            :rules="rules.phoneVerified"
+          ></v-checkbox>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
-          <v-checkbox label="Hidden" v-model="profile.hidden"></v-checkbox>
+          <v-checkbox
+            id="hidden"
+            label="Hidden"
+            v-model="model.hidden"
+          ></v-checkbox>
         </v-col>
       </template>
-
     </crud-form>
-    <v-dialog v-model="$store.state.components.saveDialog" :max-width="pictureDialogWidth"
-      :profilePictures="profilePictures" persistent>
-      <ProfilePicture :isDialog="saveProfilePictureDialog"></ProfilePicture>
+    <v-dialog
+      v-model="addPictureDialog"
+      :max-width="pictureDialogWidth"
+      persistent
+    >
+      <ProfilePicture
+        :dialog="true"
+        @ok="controller.closeAddPictureDialog"
+        @cancel="controller.closeAddPictureDialog"
+        buttonLabel="Save"
+        :retain="true"
+      ></ProfilePicture>
     </v-dialog>
-    <v-card flat :max-width="maxWidth" class="mx-auto mt-0 pa-1" >
-      <v-container v-if="isUpdateMode">
-        <v-row><v-btn color="primary" text @click="showPhotosDialog">Upload Photos</v-btn></v-row>
-        <v-row v-if="showPictures"> 
-          <v-col v-for="pic, i in profilePictures" :key="i" :cols="cols" :sm="sm" :md="md">
-
-            <v-card :max-width="displayPhotoWidth" :max-height="displayPhotoWidth">
-              <s-image :width="displayPhotoWidth" :height="displayPhotoWidth" :imageData="pic.photo" :items="menuItems">
+    <v-card flat :max-width="maxWidth" class="mx-auto mt-0 pa-1">
+      <v-container v-if="isUpdate">
+        <v-row
+          ><v-btn color="primary" text @click="controller.addPicture"
+            >Upload Photos</v-btn
+          ></v-row
+        >
+        <v-row v-if="showPictures">
+          <v-col
+            v-for="(pic, i) in profilePictures"
+            :key="i"
+            :cols="cols"
+            :sm="sm"
+            :md="md"
+          >
+            <v-card
+              :max-width="displayPhotoWidth"
+              :max-height="displayPhotoWidth"
+            >
+              <s-image
+                :width="displayPhotoWidth"
+                :height="displayPhotoWidth"
+                :imageData="pic.photo"
+                :items="menuItems"
+              >
               </s-image>
             </v-card>
           </v-col>
-
-
         </v-row>
       </v-container>
     </v-card>
   </div>
 </template>
-<script>
+<!-- <script>
 import profileModel from "./ProfileModel";
 import constants from "../../utils/constants";
 import funcs from '../../utils/funcs'
@@ -332,13 +582,13 @@ export default {
   },
   computed: {
     // countryObj() {
-    //   return this.profile.countryObj;
+    //   return this.model.countryObj;
     // },
 
 
 
     countries() {
-      return this.$store.state.profile.country.mini;
+      return this.$store.state.model.country.mini;
     },
     testEmail(v) {
       if (v) {
@@ -348,7 +598,7 @@ export default {
     },
 
     isIndividual() {
-      return this.profile.profileType === 'Individual';
+      return this.model.profileType === 'Individual';
     },
 
     firstNameRules() {
@@ -428,7 +678,7 @@ export default {
     },
 
     profileId() {
-      return this.profile.id;
+      return this.model.id;
     },
     profilePictures() {
       return this.$store.state.profile.profilepicture.profilePictures;
@@ -441,7 +691,7 @@ export default {
 
     isOrganisation() {
       if (!this.profile) return false;
-      return this.profile.profileType === 'Organisation'
+      return this.model.profileType === 'Organisation'
     },
 
     showPictures() {
@@ -485,7 +735,7 @@ export default {
     },
     update() {
       this.$store.dispatch("put", {
-        path: `${this.path}/${this.profile.id}`,
+        path: `${this.path}/${this.model.id}`,
         body: this.getFormData(),
       });
     },
@@ -499,22 +749,22 @@ export default {
       this.setObjects(obj);
     },
     reset() {
-      this.profile.clear();
+      this.model.clear();
       this.setDefaultCountry();
     },
     async setObjects(obj) {
 
-      this.profile.countryObj = { id: obj.countryId, countryName: obj.country };
-      console.log("Profile Country Obj", this.profile.countryObj);
+      this.model.countryObj = { id: obj.countryId, countryName: obj.country };
+      console.log("Profile Country Obj", this.model.countryObj);
       // funcs.createFileFromBytes(obj.photo).then(e => {
       //   console.log("Created File ", e);
-      //   this.profile.photo = e;
+      //   this.model.photo = e;
       //   return e;
 
       // }).catch(error => console.log("Error creating a file from bytes", error));
 
       let file = await funcs.createFileFromBytes(obj.photo);
-      this.profile.photo = file;
+      this.model.photo = file;
       console.log("Returned file from byte", file);
       this.freshRead = true;
       this.photoChanged = false;
@@ -542,42 +792,42 @@ export default {
     getFormData() {
       var data = new FormData();
 
-      data.append("profileType", this.profile.profileType);
-      if (this.profile.photo !== null && !this.freshRead) {
-        data.append("photo", this.profile.photo);
+      data.append("profileType", this.model.profileType);
+      if (this.model.photo !== null && !this.freshRead) {
+        data.append("photo", this.model.photo);
       }
-      data.append("firstName", this.profile.firstName);
-      data.append("lastName", this.profile.lastName);
-      data.append("otherNames", this.profile.otherNames);
-      data.append("birthDate", this.profile.birthDate);
-      data.append("gender", this.profile.gender);
-      data.append("maritalStatusId", this.profile.maritalStatusId);
-      data.append("countryId", this.profile.countryObj.id);
-      data.append("country", this.profile.countryObj.countryName);
-      data.append("spouseName", this.profile.spouseName);
-      data.append("spouseContact", this.profile.spouseContact);
-      data.append("nOKin", this.profile.nOKin);
-      data.append("nOKinContact", this.profile.nOKinContact);
-      data.append("idTypeId", this.profile.idTypeId);
-      data.append("idNo", this.profile.idNo);
-      data.append("primaryPhoneNo", this.profile.primaryPhoneNo);
-      data.append("otherPhoneNos", this.profile.otherPhoneNos);
-      data.append("email", this.profile.email);
-      data.append("homeAddress", this.profile.homeAddress);
-      data.append("residentialAddress", this.profile.residentialAddress);
-      data.append("residenceCoordinates", this.profile.residenceCoordinates);
-      data.append("addressDetails", this.profile.addressDetails);
-      data.append("joinDate", this.profile.joinDate);
-      data.append("occupationId", this.profile.occupationId);
-      data.append("workType", this.profile.workType);
-      data.append("businessCategoryId", this.profile.businessCategoryId);
-      data.append("businessDescriptions", this.profile.businessDescriptions);
-      data.append("designation", this.profile.designation);
-      data.append("businessName", this.profile.businessName);
-      data.append("businessLocation", this.profile.businessLocation);
-      data.append("workCoordinates", this.profile.workCoordinates);
-      data.append("idNoVerified", this.profile.idNoVerified);
-      data.append("phoneVerified", this.profile.phoneVerified);
+      data.append("firstName", this.model.firstName);
+      data.append("lastName", this.model.lastName);
+      data.append("otherNames", this.model.otherNames);
+      data.append("birthDate", this.model.birthDate);
+      data.append("gender", this.model.gender);
+      data.append("maritalStatusId", this.model.maritalStatusId);
+      data.append("countryId", this.model.countryObj.id);
+      data.append("country", this.model.countryObj.countryName);
+      data.append("spouseName", this.model.spouseName);
+      data.append("spouseContact", this.model.spouseContact);
+      data.append("nOKin", this.model.nOKin);
+      data.append("nOKinContact", this.model.nOKinContact);
+      data.append("idTypeId", this.model.idTypeId);
+      data.append("idNo", this.model.idNo);
+      data.append("primaryPhoneNo", this.model.primaryPhoneNo);
+      data.append("otherPhoneNos", this.model.otherPhoneNos);
+      data.append("email", this.model.email);
+      data.append("homeAddress", this.model.homeAddress);
+      data.append("residentialAddress", this.model.residentialAddress);
+      data.append("residenceCoordinates", this.model.residenceCoordinates);
+      data.append("addressDetails", this.model.addressDetails);
+      data.append("joinDate", this.model.joinDate);
+      data.append("occupationId", this.model.occupationId);
+      data.append("workType", this.model.workType);
+      data.append("businessCategoryId", this.model.businessCategoryId);
+      data.append("businessDescriptions", this.model.businessDescriptions);
+      data.append("designation", this.model.designation);
+      data.append("businessName", this.model.businessName);
+      data.append("businessLocation", this.model.businessLocation);
+      data.append("workCoordinates", this.model.workCoordinates);
+      data.append("idNoVerified", this.model.idNoVerified);
+      data.append("phoneVerified", this.model.phoneVerified);
 
 
       return data;
@@ -590,8 +840,8 @@ export default {
         console.log("Default Countries", defaultCountries)
 
         if (defaultCountries.length > 0) {
-          if (this.profile.countryObj === null) {
-            this.profile.countryObj = defaultCountries[0];
+          if (this.model.countryObj === null) {
+            this.model.countryObj = defaultCountries[0];
           }
         }
 
@@ -606,7 +856,7 @@ export default {
 
 
 
-    showPhotosDialog() {
+    <showPhotosDialog>() {
 
       this.$store.commit("components/saveDialog", true);
       this.$store.commit("profile/profile/entity", this.profile)
@@ -620,10 +870,30 @@ export default {
 
   },
 };
-</script>
-<style>
+</script> -->
+<!-- <style>
 .custom-card {
   border: 2px solid #e0e0e0;
   /* Set the border thickness and color */
+}
+</style> -->
+
+<style scoped>
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.card-right {
+  position: absolute;
+  top: 80;
+  right: 0;
+  margin: 10px;
+  /* background-color: #6200ea; */
+  color: white;
+  /* padding: 20; */
+  width: 400px;
+  border-radius: 1px;
 }
 </style>

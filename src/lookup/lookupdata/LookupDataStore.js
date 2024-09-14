@@ -166,7 +166,7 @@ export const defineLookupDataStore = defineStore("lookupdata", {
 
        (res)=>this.collateralCategories = res.data,
 
-       ()=>this.collateralCategories = false)
+       ()=>this.collateralCategoriesLoading = false)
        return data;
 
      },

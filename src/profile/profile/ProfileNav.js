@@ -113,20 +113,20 @@ const profileNav = {
       { title: "Branch", key: "branch" },
     ],
     children: [
-      { id: "profile.profile.view", name: "View", to: { name: "profiles" } },
+      { id: "profile.profile.view", title: "View", to: { name: "profiles" } },
       {
         id: "profile.profile.new",
-        name: "New",
+        title: "New",
         to: { name: "profile", params: { mode: 0 } },
       },
       {
         id: "profile.profile.edit",
-        name: "Edit",
+        title: "Edit",
         to: { name: "profile", params: { mode: 1 } },
       },
       {
         id: "profile.profile.history",
-        name: "History",
+        title: "History",
         to: { name: "profile", params: { mode: 2 } },
       },
     ],

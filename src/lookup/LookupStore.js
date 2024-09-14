@@ -34,8 +34,8 @@ export const defineLookupStore = defineStore("lookup", {
     invoiceTypes: [],
     bankAccountTypes: [],
     bankAccountTypesLoading:false,
-    genders: [],
-    gendersLoading: false,
+    gender: [],
+    genderLoading: false,
     workTypes: [],
     workTypesLoading: false,
     requestStatuses: [],
@@ -275,17 +275,17 @@ export const defineLookupStore = defineStore("lookup", {
       return data;
     },
 
-    async getGenders() {
+    async getGender() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/genders",
+        "enums/gender",
         () => {
-          this.gendersLoading = true;
-          this.genders = [];
+          this.genderLoading = true;
+          this.gender = [];
         },
-        (res) => (this.genders = res.data),
+        (res) => (this.gender = res.data),
 
-        () => (this.gendersLoading = false)
+        () => (this.genderLoading = false)
       );
       return data;
     },

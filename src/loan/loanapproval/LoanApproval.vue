@@ -1,222 +1,133 @@
-<template>
-  <crud-form
-    @save="save"
-    @update="update"
-    @search="search"
-    @updateDialog="updateDialog"
-    @reset="reset"
-    @done="done"
-    @updateCrudTableDialog="updateCrudTableDialog"
-    @resetCrudTableDialog="resetCrudTableDialog"
-    :path="path"
-    :maxWidth="maxWidth"
-  >
-    <template slot="heading">Loan Approval</template>
+<script setup>
+import loanApprovalController from "./LoanApprovalController";
+import loanApplicationNav from "@/loan/loanapplication/LoanApplicationNav.js"
+import constants from "@/utils/constants";
+const cols = 12;
+const sm = 6;
+const md = 6;
+const controller = loanApprovalController();
 
-    <template slot="form-data">
+const model = controller.model;
+const rules = controller.rules;
+</script>
+<template>
+  <crud-form :controller="controller">
+    <template #heading>Loan Approval</template>
+
+    <template #form-data>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-select
+        <s-select-field
+          id="loanApplicationId"
           label="Loan Application"
-          v-model="loanApproval.loanApplication"
-          :rules="loanApplicationRules"
+          v-model="model.loanApplicationId"
+          :rules="rules.loanApplicationId"
           :counter="100"
-          required
-          :items="$store.state.loan.loanapplication.pending"
-          :loading="$store.state.loan.loanapplication.pendingLoading"
-          item-text="name"
+          @ok="controller.loanApplicationIdOk"
+          :items="controller.loanApplicationStore.pending"
+          :headers="controller.loanApplicationNav.menu.miniHeaders"
+        ></s-select-field>
+      </v-col>
+      <!-- <v-col :cols="cols" :sm="sm" :md="md">
+        <s-autocomplete
+          id="loanApplicationId"
+          label="Loan Application"
+          v-model="model.loanApplicationId"
+          :rules="rules.loanApplicationId"
+          :items="controller.loanApplicationStore.pending"
+          :loading="controller.loanApplicationStore.pendingLoading"
+          item-title="name"
           item-value="id"
-          return-object
-        ></v-select>
-      </v-col>
+        ></s-autocomplete>
+      </v-col> -->
       <v-col :cols="cols" :sm="sm" :md="md">
-        
-            <s-date-picker
-              label="Approval Date"
-              v-model="loanApproval.approvalDate"
-              :rules="approvalDateRules"
-            ></s-date-picker>
-            </v-col>
+        <s-date-picker
+          id="approvalDate"
+          label="Approval Date"
+          v-model="model.approvalDate"
+          :rules="rules.approvalDate"
+      /></v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-text-field
+          id="approvedBy"
           label="Approved By"
-          v-model="loanApproval.approvedBy"
-          :rules="approvedByRules"
+          v-model="model.approvedBy"
+          :rules="rules.approvedBy"
           :counter="100"
-          required
-        ></v-text-field>
+        ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-textarea
+        <s-textarea
+          id="approvalNotes"
           label="Approval Notes"
-          v-model="loanApproval.approvalNotes"
-          :rules="approvalNotesRules"
+          v-model="model.approvalNotes"
+          :rules="rules.approvalNotes"
           :counter="200"
           rows="1"
           auto-grow
-        ></v-textarea>
+        ></s-textarea>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-select
+        <s-autocomplete
+          id="approvalStatus"
           label="Approval Status"
-          v-model="loanApproval.approvalStatus"
-          :rules="approvalStatusRules"
+          v-model="model.approvalStatus"
+          :rules="rules.approvalStatus"
+          :items="constants.approvalStatuses"
+        ></s-autocomplete>
+      </v-col>
+      <v-col :cols="cols" :sm="sm" :md="md">
+        <s-number-input
+          id="amount"
+          label="Amount"
+          v-model="model.amount"
+          :rules="rules.amount"
           :counter="100"
-          required
-          :items="approvalActions"
-        ></v-select>
+        ></s-number-input>
+      </v-col>
+      <v-col :cols="cols" :sm="sm" :md="md">
+        <s-text-field
+          id="loanProduct"
+          label="Loan Product"
+          v-model="model.loanProductName"
+          :rules="rules.loanProduct"
+          :counter="100"
+          disabled
+        ></s-text-field>
       </v-col>
 
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-number-input
-          label="Amount"
-          v-model="loanApproval.amount"
+          id="appliedForAmount"
+          label="Applied For Amount"
+          v-model="model.appliedForAmount"
+          disabled
         ></s-number-input>
       </v-col>
+
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-text-field
+          id="collateralCategory"
           label="Collateral Category"
-          v-model="loanApproval.collateralCategory"
+          v-model="model.collateralCategory"
           disabled
-        ></v-text-field>
+        ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
+        <s-text-field
+          id="collateralDesc"
           label="Collateral Desc"
-          v-model="loanApproval.collateralDesc"
-           disabled
-        ></v-text-field>
+          v-model="model.collateralDesc"
+          disabled
+        ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-number-input
+          id="estimatedCollateralValue"
           label="Estimated Collateral Value"
-          v-model="loanApproval.estimatedCollateralValue"
-          :disabled="true"
-        ></s-number-input>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field
-          label="Loan Product Name"
-          v-model="loanApproval.loanProductName"
+          v-model="model.estimatedCollateralValue"
           disabled
-        ></v-text-field>
+        ></s-number-input>
       </v-col>
     </template>
   </crud-form>
 </template>
-<script>
-import loanApprovalModel from "./LoanApprovalModel";
-import CrudForm from "../../components/CrudForm.vue";
-import constants from "../../utils/constants";
-import SDatePicker from '../../components/SDatePicker.vue';
-import SNumberInput from '../../components/SNumberInput.vue';
-
-export default {
-  components: { CrudForm, SDatePicker, SNumberInput },
-  name: "LoanApproval",
-  data: () => ({
-    cols: 12,
-    sm: 6,
-    md: 4,
-    maxWidth: 1000,
-    path: loanApprovalModel.path,
-    loanApproval: loanApprovalModel.loanApproval,
-    loanApplicationRules: [(v) => !!v || "Loan Application is required"],
-    approvalDateRules: [(v) => !!v || "Approval Date is required"],
-    approvedByRules: [
-      (v) => !!v || "Approved By is required",
-      (v) =>
-        v.length < 100 || "Approved By length must be less or equal to 100",
-    ],
-    approvalNotesRules: [
-      (v) =>
-        v.length < 200 || "Approval Notes length must be less or equal to 200",
-    ],
-    approvalStatusRules: [(v) => !!v || "Approval Status is required"],
-
-    approvalActions: constants.approvalStatuses,
-    menu: false,
-  }),
-  created() {
-    this.$store.dispatch("loan/loanapplication/getPending");
-    this.$store.dispatch("lookup/getRequestStatuses");
-  },
-  computed: {
-    loanApplication() {
-      return this.loanApproval.loanApplication;
-    },
-  },
-
-  watch: {
-    loanApplication() {
-      if(this.loanApplication){
-        let loanApp = this.loanApplication;
-        this.loanApproval.loanProductName = loanApp.productName;
-        this.loanApproval.amount = loanApp.amount;
-        this.loanApproval.collateralCategory = loanApp.collateralCategory;
-        this.loanApproval.collateralDesc = loanApp.collateralDesc
-        this.loanApproval.estimatedCollateralValue = loanApp.estimatedCollateralValue;
-        this.loanApproval.loanProductName = loanApp.loanProduct.productName;
-
-      }
-    },
-  },
-
-  methods: {
-    save() {
-      this.$store.dispatch("post", {
-        path: this.path,
-        body: this.loanApproval,
-      });
-    },
-    update() {
-      this.$store.dispatch("put", {
-        path: `${this.path}/${this.loanApproval.id}`,
-        body: this.loanApproval,
-      });
-    },
-    updateDialog() {
-      var obj = this.$store.state.search.selectedData[0].value;
-      this.setDialog(obj);
-    },
-    async search() {
-      var obj = this.$store.state.obj;
-      this.loanApproval = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    reset() {
-      this.loanApproval.clear();
-      this.$store.dispatch("loan/loanapplication/getPending");
-      this.$store.dispatch("loan/loanapplication/getApproved");
-    },
-    setObjects(obj) {
-      console.log(obj);
-    },
-    setDialog(obj) {
-      this.loanApproval = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    done() {
-      this.$store.commit(
-        "crudtable/data",
-        Object.assign({}, this.loanApproval)
-      );
-    },
-    updateCrudTableDialog() {
-      this.setDialog(this.$store.state.crudtable.data);
-    },
-    resetCrudTableDialog() {
-      this.reset();
-    },
-    getFormData() {
-      var data = new FormData();
-      data.append("loanApplication", this.loanApproval.loanApplication);
-      data.append("approvalDate", this.loanApproval.approvalDate);
-      data.append("approvedBy", this.loanApproval.approvedBy);
-      data.append("approvalNotes", this.loanApproval.approvalNotes);
-      data.append("approvalStatus", this.loanApproval.approvalStatus);
-
-      return data;
-    },
-  },
-};
-</script>

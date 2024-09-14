@@ -9,7 +9,8 @@ const ledgerNav = {
                 meta: { auth: true }
         },
 
-        menu: { id: "customerledger.ledger", title: "Ledger", route: "customerledger" },
+        menu: { id: "customerledger.ledger", title: "Ledger",
+           to: {name: "customerledger"} },
 
         headers: [
                 {
@@ -37,6 +38,14 @@ const ledgerNav = {
                 endDate: new Date(),
                 path: `customerledgers/ledger`,
                 branches: [],
+                phoneNo: '',
+                address: '',
+                setData(data) {
+                  this.accountId = data.id;
+                  this.accountName = data.customerName;
+                  this.phoneNo= data.phoneNo
+                  this.address= data.address;
+                },
         }
 
 

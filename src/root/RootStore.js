@@ -134,13 +134,14 @@ export const defineRootStore = defineStore("root", {
     },
 
     async get(url) {
+      if(!url)return null;
       this.objLoading = true;
       this.obj = null;
       let data = await httpMethods
         .get(url)
         .then((response) => {
           this.obj = response.data;
-          console.log(this.obj);
+          console.log("Returned Data", this.obj);
           if (!this.obj) {
             this.results = {
               success: false,

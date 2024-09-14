@@ -27,6 +27,7 @@ export default function bankTransferController() {
   const model = controller.model.value;
   customBankAccountSelected(
     () => model.fromAccountId,
+    model,
     (bankAccount) => {
       if (bankAccount) {
         model.fromCurrency = bankAccount.currency;
@@ -46,6 +47,7 @@ export default function bankTransferController() {
 
   customBankAccountSelected(
     () => model.toAccountId,
+    model,
     (bankAccount) => {
       if (bankAccount) {
         model.toCurrency = bankAccount.currency;

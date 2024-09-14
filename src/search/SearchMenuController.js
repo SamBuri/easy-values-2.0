@@ -1,14 +1,22 @@
 import constants from "@/utils/constants";
+import { Exception } from "sass";
 export default function searchMenuController(controller) {
- const save = (contextMenuOption) => {
-
-    contextMenuOption.setButtonLabel(constants.buttonTexts.save);
-    contextMenuOption.openEdit();
+  const save = (contextMenuOption) => {
+    try {
+      contextMenuOption.setButtonLabel(constants.buttonTexts.save);
+      contextMenuOption.openEdit();
+    } catch (e) {
+      console.log("Error ", e);
+    }
   };
   const edit = (contextMenuOption) => {
-    controller.setData(contextMenuOption.item);
-    contextMenuOption.setButtonLabel(constants.buttonTexts.update);
-    contextMenuOption.openEdit();
+    try {
+      controller.setData(contextMenuOption.item);
+      contextMenuOption.setButtonLabel(constants.buttonTexts.update);
+      contextMenuOption.openEdit();
+    } catch (e) {
+      console.log("Error ", e);
+    }
   };
 
   const deleteItem = (contextMenuOption) => {

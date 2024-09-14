@@ -1,5 +1,6 @@
 import { watch } from "vue";
 import { defineBankAccountStore } from "@/banking/bankaccount/BankAccountStore.js";
+import currencySelected from "./CurrencySelected";
 export default function bankAccountSelected(model, callBack){
   const bankAccountStore = defineBankAccountStore();
 

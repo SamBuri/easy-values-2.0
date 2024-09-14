@@ -89,6 +89,7 @@ const formatDate = (e) => {
           prepend-icon="mdi-calendar"
           readonly
           :rules="inputRules"
+          :disabled="disabled"
         >
         </v-text-field>
       </template>

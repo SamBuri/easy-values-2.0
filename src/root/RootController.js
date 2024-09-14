@@ -1,9 +1,12 @@
 import { ref, computed, watch } from "vue";
 import { defineRootStore } from "./RootStore";
+import { useAuthStore } from "@/store/authstore";
+import { defineTenantStore } from "@/organisation/tenant/TenantStore";
 import printPDF from "@/utils/PrintPDF";
 import { useRoute } from "vue-router";
 import constants from "@/utils/constants";
 import rootOptions from "./RootOptions";
+
 import funcs from "@/utils/funcs";
 
 export default function rootController(rawModel, rawOptions = rootOptions) {
@@ -11,6 +14,8 @@ export default function rootController(rawModel, rawOptions = rootOptions) {
   const rules = rawModel.rules;
   const model = ref(rawModel.model);
   const rootStore = defineRootStore();
+  const authStore = useAuthStore();
+  const tenantStore =  defineTenantStore();
 
   const rootState = ref({
     id: "",
@@ -59,38 +64,53 @@ export default function rootController(rawModel, rawOptions = rootOptions) {
 
   const print = async ()=>printPDF(model.value.printOptions());
 
+const body = ()=>{
+  if(model.value.getFormData)return model.value.getFormData();
+  return model.value;
+}
+
+const afterSave=(res)=>{
+
+};
 
   const save = async () => {
 
     if (!rootState.value.valid) return;
-    model.value.receiptDate = funcs.formatDate(model.value.receiptDate);
+
     console.log("Model ", model.value)
     if (model.value.modify) model.value.modify();
-    let res = await rootStore.post({ path: path, body: model.value });
-    //  await nextTick();
+    let res = await rootStore.post({ path: path, body: body() });
+    afterSave(res);
     if (res.success) {
      if(rootState.value.printData) await print();
       clear();
     }
   };
 
+  const afterUpdate=(res)=>{};
+
   const update = async () => {
     if (!rootState.value.valid) return;
     if (model.value.modify) model.value.modify();
-    await rootStore.put({
+    let res = await rootStore.put({
       path: `${path}/${model.value.id}`,
-      body: model.value,
+      body: body(),
     });
+    afterUpdate(res);
   };
 
   const setData = (data) => model.value.copy(data);
   // const setData = (data) => rawModel.model.copy(data);
 
+  const getData =  async(id)=>{
+    if(!id) return null;
+   return  rootStore.get(`${path}/${id}`);
+  }
   const search = async (e) => {
     e.preventDefault();
     if (!rootState.value.idValid) return;
     console.log("Path", `${path}/${rootState.value.id}`);
-    let data = await rootStore.get(`${path}/${rootState.value.id}`);
+    let data = await getData(`${rootState.value.id}`);
     console.log("Returned data", data);
     if (data) setData(data);
   };
@@ -164,12 +184,17 @@ export default function rootController(rawModel, rawOptions = rootOptions) {
     path,
     rules,
     model,
+    authStore,
+    tenantStore,
     save,
+    afterSave,
     update,
+    afterUpdate,
     setData,
     republish,
     print,
     clear,
+    getData,
     search,
     showEditConfirm,
     cancelEdit,

@@ -1,8 +1,30 @@
-<!-- v-if="photoUrl"  -->
-<template >
-    <!-- <v-img :max-height="tWidth" :max-width="tHeight"  :src="photoUrl"></v-img> -->
+<script setup>
+import {ref, computed, onMounted} from 'vue'
+import funcs from '../utils/funcs';
+const photoUrl= ref(null);
+const menu = ref(false);
+const closeOnClick = ref(true);
+const props = defineProps(["imageData", "width", "height", "items"]);
+const tWidth = computed(()=>props.width||200);
+const tHeight= computed(()=>props.width||200);
 
-    <div class="d-flex justify-space-around">
+const setPhotoUrl= async() =>{
+            photoUrl.value = '';
+            if (props.imageData) {
+                try {
+                    let file = await funcs.createFileFromBytes(props.imageData);
+                  photoUrl.value = URL.createObjectURL(file);
+                } catch (e) {
+                    console.log("Failed to create image url ", e)
+                    //   this.photoUrl=    "https://cdn.vuetifyjs.com/images/parallax/material.jpg";
+                }
+            }
+        };
+
+    onMounted(()=>setPhotoUrl());
+</script>
+<template >
+  <div class="d-flex justify-space-around">
         <v-menu v-model="menu" :close-on-click="closeOnClick"  offset-y>
             <template v-slot:activator="{ props }">
 
@@ -21,8 +43,8 @@
 
 
 
-     
-  
+<!--
+
 <script>
 import funcs from '../utils/funcs';
 export default {
@@ -79,4 +101,7 @@ export default {
 
     },
 };
-</script>
+</script> -->
+
+
+<!-- "https://cdn.vuetifyjs.com/images/parallax/material.jpg" -->

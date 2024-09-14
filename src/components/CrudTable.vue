@@ -8,7 +8,7 @@ import {ref, computed, nextTick} from 'vue'
     loading: { type: Boolean, default: false },
   });
 
-  const emit = defineEmits('setData')
+  const emit = defineEmits(['setData', 'after'])
   const dialogDelete = ref(false);
   const editedIndex = ref(-1);
   const editedItem = ref({});
@@ -28,9 +28,12 @@ import {ref, computed, nextTick} from 'vue'
         props.items.push(item);
 
       }
+
+      emit('after', props.items);
       editedIndex.value=-1;
       clear();
       close();
+
     };
 
     const dialog =  ref(false)

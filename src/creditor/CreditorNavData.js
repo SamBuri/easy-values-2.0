@@ -3,6 +3,8 @@ import billNav from './bill/BillNav.js'
 import billItemNav from './billitem/BillItemNav.js'
 import creditorLedgerNav from './creditorledger/CreditorLedgerNav.js'
 import creditorAccountGroupNav from './creditoraccountgroup/CreditorAccountGroupNav.js'
+import paymentNav from './payment/PaymentNav.js'
+import paymentBillNav from './paymentbill/PaymentBillNav.js'
 
 
 const creditorNavData = {
@@ -12,6 +14,8 @@ const creditorNavData = {
         ...billItemNav.routes,
         ...creditorLedgerNav.routes,
         ...creditorAccountGroupNav.routes,
+        ...paymentNav.routes,
+        ...paymentBillNav.routes,
     ],
     nav: {
         id: "creditor",
@@ -23,6 +27,8 @@ const creditorNavData = {
             billItemNav.menu,
             creditorLedgerNav.menu,
             creditorAccountGroupNav.menu,
+            paymentNav.menu,
+            paymentBillNav.menu,
 
 
         ],

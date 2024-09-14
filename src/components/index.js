@@ -24,7 +24,7 @@ import searchMixin from "@/utils/searchMixin";
 // import SDataChart from "./SDataChart";
 import SImage from "./SImage.vue";
 import SSaveForm from "./SSaveForm.vue";
-
+import SMultiSelectField from "./SMultiSelectField.vue";
 export default function registerComponents(app) {
   // Vue.filter('formattedNum', function (value) {
   //   return Number(value).toLocaleString()
@@ -50,6 +50,7 @@ export default function registerComponents(app) {
   // app.componentuse("SDataChart", SDataChart);
   app.component("SImage", SImage);
   app.component("SSaveForm", SSaveForm);
+  app.component("SMultiSelectField", SMultiSelectField);
 
   app.mixin(currentBranchMixin);
   app.mixin(searchMixin);

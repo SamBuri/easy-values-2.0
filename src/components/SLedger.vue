@@ -27,6 +27,7 @@ const search = () => {
   // model.value.startDate = funcs.formatDate(model.value.startDate);
   // model.value.endDate = funcs.formatDate(model.value.endDate);
 
+
   reportSore.getPeriodicReport({ path: model.value.path, body: model.value });
 };
 
@@ -36,6 +37,7 @@ const searchData = (e) => {
 };
 
 onMounted(() => {
+  reportSore.periodicReportData = [];
   model.value.branches = tenantStore.getCurrentTenantBranches
   .map(m=>m.id);
 });

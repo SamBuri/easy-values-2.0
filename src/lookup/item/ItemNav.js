@@ -21,8 +21,20 @@ const itemNav = {
     component: Item,
     path: "items",
     width: "1000px",
+    miniHeaders: [
+      {
+        title: "Id",
+        align: "start",
+        // sortable: false,
+        key: "id",
+      },
+      { title: "Item Category", key: "itemCategory.itemCategory" },
+      { title: "Item Name", key: "itemName" },
+      { title: "Unit Cost", key: "unitCost", isNumeric: true },
+      { title: "Unit Price", key: "unitPrice", isNumeric: true },
+    ],
     editHeaders: [
-      { title: "Item Category", key: "itemCategory.itemCategory"},
+      { title: "Item Category", key: "itemCategory.itemCategory" },
       { title: "Item Name", key: "itemName" },
       { title: "Unit Cost", key: "unitCost", isNumeric: true },
       { title: "Unit Price", key: "unitPrice", isNumeric: true },

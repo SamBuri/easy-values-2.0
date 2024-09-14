@@ -1,56 +1,92 @@
-import Creditor from './Creditor.vue'
-import Creditors from './Creditors.vue'
+import Creditor from "./Creditor.vue";
+import Creditors from "./Creditors.vue";
 const creditorNav = {
-        routes: [
-                {
-                        path: '/creditor/:mode',
-                        name: 'creditor',
-                        component: Creditor,
-                        meta: { auth: true },
-                },
-                {
-                        path: '/creditors',
-                        name: 'creditors',
-                        component: Creditors,
-                        meta: { auth: true },
-                },
-
-        ],
-        menu: {
-                id: "creditor.creditor",
-                name: "Creditors",
-                component: Creditor,
-                path: "creditors",
-                width: "700px",
-                editHeaders: [
-                { text: "Name", value: "name" },
-                { text: "Phone No", value: "phoneNo" },
-                { text: "Account", value: "account" },
-                { text: "Account Name", value: "accountName" },
-                { text: "Balance", value: "balance", isNumeric: true },
-                { text: "Hidden", value: "hidden" },
-                { text: "Actions", value: "actions" }], headers: [{
-                        text: "Id",
-                        align: "start",
-                        // sortable: false,
-                        value: "id",
-                },
-               
-                { text: "Name", value: "name" },
-                { text: "Phone No", value: "phoneNo" },
-                { text: "Account", value: "account" },
-                { text: "Account Name", value: "accountName" },
-                { text: "Balance", value: "balance", isNumeric: true },
-                { text: "Hidden", value: "hidden" },
-                { text: "Branch", value: "branch", label: "Branch", field: "branch" },
-                { text: "Creation Date", value: "creationDate", label: "Creation Date", field: "creationDate", isDateTime: true },
-                { text: "Last Modified Date", value: "lastModifiedDate", isDateTime: true },
-                { text: "Created By", value: "createdBy", label: "Created By", field: "createdBy" },
-                { text: "Modified By", value: "modifiedBy", label: "Modified By", field: "modifiedBy" }],
-                children: [{ id: "creditor.creditor.new", name: "New", route: "creditor", mode: 0 },
-                { id: "creditor.creditor.edit", name: "Edit", route: "creditor", mode: 1 },
-                { id: "creditor.creditor.history", name: "History", route: "creditor", mode: 2 },
-                ]
-        }
-}
+  routes: [
+    {
+      path: "/creditor/:mode",
+      name: "creditor",
+      component: Creditor,
+      meta: { auth: true },
+    },
+    {
+      path: "/creditors",
+      name: "creditors",
+      component: Creditors,
+      meta: { auth: true },
+    },
+  ],
+  menu: {
+    id: "creditor.creditor",
+    title: "Creditors",
+    component: Creditor,
+    path: "creditors",
+    width: "700px",
+    editHeaders: [
+      { title: "Profile Id", key: "id" },
+      { title: "Phone No", key: "phoneNo" },
+      { title: "Account", key: "accountId" },
+      { title: "Account Name", key: "accountName" },
+      { title: "Balance", key: "balance", isNumeric: true },
+      { title: "Hidden", key: "hidden" },
+      { title: "Actions", key: "actions" },
+    ],
+    miniHeaders: [
+      { title: "Profile Id", key: "id" },
+      { title: "Name", key: "name" },
+      { title: "Phone No", key: "phoneNo" },
+     { title: "Balance", key: "balance", isNumeric: true },
+    ],
+    headers: [
+      {
+        title: "Id",
+        align: "start",
+        // sortable: false,
+        key: "id",
+      },
+      { title: "Profile Id", key: "profileId.id" },
+      { title: "Phone No", key: "phoneNo" },
+      { title: "Account", key: "accountId" },
+      { title: "Account Name", key: "accountName" },
+      { title: "Balance", key: "balance", isNumeric: true },
+      { title: "Hidden", key: "hidden" },
+      { title: "Branch", key: "branch" },
+      {
+        title: "Creation Date",
+        key: "creationDate",
+        label: "Creation Date",
+        field: "creationDate",
+        isDateTime: true,
+      },
+      {
+        title: "Last Modified Date",
+        key: "lastModifiedDate",
+        isDateTime: true,
+      },
+      { title: "Created By", key: "createdBy" },
+      { title: "Modified By", key: "modifiedBy" },
+    ],
+    children: [
+      {
+        id: "creditor.creditor.view",
+        title: "View",
+        to: { name: "creditors" },
+      },
+      {
+        id: "creditor.creditor.new",
+        title: "New",
+        to: { name: "creditor", params: { mode: 0 } },
+      },
+      {
+        id: "creditor.creditor.edit",
+        title: "Edit",
+        to: { name: "creditor", params: { mode: 1 } },
+      },
+      {
+        id: "creditor.creditor.history",
+        title: "History",
+        to: { name: "creditor", params: { mode: 2 } },
+      },
+    ],
+  },
+};
 export default creditorNav;

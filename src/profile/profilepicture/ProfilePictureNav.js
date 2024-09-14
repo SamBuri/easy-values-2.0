@@ -1,41 +1,50 @@
 import ProfilePicture from './ProfilePicture.vue'
-const profilePictureNav = {
-        route: {
-                path: '/profilePicture/:mode',
-                name: 'profilePicture',
+ import ProfilePictures from './ProfilePictures.vue'
+ const profilePictureNav={ routes:[
+        {
+                path: '/profilepicture/:mode',
+                name: 'profilepicture',
                 component: ProfilePicture,
                 meta: { auth: true },
-        }, menu: {
-                id: "profile.profilepicture",
-                name: "Profile Pictures",
-                component: ProfilePicture,
-                path: "profilepictures",
-                width: "700px",
-                editHeaders: [{ text: "Profile", value: "profile" },
-                { text: "Name", value: "name" },
-                { text: "Image Type", value: "imageType" },
-                { text: "Photo", value: "photo" },
-                { text: "Caption", value: "caption" },
-                { text: "Actions", value: "actions" }], headers: [{
-                        text: "Id",
-                        align: "start",
-                        // sortable: false,
-                        value: "id",
-                },
-                { text: "Profile", value: "profile" },
-                { text: "Name", value: "name" },
-                { text: "Image Type", value: "imageType" },
-                { text: "Photo", value: "photo" },
-                { text: "Caption", value: "caption" },
-                { text: "Branch", value: "branch", label: "Branch", field: "branch" },
-                { text: "Creation Date", value: "creationDate", label: "Creation Date", field: "creationDate", isDateTime: true },
-                { text: "Last Modified Date", value: "lastModifiedDate", isDateTime: true },
-                { text: "Created By", value: "createdBy", label: "Created By", field: "createdBy" },
-                { text: "Modified By", value: "modifiedBy", label: "Modified By", field: "modifiedBy" }],
-                children: [{ id: "profile.profilePicture.new", name: "New", route: "profilePicture", mode: 0 },
-                { id: "profile.profilePicture.edit", name: "Edit", route: "profilePicture", mode: 1 },
-                { id: "profile.profilePicture.history", name: "History", route: "profilePicture", mode: 2 },
-                ]
-        }
+         },
+         {
+                path: '/profilepictures',
+                name: 'profilepictures',
+                component: ProfilePictures,
+                meta: { auth: true },
+         },
+        
+        ],
+menu:{id: "profile.profilepicture",
+        title: "Profile Pictures",
+        component: ProfilePicture,
+        path: "profilepictures",
+        width: "700px",
+editHeaders: [{ title: "Profile", key: "profileId"    },
+{ title: "Name", key: "name"    },
+{ title: "Image Type", key: "imageType"    },
+{ title: "Photo", key: "photo"    },
+{ title: "Caption", key: "caption"    },
+{title: "Actions", key: "actions"}],headers: [{
+                title: "Id",
+                align: "start",
+                // sortable: false,
+                key: "id",
+            },
+{ title: "Profile", key: "profileId"    },
+{ title: "Name", key: "name"    },
+{ title: "Image Type", key: "imageType"    },
+{ title: "Photo", key: "photo"    },
+{ title: "Caption", key: "caption"    },
+ { title: "Branch", key: "branch",},
+{ title: "Creation Date", key: "creationDate",  label: "Creation Date", field: "creationDate", isDateTime: true },
+                { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true},
+                { title: "Created By", key: "createdBy", },
+                { title: "Modified By", key: "modifiedBy", }],
+children: [{ id: "profile.profilePicture.view", title: "View",  to:{ name: "profilepictures", }},
+{ id: "profile.profilePicture.new", title: "New",  to:{ name: "profilepicture", params: {mode:0}}},
+{ id: "profile.profilePicture.edit", title: "Edit",  to:{ name: "profilepicture", params: {mode:1}}},
+{ id: "profile.profilePicture.history", title: "History",  to:{ name: "profilepicture", params: {mode:2}}},
+]}
 }
 export default profilePictureNav;
