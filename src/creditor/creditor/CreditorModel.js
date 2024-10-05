@@ -1,36 +1,32 @@
 const creditorModel = {
  model: {
-profileId:"",
+idId:"",
+name:"",
 phoneNo:"",
-accountId:"",
-accountName:"",
-balance:"",
+creditorAccountGroupId:"",
 hidden:false,
 
 clear(){
-this.profileId="";
+this.idId="";
+this.name="";
 this.phoneNo="";
-this.accountId="";
-this.accountName="";
-this.balance="";
+this.creditorAccountGroupId="";
 this.hidden=false;
 },
 copy(obj){
 this.id=obj.id;
-this.profileId = obj.profileId.id;
+this.idId = obj.id;
+this.name = obj.name;
 this.phoneNo = obj.phoneNo;
-this.accountId = obj.accountId;
-this.accountName = obj.accountName;
-this.balance = obj.balance;
+this.creditorAccountGroupId = obj.creditorAccountGroup.id;
 this.hidden = obj.hidden;
 
 },
 printOptions(){let data = [];
-data.push({ text: "Profile Id", value: this.creditor.profileId.displayKey });
+data.push({ text: "Profile Id", value: this.creditor.id });
+data.push({ text: "Name", value: this.creditor.name });
 data.push({ text: "Phone No", value: this.creditor.phoneNo });
-data.push({ text: "Account", value: this.creditor.accountId });
-data.push({ text: "Account Name", value: this.creditor.accountName });
-data.push({ text: "Balance", value: this.creditor.balance });
+data.push({ text: "Creditor Account Group", value: this.creditor.creditorAccountGroup.displayKey });
 
  return {
         data: data,
@@ -48,11 +44,11 @@ data.push({ text: "Balance", value: this.creditor.balance });
 },
 path:"creditors",
 rules: {
-profileId:[(v) => !!v || "Profile Id is required",
- ],phoneNo:[(v) => !!v || "Phone No is required",
-(v) => v.length < 30 || "Phone No length must be less or equal to 30", ],accountId:[(v) => !!v || "Account is required",
- ]
-
+idId:[(v) => !!v || "Profile Id is required",
+ ],name:[(v) => !!v || "Name is required",
+(v) => v.length < 61 || "Name length must be less or equal to 61", ],phoneNo:[(v) => !!v || "Phone No is required",
+(v) => v.length < 30 || "Phone No length must be less or equal to 30", ],creditorAccountGroupId:[(v) => !!v || "Creditor Account Group is required",
+ ],
 
 }
 }

@@ -1,45 +1,20 @@
-<template>
- <search :menu="menu" :menuItems ="menuItems"  @itemSelected="itemSelected"></search>
-
-</template>
-
-
-<script>
-
-
+<script setup>
 import shareTypeNav from './ShareTypeNav';
+import shareTypeController from "./ShareTypeController";
+import searchMenuController from "@/search/SearchMenuController";
+const controller= shareTypeController();
+const {save, edit, deleteItem, republish}=searchMenuController(controller)
+const menu= shareTypeNav.menu;
+const menuItems = [
+      { title: "Add", icon: "mdi-plus", click: (options)=>save(options)},
+      { title: "Edit", icon: "mdi-pencil",click: (options)=>edit(options) },
+      { title: "Delete", icon: "mdi-delete",click:(options)=>deleteItem(options) },
+      { title: "Re-post", icon: "mdi-send",click: (options)=>republish(options) },
+    ]
 
-export default {
-  name: "ShareTypes",
-  data: () => ({
-  
-     menu: shareTypeNav.menu,
-     menuItems: [
-      { title: "Add", icon: "mdi-plus" },
-      { title: "Edit", icon: "mdi-pencil" },
-      { title: "Delete", icon: "mdi-delete" },
-    ],
-  
-  }),
-
-  methods: {
-    itemSelected(selectedItem, items) {
-      switch (selectedItem) {
-        case 0:
-          this.saveClicked();
-          break;
-        case 1:
-          this.editClicked(items);
-          break;
-        case 2:
-          this.dialogDelete = true;
-          break;
-       
-      }
-    }
-  }
-
-  
-};
+    
 </script>
+<template>
+  <search :menu="menu" :menuItems ="menuItems"></search>
+</template>
 

@@ -22,13 +22,13 @@ const creditorNavData = {
         title: "Creditor",
         icon: "mdi-view-dashbord",
         children: [
+          creditorAccountGroupNav.menu,
             creditorNav.menu,
             billNav.menu,
             billItemNav.menu,
-            creditorLedgerNav.menu,
-            creditorAccountGroupNav.menu,
             paymentNav.menu,
             paymentBillNav.menu,
+            creditorLedgerNav.menu,
 
 
         ],

@@ -7,7 +7,7 @@ const controller = creditorController();
 
 const model = controller.model;
 const rules = controller.rules;
-const isUpdate =  controller.isUpdate
+const isUpdate =controller.isUpdate;
 </script>
 <template>
   <crud-form :controller="controller">
@@ -16,12 +16,12 @@ const isUpdate =  controller.isUpdate
     <template #form-data>
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-select-field
-          id="profileId"
+          id="idId"
           label="Profile Id"
-          v-model="model.profileId"
-          :rules="rules.profileId"
+          v-model="model.id"
+          :rules="rules.id"
           :counter="20"
-          @ok="controller.profileIdOk"
+          @ok="controller.idIdOk"
           :items="controller.profileStore.mini"
           :headers="controller.profileNav.menu.miniHeaders"
         ></s-select-field>
@@ -32,8 +32,6 @@ const isUpdate =  controller.isUpdate
           label="Name"
           v-model="model.name"
           disabled
-          :rules="rules.name"
-          :counter="61"
         ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
@@ -42,39 +40,20 @@ const isUpdate =  controller.isUpdate
           label="Phone No"
           v-model="model.phoneNo"
           disabled
-          :rules="rules.phoneNo"
-          :counter="30"
+
         ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <s-select-field
-          id="accountId"
-          label="Account"
-          v-model="model.accountId"
-          :rules="rules.accountId"
-          :counter="20"
-          @ok="controller.accountIdOk"
-          :items="controller.accountStore.liabilityAccounts"
-          :headers="controller.accountNav.menu.miniHeaders"
-        ></s-select-field>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <s-text-field
-          id="accountName"
-          label="Account Name"
-          v-model="model.accountName"
-          disabled
-          :rules="rules.accountName"
-          :counter="100"
-        ></s-text-field>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
-        <s-number-input
-          id="balance"
-          label="Balance"
-          v-model="model.balance"
-          disabled
-        ></s-number-input>
+        <s-autocomplete
+          id="creditorAccountGroupId"
+          label="Creditor Account Group"
+          v-model="model.creditorAccountGroupId"
+          :rules="rules.creditorAccountGroupId"
+          :items="controller.creditorAccountGroupStore.mini"
+          :loading="controller.creditorAccountGroupStore.miniLoading"
+          item-title="name"
+          item-value="id"
+        ></s-autocomplete>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
         <v-checkbox

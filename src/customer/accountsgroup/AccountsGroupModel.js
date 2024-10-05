@@ -1,5 +1,6 @@
 const accountsGroupModel = {
  model: {
+customerGroup:"",
 businessSectionId:"",
 receivableAccountId:"",
 discountAccountId:"",
@@ -7,6 +8,7 @@ writeOffAccountId:"",
 withholdingTaxAccountId:"",
 
 clear(){
+this.customerGroup="";
 this.businessSectionId="";
 this.receivableAccountId="";
 this.discountAccountId="";
@@ -15,6 +17,7 @@ this.withholdingTaxAccountId="";
 },
 copy(obj){
 this.id=obj.id;
+this.customerGroup = obj.customerGroup;
 this.businessSectionId = obj.businessSectionId;
 this.receivableAccountId = obj.receivableAccountId;
 this.discountAccountId = obj.discountAccountId;
@@ -23,6 +26,7 @@ this.withholdingTaxAccountId = obj.withholdingTaxAccountId;
 
 },
 printOptions(){let data = [];
+data.push({ text: "Customer Group", value: this.accountsGroup.customerGroup });
 data.push({ text: "Business Section", value: this.accountsGroup.businessSectionId });
 data.push({ text: "Receivable Account", value: this.accountsGroup.receivableAccountId });
 data.push({ text: "Discount Account", value: this.accountsGroup.discountAccountId });
@@ -45,7 +49,8 @@ data.push({ text: "Withholding Tax Account", value: this.accountsGroup.withholdi
 },
 path:"accountsgroups",
 rules: {
-businessSectionId:[(v) => !!v || "Business Section is required",
+customerGroup:[(v) => !!v || "Customer Group is required",
+(v) => v.length < 40 || "Customer Group length must be less or equal to 40", ],businessSectionId:[(v) => !!v || "Business Section is required",
  ],receivableAccountId:[(v) => !!v || "Receivable Account is required",
  ],discountAccountId:[(v) => !!v || "Discount Account is required",
  ],writeOffAccountId:[(v) => !!v || "Write Off Account is required",

@@ -13,6 +13,15 @@ const rules = controller.rules;
     <template #heading>Accounts Group</template>
 
     <template #form-data>
+      <v-col :cols="cols" :sm="sm" :md="md"
+        ><v-text-field
+          label="Customer Group"
+          v-model="model.customerGroup"
+          :rules="rules.customerGroup"
+          :counter="40"
+          required
+        ></v-text-field>
+      </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-autocomplete
           id="businessSectionId"
