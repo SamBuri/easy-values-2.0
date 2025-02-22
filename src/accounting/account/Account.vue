@@ -20,8 +20,8 @@ const rules = controller.rules;
           v-model="model.accountType"
           :rules="rules.accountType"
           :counter="100"
-          :items="controller.lookupStore.accountTypes"
-          :loading="controller.lookupStore.accountTypesLoading"
+          :items="controller.accountingStore.accountTypes"
+          :loading="controller.accountingStore.accountTypesLoading"
         ></s-autocomplete>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">

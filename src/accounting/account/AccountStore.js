@@ -10,22 +10,32 @@ export const defineAccountStore = defineStore("account", {
     assetAccountType: "Asset",
     assetAccounts: [],
     assetAccountTypesLoading: false,
+    contraAssetAccounts: [],
+    contraAssetAccountTypesLoading: false,
 
     equityAccountType: "Equity",
     equityAccounts: [],
     equityAccountsLoading: false,
+    contraEquityAccounts: [],
+    contraEquityAccountsLoading: false,
 
     liabilityAccountType: "Liability",
     liabilityAccounts: [],
     liabilityAccountsLoading: false,
+    contraLiabilityAccounts: [],
+    contraLiabilityAccountsLoading: false,
 
     incomeAccountType: "Income",
     incomeAccounts: [],
     incomeAccountsLoading: false,
+    contraIncomeAccounts: [],
+    contraIncomeAccountsLoading: false,
 
     expenseAccountType: "Expense",
     expenseAccounts: [],
     expenseAccountsLoading: false,
+    contraExpenseAccounts: [],
+    contraExpenseAccountsLoading: false,
   }),
   actions: {
     getMini() {
@@ -47,7 +57,7 @@ export const defineAccountStore = defineStore("account", {
 
 
     getAssetAccounts() {
-      if (this.assetAccounts.length > 0) return this.mini;
+      if (this.assetAccounts.length > 0) return this.assetAccounts;
       const rootStore = defineRootStore();
       let data = rootStore.fetch(
         `${this.path}/accounttype/${this.assetAccountType}`,
@@ -63,8 +73,25 @@ export const defineAccountStore = defineStore("account", {
       return data;
     },
 
+    getContraAssetAccounts() {
+      if (this.contraAssetAccounts.length > 0) return this.contraAssetAccounts;
+      const rootStore = defineRootStore();
+      let data = rootStore.fetch(
+        `${this.path}/accounttype/contra/${this.assetAccountType}`,
+        () => {
+          this.contraAssetAccountsLoading = true;
+          this.contraAssetAccounts = [];
+        },
+
+        (res) => (this.contraAssetAccounts = res.data),
+
+        () => (this.contraAssetAccountsLoading = false)
+      );
+      return data;
+    },
+
     getEquityAccounts() {
-      if (this.equityAccounts.length > 0) return this.mini;
+      if (this.equityAccounts.length > 0) return this.equityAccounts;
       const rootStore = defineRootStore();
       let data = rootStore.fetch(
         `${this.path}/accounttype/${this.equityAccountType}`,
@@ -80,8 +107,26 @@ export const defineAccountStore = defineStore("account", {
       return data;
     },
 
+
+    getContraEquityAccounts() {
+      if (this.contraEquityAccounts.length > 0) return this.contraEquityAccounts;
+      const rootStore = defineRootStore();
+      let data = rootStore.fetch(
+        `${this.path}/accounttype/contra/${this.equityAccountType}`,
+        () => {
+          this.contraEquityAccountsLoading = true;
+          this.contraEquityAccounts = [];
+        },
+
+        (res) => (this.contraEquityAccounts = res.data),
+
+        () => (this.contraEquityAccountsLoading = false)
+      );
+      return data;
+    },
+
     getLiabilityAccounts() {
-      if (this.liabilityAccounts.length > 0) return this.mini;
+      if (this.liabilityAccounts.length > 0) return this.liabilityAccounts;
       const rootStore = defineRootStore();
       let data = rootStore.fetch(
         `${this.path}/accounttype/${this.liabilityAccountType}`,
@@ -97,8 +142,25 @@ export const defineAccountStore = defineStore("account", {
       return data;
     },
 
+    getContraLiabilityAccounts() {
+      if (this.contraLiabilityAccounts.length > 0) return this.contraLiabilityAccounts;
+      const rootStore = defineRootStore();
+      let data = rootStore.fetch(
+        `${this.path}/accounttype/contra/${this.liabilityAccountType}`,
+        () => {
+          this.contraLiabilityAccountsLoading = true;
+          this.contraLiabilityAccounts = [];
+        },
+
+        (res) => (this.contraLiabilityAccounts = res.data),
+
+        () => (this.contraLiabilityAccountsLoading = false)
+      );
+      return data;
+    },
+
     getIncomeAccounts() {
-      if (this.incomeAccounts.length > 0) return this.mini;
+      if (this.incomeAccounts.length > 0) return this.incomeAccounts;
       const rootStore = defineRootStore();
       let data = rootStore.fetch(
         `${this.path}/accounttype/${this.incomeAccountType}`,
@@ -114,8 +176,25 @@ export const defineAccountStore = defineStore("account", {
       return data;
     },
 
+    getContraIncomeAccounts() {
+      if (this.contraIncomeAccounts.length > 0) return this.contraIncomeAccounts;
+      const rootStore = defineRootStore();
+      let data = rootStore.fetch(
+        `${this.path}/accounttype/contra/${this.incomeAccountType}`,
+        () => {
+          this.contraIncomeAccountsLoading = true;
+          this.contraIncomeAccounts = [];
+        },
+
+        (res) => (this.contraIncomeAccounts = res.data),
+
+        () => (this.contraIncomeAccountsLoading = false)
+      );
+      return data;
+    },
+
     getExpenseAccounts() {
-      if (this.expenseAccounts.length > 0) return this.mini;
+      if (this.expenseAccounts.length > 0) return this.expenseAccounts;
       const rootStore = defineRootStore();
       let data = rootStore.fetch(
         `${this.path}/accounttype/${this.expenseAccountType}`,
@@ -127,6 +206,23 @@ export const defineAccountStore = defineStore("account", {
         (res) => (this.expenseAccounts = res.data),
 
         () => (this.expenseAccountsLoading = false)
+      );
+      return data;
+    },
+
+    getContraExpenseAccounts() {
+      if (this.contraExpenseAccounts.length > 0) return this.contraExpenseAccounts;
+      const rootStore = defineRootStore();
+      let data = rootStore.fetch(
+        `${this.path}/accounttype/contra/${this.expenseAccountType}`,
+        () => {
+          this.contraExpenseAccountsLoading = true;
+          this.contraExpenseAccounts = [];
+        },
+
+        (res) => (this.contraExpenseAccounts = res.data),
+
+        () => (this.contraExpenseAccountsLoading = false)
       );
       return data;
     },

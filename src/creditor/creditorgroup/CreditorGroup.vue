@@ -1,29 +1,26 @@
 <script setup>
-import creditorAccountGroupController from "./CreditorAccountGroupController";
+import creditorGroupController from "./CreditorGroupController";
 const cols = 12;
 const sm = 6;
 const md = 6;
-const controller = creditorAccountGroupController();
+const controller = creditorGroupController();
 
 const model = controller.model;
 const rules = controller.rules;
 </script>
 <template>
   <crud-form :controller="controller">
-    <template #heading>Creditor Account Group</template>
+    <template #heading>Creditor Group</template>
 
     <template #form-data>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <s-autocomplete
-          id="businessSectionId"
-          label="Business Section"
-          v-model="model.businessSectionId"
-          :rules="rules.businessSectionId"
-          :items="controller.lookupDataStore.businessSections"
-          :loading="controller.lookupDataStore.businessSectionsLoading"
-          item-title="lookupDataName"
-          item-value="id"
-        ></s-autocomplete>
+        <s-text-field
+          id="name"
+          label="Name"
+          v-model="model.name"
+          :rules="rules.name"
+          :counter="100"
+        ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-autocomplete
@@ -43,20 +40,20 @@ const rules = controller.rules;
           label="Discount Account"
           v-model="model.discountAccountId"
           :rules="rules.discountAccountId"
-          :items="controller.accountStore.assetAccounts"
-          :loading="controller.accountStore.assetAccountsLoading"
+          :items="controller.accountStore.incomeAccounts"
+          :loading="controller.accountStore.incomeAccountsLoading"
           item-title="accountName"
           item-value="id"
         ></s-autocomplete>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-autocomplete
-          id="debtWaiverAccountId"
-          label="Debt Waiver Account"
-          v-model="model.debtWaiverAccountId"
-          :rules="rules.debtWaiverAccountId"
-          :items="controller.accountStore.assetAccounts"
-          :loading="controller.accountStore.assetAccountsLoading"
+          id="debtReliefAccountId"
+          label="Debt Relief Account"
+          v-model="model.debtReliefAccountId"
+          :rules="rules.debtReliefAccountId"
+          :items="controller.accountStore.incomeAccounts"
+          :loading="controller.accountStore.incomeAccountsLoading"
           item-title="accountName"
           item-value="id"
         ></s-autocomplete>

@@ -1,4 +1,4 @@
-import creditor from './creditor/creditor.js'
+
 import bill from './bill/bill'
 import billitem from './billitem/billitem'
 export default {
@@ -8,8 +8,8 @@ export default {
     },
     mutations: {},
     actions: {
-       
+
     },
-    modules: { creditor, bill, billitem} 
+    modules: {  bill, billitem}
 
 }

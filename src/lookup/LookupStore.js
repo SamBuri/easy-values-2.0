@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-// import httpMethods from "@/utils/HttpMethods";
 import { defineRootStore } from "@/root/RootStore";
 
 export const defineLookupStore = defineStore("lookup", {

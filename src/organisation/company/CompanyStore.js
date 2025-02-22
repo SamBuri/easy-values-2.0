@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-import creditorAccountGroupNav from "./CreditorAccountGroupNav";
+import companyNav from "./CompanyNav";
 import {defineRootStore} from "@/root/RootStore";
-   export const defineCreditorAccountGroupStore = defineStore("creditorAccountGroup", {
+   export const defineCompanyStore = defineStore("company", {
  
 state: () => ({
-path: creditorAccountGroupNav.menu.path,
+path: companyNav.menu.path,
     mini: [],
     miniLoading: false,
   }),

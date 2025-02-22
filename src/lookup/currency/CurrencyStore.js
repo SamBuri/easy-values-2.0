@@ -64,7 +64,7 @@ export const defineCurrencyStore = defineStore("currency", {
 
 
     getCurrency(id) {
-
+     if(!id) return null;
       const rootStore = defineRootStore();
       let data = rootStore.fetch(
         `${this.path}/${id}`,

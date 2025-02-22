@@ -1,35 +1,30 @@
 import rootController from "@/root/RootController";
 import creditorModel from "./CreditorModel";
 import { onMounted } from "vue";
-import profileNav from "@/profile/profile/ProfileNav.js"
-import {defineProfileStore} from "@/profile/profile/ProfileStore.js"
-import {defineCreditorAccountGroupStore} from "@/creditor/creditoraccountgroup/CreditorAccountGroupStore.js"
-export default function creditorController(){
-
+import profileNav from "@/profile/profile/ProfileNav.js";
+import { defineProfileStore } from "@/profile/profile/ProfileStore.js";
+import { defineCreditorGroupStore } from "@/creditor/creditorgroup/CreditorGroupStore.js";
+import profileSelected from "@/root/compasables/ProfileSelected";
+export default function creditorController() {
   const controller = rootController(creditorModel);
-const idIdOk = (data) => {
+  const profileIdOk = (data) => {
     if (data) {
-
-      controller.model.value.id= data.id;
-      controller.model.value.name= data.display;
-      controller.model.value.phone= data.primaryPhoneNo;
-
+      controller.model.value.profileId = data.id;
     }
   };
-controller.idIdOk = idIdOk;
-const profileStore = defineProfileStore();
-controller.profileStore = profileStore;
-const creditorAccountGroupStore = defineCreditorAccountGroupStore();
-controller.creditorAccountGroupStore = creditorAccountGroupStore;
-controller.profileNav=profileNav;
-onMounted(()=>{
-profileStore.getMini();
+  controller.profileIdOk = profileIdOk;
+  const profileStore = defineProfileStore();
+  controller.profileStore = profileStore;
+  const creditorGroupStore = defineCreditorGroupStore();
+  controller.creditorGroupStore = creditorGroupStore;
+  controller.profileNav = profileNav;
+  onMounted(() => {
+    profileStore.getMini();
 
-creditorAccountGroupStore.getMini();
+    creditorGroupStore.getMini();
+  });
 
-
-})
+  const model = controller.model.value;
+  profileSelected(model);
   return controller;
-
 }
-

@@ -2,6 +2,7 @@ const itemCategoryModel = {
   model: {
 
     itemCategoryId: "",
+    itemCategory: "",
     itemGroup: "",
     billable: false,
     expensable: false,
@@ -10,6 +11,7 @@ const itemCategoryModel = {
     clear() {
       this.id='';
       this.itemCategoryId = "";
+      this.itemCategory = "",
       this.itemGroup = "";
       this.billable = false;
       this.expensable = false;
@@ -18,6 +20,7 @@ const itemCategoryModel = {
     copy(obj) {
       this.id = obj.id;
       this.itemCategoryId = obj.itemCategoryId;
+      this.itemCategory = obj.itemCategory;
       this.itemGroup = obj.itemGroup;
       this.billable = obj.billable;
       this.expensable = obj.expensable;

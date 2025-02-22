@@ -6,6 +6,7 @@ export default function itemSelected(model, callBack){
   const defaultFunction=(item)=>{
     model.item =null;
     model.itemName= '';
+    model.itemCategoryId='';
     model.itemCategory='';
     model.quantity=0;
     model.unitPrice=0
@@ -23,6 +24,7 @@ export default function itemSelected(model, callBack){
       model.editUnitCost= item.editUnitCost;
       model.editUnitPrice= item.editUnitPrice;
       model.itemCategory = item.itemCategory.itemCategory
+      model.itemCategoryId = item.itemCategory.id
       if(!item.editQuantity) model.quantity=1;
     }
 

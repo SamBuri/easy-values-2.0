@@ -177,7 +177,7 @@ onMounted(
       </template>
 
       <template v-slot:no-data>
-        <v-btn color="primary" @click="saveClicked()"> Add </v-btn>
+        <v-btn color="primary" @click="editDialog=true"> Add </v-btn>
       </template>
 
       <template #bottom></template>

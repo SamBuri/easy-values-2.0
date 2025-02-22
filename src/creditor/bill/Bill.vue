@@ -56,6 +56,7 @@ const rules = controller.rules;
           label="End Date"
           v-model="model.endDate"
           :rules="rules.endDate"
+          :allowFuture="true"
       /></v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-number-input

@@ -1,10 +1,10 @@
 <script setup>
-import creditorAccountGroupNav from './CreditorAccountGroupNav';
-import creditorAccountGroupController from "./CreditorAccountGroupController";
+import creditorItemCategoryNav from './CreditorItemCategoryNav';
+import creditorItemCategoryController from "./CreditorItemCategoryController";
 import searchMenuController from "@/search/SearchMenuController";
-const controller= creditorAccountGroupController();
+const controller= creditorItemCategoryController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
-const menu= creditorAccountGroupNav.menu;
+const menu= creditorItemCategoryNav.menu;
 const menuItems = [
       { title: "Add", icon: "mdi-plus", click: (options)=>save(options)},
       { title: "Edit", icon: "mdi-pencil",click: (options)=>edit(options) },

@@ -45,8 +45,8 @@ data.push({ text: "Category Name", value: this.accountCategory.categoryName });
 path:"accountcategories",
 rules: {
 accountType:[(v) => !!v || "Account Type is required",
- ],parentCategoryId:[(v) => !!v || "Parent Category Id is required",
- ],categoryName:[(v) => !!v || "Category Name is required",
+ ],parentCategoryId:[],
+ categoryName:[(v) => !!v || "Category Name is required",
 (v) => v.length < 40 || "Category Name length must be less or equal to 40", ],
 
 }

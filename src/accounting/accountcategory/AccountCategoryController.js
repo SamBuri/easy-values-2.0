@@ -3,14 +3,17 @@ import accountCategoryModel from "./AccountCategoryModel";
 import { onMounted, watch } from "vue";
 import { defineLookupStore } from "@/lookup/LookupStore.js";
 import { defineAccountCategoryStore } from "@/accounting/accountcategory/AccountCategoryStore.js";
+import { defineAccountingStore } from "../AccountingStore";
 export default function accountCategoryController() {
   const controller = rootController(accountCategoryModel);
-  const lookupStore = defineLookupStore();
+  const accountingStore = defineAccountingStore();
+  controller.accountingStore = accountingStore;
+  const lookupStore = defineLookupStore()
   controller.lookupStore = lookupStore;
   const accountCategoryStore = defineAccountCategoryStore();
   controller.accountCategoryStore = accountCategoryStore;
   onMounted(() => {
-    lookupStore.getAccountTypes();
+    accountingStore.getAccountTypes();
 
     // accountCategoryStore.getMini();
   });

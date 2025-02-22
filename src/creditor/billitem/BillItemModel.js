@@ -19,6 +19,7 @@ copy(obj){
 this.id=obj.id;
 this.itemId = obj.itemId;
 this.itemName = obj.itemName;
+this.itemCategoryId=obj.itemCategoryId;
 this.itemCategory = obj.itemCategory;
 this.quantity = obj.quantity;
 this.unitCost = obj.unitCost;

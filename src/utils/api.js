@@ -16,7 +16,7 @@ import { defineBranchStore } from "@/organisation/branch/BranchStore";
 // console.log("API URL", window.VUE_APP_API_URL)
 var baseURL = ""; // window.VUE_APP_API_URL;
 // var apiUrl =  baseURL?baseURL:"https://api.capidattex.net/"
-var apiUrl = baseURL ? baseURL : "http://localhost:8089/";
+var apiUrl = baseURL ? baseURL : "http://ev.test:8089/";
 console.log("The API Gateway 1", apiUrl);
 
 const api = {

@@ -1,31 +1,47 @@
 import { defineStore } from "pinia";
 import billNav from "./BillNav";
-import {defineRootStore} from "@/root/RootStore";
-   export const defineBillStore = defineStore("bill", {
- 
-state: () => ({
-path: billNav.menu.path,
+import { defineRootStore } from "@/root/RootStore";
+export const defineBillStore = defineStore("bill", {
+  state: () => ({
+    path: billNav.menu.path,
     mini: [],
     miniLoading: false,
+    due: [],
+    dueLoading: false,
   }),
-actions: {
- getMini() {
-
- if(this.mini.length>0) return this.mini;
+  actions: {
+    getMini() {
+      if (this.mini.length > 0) return this.mini;
       const rootStore = defineRootStore();
-       let data = rootStore.fetch(`${this.path}/mini`,
-       ()=>{
-        this.miniLoading =true
-        this.mini = [];
+      let data = rootStore.fetch(
+        `${this.path}/mini`,
+        () => {
+          this.miniLoading = true;
+          this.mini = [];
+        },
 
-      },
+        (res) => (this.mini = res.data),
 
-       res=>this.mini = res.data,
+        () => (this.miniLoading = false)
+      );
+      return data;
+    },
 
-       ()=>this.miniLoading = false); 
-       return data;
+    getDue(creditorId) {
+      if(!creditorId) return [];
+      const rootStore = defineRootStore();
+      let data = rootStore.fetch(
+        `${this.path}/due/${creditorId}`,
+        () => {
+          this.dueLoading = true;
+          this.due = [];
+        },
 
-     },
+        (res) => (this.due = res.data),
 
-}});
-
+        () => (this.dueLoading = false)
+      );
+      return data;
+    },
+  },
+});
