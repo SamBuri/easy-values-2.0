@@ -35,7 +35,10 @@ const loanBillNav = {
         key: "id",
       },
       { title: "Loan", key: "loan.id" },
+      { title: "Profile Id", key: "loan.loanApplication.applicantId" },
+      { title: "Name", key: "loan.loanApplication.name" },
       { title: "Bill Date", key: "billDate", isDate: true },
+      { title: "Invoice Id", key: "invoiceId" },
      { title: "Amount", key: "amount", isNumeric: true },
       { title: "Branch", key: "branch" },
       {
@@ -54,21 +57,19 @@ const loanBillNav = {
       { title: "Modified By", key: "modifiedBy" },
     ],
     children: [
-      { id: "loan.loanBill.view", title: "View", to: { name: "loanbills" } },
+      { id: "loan.loanBill.view", title: "View", icon: "mdi-table", to: { name: "loanbills" } },
       {
         id: "loan.loanBill.new",
         title: "New",
-        to: { name: "loanbill", params: { mode: 0 } },
+        icon: "mdi-plus-circle",
+        to: { name: "loanbill",  params: { mode: 0 } },
       },
-      {
-        id: "loan.loanBill.edit",
-        title: "Edit",
-        to: { name: "loanbill", params: { mode: 1 } },
-      },
+     
       {
         id: "loan.loanBill.history",
         title: "History",
-        to: { name: "loanbill", params: { mode: 2 } },
+        icon: "mdi-history",
+        to: { name: "loanbill",  params: { mode: 2 } },
       },
     ],
   },

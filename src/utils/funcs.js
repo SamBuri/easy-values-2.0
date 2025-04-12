@@ -499,6 +499,7 @@ const funcs = {
   },
 
   getValueFromObjectKey(object, string) {
+  
     let a = string.split(".");
     let length = a.length;
     if (length === 1) {
@@ -578,6 +579,15 @@ const funcs = {
     }
 
     return "";
+  },
+
+  getDefaultFromList(list, returnAny=true) {
+    if (!list) return null;
+    if (list.length === 0) return null;
+    let filtered = list.filter((item) => item.isDefault === true);
+    if (filtered.length > 0) return filtered[0];
+    if (returnAny) return list[0];
+    return null;
   },
 };
 

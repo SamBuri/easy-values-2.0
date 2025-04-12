@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import {defineRootStore} from "@/root/RootStore"
 export const defineAccountingStore = defineStore("accounting", {
   state: () => ({
-    path: "accounting/enums",
+    path: "accountingenums",
     accountTypes: [],
     accountTypesLoading: false,
   }),

@@ -4,7 +4,7 @@ import { defineRootStore } from "@/root/RootStore";
 
 export const defineLoanStore = defineStore("loanstore", {
   state: () => ({
-    path: "loan/enums/",
+    path: "loanenums/",
         interestMethods: [],
         interestMethodsLoading: false,
         determiningMethods: [],
@@ -16,7 +16,7 @@ export const defineLoanStore = defineStore("loanstore", {
   actions: {
     async getInterestMethods() {
       const rootStore = defineRootStore();
-      let data = await rootStore.fetch(`${this.path}/interestmethods`,
+      let data = await rootStore.fetch(`${this.path}interestmethods`,
         () => {
           this.interestMethodsLoading = true;
           this.interestMethods = [];
@@ -31,7 +31,7 @@ export const defineLoanStore = defineStore("loanstore", {
 
     async getLoanStatuses() {
       const rootStore = defineRootStore();
-      let data = await rootStore.fetch(`${this.path}/loanstatuses`,
+      let data = await rootStore.fetch(`${this.path}loanstatuses`,
         () => {
           this.loanStatusesLoading = true;
           this.loanStatuses = [];
@@ -46,7 +46,7 @@ export const defineLoanStore = defineStore("loanstore", {
 
     async getDeterminingMethods() {
       const rootStore = defineRootStore();
-      let data = await rootStore.fetch(`${this.path}/determiningmethods`,
+      let data = await rootStore.fetch(`${this.path}determiningmethods`,
         () => {
           this.determiningMethodsLoading = true;
           this.determiningMethods = [];

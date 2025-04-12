@@ -9,7 +9,7 @@ const monthlyNav = {
                 meta: { auth: true }
         },
 
-        menu:  { id: "reports.expenses.monthly", title: "Monthly",  to: {name: "monthlyexpenses" }},
+        menu:  { id: "reports.expenses.monthly", title: "Monthly", icon: "mdi-cash-refund",  to: {name: "monthlyexpenses" }},
 
         headers: [
         { title: "Year", key: "year", label: "Year", field: "year"},

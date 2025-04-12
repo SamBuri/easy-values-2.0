@@ -21,6 +21,7 @@ const measureGroupNav = {
     component: MeasureGroup,
     path: "measuregroups",
     width: "700px",
+    icon: "mdi-ruler",
     editHeaders: [
       { title: "Measure Group Name", key: "measureGroupName" },
       { title: "Measure Relation", key: "measureRelation" },
@@ -55,21 +56,25 @@ const measureGroupNav = {
         id: "lookup.measureGroup.view",
         title: "View",
         to: { name: "measuregroups" },
+        icon: "mdi-table",
       },
       {
         id: "lookup.measureGroup.new",
         title: "New",
         to: { name: "measuregroup", params: { mode: 0 } },
+        icon: "mdi-plus-circle",
       },
       {
         id: "lookup.measureGroup.edit",
         title: "Edit",
         to: { name: "measuregroup", params: { mode: 1 } },
+        icon: "mdi-pencil",
       },
       {
         id: "lookup.measureGroup.history",
         title: "History",
         to: { name: "measuregroup", params: { mode: 2 } },
+        icon: "mdi-history",
       },
     ],
   },

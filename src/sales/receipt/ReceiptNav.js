@@ -1,5 +1,7 @@
+import { md } from 'vuetify/iconsets/md';
 import Receipt from './Receipt.vue'
 import Receipts from './Receipts.vue'
+import { mdi } from 'vuetify/iconsets/mdi-svg';
 
 const receiptNav = {
          routes:[
@@ -24,7 +26,7 @@ const receiptNav = {
                 title: "Receipts",
                 component: Receipt,
                 path: "receipts",
-                to: {name: 'receipts'},
+                icon: "mdi-receipt",
                 width: "1000px",
                 miniHeaders: [
                         { title: "Id", align: "start", key: "id", label: "Receipt Date", field: "receiptDate" },
@@ -80,10 +82,10 @@ const receiptNav = {
 
 
                 children: [
-                  { id: "sales.receipt.view", title: "View", route: "receipts",  to: {name: 'receipts' },},
-                        { id: "sales.receipt.new", title: "New", route: "receipt", mode: 0, to: {name: 'receipt', params: { mode:0} },},
-                        { id: "sales.receipt.preview", title: "Preview", route: "receipt", mode: 2, to: {name: 'receipt', params: { mode:2}} },
-                        { id: "sales.receipt.history", title: "History", route: "receipt", locked: true,  to: {name: 'receipt',params: { mode:3}} },
+                  { id: "sales.receipt.view", title: "View", route: "receipts",  to: {name: 'receipts' }, icon: "mdi-table" },
+                        { id: "sales.receipt.new", title: "New", route: "receipt", mode: 0, to: {name: 'receipt', params: { mode:0} }, icon: "mdi-plus-circle" },
+                        { id: "sales.receipt.preview", title: "Preview", route: "receipt", mode: 2, to: {name: 'receipt', params: { mode:2}}, icon: "mdi-file-document-outline" },
+                        { id: "sales.receipt.history", title: "History", route: "receipt", locked: true,  to: {name: 'receipt',params: { mode:3}}, icon: "mdi-history" },
 
                 ]
         }

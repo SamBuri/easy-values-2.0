@@ -4,7 +4,7 @@ import {defineRootStore} from "@/root/RootStore";
    export const defineSharesStore = defineStore("shares", {
 
 state: () => ({
-path: "shares/enums",
+path: "sharesenums",
 shareActions: [],
 shareActionsLoading: false,
   }),

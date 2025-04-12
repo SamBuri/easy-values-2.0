@@ -9,7 +9,7 @@
 
 <script>
 
-import LoanDashboard from '../loan/loan/LoanDashboard.vue';
+import LoanDashboard from '../loan/loaddashboard/LoanDashboard.vue';
 
 export default {
   name: 'Home',

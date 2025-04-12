@@ -1,22 +1,21 @@
 import rootController from "@/root/RootController";
 import receiptModel from "./ReceiptModel";
 import { onMounted } from "vue";
-import { defineCustomerStore } from "@/customer/customer/CustomerStore.js";
-import { defineBankingStore } from "@/banking/BankingStore.js";
+import { defineCustomerStore } from "../customer/CustomerStore.js";
 import { defineBankAccountStore } from "@/banking/bankaccount/BankAccountStore.js";
 import { defineCurrencyStore } from "@/lookup/currency/CurrencyStore.js";
 import { defineReceiptInvoiceStore } from "@/sales/receiptinvoice/ReceiptInvoiceStore.js";
 import { ref, watch, computed } from "vue";
-import customerNav from "@/customer/customer/CustomerNav";
+import customerNav from "../customer/CustomerNav";
 import { defineInvoiceStore } from "../invoice/InvoiceStore";
 import funcs from "@/utils/funcs";
+import bankAccountSelected from "@/root/compasables/BankAccountSelected";
+import currencySelected from "@/root/compasables/CurrencySelected";
 
 export default function receiptController() {
   const controller = rootController(receiptModel);
   const customerStore = defineCustomerStore();
   controller.customerStore = customerStore;
-  const bankingStore = defineBankingStore();
-  controller.bankingStore = bankingStore;
   const bankAccountStore = defineBankAccountStore();
   controller.bankAccountStore = bankAccountStore;
   const currencyStore = defineCurrencyStore();
@@ -26,10 +25,6 @@ export default function receiptController() {
   onMounted(() => {
     customerStore.getMini();
 
-    bankingStore.getBankAccountTypes();
-
-    bankAccountStore.getMini();
-
     currencyStore.getMini();
 
     receiptInvoiceStore.getMini();
@@ -37,7 +32,7 @@ export default function receiptController() {
 
   //customer selected starts here
 
-
+const model=controller.model.value;
 
   const customerIdOk = (data) => {
     if (data) {
@@ -48,6 +43,7 @@ export default function receiptController() {
     }
   };
 
+  bankAccountSelected(model);
 
 
   controller.customerIdOk = customerIdOk;
@@ -62,7 +58,7 @@ export default function receiptController() {
     () => controller.model.value.customerId,
     async (newValue) => {
       let returnedData = await invoiceStore.getDue(newValue);
-     let total=0;
+      let total = 0;
       var mappedList = returnedData.map((item) => {
         var container = {};
         container.id = item.id;
@@ -72,59 +68,59 @@ export default function receiptController() {
 
         return container;
       });
-      let customers=customerStore.mini.filter(m=>m.id===newValue);
+      let customers = customerStore.mini.filter(m => m.id === newValue);
       // controller.model.value.customerId = '';
-           controller.model.value.customer = '';
-      if(!customers.isEmpty()){
-           let customer = customers[0];
-           controller.model.value.customerId = customer.id;
-           controller.model.value.customer = customer.customerName;
+      controller.model.value.customer = '';
+      if (!customers.isEmpty()) {
+        let customer = customers[0];
+        controller.model.value.customerId = customer.id;
+        controller.model.value.customer = customer.customerName;
       }
 
       controller.model.value.receiptInvoiceRequests = mappedList;
-      totalBill.value= total;
-      controller.model.value.totalBill=total;
+      totalBill.value = total;
+      controller.model.value.totalBill = total;
     }
   );
 
 
-  const totalAmountPaid = computed(()=>{
+  const totalAmountPaid = computed(() => {
     let md = controller.model.value;
     return (md.amountTendered * md.exchangeRate) + md.discount + md.withholdingTax;
   });
 
-  const calculateChange=() =>{
+  const calculateChange = () => {
     let change = Math.round(Number(totalAmountPaid.value) - Number(controller.model.value.totalBill));
-     controller.model.value.changeGiven = change < 0 ? 0 : change;
+    controller.model.value.changeGiven = change < 0 ? 0 : change;
   }
 
-  const calculateReceiptInvoiceAmount=() =>{
+  const calculateReceiptInvoiceAmount = () => {
 
     //if (controller.rootState.buttonText === constants.buttonTexts.save) {
 
-      let amoutPaid = controller.model.value.amountPaid;
-      for (let receiptInvoice of controller.model.value.receiptInvoiceRequests) {
-        let invoiceAmount = receiptInvoice.invoiceAmount;
-        let toPayAmount = 0;
+    let amoutPaid = controller.model.value.amountPaid;
+    for (let receiptInvoice of controller.model.value.receiptInvoiceRequests) {
+      let invoiceAmount = receiptInvoice.invoiceAmount;
+      let toPayAmount = 0;
 
-        if (invoiceAmount >= amoutPaid) {
-          toPayAmount = amoutPaid;
-          amoutPaid = 0;
-        } else {
-          toPayAmount = invoiceAmount;
-          amoutPaid -= invoiceAmount;
-        }
+      if (invoiceAmount >= amoutPaid) {
+        toPayAmount = amoutPaid;
+        amoutPaid = 0;
+      } else {
+        toPayAmount = invoiceAmount;
+        amoutPaid -= invoiceAmount;
+      }
 
-        receiptInvoice.toPayAmount = toPayAmount;
-        // receiptInvoice.amount = toPayAmount;
-     // }
+      receiptInvoice.toPayAmount = toPayAmount;
+      // receiptInvoice.amount = toPayAmount;
+      // }
     }
   };
 
   controller.receiptInvoiceRequests = receiptInvoiceRequests;
   controller.invoiceStore = invoiceStore;
- controller.model.value.receiptInvoiceRequests = receiptInvoiceRequests;
-  const setAmountPaid = ()=> {
+  controller.model.value.receiptInvoiceRequests = receiptInvoiceRequests;
+  const setAmountPaid = () => {
     let discount = Number(controller.model.value.discount);
     let withholdingTax = Number(controller.model.value.withholdingTax)
 
@@ -137,46 +133,38 @@ export default function receiptController() {
     calculateReceiptInvoiceAmount();
   };
 
-watch([totalAmountPaid, ()=>controller.model.value.totalBill],()=>calculateChange())
-watch([totalAmountPaid, ()=>controller.model.value.changeGiven],()=>setAmountPaid())
-
-watch(
-    () => controller.model.value.bankAccountType,
-    (newValue) => {
-      if(newValue) bankAccountStore.getBankAccountsByType(newValue);
-    }
-  );
-
-  const setDefaultCurrency = ()=>{
-    if(currencyStore.defaultCurrency)
-      controller.model.value.currencyId = currencyStore.defaultCurrency.id;
-    }
-
-
-  watch(() => currencyStore.mini, () => setDefaultCurrency() );
+  watch([totalAmountPaid, () => controller.model.value.totalBill], () => calculateChange())
+  watch([totalAmountPaid, () => controller.model.value.changeGiven], () => setAmountPaid())
 
   watch(
-    () => controller.model.value.currencyId,
+    () => controller.model.value.bankAccountType,
     (newValue) => {
-
-      if (!newValue) {
-        setDefaultCurrency();
-        controller.model.value.exchangeRate = 1;
-        return;
-      }
-      let currencies = currencyStore.mini.filter((c) => c.id === newValue);
-
-      if (currencies.length < 1) {
-        controller.model.value.exchangeRate = 1;
-        return;
-      }
-
-      let currency = currencies[0];
-
-      controller.model.value.exchangeRate = currency.buying;
-      controller.model.value.currency = currency.currency;
+      if (newValue) bankAccountStore.getBankAccountsByType(newValue);
     }
   );
+
+  const setDefaultCurrency = () => {
+    if (currencyStore.defaultCurrency)
+      controller.model.value.currencyId = currencyStore.defaultCurrency.id;
+  }
+  
+  const setCustomerId=(customerId)=>{
+    controller.model.value.customerId=customerId;
+  }
+  controller.setCustomerId=setCustomerId;
+
+
+
+  watch(() => currencyStore.mini, () => setDefaultCurrency());
+
+  currencySelected(model, (currency) => {
+    if (currency) {
+      model.exchangeRate = currency.buying;
+      model.currency = currency.currency;
+    } else {
+      model.exchangeRate = 0;
+    }
+  });
 
   return controller;
 }

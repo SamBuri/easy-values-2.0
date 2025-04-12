@@ -137,10 +137,12 @@ const rules = controller.rules;
           :loading="controller.profileStore.miniLoading"
           item-title="display"
           item-value="id"
-          @ok="controller.guarantorsOk"
           :headers="controller.profileNav.menu.miniHeaders"
         ></s-multi-select-field>
       </v-col>
     </template>
   </crud-form>
 </template>
+
+
+<!-- @ok="controller.guarantorsOk" -->

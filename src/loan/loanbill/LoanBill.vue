@@ -63,7 +63,7 @@ const rules = controller.rules;
         <crud-table
           title="Loan Bill Details"
           :headers="controller.loanBillDetailNav.menu.editHeaders"
-          :items="model.loanBillDetails"
+          :items="model.loanBillDetailRequests"
           :component="controller.loanBillDetailNav.menu.component"
           maxWidth="700px"
           @after="controller.billDetailsChanged"

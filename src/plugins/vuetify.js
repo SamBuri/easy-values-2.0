@@ -69,7 +69,21 @@ export default createVuetify({
     },
 
   },
+  // theme: {
+  //   defaultTheme: 'light',
+    
+  // },
+
   theme: {
-    defaultTheme: 'light',
-  },
+    themes: {
+      light: {
+        disabled: 'yellow',
+        // other theme overrides
+      },
+      dark: {
+        disabled: 'yellow',
+        // other theme overrides
+      }
+    }
+  }
 })

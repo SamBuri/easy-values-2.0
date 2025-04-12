@@ -1,39 +1,9 @@
+<script setup>
+import weeklyNav from './WeeklyNav'
+</script>
+
 <template>
-    <s-periodic-report 
-      :maxWidth="maxWidth" :headers="weeklyNav.headers" :model="weeklyNav.model" :title="title" :passedColumn="passedColumn">
-    </s-periodic-report>
-  </template>
-  <script>
-
-import weeklyNav from './WeeklyNav';
-  export default {
-  
-    name: "weekly",
-  
-    data: () => ({
-      maxWidth: 1000,
-      weeklyNav: weeklyNav,
-      title: "Weekly Receipts",
-      passedColumn:"amount"
-    
-      
-    
-    }),
-    created() {
-
-  
-    },
-    computed: {
-     
-    },
-  
-    watch: {
-     
-    },
-  
-    methods: { 
-       
-    },
-  };
-  </script>
-  
+  <s-periodic-report maxWidth="1000" :headers="weeklyNav.headers" :model="weeklyNav.model" title="Weekly Receipts"
+    passedColumn="amount">
+  </s-periodic-report>
+</template>

@@ -8,6 +8,10 @@ export const defineItemStore = defineStore("item", {
     miniLoading: false,
     item: null,
     itemLoading: false,
+    billItems: [],
+    billItemsLoading: false,
+    expensableItems: [],
+    expensableItemsLoading: false,
   }),
   actions: {
     getMini() {
@@ -26,6 +30,42 @@ export const defineItemStore = defineStore("item", {
       );
       return data;
     },
+
+    getBillableItems() {
+
+      const rootStore = defineRootStore();
+       let data = rootStore.fetch(`${this.path}/mini/billables`,
+       ()=>{
+        this.billableItemsLoading =true
+        this.billableItems = [];
+ 
+      },
+ 
+       (res)=>this.billableItems = res.data,
+ 
+       ()=>this.billableItemsLoading = false)
+       console.log("Billables Working ", data);
+       return data;
+ 
+     },
+ 
+     getExpensableItems() {
+ 
+      const rootStore = defineRootStore();
+       let data = rootStore.fetch(`${this.path}/mini/expensables`,
+       ()=>{
+        this.expensableItemsLoading =true
+        this.expensableItems = [];
+ 
+      },
+ 
+       (res)=>this.expensableItems = res.data,
+ 
+       ()=>this.expensableItemsLoading = false)
+       console.log("ExpensableWorking Working ", data);
+       return data;
+ 
+     },
 
     getItem(id) {
       if(!id) return null;

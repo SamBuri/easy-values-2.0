@@ -20,6 +20,7 @@ const bankLedgerNav = {
     title: "Bank Ledgers",
     component: BankLedger,
     path: "bankledgers",
+    icon: "mdi-book-open-variant",
     width: "1000px",
     to: { name: "bankledgers" },
     editHeaders: [

@@ -5,7 +5,6 @@ import Search from "@/search/Search.vue";
 import lookupNavData from "../lookup/LookupNavData";
 import accountingNavData from "../accounting/AccountingNavData";
 import organisationNavData from "../organisation/OrganisationNavData";
-import customerNavData from "../customer/CustomerNavData";
 // import itemsNavData from '../items/ItemsNavData'
 import bankingNavData from "../banking/BankingNavData";
 import salesNavData from "../sales/SalesNavData";
@@ -44,18 +43,21 @@ const routes = [
         component: () => import('../components/STreeviewTest.vue')
       },
       {
+        path: '/currentbranch',
+        name: 'currentbranch',
+        // route level code-splitting
+        // this generates a separate chunk (About.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('../organisation/branch/CurrentBranch.vue')
+      },
+      {
         path: "/",
         name: "dashboard",
         component: Dashboard,
         meta: { auth: true },
       },
 
-      // {
-      //   path: "/tree",
-      //   name: "tree",
-      //   component: () => import('../components/STreeview.vue')
-      //   meta: { auth: true },
-      // },
+   
 
       {
         path: "/search/:action",
@@ -67,7 +69,6 @@ const routes = [
       ...lookupNavData.routes,
       ...organisationNavData.routes,
       ...accountingNavData.routes,
-      ...customerNavData.routes,
       ...salesNavData.routes,
       ...bankingNavData.routes,
       ...loanNavData.routes,
@@ -90,15 +91,16 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const branchStore = defineBranchStore();
-  if (branchStore.loadCurrentBranchVue && to.name!=='currentbranch') {
+  if (branchStore.loadCurrentBranchVue && to.name !== 'currentbranch' && from.name !== 'currentbranch') {
 
     next("/currentbranch");
-      return;
+
+    return;
 
   }
 
 
-   next();
+  next();
 
 })
 

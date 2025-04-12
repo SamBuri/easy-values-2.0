@@ -17,7 +17,8 @@ export default function billItemController() {
   controller.itemStore = itemStore;
   controller.itemNav = itemNav;
   onMounted(() => {
-    itemStore.getMini();
+
+    itemStore.getExpensableItems();
   });
 
   const model = controller.model.value;

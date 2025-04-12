@@ -9,7 +9,7 @@ const weeklyNav = {
                 meta: { auth: true }
         },
 
-        menu:  { id: "reports.loanbills.weekly", title: "Weekly",  to: {name:"weeklyloanbills" }},
+        menu:  { id: "reports.loanbills.weekly", title: "Weekly", icon: "mdi-note", to: {name:"weeklyloanbills" }},
 
         headers: [
         { title: "Year", key: "year", label: "Year", field: "year"},

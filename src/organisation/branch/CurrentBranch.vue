@@ -21,7 +21,7 @@ const set = () => {
   if (props.dialog) {
     emit("close");
   } else {
-    router.push({ name: "dashboard" });
+   router.push({ name: "dashboard" });
   }
 };
 </script>

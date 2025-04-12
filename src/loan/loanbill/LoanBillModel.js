@@ -4,13 +4,14 @@ loanId:"",
 billDate:new Date(),
 balance:"",
 amount:"",
-loanBillDetails:[],
+loanBillDetailRequests:[],
 
 clear(){
 this.loanId="";
 this.billDate=new Date();
 this.balance="";
 this.amount="";
+this.loanBillDetailRequests=[];
 this.loanBillDetails=[];
 },
 copy(obj){
@@ -20,6 +21,7 @@ this.billDate = obj.billDate;
 this.balance = obj.balance;
 this.amount = obj.amount;
 this.loanBillDetails = obj.loanBillDetails;
+this.loanBillDetailRequests = obj.loanBillDetails;
 
 },
 printOptions(){let data = [];

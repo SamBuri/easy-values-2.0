@@ -21,6 +21,7 @@ const itemNav = {
     component: Item,
     path: "items",
     width: "1000px",
+    icon: "mdi-invoice-list",
     miniHeaders: [
       {
         title: "Id",
@@ -78,21 +79,23 @@ const itemNav = {
       { title: "Modified By", key: "modifiedBy" },
     ],
     children: [
-      { id: "lookup.item.view", title: "View", to: { name: "items" } },
+      { id: "lookup.item.view", title: "View", to: { name: "items" }, icon: "mdi-table"  },
       {
         id: "lookup.item.new",
         title: "New",
         to: { name: "item", params: { mode: 0 } },
+       icon: "mdi-plus-circle",
       },
       {
         id: "lookup.item.edit",
         title: "Edit",
-        to: { name: "item", params: { mode: 1 } },
+        to: { name: "item", params: { mode: 1 } , },
+        icon: "mdi-pencil"
       },
       {
         id: "lookup.item.history",
         title: "History",
-        to: { name: "item", params: { mode: 2 } },
+        to: { name: "item", params: { mode: 2 } , icon: "mdi-history"},
       },
     ],
   },

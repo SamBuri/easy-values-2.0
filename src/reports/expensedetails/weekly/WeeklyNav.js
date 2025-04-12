@@ -9,7 +9,7 @@ const weeklyNav = {
                 meta: { auth: true }
         },
 
-        menu:  { id: "reports.expensedetails.weekly", title: "Weekly",  to: {name:"weeklyexpensedetails" }},
+        menu:  { id: "reports.expensedetails.weekly", title: "Weekly",icon: "mdi-cash-refund",  to: {name:"weeklyexpensedetails" }},
 
         headers: [
         { title: "Year", key: "year", label: "Year", field: "year"},

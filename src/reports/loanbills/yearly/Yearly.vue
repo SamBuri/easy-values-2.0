@@ -1,39 +1,8 @@
-<template>
-    <s-periodic-report 
-      :maxWidth="maxWidth" :headers="yearlyNav.headers" :model="yearlyNav.model" :title="title" :passedColumn="passedColumn">
-    </s-periodic-report>
-  </template>
-  <script>
-
+<script setup>
 import yearlyNav from '../yearly/YearlyNav'
-  export default {
-  
-    name: "Yearly",
-  
-    data: () => ({
-      maxWidth: 1000,
-      yearlyNav: yearlyNav,
-      title: "Yearly Loan Bills",
-      passedColumn:"amount"
-    
-      
-    
-    }),
-    created() {
-
-  
-    },
-    computed: {
-     
-    },
-  
-    watch: {
-     
-    },
-  
-    methods: { 
-       
-    },
-  };
-  </script>
-  
+</script>
+<template>
+  <s-periodic-report maxWidth="1000" :headers="yearlyNav.headers" :model="yearlyNav.model" title="Yearly Loan Bills"
+    passedColumn="amount">
+  </s-periodic-report>
+</template>

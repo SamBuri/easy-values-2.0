@@ -3,7 +3,7 @@ import httpMethods from "@/utils/HttpMethods";
 import {defineRootStore} from "@/root/RootStore"
 export const defineBankingStore = defineStore("banking", {
   state: () => ({
-    path: "banking/enums",
+    path: "bankingenums",
     bankAccountTypes: [],
     bankAccountTypesLoading: false,
   }),

@@ -3,7 +3,6 @@ import profileNav from './ProfileNav';
 import profileController from "./ProfileController";
 import searchMenuController from "@/search/SearchMenuController";
 const controller= profileController();
-console.log("Passed Profile Controller", controller)
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= profileNav.menu;
 const menuItems = [
@@ -13,7 +12,7 @@ const menuItems = [
       { title: "Re-post", icon: "mdi-send",click: (options)=>republish(options) },
     ]
 
-
+    
 </script>
 <template>
   <search :menu="menu" :menuItems ="menuItems"></search>

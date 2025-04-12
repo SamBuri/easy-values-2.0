@@ -1,22 +1,17 @@
 import axios from "axios";
 import constants from "./constants";
-import store from "../store/index";
 import { useAuthStore } from "@/store/authstore";
 import { defineTenantStore } from "@/organisation/tenant/TenantStore";
 import { defineBranchStore } from "@/organisation/branch/BranchStore";
-// import keycloakToken from './keycloakToken'
-// const processingEnvironment = 'dev'; //'test', 'dev' , 'live'
-// const devBaseDomain = http://localhost:8089/'; //dev Server
-// const liveBaseDomain = 'https://capiservicegateway.herokuapp.com/'; //test Server
 
-// var baseUrl = (processingEnvironment == 'live') ? liveBaseDomain : devBaseDomain;
-// var remUrl = "http://easy-loadba-ymtyd37ppzwe-1808acffc1463c96.elb.us-east-1.amazonaws.com:8089/";
+const config = window.__APP_CONFIG__ || {};
 
-// var remUrl = "" //process.env.VUE_APP_API_PATH
-// console.log("API URL", window.VUE_APP_API_URL)
-var baseURL = ""; // window.VUE_APP_API_URL;
-// var apiUrl =  baseURL?baseURL:"https://api.capidattex.net/"
-var apiUrl = baseURL ? baseURL : "http://ev.test:8089/";
+console.log("Environment Variables:", import.meta.env);
+var baseURL = import.meta.env.VITE_API_URL;
+// baseURL= window.appConfig?.API_URL||baseURL
+// baseURL="https://api.capidattex.net/"
+console.log("API URL", baseURL)
+var apiUrl = baseURL ||"http://localhost:8089/";
 console.log("The API Gateway 1", apiUrl);
 
 const api = {
@@ -28,11 +23,7 @@ const api = {
     let tenant = tenantStore.firstTenant;
     let currentBranch = branchStore.currentBranch;
 
-    // let ct =  Date.now();
-
-    // if(expiry-60000<=ct){
-    //    authStore.refreshUserToken();
-    // }
+    
 
     let keycloak = authStore.keycloak
     if(!keycloak) window.location.reload;

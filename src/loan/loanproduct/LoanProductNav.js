@@ -86,21 +86,25 @@ const loanProductNav = {
       {
         id: "loan.loanProduct.view",
         title: "View",
+        icon: "mdi-table",
         to: { name: "loanproducts" },
       },
       {
         id: "loan.loanProduct.new",
         title: "New",
+        icon: "mdi-plus-circle",
         to: { name: "loanproduct", params: { mode: 0 } },
       },
       {
         id: "loan.loanProduct.edit",
         title: "Edit",
+        icon: "mdi-pencil",
         to: { name: "loanproduct", params: { mode: 1 } },
       },
       {
         id: "loan.loanProduct.history",
         title: "History",
+        icon: "mdi-history",
         to: { name: "loanproduct", params: { mode: 2 } },
       },
     ],

@@ -9,7 +9,7 @@ const dailyNav = {
                 meta: { auth: true }
         },
 
-        menu:  { id: "reports.loans.daily", title: "Daily",  to: {name:"dailyloans"} },
+        menu:  { id: "reports.loans.daily", title: "Daily", icon: "mdi-note",  to: {name:"dailyloans"} },
 
         headers: [
         { title: "Loan Date", key: "date", label: "Loan Date", field: "date", isDate: true, chartLabel: true},

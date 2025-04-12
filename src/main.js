@@ -24,6 +24,8 @@ registerPlugins(app);
 registerComponents(app);
 //initialize keycloak
 initKeyCloak(()=>app.mount("#app"));
+console.log("Environment Variables:", import.meta.env);
+console.log("Testing:");
 
 
 

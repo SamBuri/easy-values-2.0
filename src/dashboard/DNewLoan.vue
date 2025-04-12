@@ -1,10 +1,26 @@
+<script setup>
+ import { defineLoanStore } from '@/loan/loan/LoanStore'; 
+  import { onMounted, computed } from 'vue';
+  import loanNav from '../loan/loan/LoanNav';
+  const loanStore = defineLoanStore();
+   onMounted(()=>{
+     loanStore.getNewLoans();
+   })
+ 
+   const dashboardList = computed(()=>loanStore.newLoans);
+   const headers = loanNav.menu.midHeaders;
+   const toSumField = "principle";
+ 
+  
+</script>
 <template>
+
     <s-count-dashboard-card title="New Loans"  :items="dashboardList" :toSumField="toSumField" :headers="headers"
     @open="open" @close="close" :dialog="dialog">
     </s-count-dashboard-card>
 </template>
 
-<script>
+<!-- <script>
 import loanNav from '../loan/loan/LoanNav'
 export default {
   name: 'DNewLoan',
@@ -38,4 +54,4 @@ export default {
     }
   }
 };
-</script>
+</script> -->

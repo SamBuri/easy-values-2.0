@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import httpMethods from "@/utils/HttpMethods";
+import funcs from "@/utils/funcs";
 
 export const defineRootStore = defineStore("root", {
   state: () => ({
@@ -18,6 +19,10 @@ export const defineRootStore = defineStore("root", {
   }),
 
   actions: {
+    getDefaultFromList(list, returnAny=true) {
+      return funcs.getDefaultFromList(list,returnAny);
+    }
+    ,
     setResults(data) {
       if (data !== null)
         this.results = {
@@ -40,12 +45,8 @@ export const defineRootStore = defineStore("root", {
         .then((response) => {
           var data = response.data;
           console.log("Response ", data);
-          this.results = {
-            success: data.success,
-            message: data.message,
-            show: true,
-            entity: data.entity,
-          };
+          this.results = this.results = data;
+          this.results.show= true;
           return this.results;
         })
         .catch((error) => {

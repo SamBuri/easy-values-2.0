@@ -3,7 +3,7 @@ import { defineRootStore } from "@/root/RootStore";
 
 export const defineOrganisationStore = defineStore("organisation", {
   state: () => ({
-    path: "organisation/enums/",
+    path: "organisationenums/",
     businessTypes: [],
     dbTypes: [],
     dbTypesLoading: false,

@@ -21,8 +21,8 @@
 
       </div>
 
-      <v-progress-linear :active="$store.state.loading" :indeterminate="$store.state.loading" absolute bottom
-        color="deep-purple accent-4"></v-progress-linear>
+      <!-- <v-progress-linear :active="$store.state.loading" :indeterminate="$store.state.loading" absolute bottom
+        color="deep-purple accent-4"></v-progress-linear> -->
 
 
       <v-spacer></v-spacer>

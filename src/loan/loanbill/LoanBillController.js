@@ -9,7 +9,7 @@ import { defineLoanBillDetailStore } from "@/loan/loanbilldetail/LoanBillDetailS
 import loanController from "../loan/LoanController";
 import defineBillDetailsModifier from "@/root/compasables/BillDetailModifier";
 import defineBillDetailsModifierFunc from "@/root/compasables/BillDetailModifierFunc";
-
+import loanProductChargeNav from "../loanproductcharge/LoanProductChargeNav";
 export default function loanBillController() {
   const controller = rootController(loanBillModel);
 
@@ -27,12 +27,18 @@ export default function loanBillController() {
   controller.setLoanBillDetailData = setLoanBillDetailData;
   controller.loanNav = loanNav;
   controller.loanBillDetailNav = loanBillDetailNav;
+  controller.loanProductChargeNav = loanProductChargeNav;
   onMounted(() => {
     loanStore.getMini();
   });
 
   const model = controller.model.value;
   const lcontroller = loanController();
+
+  const setLoanId = (id) => {
+    model.loanId = id;
+  }
+  controller.setLoanId = setLoanId;
 
   watch(
     () => model.loanId,
@@ -54,7 +60,7 @@ export default function loanBillController() {
 
   controller.billDetailsChanged = billDetailsChanged;
 
-  defineBillDetailsModifier(() => model.loanBillDetails, "balance", model);
+  defineBillDetailsModifier(() => model.loanBillDetailRequests, "balance", model);
 
   return controller;
 }

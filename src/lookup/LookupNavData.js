@@ -18,7 +18,7 @@ const lookupNavData = {
   nav: {
     id: "Lookup",
     title: "Lookup",
-    icon: "mdi-view-dashbord",
+    icon: "mdi-form-dropdown",
     children: [
       lookupDataNav.menu,
       measureGroupNav.menu,

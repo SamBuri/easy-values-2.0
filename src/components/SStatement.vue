@@ -22,7 +22,7 @@ const model = ref(props.passedData.model);
 const tenantStore = defineTenantStore();
 
 const search = () => {
-  form.value.validate();
+  form.value?.validate();
   // model.value.startDate = funcs.formatDate(model.value.startDate);
   // model.value.endDate = funcs.formatDate(model.value.endDate);
 
@@ -30,7 +30,7 @@ const search = () => {
 };
 
 const searchData = (e) => {
-  e.preventDefault();
+  e?.preventDefault();
   search();
 };
 
@@ -38,6 +38,7 @@ const branches = computed(() => tenantStore.getCurrentTenantBranches);
 
 onMounted(() => {
   model.value.branches = branches.value.map((m) => m.id);
+  search();
 });
 
 const data = computed(() => reportSore.periodicReportData);
@@ -237,184 +238,6 @@ const title = props.passedData.menu.title;
   </container>
 </template>
 
-<!-- <script>
-
-
-import funcs from '../utils/funcs';
-
-export default {
-    name: "SStatement",
-    props: ["model", "headers", "data", "loading", "title", "accountTypes", "balanceName", 'balance'],
-    components: {
-
-    },
-    data: () => ({
-
-        valid: false,
-        deleteLoading: false,
-        branchesRules: [(v) => !!v || "Must select atleast one branch"],
-        startDateRules: [(v) => !!v || "Start Date is required"],
-        endDateRules: [(v) => !!v || "End Date is required"],
-
-
-        cols: 12,
-        sm: 6,
-        md: 3,
-
-
-    }),
-
-
-    computed: {
-        tenant() {
-            return this.$store.state.security.user.tenant;
-        },
-        branches() {
-            if (this.tenant) {
-                return this.tenant.company.branches;
-            }
-            return [];
-        },
-        currentBranch() {
-            return this.$store.state.security.user.currentBranch;
-        },
-
-
-
-        count() {
-            return this.data.length;
-        },
-
-
-
-
-
-
-    },
-
-    watch: {
-
-        branches() {
-            this.model.branches = [];
-            if (this.currentBranch) {
-                this.model.branches.push(this.currentBranch.id);
-            }
-        },
-
-        currentBranch() {
-            this.model.branches = [];
-            if (this.currentBranch) {
-                this.model.branches.push(this.currentBranch.id);
-            }
-        },
-
-    },
-
-
-    mounted() {
-        this.setBranch();
-        this.search();
-
-
-
-    },
-
-    methods: {
-
-        searchData(e) {
-            e.preventDefault();
-            this.search();
-        },
-
-        search() {
-            this.$refs.form.validate();
-            if (!this.valid) return;
-            this.$store.dispatch("components/getPeriodicReport", { path: this.model.path, body: this.model });
-        },
-
-        setBranch() {
-            this.model.branches = [];
-            if (this.currentBranch) {
-                this.model.branches.push(this.currentBranch.id);
-            }
-        },
-
-
-
-
-
-
-
-
-        sum(accountType) {
-            if (!this.data) return 0;
-            return this.data
-                .filter(a => a.accountType === accountType)
-                .map((a) => a.balance)
-                .map(Number)
-                .reduce((a, b) => a + b, 0).toFixed(2);
-
-
-        },
-
-
-
-        sumFormatted(accountType) {
-            return funcs.formatNumber(this.sum(accountType));
-        },
-
-        formatNumber(number) {
-            number = number.toFixed(2);
-            return funcs.formatNumber(number);
-        },
-
-        sumCategory(accountCategoryId) {
-            if (!this.data) return 0;
-
-            return funcs.formatNumber(this.data
-                .filter(a => a.accountCategoryId === accountCategoryId)
-                .map((a) => a.balance)
-                .map(Number)
-                .reduce((a, b) => a + b, 0).toFixed(2));
-
-
-        },
-
-        getCategoryName(id) {
-            let itemcategories = this.data
-                .filter(a => a.accountCategoryId === id)
-                .map(a => a.categoryName);
-
-            return itemcategories[0];
-        },
-
-        avg(fieldName) {
-            let sum = this.sum(fieldName);
-            let avLength = this.data.filter(a => !a.isTotal).length;
-            return Math.ceil(sum / avLength);
-
-
-        },
-
-        getItemCategoriesByAccountType(accountType) {
-            return this.data.filter(d => d.accountType === accountType);
-        },
-
-        getItemDistinctCategoriesByAccountType(accountType) {
-            return [...new Set(this.data.filter(d => d.accountType === accountType).map(d => d.accountCategoryId))];
-        },
-
-        getItemsByCategoryId(accountCategoryId) {
-            return this.data.filter(d => d.accountCategoryId === accountCategoryId);
-        },
-
-
-
-
-    },
-};
-</script> -->
-
 <style>
 .grid-container {
     display: grid;
@@ -443,3 +266,7 @@ export default {
     font-weight: bold;
 }
 </style>
+
+
+docker build . t samburi/easyvalues:2.0
+docker bush samburi/easyvalues:2.0

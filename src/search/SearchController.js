@@ -54,11 +54,17 @@ export default function searchController(menu, menuItems) {
   const operationObj = computed(() => searchCriterion.value.operationObj);
 
   const isBetween = computed(() => {
+    
     if (!operationObj.value) return false;
+    let operation = operationObj.value.value;
+    if (!operation) return false;
     return (
-      operationObj.value === "BETWEEN" ||
-      operationObj.value === "BETWEEN_INCLUSIVE"
+      operation === "BETWEEN" ||
+      operation === "BETWEEN_INCLUSIVE" ||
+      operation === "BETWEEN_EXCLUSIVE"
     );
+  
+  
   });
 
   const showAggregate = computed(() => numericHeader.value);
@@ -203,10 +209,13 @@ export default function searchController(menu, menuItems) {
   const branchStore = defineBranchStore();
 
   const setBranchCriterion = () => {
-    searchOptions.searchCriteria = [];
+    searchOptions.value.searchCriteria = [];
     let currentBranchCriterion = branchStore.getCurrentBranchCriterion;
+    console.log("Current Branch Criterion", currentBranchCriterion)
+
     if (currentBranchCriterion) {
-      searchOptions.value.searchCriteria.push(currentBranchCriterion);
+      if (!(currentBranchCriterion.key || currentBranchCriterion.operation || currentBranchCriterion.value)) return
+      searchOptions.value.searchCriteria.push(Object.assign({}, currentBranchCriterion));
     }
   };
 
@@ -271,7 +280,7 @@ export default function searchController(menu, menuItems) {
 
   const editDialog = ref(false);
   const openEditDialog = () => {
-  editDialog.value = true;
+    editDialog.value = true;
 
   };
 
@@ -283,9 +292,7 @@ export default function searchController(menu, menuItems) {
 
   const deleteDialog = ref(false);
 
-  const openDeleteDialog = () => {
-    deleteDialog.value = true;
-  };
+  const openDeleteDialog = () =>  deleteDialog.value = true; 
 
   const deleteItemConfirm = () => deleteDialog.value = false;
 
@@ -295,21 +302,22 @@ export default function searchController(menu, menuItems) {
   };
 
   const mode = ref(0);
-  const setMode = (v)=>{
+  const setMode = (v) => {
 
-    mode.value=v;}
+    mode.value = v;
+  }
 
-    const buttonLabel = ref(constants.buttonTexts.save)
-    const setButtonLabel = (text)=>buttonLabel.value = text;
-  const contextMenuOption =  computed(()=>{
-     return {
+  const buttonLabel = ref(constants.buttonTexts.save)
+  const setButtonLabel = (text) => buttonLabel.value = text;
+  const contextMenuOption = computed(() => {
+    return {
       item: currentItem.value,
       openEdit: openEditDialog,
-      openDelete:openDeleteDialog,
+      openDelete: openDeleteDialog,
       setMode: setMode,
-      setButtonLabel:setButtonLabel
+      setButtonLabel: setButtonLabel
 
-     }
+    }
   })
 
 
@@ -319,6 +327,8 @@ export default function searchController(menu, menuItems) {
     searchData();
     setSearchCriterion();
   };
+
+
 
   return {
     headers,
@@ -357,7 +367,7 @@ export default function searchController(menu, menuItems) {
     hasNumericHeaders,
     numericHeaders,
     numericHeader,
-    editDialog,openEditDialog, closeEditDialog,
+    editDialog, openEditDialog, closeEditDialog,
     openDeleteDialog,
     contextMenuOption,
     currentItem,

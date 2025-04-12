@@ -5,6 +5,7 @@ export default function profileSelected(model, callBack){
 
   const defaultFunction=(profile)=>{
     model.profile =null;
+    model.profileId = '';
     model.name= '';
     model.fullName =''
     model.primaryPhoneNo='';
@@ -22,6 +23,7 @@ export default function profileSelected(model, callBack){
       model.fullName=profile.display
       model.otherPhoneNos=profile.otherPhoneNos
       model.address= profile.addressDetails;
+      model.profileId = profile.id;
 
     }
 

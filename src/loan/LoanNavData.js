@@ -6,9 +6,11 @@ import loanNav from "./loan/LoanNav"
 import loanBillNav from "./loanbill/LoanBillNav"
 import loanTransitionNav from "./loantransition/LoanTransitionNav"
 import loanBillDetailNav from "./loanbilldetail/LoanBillDetailNav"
+import loanDashboardNav from "./loaddashboard/LoanDashboardNav"
 
 const loanNavData = {
     routes: [
+        ...loanDashboardNav.routes,
         ...periodNav.routes,
         ...loanProductNav.routes,
         ...loanApplicationNav.routes,
@@ -23,7 +25,7 @@ const loanNavData = {
     nav: {
         id: "loan",
         title: "Loan",
-        icon: "mdi-view-dashbord",
+        icon: "mdi-cash-100",
         children: [
             periodNav.menu,
             loanProductNav.menu,

@@ -7,9 +7,11 @@ export default function currencySelected(model, callBack){
   const defaultFunction=(currency)=>{
     if (currency) {
       model.exchangeRate = currency.buying;
+      model.currency = currency.currency;
 
     } else {
       model.exchangeRate= 0;
+      model.currency = "";
     }
 
   }

@@ -9,7 +9,7 @@ const dailyNav = {
                 meta: { auth: true }
         },
 
-        menu:  { id: "reports.expensedetails.daily", title: "Daily",  to: {name: "dailyexpensedetails" }},
+        menu:  { id: "reports.expensedetails.daily", title: "Daily",icon: "mdi-cash-refund",  to: {name: "dailyexpensedetails" }},
 
         headers: [
         { title: "Tran Date", key: "tranDate", isDate: true},

@@ -2,7 +2,11 @@ import { defineStore } from "pinia";
 import {defineRootStore} from "@/root/RootStore"
 export const defineSalesStore = defineStore("sales", {
   state: () => ({
-    path: "sales/enums",
+    path: "salesenums",
+    engagementModes: [],
+    engagementModesLoading: false,
+    engagementReasons: [],
+    engagementReasonsLoading: false,
     refundTypes: [],
     refundTypesLoading: false,
 
@@ -10,6 +14,38 @@ export const defineSalesStore = defineStore("sales", {
     writeOffTypesLoading: false,
   }),
   actions: {
+
+    async getEngagementModes() {
+      const rootStore = defineRootStore();
+      let data = await rootStore.fetch(
+        `${this.path}/engagementmodes`,
+        () => {
+          this.engagementModesLoading = true;
+          this.engagementModes = [];
+        },
+
+        (res) => (this.engagementModes = res.data),
+
+        () => (this.engagementModesLoading = false)
+      );
+      return data;
+    },
+
+    async getEngagementReasons() {
+      const rootStore = defineRootStore();
+      let data = await rootStore.fetch(
+        `${this.path}/engagementreasons`,
+        () => {
+          this.engagementReasonsLoading = true;
+          this.engagementReasons = [];
+        },
+
+        (res) => (this.engagementReasons = res.data),
+
+        () => (this.engagementReasonsLoading = false)
+      );
+      return data;
+    },
 
     async getRefundTypes() {
       const rootStore = defineRootStore();
@@ -43,5 +79,9 @@ export const defineSalesStore = defineStore("sales", {
       return data;
     },
 
+
+
   },
+
+  
 });

@@ -9,6 +9,7 @@ const controller = loanController();
 
 const model = controller.model;
 const rules = controller.rules;
+const isSave = controller.isSave;
 </script>
 <template>
   <crud-form :controller="controller">
@@ -30,13 +31,13 @@ const rules = controller.rules;
 
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-autocomplete
-          id="businessSectionId"
-          label="Business Section"
-          v-model="model.businessSectionId"
-          :rules="rules.businessSectionId"
-          :items="controller.lookupDataStore.businessSections"
-          :loading="controller.lookupDataStore.businessSectionsLoading"
-          item-title="lookupDataName"
+          id="customerTypeId"
+          label="Customer Type"
+          v-model="model.customerTypeId"
+          :rules="rules.customerTypeId"
+          :items="controller.customerGroupStore.mini"
+          :loading="controller.customerGroupStore.miniLoading"
+          item-title="customerGroup"
           item-value="id"
         ></s-autocomplete>
       </v-col>
@@ -59,15 +60,7 @@ const rules = controller.rules;
           item-value="id"
         ></s-autocomplete>
       </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <s-number-input
-          id="principle"
-          label="Principle"
-          v-model="model.principle"
-          :rules="rules.principle"
-          disabled
-        ></s-number-input>
-      </v-col>
+      
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-text-field
           id="bankAccountType"
@@ -104,11 +97,30 @@ const rules = controller.rules;
           disabled
         ></s-text-field>
       </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
+      <!-- <v-col :cols="cols" :sm="sm" :md="md">
         <s-number-input
           id="appliedForAmount"
           label="Applied For Amount"
           v-model="model.appliedForAmount"
+          disabled
+        ></s-number-input>
+      </v-col> -->
+
+      <v-col :cols="cols" :sm="sm" :md="md">
+        <s-number-input
+          id="principle"
+          label="Principle"
+          v-model="model.principle"
+          :rules="rules.principle"
+          disabled
+        ></s-number-input>
+      </v-col>  
+
+      <v-col :cols="cols" :sm="sm" :md="md" v-if="isSave">
+        <s-number-input
+          id="payableAmount"
+          label="Payable Amount"
+          v-model="model.payableAmount"
           disabled
         ></s-number-input>
       </v-col>
@@ -135,6 +147,15 @@ const rules = controller.rules;
           v-model="model.estimatedCollateralValue"
          disabled
         ></s-number-input>
+      </v-col>
+
+      <v-col cols="12" v-if="isSave">
+        <crud-table
+          title="Loan Charges"
+          :headers="controller.loanProductChargeNav.menu.miniHeaders"
+          :items="model.charges"
+         
+        />
       </v-col>
     </template>
   </crud-form>

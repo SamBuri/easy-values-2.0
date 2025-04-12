@@ -11,6 +11,7 @@ const bankTransferNav = {
     {
       path: "/banktransfers",
       name: "banktransfers",
+      icon: "mdi-transfer",
       component: BankTransfers,
       meta: { auth: true },
     },
@@ -23,11 +24,9 @@ const bankTransferNav = {
     width: "1000px",
     editHeaders: [
       { title: "From Account Type", key: "fromAccountType" },
-      { title: "From Account", key: "fromAccount", isNumeric: true },
-      { title: "From Currency", key: "fromCurrencyId", isNumeric: true },
+      { title: "From Account", key: "fromAccount.bankAccountName", },
       { title: "To Account Type", key: "toAccountType" },
-      { title: "To Account", key: "toAccount", isNumeric: true },
-      { title: "To Currency", key: "toCurrencyId", isNumeric: true },
+      { title: "To Account", key: "toAccount.bankAccountName" },
       { title: "Reference No", key: "referenceNo" },
       { title: "Exchange Rate", key: "exchangeRate", isNumeric: true },
       { title: "Amount Tendered", key: "amountTendered", isNumeric: true },
@@ -38,18 +37,10 @@ const bankTransferNav = {
       { title: "Actions", key: "actions" },
     ],
     headers: [
-      {
-        title: "Id",
-        align: "start",
-        // sortable: false,
-        key: "id",
-      },
       { title: "From Account Type", key: "fromAccountType" },
-      { title: "From Account", key: "fromAccount", isNumeric: true },
-      { title: "From Currency", key: "fromCurrencyId", isNumeric: true },
+      { title: "From Account", key: "fromAccount.bankAccountName", },
       { title: "To Account Type", key: "toAccountType" },
-      { title: "To Account", key: "toAccount", isNumeric: true },
-      { title: "To Currency", key: "toCurrencyId", isNumeric: true },
+      { title: "To Account", key: "toAccount.bankAccountName" },
       { title: "Reference No", key: "referenceNo" },
       { title: "Exchange Rate", key: "exchangeRate", isNumeric: true },
       { title: "Amount Tendered", key: "amountTendered", isNumeric: true },
@@ -57,6 +48,8 @@ const bankTransferNav = {
       { title: "Amount", key: "amount", isNumeric: true },
       { title: "Transfer Date", key: "transferDate", isDate: true },
       { title: "Notes", key: "notes" },
+      { title: "BL Posted", key: "blPosted", },
+      { title: "GL Posted", key: "glPosted", },
       { title: "Branch", key: "branch" },
       {
         title: "Creation Date",
@@ -77,21 +70,20 @@ const bankTransferNav = {
       {
         id: "banking.bankTransfer.view",
         title: "View",
+        icon: "mdi-table",
         to: { name: "banktransfers" },
       },
       {
         id: "banking.bankTransfer.new",
         title: "New",
+        icon: "mdi-plus-circle",
         to: { name: "banktransfer", params: { mode: 0 } },
       },
-      {
-        id: "banking.bankTransfer.edit",
-        title: "Edit",
-        to: { name: "banktransfer", params: { mode: 1 } },
-      },
+      
       {
         id: "banking.bankTransfer.history",
         title: "History",
+        icon: "mdi-history",
         to: { name: "banktransfer", params: { mode: 2 } },
       },
     ],

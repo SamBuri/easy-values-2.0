@@ -1,6 +1,6 @@
 import { watch } from "vue";
 import { defineBankAccountStore } from "@/banking/bankaccount/BankAccountStore.js";
-import currencySelected from "./CurrencySelected";
+
 export default function bankAccountSelected(model, callBack){
   const bankAccountStore = defineBankAccountStore();
 
@@ -20,6 +20,10 @@ export default function bankAccountSelected(model, callBack){
   watch(
     () => model.bankAccountId,
     async (newValue) => {
+      model.balance = 0;
+      model.bankAccountType = "";
+      model.currency = "";
+      model.currencyId ="";
 
       let bankAccount = await bankAccountStore.getMiniBankAccount(newValue);
       if(callBack) callBack(bankAccount);

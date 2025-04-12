@@ -20,6 +20,7 @@ import ItemCategory from './ItemCategory.vue'
                 component: ItemCategory,
                 path: "itemcategories",
                 width: "700px",
+                icon: "mdi-forum",
                 editHeaders: [{ title: "Item Category", key: "itemCategory", label: "Item Category", field: "itemCategory" },
                 { title: "Item Group", key: "itemGroup", label: "Item Group", field: "itemGroup" },
                 { title: "Billable", key: "billable", label: "Billable", field: "billable" },
@@ -42,10 +43,10 @@ import ItemCategory from './ItemCategory.vue'
                 { title: "Created By", key: "createdBy", label: "Created By", field: "createdBy" },
                 { title: "Modified By", key: "modifiedBy", label: "Modified By", field: "modifiedBy" }],
                 children: [
-                  { id: "lookup.itemCategory.view", title: "View", to:{ name: "itemcategories"} },
-                  { id: "lookup.itemCategory.new", title: "New", to:{ name: "itemcategory", params: {mode:0}} },
-                { id: "lookup.itemCategory.edit", title: "Edit", to:{ name: "itemcategory", params: {mode:1}} },
-                { id: "lookup.itemCategory.history", title: "History", to:{ name: "itemcategory", params: {mode:2}}},
+                  { id: "lookup.itemCategory.view", title: "View", to:{ name: "itemcategories"}, icon: "mdi-table" },
+                  { id: "lookup.itemCategory.new", title: "New", to:{ name: "itemcategory", params: {mode:0}}, icon: "mdi-plus-circle" },
+                { id: "lookup.itemCategory.edit", title: "Edit", to:{ name: "itemcategory", params: {mode:1, }}, icon: "mdi-pencil" },
+                { id: "lookup.itemCategory.history", title: "History", to:{ name: "itemcategory", params: {mode:2}}, icon: "mdi-history" },
                 ]
         }
 }

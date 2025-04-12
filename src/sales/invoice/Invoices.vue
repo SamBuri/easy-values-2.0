@@ -1,30 +1,19 @@
-<template>
-  <search :menu="menu" :menuItems ="menuItems"  @itemSelected="itemSelected"></search>
-</template>
-<script>
-import invoiceNav from './InvoiceNav';export default {
-  name: "Invoice",
- data: () => ({
-  
-     menu: invoiceNav.menu,
-     menuItems: [
-      { title: "Add", icon: "mdi-plus" },
-     { title: "Re-post", icon: "mdi-send" },
-    ],
-  
-  }),
+<script setup>
+import invoiceNav from './InvoiceNav';
+import invoiceController from "./InvoiceController";
+import searchMenuController from "@/search/SearchMenuController";
+const controller= invoiceController();
+const {save, edit, deleteItem, republish}=searchMenuController(controller)
+const menu= invoiceNav.menu;
+const menuItems = [
+      { title: "Add", icon: "mdi-plus", click: (options)=>save(options)},
+      
+      { title: "Re-post", icon: "mdi-send",click: (options)=>republish(options) },
+    ]
 
-methods: {
- itemSelected(selectedItem, items) {
-      switch (selectedItem) {
-        case 0:
-          this.saveClicked();
-          break;
-          case 1:
-          this.republishClicked(items);
-          break;
-      }
-    },
- },
-};
+    
 </script>
+<template>
+  <search :menu="menu" :menuItems ="menuItems"></search>
+</template>
+

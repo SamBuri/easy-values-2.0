@@ -9,6 +9,7 @@ export const defineTenantStore =defineStore ("tenant", {
       tenant: null,
       firstTenant: null,
       currentTenantBranches: [],
+
     }),
     persist: true,
     getters: {
@@ -24,6 +25,11 @@ export const defineTenantStore =defineStore ("tenant", {
 
         hasBraches() {
          return this.getCurrentTenantBranches.length>0;
+        },
+
+        getDefaultBranch(){
+          let branches =this.getCurrentTenantBranches;
+          return branches.length>0?branches[0]:null;
         },
 
 
@@ -66,6 +72,8 @@ export const defineTenantStore =defineStore ("tenant", {
         this.firstTenant=firstTenant;
       },
 
+      
+
       async getFirstTenant() {
           if (this.firstTenant) { return }
           let host =window.location.host;
@@ -75,6 +83,7 @@ export const defineTenantStore =defineStore ("tenant", {
                   let res = response.data;
                   this.firstTenant = res
                  if(!res) console.log("No tenant found for the host: ",host);
+                
 
               }).catch(e => {
                  this.firstTenant=null;

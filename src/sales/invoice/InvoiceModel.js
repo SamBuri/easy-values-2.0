@@ -1,29 +1,29 @@
 const invoiceModel = {
  model: {
 invoiceDate:null,
-invoiceType:"",
+invoiceType:"Direct",
 sellToId:"",
 billToId:"",
 invoiceSource:"",
 amount:"",
 amountWords:"",
-entryMode:"",
+entryMode:"Manual",
 clPostStatus:"",
 glPostStatus:"",
-invoiceDetails:[],
+invoiceDetailRequests:[],
 
 clear(){
 this.invoiceDate=null;
-this.invoiceType="";
+this.invoiceType="Direct";
 this.sellToId="";
 this.billToId="";
 this.invoiceSource="";
 this.amount="";
 this.amountWords="";
-this.entryMode="";
+this.entryMode="Manual";
 this.clPostStatus="";
 this.glPostStatus="";
-this.invoiceDetails=[];
+this.invoiceDetailRequests=[];
 },
 copy(obj){
 this.invoiceDate = obj.invoiceDate;
@@ -36,7 +36,7 @@ this.amountWords = obj.amountWords;
 this.entryMode = obj.entryMode;
 this.clPostStatus = obj.clPostStatus;
 this.glPostStatus = obj.glPostStatus;
-this.invoiceDetails = obj.invoiceDetails;
+this.invoiceDetailRequests = obj.invoiceDetails;
 
 },
 printOptions(){let data = [];
@@ -56,7 +56,7 @@ data.push({ text: "Amount Refunded", value: this.invoice.amountRefunded });
 data.push({ text: "Entry Mode", value: this.invoice.entryMode });
 data.push({ text: "CL Post Status", value: this.invoice.clPostStatus });
 data.push({ text: "GL Post Status", value: this.invoice.glPostStatus });
-data.push({ text: "Invoice Details", value: this.invoice.invoiceDetails });
+data.push({ text: "Invoice Details", value: this.invoice.invoiceDetailRequests });
 
  return {
         data: data,
@@ -75,15 +75,15 @@ path:"invoices",
 rules: {
 invoiceDate:[(v) => !!v || "Invoice Date is required",
  ],invoiceType:[(v) => !!v || "Invoice Type is required",
- ],sellToId:[(v) => !!v || "Sell To is required",
- ],billToId:[(v) => !!v || "Bill To is required",
- ],invoiceSource:[(v) => !!v || "Invoice Source is required",
+ ],sellToId:[(v) => !!v || "Sell To is required",],
+ billToId:[],
+ invoiceSource:[(v) => !!v || "Invoice Source is required",
 (v) => v.length < 100 || "Invoice Source length must be less or equal to 100", ],amount:[(v) => !!v || "Amount is required",
  ],amountWords:[(v) => !!v || "Amount Words is required",
 (v) => v.length < 200 || "Amount Words length must be less or equal to 200", ],entryMode:[(v) => !!v || "Entry Mode is required",
  ],clPostStatus:[(v) => !!v || "CL Post Status is required",
  ],glPostStatus:[(v) => !!v || "GL Post Status is required",
- ],invoiceDetails:[(v) => !!v || "Invoice Details is required",
+ ],invoiceDetailRequests:[(v) => !!v || "Invoice Details is required",
  ],
 
 }

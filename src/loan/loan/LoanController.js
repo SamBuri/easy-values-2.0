@@ -9,6 +9,8 @@ import loanApplicationSelected from "@/root/compasables/LoanApplicationSelected"
 import funcs from "@/utils/funcs";
 import customBankAccountSelected from "@/root/compasables/CustomBankAccountSelected";
 import defineBillDetailsModifierFunc from "@/root/compasables/BillDetailModifierFunc";
+import { defineCustomerGroupStore } from "@/sales/customergroup/CustomerGroupStore";
+import loanProductChargeNav from "../loanproductcharge/LoanProductChargeNav";
 export default function loanController() {
   const controller = rootController(loanModel);
   const loanApplicationIdOk = (data) => {
@@ -21,15 +23,16 @@ export default function loanController() {
   controller.loanApplicationStore = loanApplicationStore;
   const bankAccountStore = defineBankAccountStore();
   controller.bankAccountStore = bankAccountStore;
-  const lookupDataStore = defineLookupDataStore();
-  controller.lookupDataStore = lookupDataStore;
+  const customerGroupStore = defineCustomerGroupStore();
+  controller.customerGroupStore = customerGroupStore;
   controller.loanApplicationNav = loanApplicationNav;
+  controller.loanProductChargeNav = loanProductChargeNav;
   onMounted(() => {
     loanApplicationStore.getApproved();
 
     bankAccountStore.getMini();
 
-    lookupDataStore.getBusinessSections();
+    customerGroupStore.getMini();
   });
 
   const model = controller.model.value;
@@ -83,7 +86,11 @@ export default function loanController() {
     }
   };
 
-
+  const charges = computed(() => {
+    if(!model.loanProduct) return [];
+   return model.loanProduct.loanProductCharges;
+  });
+  model.charges = charges;
   watch(
     () => model.loanProduct,
     (newValue) => {
@@ -91,7 +98,7 @@ export default function loanController() {
       if (!newValue) return;
       let charges = newValue.loanProductCharges || [];
       defineBillDetailsModifierFunc(model, charges, model.approvedAmount,
-        (v)=>model.balance=v.amount
+        (v)=>model.payableAmount=v.amount
       );
       setNextPayDate();
     }

@@ -1,9 +1,13 @@
-<template>
-    <s-count-dashboard-card title="New Debits"  :items="dashboardList" :toSumField="toSumField" :headers="headers"
-    @open="open" @close="close" :dialog="dialog">
+<script setup>
+import { useNewBankTransactios } from './UseNewAccountTransactions';
+const {headers, bankTransactions} = useNewBankTransactios((r)=>r.accountAction=="Debit");
+const toSumField = "amount";
+</script><template>
+    <s-count-dashboard-card title="New Debits"  :items="bankTransactions" :toSumField="toSumField" :headers="headers"
+    >
     </s-count-dashboard-card>
 </template>
-
+<!-- 
 <script>
 import bankTransactionNav from '../banking/banktransaction/BankTransactionNav'
 export default {
@@ -38,4 +42,4 @@ export default {
     }
   }
 };
-</script>
+</script> -->

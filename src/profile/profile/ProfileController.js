@@ -1,15 +1,27 @@
 import rootController from "@/root/RootController";
-import profilePictureController from "@/profile/profilepicture/ProfilePictureController.js";
 import profileModel from "./ProfileModel";
-import { computed, onMounted, watch, ref } from "vue";
-import funcs from "../../utils/funcs";
-import { defineProfileStore } from "@/profile/ProfileStore.js";
-import { defineLookupStore } from "@/lookup/LookupStore.js";
-import { defineLookupDataStore } from "@/lookup/lookupdata/LookupDataStore.js";
-import { defineCountryStore } from "@/profile/country/CountryStore.js";
+import { ref,onMounted, watch, computed } from "vue";
+import funcs from '../../utils/funcs'
+import { defineProfileStore } from "@/profile/ProfileStore.js"
+import { defineLookupStore } from "@/lookup/LookupStore.js"
+import { defineLookupDataStore } from "@/lookup/lookupdata/LookupDataStore.js"
+import { defineCountryStore } from "@/profile/country/CountryStore.js"
+import profilePictureController from "@/profile/profilepicture/ProfilePictureController.js";
 import { defineProfilePictureStore } from "../profilepicture/ProfilePictureStore";
 export default function profileController() {
-  const controller = rootController(profileModel);
+
+  const hooks = {
+    afterSave: (res) => {
+     
+      if (res.success) {
+        addPictureOnSave(res.entity);
+        
+      }
+     
+    }
+  };
+
+  const controller = rootController(profileModel, null, hooks);
   const profileStore = defineProfileStore();
   controller.profileStore = profileStore;
   const lookupStore = defineLookupStore();
@@ -34,62 +46,65 @@ export default function profileController() {
     lookupStore.getWorkTypes();
 
     lookupDataStore.getBusinessCategories();
-  });
 
-  const model = controller.model.value;
 
-  const profilePictureStore = defineProfilePictureStore();
+  })
 
-  const pictureController = profilePictureController();
-  watch(
-    () => model.id,
-    (newValue) => {
-      profilePictureStore.profilePictures = [];
-      if (controller.isUpdate.value) {
-        profilePictureStore.getProfilePictures(newValue);
-      }
-    }
-  );
+   const model = controller.model.value;
+  
+    const profilePictureStore = defineProfilePictureStore();
+  
+    const pictureController = profilePictureController();
+    controller.pictureController = pictureController;
+    controller.profilePictureStore = profilePictureStore;
 
-  const profilePictures = computed(() => profilePictureStore.profilePictures);
-  const showPictures = computed(
-    () => controller.isUpdate.value && profilePictures.value.length > 0
-  );
-  const isOrganisation = computed(() => model.profileType === "Organisation");
-  controller.profilePictures = profilePictures;
-  controller.showPictures = showPictures;
-  controller.isOrganisation = isOrganisation;
-  controller.profilePictureStore = profilePictureStore;
+     watch(
+        () => model.id,
+        (newValue) => {
+          profilePictureStore.profilePictures = [];
+          if (controller.isUpdate.value) {
+            profilePictureStore.getProfilePictures(newValue);
+          }
+        }
+      );
 
-  const addPictureDialog = ref(false);
-  const addPicture = () => {
-    pictureController.setProfile(model);
-    addPictureDialog.value = true;
-  };
+        const showPictures = computed(
+          () => controller.isUpdate.value && profilePictures.value.length > 0
+        );
 
-  const closeAddPictureDialog = () => {
-    addPictureDialog.value = false;
-  };
+        controller.showPictures = showPictures;
+        const profilePictures = computed(() => profilePictureStore.profilePictures);
+        controller.profilePictures = profilePictures;
+        
+        const addPictureDialog = ref(false);
+          const showAddPictureDialog = () => addPictureDialog.value = true;
+          const addPicture = () => {
+            pictureController.setProfile(model);
+            if(profilePictures.value.length>0){
+              pictureController.setImageSecondaryImage();
+            }
+            else{
+              pictureController.setImagePrimaryImage();
+            }
+            showAddPictureDialog();
+          };
+        
+          const addPictureOnSave = (entity) => {
+            pictureController.setProfile(entity);
+            pictureController.setImagePrimaryImage();
+            showAddPictureDialog();
+          };
+        
+          const closeAddPictureDialog = () => {
+            addPictureDialog.value = false;
+          };
+        
+          controller.addPictureDialog = addPictureDialog;
+          controller.addPicture = addPicture;
+          controller.closeAddPictureDialog = closeAddPictureDialog;
+        
 
-  controller.addPictureDialog = addPictureDialog;
-  controller.addPicture = addPicture;
-  controller.closeAddPictureDialog = closeAddPictureDialog;
-
-  const afterSave = (res) => {
-    console.log("Res", res);
-    if (res.success) {
-      addPicture();
-    }
-
-    alert("Yes");
-  };
-
-  const save = () => {
-    alert("Yesss");
-    controller.save();
-  };
-
-  controller.save = save;
-  controller.afterSave = afterSave;
   return controller;
+
 }
+

@@ -15,6 +15,6 @@ const menuItems = [
     
 </script>
 <template>
-  <search :menu="menu" :menuItems ="menuItems"></search>
+ <search :menu="menu" :menuItems ="menuItems"></search>
 </template>
 

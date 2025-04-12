@@ -4,7 +4,7 @@ import { defineReportStore } from "@/reports/ReportStore";
 import funcs from "@/utils/funcs";
 import {defineTenantStore} from "@/organisation/tenant/TenantStore";
 
-const props = defineProps(["passedData", "accountHeaders", "accountItems"]);
+const props = defineProps(["passedData", "accountHeaders", "accountItems", "dialog"]);
 
 const cols = 12;
 const sm = 6;
@@ -22,12 +22,11 @@ const data = props.passedData;
 const model = ref(data.model);
 const tenantStore = defineTenantStore();
 
+const form = ref(null);
+
 const search = () => {
-  form.value.validate();
-  // model.value.startDate = funcs.formatDate(model.value.startDate);
-  // model.value.endDate = funcs.formatDate(model.value.endDate);
-
-
+ 
+ 
   reportSore.getPeriodicReport({ path: model.value.path, body: model.value });
 };
 
@@ -37,6 +36,7 @@ const searchData = (e) => {
 };
 
 onMounted(() => {
+   form.value.validate();
   reportSore.periodicReportData = [];
   model.value.branches = tenantStore.getCurrentTenantBranches
   .map(m=>m.id);
@@ -55,8 +55,23 @@ watch(
   }
 );
 
+watch(
+  () => model.value.accountId,
+  (newValue) => {
+ 
+    if (newValue) {
+      let selectedAccount = props.accountItems.filter((m) => m.id == newValue);
+      if (selectedAccount.length>0) {
+        model.value.setData(selectedAccount[0]);
+      }
+      search();
+    }
+  },
+  { immediate: true }
+);
+
 const valid = ref(false);
-const form = ref(null);
+
 const dialogOk= (data)=>{
   model.value.setData(data);
 }
@@ -65,9 +80,8 @@ const clear=()=>model.value.clear();
 </script>
 
 <template>
-  <container>
-    <v-row>
-      <v-toolbar flat class="ml-4">
+  <v-card flat max-width="1300" class="mx-auto mt-0 pa-1">
+    <v-toolbar flat class="ml-4">
         <h2>{{ passedData.menu.title }}</h2>
         <v-spacer> </v-spacer>
 
@@ -80,13 +94,16 @@ const clear=()=>model.value.clear();
           :file-type="'xlsx'"
           :sheet-name="passedData.menu.title"
         >
-          <v-icon>mdi-microsoft-excel</v-icon>
+          <v-icon>mdi-microsoftfluid style="background: white;"-excel</v-icon>
         </export-excel>
+         <v-btn color="primary" v-if="props.dialog" text @click="$emit('cancel')">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
       </v-toolbar>
-    </v-row>
+
 
     <v-form v-model="valid" ref="form" @submit="searchData" class="mx-0">
-      <v-container fluid>
+      <v-container  fluid style="background: white;">
         <v-row>
           <v-col :cols="cols" :sm="sm" :md="lmd">
             <v-autocomplete
@@ -194,178 +211,5 @@ const clear=()=>model.value.clear();
 
 
     <snack-bar />
-  </container>
+  </v-card>
 </template>
-
-<!--
-<script>
-import SnackBar from "./SnackBar.vue";
-export default {
-  name: "SLedger",
-  props: [
-    "maxWidth",
-    "headers",
-    "items",
-    "model",
-    "title",
-    "accountHeaders",
-    "accountItems",
-  ],
-  components: {
-    SnackBar,
-  },
-  data: () => ({
-    valid: false,
-    mode: 0,
-    accountIdRules: [(v) => !!v || "You must enter account id"],
-    branchesRules: [(v) => !!v || "Must select atleast one branch"],
-    startDateRules: [(v) => !!v || "Start Date is required"],
-    endDateRules: [(v) => !!v || "End Date is required"],
-
-    mtdsProvided: true,
-    accountIdDialog: false,
-
-    cols: 12,
-    sm: 6,
-    md: 3,
-    lmd: 2,
-  }),
-
-  computed: {
-    accountId() {
-      return this.model.accountId;
-    },
-
-    formWidth() {
-      return this.maxWidth > 0 ? this.maxWidth : 1000;
-    },
-
-    data() {
-      return this.$store.state.components.periodicReportData;
-    },
-
-    loading() {
-      return this.$store.state.components.periodicReportDataLoading;
-    },
-
-    count() {
-      return this.data.length;
-    },
-
-    totalDebits() {
-      return this.sum("debit");
-    },
-
-    totalCredits() {
-      return this.sum("credit");
-    },
-
-    balance() {
-      if (this.data.length > 0) {
-        return this.data[0].balance;
-      }
-      return 0;
-    },
-
-    tenant() {
-      return this.$store.state.security.user.tenant;
-    },
-    branches() {
-      if (this.tenant) {
-        return this.tenant.company.branches;
-      }
-      return [];
-    },
-    currentBranch() {
-      return this.$store.state.security.user.currentBranch;
-    },
-  },
-
-  watch: {
-    accountId() {
-      this.$store.commit("components/periodicReportData", []);
-      if (this.accountId) {
-        this.$emit("accountIdChanged", this.accountId);
-        this.search();
-      }
-    },
-    // branches() {
-    //     this.model.branches = [];
-    //     if (this.currentBranch) {
-    //         this.model.branches.push(this.currentBranch.id);
-    //     }
-    // },
-
-    // currentBranch() {
-    //     this.model.branches = [];
-    //     if (this.currentBranch) {
-    //         this.model.branches.push(this.currentBranch.id);
-    //     }
-    // },
-  },
-
-  mounted() {
-    // this.setBranch();
-    this.clear();
-    this.$refs.form.validate();
-    if (this.accountId.length > 0) {
-      this.search();
-    }
-  },
-
-  methods: {
-    searchData(e) {
-      e.preventDefault();
-      this.search();
-    },
-
-    search() {
-      this.$refs.form.validate();
-      if (this.valid) {
-        this.$store.dispatch("components/getPeriodicReport", {
-          path: this.model.path,
-          body: this.model,
-        });
-      }
-    },
-
-    setBranch() {
-      this.model.branches = [];
-      if (this.currentBranch) {
-        this.model.branches.push(this.currentBranch.id);
-      }
-    },
-
-    sum(fieldName) {
-      if (!this.data) return 0;
-
-      return this.data
-        .filter((a) => !a.isTotal)
-        .map((a) => a[fieldName])
-        .map(Number)
-        .reduce((a, b) => a + b, 0);
-    },
-
-    appendIconCallback() {
-      this.accountIdDialog = true;
-    },
-
-    accountIdOk(data) {
-      this.$emit("setAccountIdData", data);
-    },
-
-    accountIdClose() {
-      this.accountIdDialog = false;
-    },
-
-    clear() {
-      this.$store.commit("components/periodicReportData", []);
-    },
-  },
-};
-</script>
-<style>
-.bold-text {
-  font-weight: bold;
-}
-</style> -->

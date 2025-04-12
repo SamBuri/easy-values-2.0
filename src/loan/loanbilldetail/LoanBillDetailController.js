@@ -22,8 +22,7 @@ const loanStore = defineLoanStore();
 controller.loanStore = loanStore;
 controller.itemNav=itemNav;
 onMounted(()=>{
-itemStore.getMini();
-
+itemStore.getBillableItems();
 loanStore.getDeterminingMethods();
 
 

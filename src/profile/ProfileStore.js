@@ -4,7 +4,7 @@ import { defineRootStore } from "@/root/RootStore";
 
 export const defineProfileStore = defineStore("profile", {
   state: () => ({
-    path: "profile/enums/",
+    path: "profileenums/",
     imageTypes: [],
     imageTypesLoading: false,
     profileTypes: [],

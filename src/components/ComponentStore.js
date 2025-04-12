@@ -9,6 +9,7 @@ export const defineComponentStore = defineStore("component", {
   actions: {
 
     getPeriodicReport(payload) {
+      this.periodicReportData = [];
       const rootStore = defineRootStore();
 
       let res = rootStore
@@ -18,9 +19,9 @@ export const defineComponentStore = defineStore("component", {
 
           this.periodicReportData = [];
         },
-      ()=>{
-        console.log("Report Data", response);
-        this.periodicReportData = response.data;
+      (res)=>{
+        console.log("Report Data", res);
+        this.periodicReportData = res.data;
 
       },
 

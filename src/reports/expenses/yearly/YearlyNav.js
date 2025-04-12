@@ -9,7 +9,7 @@ const yearlyNav = {
                 meta: { auth: true }
         },
 
-        menu:  { id: "reports.expenses.yearly", title: "Yearly",  to: {name: "yearlyexpenses"} },
+        menu:  { id: "reports.expenses.yearly", title: "Yearly", icon: "mdi-cash-refund",  to: {name: "yearlyexpenses"} },
 
         headers: [
         { title: "year", key: "year", label: "year", field: "year", chartLabel: true},

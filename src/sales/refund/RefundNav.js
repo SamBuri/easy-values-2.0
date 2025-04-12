@@ -21,6 +21,7 @@ const refundNav = {
                 component: Refund,
                 path: "refunds",
                 width: "1000px",
+                icon:"mdi-cash-refund",
                 editHeaders: [{ title: "Receipt", key: "receipt", label: "Receipt", field: "receipt" },
                 { title: "Refund Date", key: "refundDate", label: "Refund Date", field: "refundDate", isDate: true },
                 { title: "Bank Account Type", key: "bankAccountType", label: "Bank Account Type", field: "bankAccountType" },
@@ -57,10 +58,10 @@ const refundNav = {
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", label: "Created By", field: "createdBy" },
                 { title: "Modified By", key: "modifiedBy", label: "Modified By", field: "modifiedBy" }],
-                children: [{ id: "sales.refund.view", title: "View",  to:{ name: "refunds", }},
-                  { id: "sales.refund.new", title: "New",  to:{ name: "refund", params: {mode:0}}},
-                  { id: "sales.refund.edit", title: "Edit",  to:{ name: "refund", params: {mode:1}}},
-                  { id: "sales.refund.history", title: "History",  to:{ name: "refund", params: {mode:2}}},
+                children: [{ id: "sales.refund.view", title: "View",  to:{ name: "refunds", }, icon: "mdi-table" },
+                  { id: "sales.refund.new", title: "New",  to:{ name: "refund", params: {mode:0}}, icon: "mdi-plus-circle"},
+                //   { id: "sales.refund.edit", title: "Edit",  to:{ name: "refund", params: {mode:1}}},
+                  { id: "sales.refund.history", title: "History",  to:{ name: "refund", params: {mode:2}}, icon: "mdi-history"},
                   ]
         }
 }

@@ -8,16 +8,16 @@ const emit = defineEmits(["update:modelValue"]);
 
 onMounted(async () => {
   await currencyStore.getMini();
-  if (currencyStore.mini.length > 0 && !props.modelValue) {
-    emit("update:modelValue", currencyStore.defaultCurrency.id);
+  if (currencyStore.mini.length > 0 && !props.modelValue && currencyStore.defaultCurrency) {
+    handleUpdate(currencyStore.defaultCurrency.id);
   }
 });
 
 const items = computed(() => currencyStore.mini);
 
 watch(items, (newValue) => {
-  if (newValue.length > 0 && !props.modelValue) {
-    emit("update:modelValue", currencyStore.defaultCurrency.id);
+  if (newValue.length > 0 && !props.modelValue && currencyStore.defaultCurrency) {
+    handleUpdate(currencyStore.defaultCurrency.id);
   }
 });
 

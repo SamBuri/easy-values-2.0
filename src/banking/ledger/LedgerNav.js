@@ -11,6 +11,7 @@ const ledgerNav = {
   menu: {
     id: "bankledger.ledger",
     title: "Ledger",
+    icon: "mdi-book-open-variant",
     to: { name: "bankaccountledger" },
   },
 

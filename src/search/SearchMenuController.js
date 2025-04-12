@@ -1,8 +1,9 @@
 import constants from "@/utils/constants";
-import { Exception } from "sass";
+
 export default function searchMenuController(controller) {
   const save = (contextMenuOption) => {
     try {
+      
       contextMenuOption.setButtonLabel(constants.buttonTexts.save);
       contextMenuOption.openEdit();
     } catch (e) {
@@ -11,11 +12,14 @@ export default function searchMenuController(controller) {
   };
   const edit = (contextMenuOption) => {
     try {
+     
+      console.log("Passed Context Menu Option", contextMenuOption);
       controller.setData(contextMenuOption.item);
       contextMenuOption.setButtonLabel(constants.buttonTexts.update);
       contextMenuOption.openEdit();
     } catch (e) {
-      console.log("Error ", e);
+      
+      console.log("Error  ", e);
     }
   };
 

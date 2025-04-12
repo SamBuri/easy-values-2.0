@@ -9,7 +9,7 @@ const monthlyNav = {
                 meta: { auth: true }
         },
 
-        menu:  { id: "reports.loan.monthly", title: "Monthly",  to: {name:"monthlyloans" }},
+        menu:  { id: "reports.loan.monthly", title: "Monthly",icon: "mdi-note",  to: {name:"monthlyloans" }},
 
         headers: [
         { title: "Year", key: "year", label: "Year", field: "year"},

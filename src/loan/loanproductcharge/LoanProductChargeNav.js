@@ -26,9 +26,10 @@ const loanProductChargeNav = {
       { title: "Determining Method", key: "determiningMethod" },
       { title: "Quantity", key: "quantity", isNumeric: true },
       { title: "Charge", key: "charge", isNumeric: true },
-      { title: "Bill Duration", key: "billDuration", isNumeric: true },
-      { title: "Recurrent", key: "recurrent" },
+      { title: "Unit Price", key: "unitPrice", isNumeric: true },
+      { title: "Amount", key: "amount", isNumeric: true  },
     ],
+    
     editHeaders: [
       { title: "Item", key: "itemName" },
       { title: "Determining Method", key: "determiningMethod" },

@@ -1,41 +1,18 @@
-<template>
-    <s-count-dashboard-card title="Due Engagements"  :items="dashboardList"  :headers="headers"
-    @open="open" @close="close" :dialog="dialog">
-    </s-count-dashboard-card>
-</template>
+<script setup>
+  import engagementNav from '../sales/engagement/EngagementNav';
+  import { defineEngagementStore } from '@/sales/engagement/EngagementStore';
+  import { onMounted } from 'vue';
 
-<script>
-import engagementNav from '../customer/engagement/EngagementNav'
-export default {
-  name: 'DDueEngagements',
-  props: ["title"],
-  data: ()=>({
-    toSumField: "",
-    headers: engagementNav.menu.headers,
-    dialog: false,
+  const headers =  engagementNav.menu.headers;
+  const engegementStore = defineEngagementStore();
 
-  }),
+ 
 
-  created(){
-    
-      this.$store.dispatch("customer/engagement/getDueEngagements");
-  },
-
-  computed: {
-       
-       dashboardList(){
-         return this.$store.state.customer.engagement.dueEngagements;
-       },
-
-     
-  },
-  methods: {
-    open() {
-      this.dialog = true;
-    },
-    close() {
-      this.dialog = false;
-    }
-  }
-};
+  onMounted(()=>{
+    engegementStore.getDueEngagements();
+  })
 </script>
+<template>
+    <s-count-dashboard-card title="Due Engagements"  :items="engegementStore.dueEngagements"  :headers="headers"/>
+   
+</template>

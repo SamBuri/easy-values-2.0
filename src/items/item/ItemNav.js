@@ -41,7 +41,7 @@ const itemNav = {
                 { text: "Inventory Group", value: "inventoryGroup" },
                 { text: "Measure Group", value: "measureGroup.displayKey" },
                 ], children: [{ id: "items.item.new", name: "New", route: "item", mode: 0 },
-                { id: "items.item.edit", name: "Edit", route: "item", mode: 1 },
+                { id: "items.item.edit", name: "Edit", route: "item", mode: 1, icon: mdi-plus },
                 { id: "items.item.history", name: "History", route: "item", mode: 2 },
                 ]
         }

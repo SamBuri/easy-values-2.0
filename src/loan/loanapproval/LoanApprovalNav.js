@@ -81,20 +81,24 @@ const loanApprovalNav = {
       {
         id: "loan.loanApproval.view",
         title: "View",
+        icon: "mdi-table",
         to: { name: "loanapprovals" },
       },
       {
         id: "loan.loanApproval.new",
         title: "New",
+        icon: "mdi-plus-circle",
         to: { name: "loanapproval", params: { mode: 0 } },
       },
       {
         id: "loan.loanApproval.edit",
+        icon: "mdi-pencil",
         title: "Edit",
         to: { name: "loanapproval", params: { mode: 1 } },
       },
       {
         id: "loan.loanApproval.history",
+        icon: "mdi-history",
         title: "History",
         to: { name: "loanapproval", params: { mode: 2 } },
       },

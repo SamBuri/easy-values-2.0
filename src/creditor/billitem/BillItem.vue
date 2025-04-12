@@ -21,7 +21,7 @@ const rules = controller.rules;
           :rules="rules.itemId"
           :counter="100"
           @ok="controller.itemIdOk"
-          :items="controller.itemStore.mini"
+          :items="controller.itemStore.expensableItems"
           :headers="controller.itemNav.menu.miniHeaders"
         ></s-select-field>
       </v-col>

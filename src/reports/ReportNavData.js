@@ -15,7 +15,7 @@ const reportsNavData = {
     nav: {
         id: "reports",
         title: "Reports",
-        icon: "mdi-view-dashbord",
+        icon: "mdi-file-chart-outline",
         children: [
             loanNavData.nav,
             loanbillsNavData.nav,

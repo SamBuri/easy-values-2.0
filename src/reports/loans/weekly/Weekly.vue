@@ -1,39 +1,9 @@
-<template>
-    <s-periodic-report 
-      :maxWidth="maxWidth" :headers="weeklyNav.headers" :model="weeklyNav.model" :title="title" :passedColumn="passedColumn">
-    </s-periodic-report>
-  </template>
-  <script>
-
+<script setup>
 import weeklyNav from './WeeklyNav';
-  export default {
-  
-    name: "weekly",
-  
-    data: () => ({
-      maxWidth: 1000,
-      weeklyNav: weeklyNav,
-      title: "Weekly Loans",
-      passedColumn:"amount"
-    
-      
-    
-    }),
-    created() {
+</script>
 
-  
-    },
-    computed: {
-     
-    },
-  
-    watch: {
-     
-    },
-  
-    methods: { 
-       
-    },
-  };
-  </script>
-  
+<template>
+  <s-periodic-report maxWidth="1000" :headers="weeklyNav.headers" :model="weeklyNav.model" title="Weekly Loans"
+    passedColumn="amount">
+  </s-periodic-report>
+</template>

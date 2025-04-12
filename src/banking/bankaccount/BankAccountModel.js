@@ -27,9 +27,10 @@ const bankAccountModel = {
       this.phoneNo = "";
       this.email = "";
       this.address = "";
+      this.balance = "";
       this.isDefault = false;
       this.hidden = false;
-      this.balance = "";
+     
     },
     copy(obj) {
       this.id = obj.id;

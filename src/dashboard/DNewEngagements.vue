@@ -1,41 +1,20 @@
+<script setup>
+  import engagementNav from '../sales/engagement/EngagementNav';
+  import { defineEngagementStore } from '@/sales/engagement/EngagementStore';
+  import { onMounted,ref } from 'vue';
+
+  const headers =  engagementNav.menu.headers;
+  const dialog = ref(false)
+  const engegementStore = defineEngagementStore();
+
+
+  onMounted(()=>{
+    engegementStore.getNewEngagements();
+  })
+</script>
+
 <template>
-    <s-count-dashboard-card title="New Engagements"  :items="dashboardList"  :headers="headers"
-    @open="open" @close="close" :dialog="dialog">
-    </s-count-dashboard-card>
+  <s-count-dashboard-card title="New Engagements"  :items="engegementStore.newEngagements"  :headers="headers">
+  </s-count-dashboard-card>
 </template>
 
-<script>
-import engagementNav from '../customer/engagement/EngagementNav'
-export default {
-  name: 'DNewEngagements',
-  props: ["title"],
-  data: ()=>({
-    toSumField: "",
-    headers: engagementNav.menu.headers,
-    dialog: false,
-
-  }),
-
-  created(){
-    
-      this.$store.dispatch("customer/engagement/getNewEngagements");
-  },
-
-  computed: {
-       
-       dashboardList(){
-         return this.$store.state.customer.engagement.newEngagements;
-       },
-
-     
-  },
-  methods: {
-    open() {
-      this.dialog = true;
-    },
-    close() {
-      this.dialog = false;
-    }
-  }
-};
-</script>

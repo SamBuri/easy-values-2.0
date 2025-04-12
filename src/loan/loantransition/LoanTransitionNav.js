@@ -18,6 +18,7 @@ const loanTransitionNav = {
   menu: {
     id: "loan.loantransition",
     title: "Loan Transitions",
+    icon: "mdi-transfer",
     component: LoanTransition,
     path: "loantransitions",
     width: "700px",
@@ -65,17 +66,20 @@ const loanTransitionNav = {
       {
         id: "loan.loanTransition.view",
         title: "View",
+        icon: "mdi-table",
         to: { name: "loantransitions" },
       },
       {
         id: "loan.loanTransition.new",
         title: "New",
+        icon: "mdi-plus-circle",
         to: { name: "loantransition", params: { mode: 0 } },
       },
 
       {
         id: "loan.loanTransition.history",
         title: "History",
+        icon: "mdi-history",
         to: { name: "loantransition", params: { mode: 2 } },
       },
     ],

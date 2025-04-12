@@ -48,7 +48,7 @@ const incomestatementNav = {
   },
 
   model: {
-    startDate: funcs.addDays(new Date(), -30),
+    startDate: funcs.addDays(new Date(), -365),
     endDate: new Date(),
     path: `generalledgers/accountbalances`,
     branches: [],

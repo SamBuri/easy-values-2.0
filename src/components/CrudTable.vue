@@ -44,8 +44,9 @@ import {ref, computed, nextTick} from 'vue'
 
       editedIndex.value = props.items.indexOf(item);
       editedItem.value = Object.assign({}, item);
-      console.log("Item Passed", editedItem.value)
-       emit('setData', editedItem.value);
+      console.log("Item Passed", item)
+      //  emit('setData', item);
+       emit('after', props.items);
       open();
 
 
@@ -55,10 +56,12 @@ import {ref, computed, nextTick} from 'vue'
       editedIndex.value = props.items.indexOf(item);
       editedItem.value = Object.assign({}, item);
       dialogDelete.value = true;
+      
     };
 
     const deleteItemConfirm=() =>{
       props.items.splice(editedIndex.value, 1);
+      emit('after', props.items);
    closeDelete();
     };
 
@@ -115,6 +118,7 @@ import {ref, computed, nextTick} from 'vue'
                 @cancel="close"
                 :buttonLabel="buttonLabel"
                 :data="editedItem"
+                retain="true"
               />
             </v-dialog>
           </div>

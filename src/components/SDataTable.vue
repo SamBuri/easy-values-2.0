@@ -1,8 +1,84 @@
+<script setup>
+import { ref, computed } from 'vue';
+import funcs from "../utils/funcs";
+
+const props = defineProps({
+  headers: Array,
+  items: Array,
+  loading: Boolean,
+  title: String,
+  hideDefaultFooter: Boolean,
+  search: String,
+  itemPerPage: Number
+});
+
+// Refs
+const menuItems = ref([
+  { title: "Add", icon: "mdi-plus" },
+  { title: "Edit", icon: "mdi-pencil" },
+  { title: "Delete", icon: "mdi-delete" }
+]);
+const menuX = ref(0);
+const menuY = ref(0);
+const showMenu = ref(false);
+const closeOnClick = ref(true);
+const selectedItem = ref({});
+const alignments = ref(["start", "center", "end"]);
+const dialogDelete = ref(false);
+const defaultItem = ref({});
+
+// Computed properties
+const dataLoading = computed(() => props.loading || false);
+const hideFooter = computed(() => props.hideDefaultFooter || false);
+const pageItems = computed(() => {
+  if (hideFooter.value) {
+    return -1;
+  } else {
+    return props.itemPerPage || 20;
+  }
+});
+
+const toFormatHeaders = computed(() => {
+  return props.headers.filter(
+    h => h.isNumeric === true || h.isDate === true || h.isDateTime === true
+  );
+});
+
+const processedItems = computed(() => {
+  let allItems = [...props.items];
+  
+  if (props.headers.filter(h => h.isNumeric).length === 0) return allItems;
+  
+  if (props.items.length > 1) {
+    let totalRow = funcs.getTotalRow(props.headers, props.items);
+    
+    // Check if the last item is already the total row
+    if (!allItems[allItems.length - 1]?.isTotal) {
+      console.log("Executing all items", totalRow);
+      allItems.push(totalRow);
+    }
+  }
+  
+  return allItems;
+});
+
+// Methods
+const formatTableData = (header, item, value) => {
+  return funcs.formatTableData(header, item, value);
+};
+
+const rowClass = (item) => {
+  if (item.isTotal) {
+    return "highlight-row";
+  }
+};
+</script>
+
 <template>
   <div>
     <v-data-table
       :headers="headers"
-      :items="allItems"
+      :items="processedItems"
       :loading="dataLoading"
       :hide-default-footer="hideFooter"
       :items-per-page="pageItems"
@@ -29,195 +105,6 @@
     <snack-bar />
   </div>
 </template>
-
-<script>
-import funcs from "../utils/funcs";
-import SnackBar from "../components/SnackBar.vue";
-export default {
-  components: { SnackBar },
-  props: [
-    "headers",
-    "items",
-    "loading",
-    "title",
-    "hideDefaultFooter",
-    "search",
-    "itemPerPage",
-  ],
-  name: "SDataTable",
-  data: () => ({
-    menuItems: [
-      { title: "Add", icon: "mdi-plus" },
-      { title: "Edit", icon: "mdi-pencil" },
-      { title: "Delete", icon: "mdi-delete" },
-    ],
-    menuX: 0,
-    menuY: 0,
-    showMenu: false,
-    closeOnClick: true,
-    selectedItem: {},
-    alignments: ["start", "center", "end"],
-    dialogDelete: false,
-    defaultItem: {},
-    allItems: [],
-  }),
-  mounted(){
-
-  },
-  computed: {
-    dataLoading() {
-      return this.loading || false;
-    },
-    hideFooter() {
-      return this.hideDefaultFooter || false;
-    },
-    toFormatHeaders() {
-      return this.headers.filter(
-        (h) =>
-          h.isNumeric === true || h.isDate === true || h.isDateTime === true
-      );
-    },
-
-    pageItems() {
-      if (this.hideFooter) {
-        return -1;
-      } else {
-        if (this.itemsPerPage) {
-          return this.itemsPerPage;
-        } else {
-          return 20;
-        }
-      }
-    },
-
-    // getTotalRow() {
-    //     let obj = {};
-
-    //     for (let i = 0; i < this.headers.length; i++) {
-    //         let h = this.headers[i]
-    //         if (h.isNumeric) {
-    //             obj[h.field] = funcs.sum(this.data, h.field)
-    //         }
-    //         else {
-    //             if (i === 0) {
-    //                 obj[h.field] = "Total";
-
-    //             } else {
-    //                 obj[h.field] = "";
-    //             }
-    //         }
-    //     }
-
-    //     console.log("obj created", obj)
-
-    //     return obj;
-    // },
-
-    allItems() {
-      let allItems = this.items;
-      if(this.headers.filter(h=>h.isNumeric).length==0) return allItems;
-      if (this.items.length > 1) {
-        let totalRow = funcs.getTotalRow(this.headers, this.items);
-
-        // Check if the last item is already the total row
-        if (!allItems[allItems.length - 1]?.isTotal) {
-          console.log("Executing all items", totalRow);
-          allItems.push(totalRow);
-        }
-      }
-      return allItems;
-    },
-  },
-  watch: {},
-
-  created() {},
-
-  methods: {
-    saveClicked() {
-      this.$store.commit("search/selectedData", []);
-      this.$store.commit("search/dialog", true);
-      this.selectedItem = {};
-    },
-
-    editClicked() {
-      this.$store.commit("search/selectedData", this.items);
-      this.$store.commit("search/dialog", true);
-      this.selectedItem = {};
-    },
-
-    deleteItemConfirm() {
-      this.$store.dispatch("search/delete", this.items[0].value.id);
-      this.closeDelete();
-      this.selectedItem = {};
-    },
-
-    closeDelete() {
-      this.dialogDelete = false;
-    },
-
-    onRowContextmenu(event, data) {
-      event.preventDefault();
-
-      this.items = Object.entries(data).map(([key, value]) => {
-        return {
-          id: key,
-          value: value,
-        };
-      });
-      // .sort((item1, item2) => item1.title.localeCompare(item2.title))
-      this.showMenu = false;
-      this.menuX = event.clientX;
-      this.menuY = event.clientY;
-      this.$nextTick(() => {
-        this.showMenu = true;
-      });
-    },
-
-    closeDialog() {
-      this.$store.commit("search/miniDialog", false);
-      this.$store.commit("search/miniSelected", {
-        path: "",
-        headers: [],
-        name: "",
-      });
-      this.$store.commit("search/miniData", []);
-    },
-
-    resetMiniSelected() {
-      this.$store.commit("search/miniSelected", {
-        path: "",
-        headers: [],
-        name: "",
-      });
-    },
-
-    doubleClicked(event, data) {
-      this.$store.commit("search/selectedMiniItem", data.item);
-      this.closeDialog();
-    },
-
-    formatTableData(header, item, value) {
-      return funcs.formatTableData(header, item, value);
-    },
-
-    filterOnlyCapsText(value, search, item) {
-      console.log("Search Item: ", item);
-      return (
-        value != null &&
-        search != null &&
-        typeof value === "string" &&
-        value.toString().toLocaleUpperCase().indexOf(search) !== -1
-      );
-    },
-
-    rowClass(item) {
-      if (item.isTotal) {
-        return "highlight-row";
-      }
-    },
-  },
-};
-</script>
 
 <style>
 .highlight-row {

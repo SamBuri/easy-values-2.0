@@ -23,7 +23,7 @@ const bankTransactionNav = {
     width: "700px",
     editHeaders: [
       { title: "Bank Account", key: "bankAccount.bankAccountName" },
-     { title: "Tran Date", key: "tranDate", isDate: true },
+      { title: "Tran Date", key: "tranDate", isDate: true },
       { title: "Account Action", key: "accountAction" },
       { title: "Notes", key: "notes" },
       { title: "Amount", key: "amount", isNumeric: true },
@@ -37,11 +37,13 @@ const bankTransactionNav = {
         key: "id",
       },
       { title: "Bank Account", key: "bankAccount.bankAccountName" },
-     { title: "Tran Date", key: "tranDate", isDate: true },
+      { title: "Tran Date", key: "tranDate", isDate: true },
       { title: "Account Action", key: "accountAction" },
       { title: "Notes", key: "notes" },
       { title: "Amount", key: "amount", isNumeric: true },
       { title: "Branch", key: "branch" },
+      { title: "BL Posted", key: "blPosted", },
+      { title: "GL Posted", key: "glPosted", },
       {
         title: "Creation Date",
         key: "creationDate",
@@ -61,17 +63,20 @@ const bankTransactionNav = {
       {
         id: "banking.bankTransaction.view",
         title: "View",
+        icon: "mdi-table",
         to: { name: "banktransactions" },
       },
       {
         id: "banking.bankTransaction.new",
         title: "New",
+        icon: "mdi-plus-circle",
         to: { name: "banktransaction", params: { mode: 0 } },
       },
 
       {
         id: "banking.bankTransaction.history",
         title: "History",
+        icon: "mdi-history",
         to: { name: "banktransaction", params: { mode: 2 } },
       },
     ],

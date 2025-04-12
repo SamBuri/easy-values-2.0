@@ -3,7 +3,7 @@ import countryNav from './CountryNav';
 import countryController from "./CountryController";
 import searchMenuController from "@/search/SearchMenuController";
 const controller= countryController();
-console.log("Passed Country Controller", controller)
+
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= countryNav.menu;
 const menuItems = [

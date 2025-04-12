@@ -18,6 +18,7 @@ const dialog = ref(false);
 const open = () => (dialog.value = true);
 const close = () => (dialog.value = false);
 const dialogOk = (data) => {
+  handleChange(data.id);
   emit("ok", data);
   dialog.value = false;
 };

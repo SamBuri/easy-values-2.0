@@ -4,6 +4,7 @@ import { onMounted, watch, watchEffect } from "vue";
 import { defineLookupStore } from "@/lookup/LookupStore.js";
 import { defineAccountCategoryStore } from "@/accounting/accountcategory/AccountCategoryStore.js";
 import { defineAccountingStore } from "../AccountingStore";
+
 export default function accountController() {
   const controller = rootController(accountModel);
   const lookupStore = defineLookupStore();

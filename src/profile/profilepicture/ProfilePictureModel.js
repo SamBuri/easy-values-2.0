@@ -17,7 +17,7 @@ const profilePictureModel = {
       this.id = obj.id;
       this.profileId = obj.profile.Id;
       this.name = obj.name;
-      this.imageType = obj.imageType.Id;
+      this.imageType = obj.imageType;
       this.photo = obj.photo;
       this.caption = obj.caption;
     },
@@ -30,7 +30,7 @@ const profilePictureModel = {
       data.push({ text: "Name", value: this.profilePicture.name });
       data.push({
         text: "Image Type",
-        value: this.profilePicture.imageType.displayKey,
+        value: this.profilePicture.imageType,
       });
       data.push({ text: "Photo", value: this.profilePicture.photo });
       data.push({ text: "Caption", value: this.profilePicture.caption });
@@ -53,7 +53,7 @@ const profilePictureModel = {
       data.append("imageType", this.imageType);
       data.append("photo", this.photo);
       data.append("caption", this.caption);
-
+      2200125001722001250017
       return data;
     },
   },
@@ -66,10 +66,7 @@ const profilePictureModel = {
     ],
     imageType: [(v) => !!v || "Image Type is required"],
     photo: [(v) => !!v || "Photo is required"],
-    caption: [
-      (v) => !!v || "Caption is required",
-      (v) => v.length < 100 || "Caption length must be less or equal to 100",
-    ],
+    caption: [],
   },
 };
 

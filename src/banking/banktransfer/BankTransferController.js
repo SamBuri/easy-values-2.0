@@ -1,7 +1,6 @@
 import rootController from "@/root/RootController";
 import bankTransferModel from "./BankTransferModel";
 import { onMounted, watch } from "vue";
-import { defineBankingStore } from "@/banking/BankingStore.js";
 import { defineBankAccountStore } from "@/banking/bankaccount/BankAccountStore.js";
 import { defineCurrencyStore } from "@/lookup/currency/CurrencyStore.js";
 import { defineLookupStore } from "@/lookup/LookupStore.js";
@@ -10,8 +9,7 @@ import customCurrencySelected from "@/root/compasables/CustomCurrencySelected";
 import funcs from "@/utils/funcs";
 export default function bankTransferController() {
   const controller = rootController(bankTransferModel);
-  const bankingStore = defineBankingStore();
-  controller.bankingStore = bankingStore;
+
   const bankAccountStore = defineBankAccountStore();
   controller.bankAccountStore = bankAccountStore;
   const currencyStore = defineCurrencyStore();
@@ -19,8 +17,7 @@ export default function bankTransferController() {
   const lookupStore = defineLookupStore();
   controller.lookupStore = lookupStore;
   onMounted(() => {
-    bankingStore.getBankAccountTypes();
-
+   
     bankAccountStore.getMini();
   });
 

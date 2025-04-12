@@ -1,25 +1,8 @@
-<template>
+<!-- <template>
     <div>
       <s-data-table :title="title" :headers="headers" :items="data" dense
         :hide-default-footer="true"></s-data-table>
-<!--     
-      <v-container v-if="showChart">
-        <v-row>
-  
-          <v-spacer></v-spacer>
-          <v-radio-group row v-model="chartType">
-            <v-radio label="Bar" value="bar"></v-radio>
-            <v-radio label="Pie" value="pie"></v-radio>
-          </v-radio-group>
-        </v-row>
-        <v-row>
-          <v-col>
-            <s-data-chart :data="data" :headers="headers" :chart-type="chartType" :width="width" :height="height"
-              :remove-last="removeLast"></s-data-chart>
-          </v-col>
-  
-        </v-row>
-      </v-container> -->
+
     </div>
   </template>
   
@@ -50,4 +33,39 @@
     }
   
   };
-  </script>
+  </script> -->
+
+<template>
+  <div>
+    <s-data-table :title="title" :headers="headers" :items="data" dense :hide-default-footer="true"></s-data-table>
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+// Define props with default values
+const props = defineProps({
+  title: String,
+  data: {
+    type: Array,
+    required: true,
+  },
+  headers: Array,
+  chartWidth: {
+    type: Number,
+    default: 350,
+  },
+  chartHeight: {
+    type: Number,
+    default: 350,
+  },
+});
+
+// Define reactive data
+const chartType = 'bar';
+const removeLast = true;
+
+// Computed property for showChart
+const showChart = computed(() => props.data.length > 1);
+</script>

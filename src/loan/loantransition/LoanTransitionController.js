@@ -25,6 +25,10 @@ export default function loanTransitionController() {
   });
 
   const model = controller.model.value;
+  const setLoanId = (id) => {
+    model.loanId = id;
+  }
+  controller.setLoanId = setLoanId;
   loanSelected(()=>model.loanId, model, (v)=>model.fromStatus=v.loanStatus);
   const completedStatus = 'Completed';
   const statuses =  computed(() =>{

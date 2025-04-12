@@ -33,7 +33,7 @@ const searchModel = {
         operationObj: null,
         value: '',
         value2: '',
-        key: ()=>this.column.key||'',
+        key: () => this.column.key || '',
         operation: '',
         operator: 'AND',
 
@@ -46,12 +46,12 @@ const searchModel = {
     },
 
     searchCriteriaHeaders: [
-         { title: "Operator", value: "operator", label: "Operator", field: "operator" },
-        { title: "Column", value: "column.title", label: "Column", field: "column.text"},
-        { title: "Operation", value: "operationObj.text", label: "Operation", field: "operationObj.text" },
-        { title: "Value", value: "value", label: "Value", field: "value" },
-        { text: "Value 2", value: "value2", label: "Value 2", field: "value2" },
-        { title: "Actions", value: "actions", label: "Actions", field: "actions"},
+        { title: "Operator", key: "operator", },
+        { title: "Column", key: "column.title", },
+        { title: "Operation", key: "operationObj.text", },
+        { title: "Value", key: "value", },
+        { title: "Value 2", key: "value2", },
+        { title: "Actions", key: "actions", },
     ]
 
 }

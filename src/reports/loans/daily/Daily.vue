@@ -1,41 +1,9 @@
-<template>
-    <s-periodic-report 
-      :maxWidth="maxWidth" :headers="dailyNav.headers" :model="dailyNav.model" :title="title" :passedColumn="passedColumn">
-    </s-periodic-report>
-  </template>
-  <script>
-
+<script setup>
 import dailyNav from './DailyNav';
-  export default {
-    name: "Daily",
-  
-    data: () => ({
-      cols: 12,
-      sm: 6,
-      md: 3,
-      maxWidth: 1000,
-      dailyNav: dailyNav,
-      title: "Daily Loans",
-      passedColumn:"amount"
-    
-      
-    
-    }),
-    created() {
+</script>
+<template>
 
-  
-    },
-    computed: {
-     
-    },
-  
-    watch: {
-     
-    },
-  
-    methods: { 
-       
-    },
-  };
-  </script>
-  
+  <s-periodic-report maxWidth="1000" :headers="dailyNav.headers" :model="dailyNav.model" title="Daily Loans"
+    passedColumn="amount">
+  </s-periodic-report>
+</template>

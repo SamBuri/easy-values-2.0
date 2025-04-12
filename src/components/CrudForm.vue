@@ -9,6 +9,7 @@ const props = defineProps([
   "data",
   "buttonLabel",
   "controller",
+  
 ]);
 const emit = defineEmits(["add"]);
 const rootState= props.controller.rootState;
@@ -33,9 +34,12 @@ onMounted(() => {
   props.controller.setButtonText(props.buttonLabel);
   props.controller.rootState.value.showSearch =false;
  }
+ if(props.data){
+  props.controller.setData(props.data);
+ }
 }catch(e){
   console.log("Error",e)
-  alert("Error")
+ 
 }
 
 });
@@ -52,7 +56,8 @@ const rootStore = defineRootStore();
 </script>
 
 <template>
-  <v-card flat :max-width="options.maxWidth" class="mx-auto mt-0 pa-1">
+  <v-card flat :max-width="options.maxWidth" class="mx-auto mt-0 pa-1 scrollable-card" >
+    <slot name="before-card"></slot>
     <v-toolbar flat v-if="!props.inner">
       <v-card-title>
         <!-- <span class="headline"> -->
@@ -71,6 +76,8 @@ const rootStore = defineRootStore();
       <template v-if="rootState.showSearch">
         <v-form ref="idForm" v-model="rootState.idValid" @submit="controller.search">
           <v-container>
+
+            
             <v-row>
               <v-col cols="10">
                 <v-text-field
@@ -107,6 +114,13 @@ const rootStore = defineRootStore();
         @submit="(e) => e.preventDefault"
       >
         <v-container>
+          <v-row>
+            <slot
+              name="form-header"
+              :isUpdate="controller.isUpdate"
+              :isPreview="controller.isPreview"
+            ></slot>
+          </v-row>
           <v-row>
             <slot
               name="form-data"
@@ -180,5 +194,12 @@ const rootStore = defineRootStore();
       </slot>
     </v-card-actions>
     <snack-bar />
+    <slot name="after-card"></slot>
   </v-card>
 </template>
+
+<style scoped>
+.scrollable-card {
+  overflow-y: auto;
+}
+</style>

@@ -49,11 +49,8 @@ const {
 
 
 
-onMounted(
-  () =>{ mounted()
-  // openEditDialog();
-  }
-  );
+ onMounted(()=>mounted());
+
 </script>
 
 

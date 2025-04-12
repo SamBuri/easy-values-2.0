@@ -41,7 +41,7 @@ const loanApplicationNav = {
         isNumeric: true,
       },
       { title: "Application Date", key: "applicationDate", isDate: true },
-      { title: "Loan Product", key: "loanProduct.id" },
+      { title: "Loan Product", key: "loanProduct.peoductName" },
       { title: "Amount", key: "amount", isNumeric: true },
       { title: "Actions", key: "actions" },
     ],
@@ -52,11 +52,16 @@ const loanApplicationNav = {
         // sortable: false,
         key: "id",
       },
-      { title: "Applicant", key: "applicant.id" },
+      { title: "Applicant Id", key: "applicantId" },
       { title: "Name", key: "name" },
-      { title: "Address", key: "address" },
+      { title: "Gender", key: "gender" },
+      { title: "Address", key: "addressDetails" },
       { title: "Primary Phone No", key: "primaryPhoneNo" },
       { title: "Other Phone Numbers", key: "otherPhoneNos" },
+
+      { title: "Application Date", key: "applicationDate", isDate: true },
+      { title: "Loan Product", key: "loanProduct.productName" },
+      { title: "Amount", key: "amount", isNumeric: true },
       { title: "Collateral Category", key: "collateralCategoryId" },
       { title: "Collateral Description", key: "collateralDesc" },
       {
@@ -64,9 +69,15 @@ const loanApplicationNav = {
         key: "estimatedCollateralValue",
         isNumeric: true,
       },
-      { title: "Application Date", key: "applicationDate", isDate: true },
-      { title: "Loan Product", key: "loanProduct.id" },
-      { title: "Amount", key: "amount", isNumeric: true },
+      { title: "Application Status", key: "applicationStatus" },
+      {
+        title: "Guarantors", key: "guarantors",
+
+        value: (item) => {
+          if (!item.guarantors || !item.guarantors.length) return 'None';
+          return item.guarantors.map(g => `${g.name} (${g.primaryPhoneNo})`).join(', ');
+        }
+      },
       { title: "Branch", key: "branch" },
       {
         title: "Creation Date",
@@ -87,21 +98,25 @@ const loanApplicationNav = {
       {
         id: "loan.loanApplication.view",
         title: "View",
+        icon: "mdi-table",
         to: { name: "loanapplications" },
       },
       {
         id: "loan.loanApplication.new",
         title: "New",
+        icon: "mdi-plus-circle",
         to: { name: "loanapplication", params: { mode: 0 } },
       },
       {
         id: "loan.loanApplication.edit",
         title: "Edit",
+        icon: "mdi-pencil",
         to: { name: "loanapplication", params: { mode: 1 } },
       },
       {
         id: "loan.loanApplication.history",
         title: "History",
+        icon: "mdi-history",
         to: { name: "loanapplication", params: { mode: 2 } },
       },
     ],

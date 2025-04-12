@@ -1,6 +1,5 @@
 import organisationNavData from '../organisation/OrganisationNavData'
 import accountingNavData from '../accounting/AccountingNavData'
-import customerNavData from '../customer/CustomerNavData'
 import lookupNavData from '../lookup/LookupNavData'
 // import itemsNavData from '../items/ItemsNavData'
 import salesNavData from '../sales/SalesNavData'
@@ -18,8 +17,6 @@ const navData = {
 
 tree: [
 
-
-          customerNavData.nav,
           salesNavData.nav,
           loanNavData.nav,
           bankingNavData.nav,
@@ -31,7 +28,7 @@ tree: [
           sharesNavData.nav,
           creditorNavData.nav,
           organisationNavData.nav,
-          securityNavData.nav,
+        //   securityNavData.nav,
 
           // interviewNavData.nav
 

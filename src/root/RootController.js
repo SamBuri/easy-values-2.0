@@ -7,9 +7,7 @@ import { useRoute } from "vue-router";
 import constants from "@/utils/constants";
 import rootOptions from "./RootOptions";
 
-import funcs from "@/utils/funcs";
-
-export default function rootController(rawModel, rawOptions = rootOptions) {
+export default function rootController(rawModel, rawOptions = rootOptions, hooks = {}) {
   const path = rawModel.path;
   const rules = rawModel.rules;
   const model = ref(rawModel.model);
@@ -29,7 +27,7 @@ export default function rootController(rawModel, rawOptions = rootOptions) {
     printData: false,
   });
 
-  const options = ref(rawOptions);
+  const options = ref(rawOptions||rootOptions);
 
   // const buttonText = ref(options);
 
@@ -69,8 +67,11 @@ const body = ()=>{
   return model.value;
 }
 
-const afterSave=(res)=>{
-
+const   afterSave= async(res)=>{
+    if(hooks.afterSave) {
+       hooks.afterSave(res);
+    }
+    return true;
 };
 
   const save = async () => {
@@ -80,12 +81,29 @@ const afterSave=(res)=>{
     console.log("Model ", model.value)
     if (model.value.modify) model.value.modify();
     let res = await rootStore.post({ path: path, body: body() });
-    afterSave(res);
+     await afterSave(res);
     if (res.success) {
      if(rootState.value.printData) await print();
       clear();
     }
   };
+
+  // const save = async () => {
+  //   if (!rootState.value.valid) return;
+
+  //   if (model.value.modify) model.value.modify();
+  //   let res = await rootStore.post({ path: path, body: body() });
+    
+  //   // Call custom afterSave if provided, otherwise default
+  //   if (hooks.afterSave) {
+  //     hooks.afterSave(res);
+  //   } else {
+  //     afterSave(res);
+  //   }
+    
+  //   if (res.success && rootState.value.printData) await print();
+  //   clear();
+  // };
 
   const afterUpdate=(res)=>{};
 
@@ -128,6 +146,10 @@ const afterSave=(res)=>{
 
     rootState.value.confirmDelete = false;
   };
+
+  const isSave = computed(
+    () => rootState.value.buttonText === constants.buttonTexts.save
+  );
 
   const isUpdate = computed(
     () => rootState.value.buttonText === constants.buttonTexts.update
@@ -206,6 +228,7 @@ const afterSave=(res)=>{
     cancelDelete,
     deleteOk,
     deleteData,
+    isSave,
     isUpdate,
     isPreview,
     setButtonText,

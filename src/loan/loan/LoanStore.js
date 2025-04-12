@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import loanNav from "./LoanNav";
 import { defineRootStore } from "@/root/RootStore";
+import storeFuncs from "@/utils/storeFuncs";
 export const defineLoanStore = defineStore("loan", {
   state: () => ({
     path: loanNav.menu.path,
@@ -46,10 +47,10 @@ export const defineLoanStore = defineStore("loan", {
     },
 
 
-    loanSummary() {
+    getLoanSummary() {
       const rootStore = defineRootStore();
       let data = rootStore.fetch(
-        `${this.path}/loansumloanSummary`,
+        `${this.path}/loansummary`,
         () => {
           this.loanSummaryLoading = true;
           this.loanSummary = [];
@@ -167,16 +168,18 @@ export const defineLoanStore = defineStore("loan", {
     getNewLoans() {
 
       const rootStore = defineRootStore();
-      let data = rootStore.fetch(
-        `${this.path}/loanstatus/Defaulted`,
+      let data = rootStore.doPost(
+        `${this.path}/list`,storeFuncs.getCreatedTodayCriteria(),
         () => {
-          this.defaultedLoansLoading = true;
-          this.defaultedLoans = [];
+          this.newLoansLoading = true;
+          this.newLoans = [];
         },
 
-        (res) => (this.defaultedLoans = res.data),
+        (res) => (this.newLoans = res.data),
 
-        () => (this.defaultedLoansLoading = false)
+        () => (this.newLoansLoading = false)
+
+        
       );
       return data;
     },

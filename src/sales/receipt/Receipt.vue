@@ -59,32 +59,27 @@ const items = [];
         ></s-text-field>
       </v-col>
 
+      
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-autocomplete
-          label="Bank Account Type"
-          v-model="model.bankAccountType"
-          :rules="rules.bankAccountType"
-          :counter="100"
-          required
-          :items="controller.bankingStore.bankAccountTypes"
-          :loading="controller.bankingStore.bankAccountTypesLoading"
-          :disabled="isPreview"
-        ></v-autocomplete>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-autocomplete
+        
+        <s-bank-account-field
           id="bankAccountId"
           label="Bank Account"
           v-model="model.bankAccountId"
           :rules="rules.bankAccountId"
           :counter="100"
           required
-          :items="controller.bankAccountStore.bankAccountsByType"
-          :loading="controller.bankAccountStore.bankAccountsByTypeLoading"
-          item-title="bankAccountName"
-          item-value="id"
-          :disabled="isPreview"
-        ></v-autocomplete>
+          :disabled="isPreview">
+        </s-bank-account-field>
+      </v-col>
+      <v-col :cols="cols" :sm="sm" :md="md">
+        <s-text-field
+          label="Bank Account Type"
+          v-model="model.bankAccountType"
+          :rules="rules.bankAccountType"
+          :counter="100"
+          disabled
+        ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-number-input
@@ -105,19 +100,25 @@ const items = [];
         ></s-number-input>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-autocomplete
+        <!-- <v-autocomplete
           id="currencyId"
           label="Currency"
           v-model="model.currencyId"
           :rules="rules.currencyId"
-          required
+          disabled
           :items="controller.currencyStore.mini"
           :loading="controller.currencyStore.miniLoading"
           item-title="currency"
           item-value="id"
           :disabled="isPreview"
-        >
-        </v-autocomplete>
+        > -->
+
+        <s-text-field
+          label="Currency"
+          v-model="model.currency"
+          :disabled="true"
+        ></s-text-field>
+        <!-- </v-autocomplete> -->
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-number-input

@@ -1,10 +1,18 @@
+<script setup>
+
+import { useNewReceipts } from './UseNewRecipt';
+const {headers, receipts} = useNewReceipts((r)=>r.discount>0);
+
+const toSumField = "discount";
+</script>
+
 <template>
-    <s-count-dashboard-card title="New Discount(s)" :items="dashboardList" :toSumField="toSumField" :headers="headers"  @open="open" @close="close" :dialog="dialog">
+    <s-count-dashboard-card title="New Discount(s)" :items="receipts" :toSumField="toSumField" :headers="headers" >
 
     </s-count-dashboard-card>
 </template>
 
-<script>
+<!-- <script>
 import receiptNav from '../sales/receipt/ReceiptNav'
 export default {
   name: 'DReceiptDiscount',
@@ -41,4 +49,4 @@ export default {
     }
   }
 };
-</script>
+</script> -->

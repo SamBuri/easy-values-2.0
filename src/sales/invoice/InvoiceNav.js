@@ -21,6 +21,7 @@ const invoiceNav = {
                 component: Invoice,
                 path: "invoices",
                 width: "1000px",
+                icon: "mdi-receipt-text-clock-outline",
                 editHeaders: [{ title: "Invoice Date", key: "invoiceDate" },
                 { title: "Invoice Type", key: "invoiceType" },
                 { title: "Sell To", key: "sellToId" },
@@ -55,8 +56,11 @@ const invoiceNav = {
                 { title: "Original Amount Words", key: "originalAmountWords", label: "Original Amount Words", field: "originalAmountWords" },
                 { title: "Amount Paid", key: "amountPaid", label: "Amount Paid", field: "amountPaid", isNumeric: true },
                 { title: "Amount Refunded", key: "amountRefunded", label: "Amount Refunded", field: "amountRefunded", isNumeric: true },
-                { title: "Business Section", key: "businessSection" },
+                { title: "Receivable Account Id", key: "receivableAccountId" },
+                { title: "Receivable Account", key: "receivableAccount" },
                 { title: "Entry Mode", key: "entryMode", label: "Entry Mode", field: "entryMode" },
+                { title: "Reference Type", key: "referenceType" },
+                { title: "Reference No", key: "referenceNo" },
                 { title: "CL Post Status", key: "clPostStatus", label: "CL Post Status", field: "clPostStatus" },
                 { title: "GL Post Status", key: "glPostStatus", label: "GL Post Status", field: "glPostStatus" },
                 { title: "Branch", key: "branch", label: "Branch", field: "branch" },
@@ -67,9 +71,9 @@ const invoiceNav = {
 
                 ],
                 children: [
-                  {id: "invoices.view", title: "View", to: {name: "invoices"}},
-                  { id: "invoices.invoice.new", title: "New", route: "invoice", mode: 0, to:{name:"invoice", params:{mode:0}} },
-                { id: "invoices.invoice.history", title: "History", route: "invoice", mode: 2, to:{name:"invoice", params: {mode:2}} },
+                  {id: "invoices.view", title: "View", to: {name: "invoices"}, icon: "mdi-table"},
+                  { id: "invoices.invoice.new", title: "New", route: "invoice", mode: 0, to:{name:"invoice", params:{mode:0}}, icon: "mdi-plus-circle" },
+                { id: "invoices.invoice.history", title: "History", route: "invoice", mode: 2, to:{name:"invoice", params: {mode:2}}, icon: "mdi-history" },
                 ],
         }
 }
