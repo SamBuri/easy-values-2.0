@@ -22,9 +22,19 @@ import SBarChart from "../components/SBarChart.vue";
 import interviewNavData from "../interview/InterviewNavData";
 import creditorNavData from "../creditor/CreditorNavData";
 
+
 const routes = [
   {
     children: [
+
+      // {
+      //   path: '/load',
+      //   name: 'load',
+      //   // route level code-splitting
+      //   // this generates a separate chunk (About.[hash].js) for this route
+      //   // which is lazy-loaded when the route is visited.
+      //   component: () => import('../views/LoadingPage.vue')
+      // },
 
       {
         path: '/about',
@@ -90,6 +100,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+ 
   const branchStore = defineBranchStore();
   if (branchStore.loadCurrentBranchVue && to.name !== 'currentbranch' && from.name !== 'currentbranch') {
 

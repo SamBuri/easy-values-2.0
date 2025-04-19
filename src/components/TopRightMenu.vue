@@ -1,6 +1,17 @@
 <script setup>
      import { useAuthStore } from '@/store/authstore';
      const authStore = useAuthStore();
+    import keycloakService from '@/keycloak/keycloakService';
+    import { useRouter } from 'vue-router';
+    const router = useRouter();
+    const logout =  ()=> {
+       let keycloak = keycloakService.getKeycloak();
+       console.log("The keycloak Object, keycloak");
+       
+      // router.push({name: 'load'})
+      if(keycloak) keycloak.logout();
+      // await keycloakService..getlogout();
+    }
 
 </script>
 
@@ -16,11 +27,11 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title
-                >Logged in as {{ authStore.user.fullName }}</v-list-item-title
+                >Logged in as {{ authStore.fullName }}</v-list-item-title
               >
             </v-list-item-content>
           </v-list-item>
-          <v-list-item @click="authStore.logout">
+          <v-list-item @click="logout">
 
             <template v-slot:prepend>
           <v-icon icon="mdi-logout"></v-icon>
