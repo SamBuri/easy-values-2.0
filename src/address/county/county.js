@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import constants from '../../utils/constants';
 
 export default {
@@ -24,7 +24,7 @@ export default {
     actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(constants.endPoints.counties + "/mini")
+            httpMethods.get(constants.endPoints.counties + "/mini")
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {
@@ -35,7 +35,7 @@ export default {
         },
 
         getMiniCountiesByDistrict(context, districtID) {
-            httmMethods.get(constants.endPoints.counties+ "/mini/"+districtID)
+            httpMethods.get(constants.endPoints.counties+ "/mini/"+districtID)
                 .then(response => {
                     context.commit("miniCountiesByDistrict", response.data);
                     console.log("Data: "+response.data)

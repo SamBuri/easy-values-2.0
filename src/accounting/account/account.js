@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import accountNav from './AccountNav';
 export default {
     namespaced: true,
@@ -37,7 +37,7 @@ export default {
         getMini(context) {
             if (context.mini) { return }
             context.state.miniLoading = true;
-            httmMethods.get(`${accountNav.menu.path}/mini`)
+            httpMethods.get(`${accountNav.menu.path}/mini`)
                 .then(response => {
                     context.state.mini = response.data;
                     context.state.miniLoading = false;
@@ -52,7 +52,7 @@ export default {
         getAccountsByAccountType(context, accountType) {
 
             context.state.accountsByAccountTypeLoading = true;
-            httmMethods.get(`${accountNav.menu.path}/accounttype/${accountType}`)
+            httpMethods.get(`${accountNav.menu.path}/accounttype/${accountType}`)
                 .then(response => {
                     context.state.accountsByAccountType = response.data;
                     context.state.accountsByAccountTypeLoading = false;
@@ -67,7 +67,7 @@ export default {
         getContraAccountsByAccountType(context, accountType) {
 
             context.state.contraAccountsByAccountTypeLoading = true;
-            httmMethods.get(`${accountNav.menu.path}/accounttype/contra/${accountType}`)
+            httpMethods.get(`${accountNav.menu.path}/accounttype/contra/${accountType}`)
                 .then(response => {
                     context.state.contraAccountsByAccountType = response.data;
                     context.state.contraAccountsByAccountTypeLoading = false;
@@ -83,7 +83,7 @@ export default {
         getAssetAccounts(context) {
             if (context.state.assetAccounts.length > 0) return
             context.state.assetAccountsLoading = true;
-            httmMethods.get(`${accountNav.menu.path}/accounttype/${context.state.assetAccountType}`)
+            httpMethods.get(`${accountNav.menu.path}/accounttype/${context.state.assetAccountType}`)
                 .then(response => {
                     context.state.assetAccounts = response.data;
                     context.state.assetAccountsLoading = false;
@@ -97,7 +97,7 @@ export default {
         getEquityAccounts(context) {
             if (context.state.equityAccounts.length > 0) return
             context.state.equityAccountsLoading = true;
-            httmMethods.get(`${accountNav.menu.path}/accounttype/${context.state.equityAccountType}`)
+            httpMethods.get(`${accountNav.menu.path}/accounttype/${context.state.equityAccountType}`)
                 .then(response => {
                     context.state.equityAccounts = response.data;
                     context.state.equityAccountsLoading = false;
@@ -111,7 +111,7 @@ export default {
         getLiabilityAccounts(context) {
             if (context.state.liabilityAccounts.length > 0) return
             context.state.liabilityAccountsLoading = true;
-            httmMethods.get(`${accountNav.menu.path}/accounttype/${context.state.liabilityAccountType}`)
+            httpMethods.get(`${accountNav.menu.path}/accounttype/${context.state.liabilityAccountType}`)
                 .then(response => {
                     context.state.liabilityAccounts = response.data;
                     context.state.liabilityAccountsLoading = false;
@@ -125,7 +125,7 @@ export default {
         getIncomeAccounts(context) {
             if (context.state.incomeAccounts.length > 0) return
             context.state.incomeAccountsLoading = true;
-            httmMethods.get(`${accountNav.menu.path}/accounttype/${context.state.incomeAccountType}`)
+            httpMethods.get(`${accountNav.menu.path}/accounttype/${context.state.incomeAccountType}`)
                 .then(response => {
                     context.state.incomeAccounts = response.data;
                     context.state.incomeAccountsLoading = false;
@@ -139,7 +139,7 @@ export default {
         getExpenseAccounts(context) {
             if (context.state.expenseAccounts.length > 0) return
             context.state.expenseAccountsLoading = true;
-            httmMethods.get(`${accountNav.menu.path}/accounttype/${context.state.expenseAccountType}`)
+            httpMethods.get(`${accountNav.menu.path}/accounttype/${context.state.expenseAccountType}`)
                 .then(response => {
                     context.state.expenseAccounts = response.data;
                     context.state.expenseAccountsLoading = false;

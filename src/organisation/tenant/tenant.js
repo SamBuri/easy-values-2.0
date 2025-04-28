@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import tenantNav from './TenantNav';
 export default {
 namespaced: true,
@@ -24,7 +24,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
              context.commit("miniLoading", true);
-            httmMethods.get(`${tenantNav.menu.path}/mini`)
+            httpMethods.get(`${tenantNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -38,7 +38,7 @@ actions: {
 
         getTenant(context, host) {
             if (context.state.tenant) { return }
-            httmMethods.get(`${tenantNav.menu.path}/mini/host/${host}`)
+            httpMethods.get(`${tenantNav.menu.path}/mini/host/${host}`)
                 .then(response => {
                     context.state.tenant = response.data
 
@@ -52,7 +52,7 @@ actions: {
 
         async getFirstTenant(context, host) {
             if (context.state.tenant) { return }
-            httmMethods.getNoHeaders(`${tenantNav.menu.path}/mini/host/${host}`)
+            httpMethods.getNoHeaders(`${tenantNav.menu.path}/mini/host/${host}`)
                 .then(response => {
                     let res = response.data;
                     context.state.firstTenant = res

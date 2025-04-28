@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import shareholderSharesNav from './ShareholderSharesNav';
 export default {
     namespaced: true,
@@ -15,7 +15,7 @@ export default {
         getMini(context) {
             if (context.mini) { return }
             context.state.miniLoading = true;
-            httmMethods.get(`${shareholderSharesNav.menu.path}/mini`)
+            httpMethods.get(`${shareholderSharesNav.menu.path}/mini`)
                 .then(response => {
                     context.state.mini = response.data;
                     context.state.miniLoading = false;
@@ -29,7 +29,7 @@ export default {
 
         getShareholderShares(context, shareholderId) {
             context.state.shareholderSharesLoading = true;
-            httmMethods.get(`${shareholderSharesNav.menu.path}/shareholderId/${shareholderId}`)
+            httpMethods.get(`${shareholderSharesNav.menu.path}/shareholderId/${shareholderId}`)
                 .then(response => {
                     context.state.shareholderShares = response.data;
                     context.state.shareholderSharesLoading = false;
@@ -43,7 +43,7 @@ export default {
 
         getShareholderShare(context, payload) {
             context.state.shareholderShareLoading = true;
-            httmMethods.get(`${shareholderSharesNav.menu.path}/${payload.shareholderId}/${payload.shareTypeId}`)
+            httpMethods.get(`${shareholderSharesNav.menu.path}/${payload.shareholderId}/${payload.shareTypeId}`)
                 .then(response => {
                     context.state.shareholderShare = response.data;
                     context.state.shareholderShareLoading = false;

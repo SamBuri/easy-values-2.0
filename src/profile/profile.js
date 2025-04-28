@@ -1,4 +1,4 @@
-import httmMethods from "../utils/HttpMethods"
+import httpMethods from "../utils/HttpMethods"
 import country from "./country/country"
 import district from "./district/district"
 import county from "./county/county"
@@ -24,7 +24,7 @@ export default {
         getImageTypes(context) {
             if (context.mini) { return }
              context.state.imagetypes= true;
-            httmMethods.get(`${context.state.path}imagetypes`)
+            httpMethods.get(`${context.state.path}imagetypes`)
                 .then(response => {
                     context.state.imageTypes =  response.data;
                     context.state.imageTypesLoading =  false;
@@ -39,7 +39,7 @@ export default {
         getProfileTypes(context) {
             if (context.mini) { return }
              context.state.profileTypesLoading= true;
-            httmMethods.get(`${context.state.path}profiletypes`)
+            httpMethods.get(`${context.state.path}profiletypes`)
                 .then(response => {
                     context.state.profileTypes =  response.data;
                     context.state.profileTypesLoading =  false;

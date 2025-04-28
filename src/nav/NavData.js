@@ -28,7 +28,7 @@ tree: [
           sharesNavData.nav,
           creditorNavData.nav,
           organisationNavData.nav,
-        //   securityNavData.nav,
+          securityNavData.nav,
 
           // interviewNavData.nav
 

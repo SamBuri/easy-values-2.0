@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import constants from '../../utils/constants';
 import lookupobjects from '../lookupobject/lookupobjects';
 import lookupDataNav from './LookupDataNav'
@@ -134,7 +134,7 @@ export default {
     }, actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(constants.endPoints.lookupdata + "/mini")
+            httpMethods.get(constants.endPoints.lookupdata + "/mini")
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {
@@ -146,7 +146,7 @@ export default {
 
         getAccountTypes(context) {
             if (context.accountTypes) { return }
-            httmMethods.get("enums/" + constants.endPoints.accountTypes)
+            httpMethods.get("enums/" + constants.endPoints.accountTypes)
                 .then(response => {
                     context.commit("accountTypes", response.data);
                 }).catch(e => {
@@ -158,7 +158,7 @@ export default {
 
         getAccountActions(context) {
             if (context.accountActions) { return; }
-            httmMethods.get("enums/" + constants.endPoints.accountActions)
+            httpMethods.get("enums/" + constants.endPoints.accountActions)
                 .then(response => {
                     context.commit("accountActions", response.data);
                 }).catch(e => {
@@ -170,7 +170,7 @@ export default {
 
         getAccountReports(context) {
             if (context.accountReport) { return; }
-            httmMethods.get("enums/" + constants.endPoints.accountReports)
+            httpMethods.get("enums/" + constants.endPoints.accountReports)
                 .then(response => {
                     context.commit("accountReports", response.data);
                 }).catch(e => {
@@ -183,7 +183,7 @@ export default {
         getBusinessSections(context) {
             if (context.state.businessSections.length>0) { return; }
             context.state.businessSectionsLoading = true;
-            httmMethods.get(`${constants.endPoints.lookupdata}/mini/${lookupobjects.BUSINESS_SECTIONS}`)
+            httpMethods.get(`${constants.endPoints.lookupdata}/mini/${lookupobjects.BUSINESS_SECTIONS}`)
                 .then(response => {
                     context.state.businessSections= response.data;
                     context.state.businessSectionsLoading = false;
@@ -197,7 +197,7 @@ export default {
 
         getPriceGroups(context) {
             if (context.priceGroups) { return; }
-            httmMethods.get(`${constants.endPoints.lookupdata}/mini/${lookupobjects.PRICE_GROUP}`)
+            httpMethods.get(`${constants.endPoints.lookupdata}/mini/${lookupobjects.PRICE_GROUP}`)
                 .then(response => {
                     context.commit("priceGroups", response.data);
                 }).catch(e => {
@@ -209,7 +209,7 @@ export default {
 
         getBusinessGroups(context) {
             if (context.businessGroups) { return; }
-            httmMethods.get(`${constants.endPoints.lookupdata}/mini/${lookupobjects.BUSINESS_GROUP}`)
+            httpMethods.get(`${constants.endPoints.lookupdata}/mini/${lookupobjects.BUSINESS_GROUP}`)
                 .then(response => {
                     context.commit("businessGroups", response.data);
                 }).catch(e => {
@@ -221,7 +221,7 @@ export default {
 
         getVATItemGroups(context) {
             if (context.vATItemGroups) { return; }
-            httmMethods.get(`${constants.endPoints.lookupdata}/mini/${lookupobjects.VAT_ITEM_GROUP}`)
+            httpMethods.get(`${constants.endPoints.lookupdata}/mini/${lookupobjects.VAT_ITEM_GROUP}`)
                 .then(response => {
                     context.commit("vATItemGroups", response.data);
                 }).catch(e => {
@@ -233,7 +233,7 @@ export default {
 
         getVATBusinessGroups(context) {
             if (context.vATBusinessGroups) { return; }
-            httmMethods.get(`${constants.endPoints.lookupdata}/mini/${lookupobjects.VAT_BUSINESS_GROUP}`)
+            httpMethods.get(`${constants.endPoints.lookupdata}/mini/${lookupobjects.VAT_BUSINESS_GROUP}`)
                 .then(response => {
                     context.commit("vATBusinessGroups", response.data);
                 }).catch(e => {
@@ -245,7 +245,7 @@ export default {
 
         getUnitMeasures(context) {
             if (context.unitMeasures) { return; }
-            httmMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.UNIT_MEASURE}`)
+            httpMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.UNIT_MEASURE}`)
                 .then(response => {
                     context.commit("unitMeasures", response.data);
                 }).catch(e => {
@@ -257,7 +257,7 @@ export default {
 
         getItemGroups(context) {
             if (context.itemGroups) { return; }
-            httmMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.ITEM_GROUP}`)
+            httpMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.ITEM_GROUP}`)
                 .then(response => {
                     context.commit("itemGroups", response.data);
                 }).catch(e => {
@@ -269,7 +269,7 @@ export default {
 
         getInventoryGroups(context) {
             if (context.inventoryGroups) { return; }
-            httmMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.INVENTORY_GROUP}`)
+            httpMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.INVENTORY_GROUP}`)
                 .then(response => {
                     context.commit("inventoryGroups", response.data);
                 }).catch(e => {
@@ -281,7 +281,7 @@ export default {
 
         getCustomerAccountsGroups(context) {
             if (context.customerAccountsGroups) { return; }
-            httmMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.CUSTOMER_ACCOUNTS_CATEGORY}`)
+            httpMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.CUSTOMER_ACCOUNTS_CATEGORY}`)
                 .then(response => {
                     context.commit("customerAccountsGroups", response.data);
                 }).catch(e => {
@@ -294,7 +294,7 @@ export default {
 
         getBankAccountsGroups(context) {
             if (context.bankAccountsGroups) { return; }
-            httmMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.BANK_ACCOUNTS_GROUPS}`)
+            httpMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.BANK_ACCOUNTS_GROUPS}`)
                 .then(response => {
                     context.commit("bankAccountsGroups", response.data);
                 }).catch(e => {
@@ -307,7 +307,7 @@ export default {
         getBusinessCategories(context) {
             if (context.businessCategories) { return; }
             context.commit("businessCategoriesLoading", true);
-            httmMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.BUSINESS_CATEGORY}`)
+            httpMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.BUSINESS_CATEGORY}`)
                 .then(response => {
                     context.commit("businessCategories", response.data);
                     context.commit("businessCategoriesLoading", false);
@@ -323,7 +323,7 @@ export default {
         getMaritalStatuses(context) {
             if (context.maritalStatuses) { return; }
             context.commit("maritalStatusesLoading", true);
-            httmMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.MARITAL_STATUS}`)
+            httpMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.MARITAL_STATUS}`)
                 .then(response => {
                     context.commit("maritalStatuses", response.data);
                     context.commit("maritalStatusesLoading", false);
@@ -338,7 +338,7 @@ export default {
         getOccupations(context) {
             if (context.occupations) { return; }
             context.commit("occupationsLoading", true);
-            httmMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.OCCUPATION}`)
+            httpMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.OCCUPATION}`)
                 .then(response => {
                     context.commit("occupations", response.data);
                     context.commit("occupationsLoading", false);
@@ -353,7 +353,7 @@ export default {
         getIdTypes(context) {
             if (context.idTypes) { return; }
             context.commit("idTypesLoading", true);
-            httmMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.ID_TYPE}`)
+            httpMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.ID_TYPE}`)
                 .then(response => {
                     context.commit("idTypes", response.data);
                     context.commit("idTypesLoading", false);
@@ -368,7 +368,7 @@ export default {
         getCollateralCategories(context) {
             if (context.collateralCategories) { return; }
             context.commit("collateralCategoriesLoading", true);
-            httmMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.COLLATERAL_CATEGORIES}`)
+            httpMethods.get(`${lookupDataNav.menu.path}/mini/${lookupobjects.COLLATERAL_CATEGORIES}`)
                 .then(response => {
                     context.commit("collateralCategories", response.data);
                     context.commit("collateralCategoriesLoading", false);

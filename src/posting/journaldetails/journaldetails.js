@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import journalDetailsNav from './JournalDetailsNav'
 export default {
 namespaced: true,state: {
@@ -14,7 +14,7 @@ namespaced: true,state: {
     },actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(journalDetailsNav.menu.path + "/mini")
+            httpMethods.get(journalDetailsNav.menu.path + "/mini")
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {

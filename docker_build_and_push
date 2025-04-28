@@ -2,7 +2,7 @@
 
 # Define variables
 IMAGE_NAME="samburi/easyvalues"
-TAG="2.0"
+TAG="2.0.1"
 FULL_IMAGE="$IMAGE_NAME:$TAG"
 
 echo "Building Docker image: $FULL_IMAGE"

@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import financialPeriodNav from './FinancialPeriodNav';
 export default {
     namespaced: true,
@@ -17,7 +17,7 @@ export default {
     actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(`${financialPeriodNav.menu.path}/mini`)
+            httpMethods.get(`${financialPeriodNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {

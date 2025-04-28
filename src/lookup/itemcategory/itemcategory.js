@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import itemCategoryNav from './ItemCategoryNav';
 export default {
     namespaced: true,
@@ -15,7 +15,7 @@ export default {
         getMini(context) {
             if (context.mini) { return }
             context.state.miniLoading = true;
-            httmMethods.get(`${itemCategoryNav.menu.path}/mini`)
+            httpMethods.get(`${itemCategoryNav.menu.path}/mini`)
                 .then(response => {
                     context.state.mini = response.data;
                     context.state.miniLoading = false;
@@ -41,7 +41,7 @@ export default {
             ]
 
             context.state.expensableItemCategoriesLoading = true;
-            httmMethods.post(`${itemCategoryNav.menu.path}/list`, criteria)
+            httpMethods.post(`${itemCategoryNav.menu.path}/list`, criteria)
                 .then(response => {
                     context.state.expensableItemCategories = response.data;
                     context.state.expensableItemCategoriesLoading = false;

@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import loanBillNav from './LoanBillNav';
 export default {
 namespaced: true,
@@ -21,7 +21,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
              context.commit("miniLoading", true);
-            httmMethods.get(`${loanBillNav.menu.path}/mini`)
+            httpMethods.get(`${loanBillNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);

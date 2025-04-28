@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import invoiceDetailsNav from './InvoiceDetailNav';
 export default {
 namespaced: true,
@@ -17,7 +17,7 @@ mutations: {
 actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(`${invoiceDetailsNav.menu.path}/mini`)
+            httpMethods.get(`${invoiceDetailsNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {

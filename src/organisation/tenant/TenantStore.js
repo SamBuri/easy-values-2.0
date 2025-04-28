@@ -8,6 +8,7 @@ export const defineTenantStore =defineStore ("tenant", {
       miniLoading: false,
       tenant: null,
       firstTenant: null,
+      isFirstTenantLoading: false,
       currentTenantBranches: [],
 
     }),
@@ -75,23 +76,41 @@ export const defineTenantStore =defineStore ("tenant", {
       
 
       async getFirstTenant() {
-          if (this.firstTenant) { return }
-          let host =window.location.host;
-
-          httpMethods.getNoHeaders(`${tenantNav.menu.path}/mini/host/${host}`)
-              .then(response => {
-                  let res = response.data;
-                  this.firstTenant = res
-                 if(!res) console.log("No tenant found for the host: ",host);
-                
-
-              }).catch(e => {
-                 this.firstTenant=null;
-                  console.log(e);
-
-              })
-
+        if (this.firstTenant) {
+          return this.firstTenant;
+        }
+  
+        this.isFirstTenantLoading = true;
+        this.tenantError = null;
+  
+        try {
+          const host = window.location.host;
+          const response = await httpMethods.getNoHeaders(`${tenantNav.menu.path}/mini/host/${host}`);
+          // const response = await withTimeout(
+          //   httpMethods.getNoHeaders(`${tenantNav.menu.path}/mini/host/${host}`),
+          //   10000 // 10-second timeout
+          // );
+          
+          const res = response.data;
+  
+          if (!res) {
+            console.warn(`No tenant found for host: ${host}`);
+            this.firstTenant = null;
+            return null;
+          }
+  
+          this.firstTenant = res;
+          return res;
+        } catch (e) {
+          console.error(`Failed to fetch tenant for host ${host}:`, e);
+          this.firstTenant = null;
+          this.tenantError = e.message;
+          throw e;
+        } finally {
+          this.isFirstTenantLoading = false;
+        }
       },
+
 
       async getFirstTenantWithCallBack(callback) {
         if (this.firstTenant) { return }
@@ -111,6 +130,16 @@ export const defineTenantStore =defineStore ("tenant", {
             })
 
     },
+
+     clear() {
+        this.tenant = null;
+        this.firstTenant = null;
+        this.currentTenantBranches = [];
+        this.mini = [];
+        this.miniLoading = false;
+        this.isFirstTenantLoading = false;
+      
+     },
 
 
  }

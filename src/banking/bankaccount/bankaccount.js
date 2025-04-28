@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import bankAccountNav from './BankAccountNav';
 export default {
 namespaced: true,
@@ -46,7 +46,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
             context.commit("miniLoading", true);
-            httmMethods.get(`${bankAccountNav.menu.path}/mini`)
+            httpMethods.get(`${bankAccountNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -61,7 +61,7 @@ actions: {
         getBankAccountsByType(context, bankAccountType) {
 
             context.commit("bankAccountsByTypeLoading", true);
-            httmMethods.get(`${bankAccountNav.menu.path}/bankaccounttype/${bankAccountType}`)
+            httpMethods.get(`${bankAccountNav.menu.path}/bankaccounttype/${bankAccountType}`)
                 .then(response => {
                     context.commit("bankAccountsByType", response.data);
                     context.commit("bankAccountsByTypeLoading", false);
@@ -77,7 +77,7 @@ actions: {
         getFromBankAccountsByType(context, bankAccountType) {
 
             context.commit("fromBankAccountsByTypeLoading", true);
-            httmMethods.get(`${bankAccountNav.menu.path}/bankaccounttype/${bankAccountType}`)
+            httpMethods.get(`${bankAccountNav.menu.path}/bankaccounttype/${bankAccountType}`)
                 .then(response => {
                     context.commit("fromBankAccountsByType", response.data);
                     context.commit("fromBankAccountsByTypeLoading", false);

@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import accountCategoryNav from './AccountCategoryNav';
 export default {
 namespaced: true,
@@ -22,7 +22,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
              context.commit("miniLoading", true);
-            httmMethods.get(`${accountCategoryNav.menu.path}/mini`)
+            httpMethods.get(`${accountCategoryNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -36,7 +36,7 @@ actions: {
 
         getAccountCategoriesByAccountType(context, accountType) {
            context.state.accountCategoriesByAccountTypeLoading= false;
-            httmMethods.get(`${accountCategoryNav.menu.path}/mini/accounttype/${accountType}`)
+            httpMethods.get(`${accountCategoryNav.menu.path}/mini/accounttype/${accountType}`)
                 .then(response => {
                     context.state.accountCategoriesByAccountType= response.data;
                     context.state.accountCategoriesByAccountTypeLoading= false;

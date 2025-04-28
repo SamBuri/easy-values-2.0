@@ -1,4 +1,4 @@
-import httmMethods from '../utils/HttpMethods'
+import httpMethods from '../utils/HttpMethods'
 import constants from '../utils/constants'
 import lookupdata from './lookupdata/lookupdata';
 import lookupobject from './lookupobject/lookupobject';
@@ -132,7 +132,7 @@ export default {
 
         getDocumentTypes(context) {
             if (context.documentTypes) { return }
-            httmMethods.get("enums/documenttypes")
+            httpMethods.get("enums/documenttypes")
                 .then(response => {
                     context.commit("documentTypes", response.data);
                 }).catch(e => {
@@ -144,7 +144,7 @@ export default {
 
         getEntryModes(context) {
             if (context.entryModes) { return }
-            httmMethods.get("enums/entrymodes")
+            httpMethods.get("enums/entrymodes")
                 .then(response => {
                     context.commit("entryModes", response.data);
                 }).catch(e => {
@@ -156,7 +156,7 @@ export default {
 
         getJournalTypes(context) {
             if (context.journalTypes) { return }
-            httmMethods.get("enums/journaltypes")
+            httpMethods.get("enums/journaltypes")
                 .then(response => {
                     context.commit("journalTypes", response.data);
                 }).catch(e => {
@@ -168,7 +168,7 @@ export default {
 
         getAccountTypes(context) {
             if (context.accountTypes) { return }
-            httmMethods.get("enums/" + constants.endPoints.accountTypes)
+            httpMethods.get("enums/" + constants.endPoints.accountTypes)
                 .then(response => {
                     context.commit("accountTypes", response.data);
                 }).catch(e => {
@@ -180,7 +180,7 @@ export default {
 
         getAccountActions(context) {
             if (context.accountActions) { return; }
-            httmMethods.get("enums/accountactions")
+            httpMethods.get("enums/accountactions")
                 .then(response => {
                     context.commit("accountActions", response.data);
                 }).catch(e => {
@@ -192,7 +192,7 @@ export default {
 
         getAccountReports(context) {
             if (context.accountReport) { return; }
-            httmMethods.get("enums/accountreports")
+            httpMethods.get("enums/accountreports")
                 .then(response => {
                     context.commit("accountReports", response.data);
                 }).catch(e => {
@@ -204,7 +204,7 @@ export default {
 
         getAccountGroups(context) {
             if (context.accountGroups) { return; }
-            httmMethods.get("enums/accountgroups")
+            httpMethods.get("enums/accountgroups")
                 .then(response => {
                     context.commit("accountGroups", response.data);
                 }).catch(e => {
@@ -216,7 +216,7 @@ export default {
 
         getUnitMeasureUsages(context) {
             if (context.accountGroups) { return; }
-            httmMethods.get("enums/unitmeasureusages")
+            httpMethods.get("enums/unitmeasureusages")
                 .then(response => {
                     context.commit("unitMeasureUsages", response.data);
                 }).catch(e => {
@@ -228,7 +228,7 @@ export default {
 
         getItemCategoryGroups(context) {
             if (context.itemCategoryGroups) { return; }
-            httmMethods.get("enums/itemcategorygroups")
+            httpMethods.get("enums/itemcategorygroups")
                 .then(response => {
                     context.commit("itemCategoryGroups", response.data);
                 }).catch(e => {
@@ -240,7 +240,7 @@ export default {
 
         getInvoiceTypes(context) {
             if (context.invoiceTypes) { return; }
-            httmMethods.get("enums/invoicetypes")
+            httpMethods.get("enums/invoicetypes")
                 .then(response => {
                     context.commit("invoiceTypes", response.data);
                 }).catch(e => {
@@ -255,7 +255,7 @@ export default {
         getGenders(context) {
             if (context.genders) { return; }
             context.commit("gendersLoading", true);
-            httmMethods.get(`${context.state.path}gender`)
+            httpMethods.get(`${context.state.path}gender`)
                 .then(response => {
                     context.commit("genders", response.data);
                     context.commit("gendersLoading", false);
@@ -270,7 +270,7 @@ export default {
         getWorkTypes(context) {
             if (context.requestStatuses) { return; }
             context.commit("workTypesLoading", true);
-            httmMethods.get(`${context.state.path}worktypes`)
+            httpMethods.get(`${context.state.path}worktypes`)
                 .then(response => {
                     context.commit("workTypes", response.data);
                     context.commit("workTypesLoading", false);
@@ -285,7 +285,7 @@ export default {
         getRequestStatuses(context) {
             if (context.requestStatuses) { return; }
             context.commit("requestStatusesLoading", true);
-            httmMethods.get(`${context.state.path}requeststatuses`)
+            httpMethods.get(`${context.state.path}requeststatuses`)
                 .then(response => {
                     context.commit("requestStatuses", response.data);
                     context.commit("requestStatusesLoading", false);
@@ -300,7 +300,7 @@ export default {
         getOpenStatuses(context) {
             if (context.openStatuses) { return; }
             context.commit("openStatusesLoading", true);
-            httmMethods.get(`${context.state.path}openstatuses`)
+            httpMethods.get(`${context.state.path}openstatuses`)
                 .then(response => {
                     context.commit("openStatuses", response.data);
                     context.commit("openStatusesLoading", false);

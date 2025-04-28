@@ -35,7 +35,7 @@ watch(
   <div>
     <v-text-field
       :label="label"
-      :persistent-hint="hint"
+      :hint="hint"
       :modelValue="modelValue"
       :rules="rules"
       @update:modelValue="handleChange"

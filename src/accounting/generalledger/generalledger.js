@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import generalLedgerNav from './GeneralLedgerNav';
 export default {
 namespaced: true,
@@ -37,7 +37,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
              context.commit("miniLoading", true);
-            httmMethods.get(`${generalLedgerNav.menu.path}/mini`)
+            httpMethods.get(`${generalLedgerNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);

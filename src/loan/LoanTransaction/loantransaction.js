@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 // import constants from '../../utils/constants';
 
 import funcs from "../../utils/funcs";
@@ -76,7 +76,7 @@ export default {
             // setTimeout(() => {
             // }, 2000)
 
-            httmMethods.post(request.path, request.body)
+            httpMethods.post(request.path, request.body)
                 .then((response) => {
                     var data = response.data;
 

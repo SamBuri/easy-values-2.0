@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import refundReceiptInvoiceNav from './RefundReceiptInvoiceNav';
 export default {
 namespaced: true,
@@ -17,7 +17,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
              context.commit("miniLoading", true);
-            httmMethods.get(`${refundReceiptInvoiceNav.menu.path}/mini`)
+            httpMethods.get(`${refundReceiptInvoiceNav.menu.path}/mini`)
                 .then(response => {
                     context.state.mini = response.data;
                     context.state.miniLoading = false;

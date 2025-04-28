@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import invoiceNav from './InvoiceNav';
 export default {
     namespaced: true,
@@ -33,7 +33,7 @@ export default {
         getMini(context) {
             if (context.mini) { return }
             context.commit("miniLoading", true);
-            httmMethods.get(`${invoiceNav.menu.path}/mini`)
+            httpMethods.get(`${invoiceNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -48,7 +48,7 @@ export default {
         getDue(context, customerId) {
             console.log("Getting Due Invoices")
             context.commit("dueLoading", true);
-            httmMethods.get(`${invoiceNav.menu.path}/due/${customerId}`)
+            httpMethods.get(`${invoiceNav.menu.path}/due/${customerId}`)
                 .then(response => {
                     console.log("Path", `${invoiceNav.menu.path}/due/${customerId}`)
                     context.commit("due", response.data);

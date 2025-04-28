@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import profilePictureNav from './ProfilePictureNav';
 export default {
     namespaced: true,
@@ -21,7 +21,7 @@ export default {
         getMini(context) {
             if (context.mini) { return }
             context.state.miniLoading = true;
-            httmMethods.get(`${profilePictureNav.menu.path}/mini`)
+            httpMethods.get(`${profilePictureNav.menu.path}/mini`)
                 .then(response => {
                     context.state.mini = response.data;
                     context.state.miniLoading = false;
@@ -36,7 +36,7 @@ export default {
         async getProfilePictures(context, profileId) {
             context.state.profilePictures = [];
             context.state.profilePicturesLoading = true;
-            httmMethods.get(`${profilePictureNav.menu.path}/profileid/${profileId}`)
+            httpMethods.get(`${profilePictureNav.menu.path}/profileid/${profileId}`)
                 .then(response => {
                     
                     context.state.profilePictures =response.data;

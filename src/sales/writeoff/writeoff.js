@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import writeOffNav from './WriteOffNav';
 export default {
     namespaced: true,
@@ -20,7 +20,7 @@ export default {
         getMini(context) {
             if (context.mini) { return }
             context.commit("miniLoading", true);
-            httmMethods.get(`${writeOffNav.menu.path}/mini`)
+            httpMethods.get(`${writeOffNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);

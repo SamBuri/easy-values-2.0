@@ -33,6 +33,27 @@ export const defineRootStore = defineStore("root", {
         };
       else this.results = null;
     },
+
+     strategyResults(response, httpStrategy){
+      console.log("Response ", response);
+      let resultHandler = httpStrategy?.resultHandler
+          this.results = resultHandler?resultHandler(response): response.data;
+          this.results.show= true;
+          return this.results;
+     },
+
+     strategyError(error, httpStrategy){
+      console.error("Eror occured!", error);
+      let errorHandler = httpStrategy?.errorHandler
+      this.results =  errorHandler?errorHandler(error):{
+        success: false,
+        message: "Unknown Error occurred. Please try again later",
+        show: true,
+        entity: null,
+      };
+      return this.results;
+     },
+
     async post(request) {
       this.results = null;
       console.log("Request", request);
@@ -41,24 +62,15 @@ export const defineRootStore = defineStore("root", {
       setTimeout(() => {}, 2000);
 
       let saveResults = await httpMethods
-        .post(request.path, request.body)
+        .post(request.path, request.body, request.httpStrategy)
         .then((response) => {
-          var data = response.data;
-          console.log("Response ", data);
-          this.results = this.results = data;
-          this.results.show= true;
-          return this.results;
+          
+          return this.strategyResults(response, request.httpStrategy);
         })
         .catch((error) => {
-          console.log("There was an error!", error);
-
-          this.results = {
-            success: false,
-            message: "Unknown Error occurred. Please try again later",
-            show: true,
-            entity: null,
-          };
-          return this.results;
+          return this.strategyError(error, request.httpStrategy);
+          
+         
         })
         .finally(() => {
           this.loading = false;
@@ -73,73 +85,47 @@ export const defineRootStore = defineStore("root", {
       setTimeout(() => {}, 2000);
       console.log("Request", request);
       let updateResults = await httpMethods
-        .put(request.path, request.body)
+        .put(request.path, request.body, request.httpStrategy)
         .then((response) => {
           var data = response.data;
 
           console.log("Response", response.data);
 
-          // if (context.getters["search/dialog"] && data.success) {
-          //   context.commit("search/editData", request.body);
-          //   context.commit("search/dialog", false);
-          // }
+          return this.strategyResults(response, request.httpStrategy);
 
-          this.results = {
-            success: data.success,
-            message: data.message,
-            show: true,
-            entity: data.entity,
-          };
-          return this.results;
         })
         .catch((error) => {
-          console.error("There was an error!", error);
-          this.results = {
-            success: false,
-            message: error,
-            show: true,
-            entity: null,
-          };
-          return this.results;
+          return this.strategyError(error, request.httpStrategy);
         })
         .finally(() => (this.loading = false));
       return updateResults;
     },
 
-    async delete(path) {
+    async delete(path, httpStrategy) {
       this.deleteLoading = true;
       let deleteResults = await httpMethods
-        .delete(path)
+        .delete(path, httpStrategy)
         .then((response) => {
           var data = response.data;
 
           console.log("Response", response.data);
-          this.results = {
-            success: data.success,
-            message: data.message,
-            show: true,
-          };
-          return this.results;
+          return this.strategyResults(data, httpStrategy);
+         
         })
         .catch((error) => {
-          this.results = {
-            success: false,
-            message: "Error Deleting data",
-            show: true,
-          };
-          console.error("There was an error!", error);
-          return this.results;
+          
+          return this.strategyError(error, request.httpStrategy);
         })
         .finally(() => (this.deleteLoading = false));
       return deleteResults;
     },
 
-    async get(url) {
+    async get(url, httpStrategy) {
       if(!url)return null;
       this.objLoading = true;
       this.obj = null;
       let data = await httpMethods
-        .get(url)
+        .get(url,httpStrategy)
         .then((response) => {
           this.obj = response.data;
           console.log("Returned Data", this.obj);
@@ -167,30 +153,30 @@ export const defineRootStore = defineStore("root", {
       return data;
     },
 
-    getData(path) {
+    getData(path, httpStrategy) {
       this.results = null;
 
       this.dataLoading = true;
       httpMethods
-        .get(path)
+        .get(path, httpStrategy)
         .then((response) => {
           this.data = response.data;
           console.log("Response", response);
-          this.dataLoading = false;
           this.results = { success: true, message: "Successful", show: false };
         })
         .catch((error) => {
           console.log(error);
           this.data = [];
-          this.dataLoading = false;
+         
           this.results = { success: false, message: error, show: true };
-        });
+        })
+        .finally(()=> this.dataLoading = false);
     },
-    async fetch(endpoint,  pre, success, end) {
+    async fetch(endpoint,  pre, success, end, httpStrategy) {
      if(pre) pre();
 
       let res = await httpMethods
-        .get(endpoint)
+        .get(endpoint, httpStrategy)
         .then((res) => {
 
           success(res)
@@ -210,11 +196,11 @@ export const defineRootStore = defineStore("root", {
       return res;
     },
 
-    async doPost(endpoint, payload,  pre, success, end) {
+    async doPost(endpoint, payload,  pre, success, end, httpStrategy) {
       if(pre) pre();
 
        let res = await httpMethods
-         .post(endpoint, payload)
+         .post(endpoint, payload, httpStrategy)
          .then((res) => {
 
            success(res)
@@ -236,11 +222,11 @@ export const defineRootStore = defineStore("root", {
 
 
 
-    republish(path, id) {
+    republish(path, id,  httpStrategy) {
       let fullPath = `${path}/republish/${id}`;
 
       httpMethods
-        .get(fullPath)
+        .get(fullPath, httpStrategy)
         .then((response) => {
           console.log("Data url", fullPath);
           let res = response.data;

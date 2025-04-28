@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import itemNav from './ItemNav';
 export default {
 namespaced: true,
@@ -34,7 +34,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
             context.commit("miniLoading",true);
-            httmMethods.get(`${itemNav.menu.path}/mini`)
+            httpMethods.get(`${itemNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading",false);
@@ -48,7 +48,7 @@ actions: {
 
         async getItem(context, id) {
             context.commit("itemLoading",true);
-            await httmMethods.get(`${itemNav.menu.path}/${id}`)
+            await httpMethods.get(`${itemNav.menu.path}/${id}`)
                 .then(response => {
                     context.commit("item", response.data);
                     context.commit("itemLoading",false);

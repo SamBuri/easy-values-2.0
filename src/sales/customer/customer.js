@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import customerNav from './CustomerNav';
 export default {
     namespaced: true,
@@ -44,7 +44,7 @@ export default {
         getMini(context) {
             if (context.mini) { return }
             context.commit("miniLoading", true);
-            httmMethods.get(`${customerNav.menu.path}/mini`)
+            httpMethods.get(`${customerNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -59,7 +59,7 @@ export default {
         getSponsors(context) {
             if (context.sponsors) { return }
             context.commit("sponsersLoading", true);
-            httmMethods.get(`${customerNav.menu.path}/sponsors`)
+            httpMethods.get(`${customerNav.menu.path}/sponsors`)
                 .then(response => {
                     context.commit("sponsors", response.data);
                     context.commit("sponsersLoading", false);
@@ -75,7 +75,7 @@ export default {
         async get(context, id) {
             context.commit("results", null,{ root: true });
             context.commit("objLoading", true);
-            await httmMethods.get(`${customerNav.menu.path}/${id}`).then((response) => {
+            await httpMethods.get(`${customerNav.menu.path}/${id}`).then((response) => {
 
               context.commit("obj", response.data);
               console.log("Response", response);

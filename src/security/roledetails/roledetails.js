@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import roleDetailsNav from './RoleDetailsNav';
 export default {
 namespaced: true,
@@ -20,7 +20,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
              context.commit("miniLoading", true);
-            httmMethods.get(`${roleDetailsNav.menu.path}/mini`)
+            httpMethods.get(`${roleDetailsNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);

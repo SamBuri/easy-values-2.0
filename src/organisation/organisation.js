@@ -1,4 +1,4 @@
-import httmMethods from '../utils/HttpMethods'
+import httpMethods from '../utils/HttpMethods'
 import company from './company/company.js';
 import branch from './branch/branch.js'
 import tenant from './tenant/tenant.js'
@@ -23,7 +23,7 @@ export default {
     }, actions: {
         getBusinessTypes(context) {
             if (context.businessTypes) { return }
-            httmMethods.get(`${context.state.path}businesstypes`)
+            httpMethods.get(`${context.state.path}businesstypes`)
                 .then(response => {
                     context.commit("businessTypes", response.data);
                 }).catch(e => {
@@ -36,7 +36,7 @@ export default {
         getDbTypes(context) {
             if (context.dbTypes) { return; }
             context.state.dbTypesLoading = true;
-            httmMethods.get(`${context.state.path}dbtypes`)
+            httpMethods.get(`${context.state.path}dbtypes`)
                 .then(response => {
                     context.state.dbTypes = response.data;
                     context.state.dbTypesLoading = false;
@@ -51,7 +51,7 @@ export default {
         getTenantTypes(context) {
             if (context.tenantTypes) { return; }
             context.state.tenantTypesLoading = true;
-            httmMethods.get(`${context.state.path}tenanttypes`)
+            httpMethods.get(`${context.state.path}tenanttypes`)
                 .then(response => {
                     context.state.tenantTypes = response.data;
                     context.state.tenantTypesLoading = false;

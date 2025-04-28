@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import bankLedgerNav from './BankLedgerNav';
 export default {
 namespaced: true,
@@ -28,7 +28,7 @@ mutations: {
 actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(`${bankLedgerNav.menu.path}/mini`)
+            httpMethods.get(`${bankLedgerNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {
@@ -43,7 +43,7 @@ actions: {
             context.commit("bankLedgers", [])
             context.commit("bankLedgersLoading", true)
             try {
-                httmMethods.get(`${bankLedgerNav.menu.path}/bankaccountid/${bankAccountId}`)
+                httpMethods.get(`${bankLedgerNav.menu.path}/bankaccountid/${bankAccountId}`)
                     .then(response => {
                         context.commit("bankLedgers", response.data)
                         context.commit("bankLedgersLoading", false)

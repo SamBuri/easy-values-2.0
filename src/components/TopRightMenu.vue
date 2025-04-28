@@ -1,16 +1,29 @@
 <script setup>
      import { useAuthStore } from '@/store/authstore';
+     import initKeyCloak from '@/keycloak/InitKeyCloak';
      const authStore = useAuthStore();
-    import keycloakService from '@/keycloak/keycloakService';
+    // import keycloakService from '@/keycloak/keycloakService';
     import { useRouter } from 'vue-router';
     const router = useRouter();
-    const logout =  ()=> {
-       let keycloak = keycloakService.getKeycloak();
-       console.log("The keycloak Object, keycloak");
+    const logout =  async ()=> {
+       let keycloak = authStore.keycloak;
+       
+       console.log("The keycloak Object", keycloak);
        
       // router.push({name: 'load'})
-      if(keycloak) keycloak.logout();
-      // await keycloakService..getlogout();
+      if(!keycloak) {
+        console.log("Key Cloak is now");
+        try{
+          await initKeyCloak();
+          keycloak = authStore.keycloak();
+         
+        }catch(e){
+          console.log("Initializing Keycloak Failed "+e)
+          
+        }
+      }
+      if(keycloak.logout) await keycloak.logout();
+      // router.push({name: 'load'})
     }
 
 </script>
@@ -45,3 +58,8 @@
           </v-menu>
   </div>
 </template>
+
+
+
+
+

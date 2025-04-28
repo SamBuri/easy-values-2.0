@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods';
+import httpMethods from '../../utils/HttpMethods';
 import constants from '../../utils/constants';
 
 export default {
@@ -24,7 +24,7 @@ export default {
     actions: {
         getMini(context) {
             if (context.miniCountries) { return }
-            httmMethods.get(constants.endPoints.countries + "/mini")
+            httpMethods.get(constants.endPoints.countries + "/mini")
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {

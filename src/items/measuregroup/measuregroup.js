@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import measureGroupNav from './MeasureGroupNav';
 export default {
 namespaced: true,
@@ -17,7 +17,7 @@ mutations: {
 actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(`${measureGroupNav.menu.path}/mini`)
+            httpMethods.get(`${measureGroupNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {

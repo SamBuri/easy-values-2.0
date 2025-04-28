@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import branchNav from './BranchNav';
 export default {
 namespaced: true,
@@ -23,7 +23,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
              context.commit("miniLoading", true);
-            httmMethods.get(`${branchNav.menu.path}/mini`)
+            httpMethods.get(`${branchNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -38,7 +38,7 @@ actions: {
         getBranchByCompanyId(context, companyId) {
             if (context.mini) { return }
              context.state.branchByCompanyIdLoading= true
-            httmMethods.get(`${branchNav.menu.path}/companyId/${companyId}`)
+            httpMethods.get(`${branchNav.menu.path}/companyId/${companyId}`)
                 .then(response => {
                     context.state.branchByCompanyId=response.data;
                     context.state.branchByCompanyIdLoading = false;

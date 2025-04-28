@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import bSAccountGroupNav from './BSAccountGroupNav';
 export default {
 namespaced: true,
@@ -10,7 +10,7 @@ state: {
        getMini(context) {
             if (context.mini) { return }
              context.state.miniLoading= true;
-            httmMethods.get(`${bSAccountGroupNav.menu.path}/mini`)
+            httpMethods.get(`${bSAccountGroupNav.menu.path}/mini`)
                 .then(response => {
                     context.state.mini= response.data;
                     context.state.miniLoading= false;

@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import securedResourceNav from './SecuredResourceNav';
 export default {
 namespaced: true,
@@ -20,7 +20,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
              context.commit("miniLoading", true);
-            httmMethods.get(`${securedResourceNav.menu.path}/mini`)
+            httpMethods.get(`${securedResourceNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);

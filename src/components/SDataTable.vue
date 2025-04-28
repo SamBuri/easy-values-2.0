@@ -27,6 +27,8 @@ const alignments = ref(["start", "center", "end"]);
 const dialogDelete = ref(false);
 const defaultItem = ref({});
 
+const searchData =  ref('')
+
 // Computed properties
 const dataLoading = computed(() => props.loading || false);
 const hideFooter = computed(() => props.hideDefaultFooter || false);
@@ -85,12 +87,13 @@ const rowClass = (item) => {
       :single-select="true"
       class="elevation-1"
       dense
-      :search="search"
+      :search="searchData"
       :row-class="rowClass"
     >
       <template v-slot:top v-if="title">
         <v-toolbar flat>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
+          <v-text-field  v-if="search" :label="search" v-model="searchData"></v-text-field>
         </v-toolbar>
       </template>
 

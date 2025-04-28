@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import customerLedgerNav from './CustomerLedgerNav';
 export default {
     namespaced: true,
@@ -28,7 +28,7 @@ export default {
     actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(`${customerLedgerNav.menu.path}/mini`)
+            httpMethods.get(`${customerLedgerNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {
@@ -43,7 +43,7 @@ export default {
             context.commit("customerLedgers", [])
             context.commit("customerLedgersLoading", true)
             try {
-                httmMethods.get(`${customerLedgerNav.menu.path}/customerid/${customerId}`)
+                httpMethods.get(`${customerLedgerNav.menu.path}/customerid/${customerId}`)
                     .then(response => {
                         context.commit("customerLedgers", response.data)
                         context.commit("customerLedgersLoading", false)

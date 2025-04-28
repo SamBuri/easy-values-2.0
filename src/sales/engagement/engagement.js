@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import engagementNav from './EngagementNav';
 import storeFuncs from '../../utils/storeFuncs';
 import engagementCriteria from './EngagementCriteria'
@@ -30,7 +30,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
              context.commit("miniLoading", true);
-            httmMethods.get(`${engagementNav.menu.path}/mini`)
+            httpMethods.get(`${engagementNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -44,7 +44,7 @@ actions: {
 
         getNewEngagements(context) {
             context.state.newEngagementsLoading = true;
-            httmMethods.post(`${engagementNav.menu.path}/list`, storeFuncs.getCreatedTodayCriteria())
+            httpMethods.post(`${engagementNav.menu.path}/list`, storeFuncs.getCreatedTodayCriteria())
                 .then(response => {
                     context.state.newEngagements = response.data;
                     context.state.newEngagementsLoading = false;
@@ -60,7 +60,7 @@ actions: {
         getCustomerEngagements(context, ledgerRequest) {
             context.state.customerEngagementsLoading = true;
             console.log("Request: ", ledgerRequest);
-            httmMethods.post(`${engagementNav.menu.path}/list`,
+            httpMethods.post(`${engagementNav.menu.path}/list`,
             engagementCriteria.getPeriodicCustomerEngagementCriteria(ledgerRequest))
                 .then(response => {
                     context.state.customerEngagements = response.data;
@@ -78,7 +78,7 @@ actions: {
 
         getDueEngagements(context) {
             context.state.dueEngagementsLoading = true;
-            httmMethods.post(`${engagementNav.menu.path}/list`, engagementCriteria.getDueCriteria())
+            httpMethods.post(`${engagementNav.menu.path}/list`, engagementCriteria.getDueCriteria())
                 .then(response => {
                     context.state.dueEngagements = response.data;
                     context.state.dueEngagementsLoading = false;

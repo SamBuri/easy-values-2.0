@@ -239,6 +239,7 @@ export default function searchController(menu, menuItems) {
     searchStore.getSearchData({
       path: menu.path,
       options: searchOptions.value,
+      httpStrategy: menu.httpStrategy,
     });
   };
 

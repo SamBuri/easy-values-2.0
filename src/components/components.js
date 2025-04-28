@@ -1,4 +1,4 @@
-import httmMethods from "../utils/HttpMethods";
+import httpMethods from "../utils/HttpMethods";
 export default {
     namespaced: true,
 state: {
@@ -42,7 +42,7 @@ state: {
       console.log("Payload: ", payload)
       context.commit("results", null,  {root:true});
       context.state.periodicReportData = [];
-      httmMethods.post(payload.path, payload.body).then(response => {
+      httpMethods.post(payload.path, payload.body).then(response => {
           console.log("Data", response);
           context.state.periodicReportData = response.data;
           context.state.periodicReportDataLoading = false;

@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import loanApplicationNav from './LoanApplicationNav';
 export default {
 namespaced: true,
@@ -40,7 +40,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
              context.commit("miniLoading", true);
-            httmMethods.get(`${loanApplicationNav.menu.path}/mini`)
+            httpMethods.get(`${loanApplicationNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -56,7 +56,7 @@ actions: {
         getPending(context) {
 
             context.commit("pendingLoading", true);
-            httmMethods.get(`${loanApplicationNav.menu.path}/pending`)
+            httpMethods.get(`${loanApplicationNav.menu.path}/pending`)
                 .then(response => {
                     context.commit("pending", response.data);
                     context.commit("pendingLoading", false);
@@ -70,7 +70,7 @@ actions: {
 
         getApproved(context) {
              context.commit("pendingLoading", true);
-            httmMethods.get(`${loanApplicationNav.menu.path}/approved`)
+            httpMethods.get(`${loanApplicationNav.menu.path}/approved`)
                 .then(response => {
                     context.commit("approved", response.data);
                     context.commit("approvedLoading", false);

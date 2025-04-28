@@ -84,6 +84,14 @@ export const defineBranchStore = defineStore("branch", {
 
     },
 
+    clear() {
+      this.mini = [];
+      this.miniLoading = false;
+      this.branchByCompanyId = [];
+      this.branchByCompanyIdLoading = false;
+      this.currentBranch = null;
+    },
+
 
 
 

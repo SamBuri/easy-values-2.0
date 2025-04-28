@@ -1,4 +1,4 @@
-import httmMethods from '../utils/HttpMethods'
+import httpMethods from '../utils/HttpMethods'
 // import constants from '../utils/constants'
 import sharetype from './sharetype/sharetype'
 import shareholder from './shareholder/shareholder'
@@ -18,7 +18,7 @@ export default {
         getShareActions(context) {
             if (context.shareActions) { return }
             context.state.shareActionsLoading = true;
-            httmMethods.get(`${context.state.path}/shareactions`)
+            httpMethods.get(`${context.state.path}/shareactions`)
                 .then(response => {
                     context.state.shareActions = response.data;
                     context.state.shareActionsLoading = false;

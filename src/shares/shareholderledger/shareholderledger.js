@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import shareholderLedgerNav from './ShareholderLedgerNav';
 export default {
 namespaced: true,
@@ -10,7 +10,7 @@ state: {
  actions: {      getMini(context) {
             if (context.mini) { return }
              context.state.miniLoading= true;
-            httmMethods.get(`${shareholderLedgerNav.menu.path}/mini`)
+            httpMethods.get(`${shareholderLedgerNav.menu.path}/mini`)
                 .then(response => {
                     context.state.mini= response.data;
                     context.state.miniLoading= false;

@@ -1,4 +1,4 @@
-import httmMethods from '../utils/HttpMethods.js'
+import httpMethods from '../utils/HttpMethods.js'
 import bankaccount from './bankaccount/bankaccount.js'
 import banktransfer from './banktransfer/banktransfer.js'
 import bankledger from './bankledger/bankledger.js'
@@ -15,7 +15,7 @@ export default {
         getBankAccountTypes(context) {
             if (context.bankAccountTypes) { return; }
             context.state.bankAccountTypesLoading = true;
-            httmMethods.get(`${context.state.path}/bankaccounttypes`)
+            httpMethods.get(`${context.state.path}/bankaccounttypes`)
                 .then(response => {
                     context.state.bankAccountTypes= response.data;
                 }).catch(e => {

@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods';
+import httpMethods from '../../utils/HttpMethods';
 import { defineCentralStore } from './CentralStore';
 export default {
     namespaced: true,
@@ -61,7 +61,7 @@ export default {
             var page = this.currentPage > 0 ? this.currentPage - 1 : 0;
             this.loading = true;
             store.results =  null;
-            httmMethods.get(this.selected.path + "?page=" + page).then(response => {
+            httpMethods.get(this.selected.path + "?page=" + page).then(response => {
                 console.log("Data url", cthis.path + "?page=" + page);
                 this.data=response.data.content;
                  console.log("data",response.data)
@@ -96,7 +96,7 @@ export default {
 
             context.commit("results", null,  {root:true});
 
-            httmMethods.post(`${path}/search`,options).then(response => {
+            httpMethods.post(`${path}/search`,options).then(response => {
 
                 context.commit("data", response.data.content);
                  console.log("data",response.data)
@@ -123,7 +123,7 @@ export default {
             context.state.miniLoading = true;
             context.commit("results", null,  {root:true});
             context.commit("miniData", []);
-            httmMethods.get(`${context.state.miniSelected.path}/mini`).then(response => {
+            httpMethods.get(`${context.state.miniSelected.path}/mini`).then(response => {
                 context.commit("miniData", response.data);
                 context.state.miniLoading = false;
                 context.commit("results", { success: true, message: "Successful" , show: false},  {root:true});
@@ -138,7 +138,7 @@ export default {
 
         delete(context, id) {
 
-            httmMethods.delete(context.state.selected.path + "/" + id).then(response => {
+            httpMethods.delete(context.state.selected.path + "/" + id).then(response => {
                 console.log("Data url", context.state.selected.to + "/" + id);
                 let res = response.data;
               let data = context.state.data.filter(item => item.id !== id);
@@ -159,7 +159,7 @@ export default {
 
             let path= `${context.state.selected.path }/republish/${id}`;
 
-            httmMethods.get(path).then(response => {
+            httpMethods.get(path).then(response => {
                 console.log("Data url", path);
                 let res = response.data;
                 // alert("Success: " + res.success + " \n " + res.message)

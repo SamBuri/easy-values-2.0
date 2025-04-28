@@ -108,7 +108,7 @@ export const defineSearchStore = defineStore("search", {
       this.setResults(null);
 
       httpMethods
-        .post(`${path}/search`, options)
+        .post(`${path}/search`, options, payload.httpStrategy)
         .then((response) => {
           this.data = response.data.content;
           console.log("data", response.data);
@@ -154,9 +154,9 @@ export const defineSearchStore = defineStore("search", {
 
     // },
 
-    delete(id) {
+    delete(id, httpStrategy) {
       httpMethods
-        .delete(this.selected.path + "/" + id)
+        .delete(this.selected.path + "/" + id, httpStrategy)
         .then((response) => {
           console.log("Data url", this.selected.to + "/" + id);
           let res = response.data;
@@ -176,11 +176,11 @@ export const defineSearchStore = defineStore("search", {
         });
     },
 
-    republish(id) {
+    republish(id, httpStrategy) {
       let path = `${this.selected.path}/republish/${id}`;
 
       httpMethods
-        .get(path)
+        .get(path, httpStrategy)
         .then((response) => {
           console.log("Data url", path);
           let res = response.data;

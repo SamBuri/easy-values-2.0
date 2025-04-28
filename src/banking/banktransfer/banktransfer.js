@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import bankTransferNav from './BankTransferNav';
 import storeFuncs from '../../utils/storeFuncs';
 export default {
@@ -23,7 +23,7 @@ export default {
         getMini(context) {
             if (context.mini) { return }
             context.commit("miniLoading", true);
-            httmMethods.get(`${bankTransferNav.menu.path}/mini`)
+            httpMethods.get(`${bankTransferNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -37,7 +37,7 @@ export default {
 
         getNewBankTransfers(context) {
             context.state.newBankTransfersLoading = true;
-            httmMethods.post(`${bankTransferNav.menu.path}/list`, storeFuncs.getCreatedTodayCriteria())
+            httpMethods.post(`${bankTransferNav.menu.path}/list`, storeFuncs.getCreatedTodayCriteria())
                 .then(response => {
                     context.state.newBankTransfers = response.data;
                     context.state.newBankTransfersLoading = false;

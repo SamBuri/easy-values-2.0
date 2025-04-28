@@ -101,6 +101,8 @@ html {
 import { ref, computed, watch } from "vue";
 import navData from "./NavData";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "@/store/authstore";
+
 
 const items = navData.tree;
 const openedInitially = ["sales", "loan"];
@@ -135,7 +137,14 @@ const handleItemClick = (item) => {
   if (item.to) {
     router.push(item.to);
   }
+ 
 };
+
+const onTreeviewError = (error) => {
+  console.error("Treeview error:", error);
+};
+
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -166,6 +175,8 @@ const handleItemClick = (item) => {
               <span>Loan Dashboard</span>
             </v-btn>
 
+          
+
             <v-treeview 
             :filter="filter"
               :items="items" 
@@ -180,6 +191,7 @@ const handleItemClick = (item) => {
               v-model:active="active"
               item-props
               fluid
+              v-on:error="onTreeviewError"
             >
               <template v-slot:prepend="{ item, isOpen }">
                 <v-icon 

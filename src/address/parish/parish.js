@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import constants from '../../utils/constants';export default {
 namespaced: true,state: {
         mini:[],
@@ -18,7 +18,7 @@ namespaced: true,state: {
     },actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(constants.endPoints.parishes + "/mini")
+            httpMethods.get(constants.endPoints.parishes + "/mini")
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {
@@ -28,7 +28,7 @@ namespaced: true,state: {
 
         
                 getMiniParishesBySubCounty(context, subcountyId) {
-            httmMethods.get(constants.endPoints.parishes+ "/mini/"+subcountyId)
+            httpMethods.get(constants.endPoints.parishes+ "/mini/"+subcountyId)
                 .then(response => {
                     context.commit("miniParishesBySubCounty", response.data);
                     console.log("Data: "+response.data)

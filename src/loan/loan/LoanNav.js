@@ -87,18 +87,21 @@ const loanNav = {
       { title: "Principle", key: "principle", isNumeric: true },
       { title: "Balance", key: "balance", isNumeric: true },
       { title: "Loan Date", key: "loanDate", isDate: true },
+      { title: "Primary Phone No", key: "loanApplication.primaryPhoneNo" },
+      { title: "Other Phone Numbers", key: "loanApplication.otherPhoneNos" },
+
+      
+      { title: "Last Payment Date", key: "lastPaymentDate", isDate: true },
+      { title: "Next Payment Date", key: "nextPaymentDate", isDate: true },
+     
+      { title: "Last Bill Date", key: "lastBillDate", isDate: true },
+      { title: "Last Engagement Date", key: "lastEngagementDate", isDate: true },
       { title: "Loan Status", key: "loanStatus" },
       { title: "Gender", key: "loanApplication.gender" },
       { title: "Address", key: "loanApplication.addressDetails" },
-      { title: "Primary Phone No", key: "loanApplication.primaryPhoneNo" },
-      { title: "Other Phone Numbers", key: "loanApplication.otherPhoneNos" },
       { title: "Account", key: "account" },
       { title: "Bank Account Type", key: "bankAccountType" },
-      
-      { title: "Next Payment Date", key: "nextPaymentDate", isDate: true },
-      { title: "Last Payment Date", key: "lastPaymentDate", isDate: true },
-      { title: "Last Bill Date", key: "lastBillDate", isDate: true },
-      { title: "Last Engagement Date", key: "lastEngagementDate", isDate: true },
+     
       { title: "Bl Posted", key: "blPosted",},
       { title: "GlPosted", key: "glPosted"},
       { title: "Loan Product", key: "loanApplication.loanProduct.productName" },

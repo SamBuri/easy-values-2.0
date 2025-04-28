@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import receiptNav from './ReceiptNav';
 import storeFuncs from '../../utils/storeFuncs';
 export default {
@@ -68,7 +68,7 @@ actions: {
         getMini(context) {
             if (context.mini) { return }
             context.commit("miniLoading", true);
-            httmMethods.get(`${receiptNav.menu.path}/mini`)
+            httpMethods.get(`${receiptNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -94,7 +94,7 @@ actions: {
                 value2: "",
             };
             criteria.push(cancelled);
-            httmMethods.post(`${receiptNav.menu.path}/list`, criteria)
+            httpMethods.post(`${receiptNav.menu.path}/list`, criteria)
                 .then(response => {
                     context.state.newReceipts = response.data;
                     context.state.newReceiptLoading = false;
@@ -110,7 +110,7 @@ actions: {
 
         getTodaySummary(context) {
             context.commit("todaySummaryLoading", true);
-            httmMethods.get(`${receiptNav.menu.path}/summary/today`)
+            httpMethods.get(`${receiptNav.menu.path}/summary/today`)
                 .then(response => {
                     context.commit("todaySummary", response.data);
                     console.log(response);
@@ -139,7 +139,7 @@ actions: {
             value2: "",
 
         }
-            httmMethods.post(`${receiptNav.menu.path}/list`, [equalToToday])
+            httpMethods.post(`${receiptNav.menu.path}/list`, [equalToToday])
                 .then(response => {
                     context.commit("dailyReceipts", response.data);
                     console.log(response);
@@ -155,7 +155,7 @@ actions: {
         async get(context, id) {
             context.commit("results", null,{ root: true });
             context.commit("objLoading", true);
-            await httmMethods.get(`${receiptNav.menu.path}/${id}`).then((response) => {
+            await httpMethods.get(`${receiptNav.menu.path}/${id}`).then((response) => {
 
               context.commit("obj", response.data);
               console.log("Response", response);

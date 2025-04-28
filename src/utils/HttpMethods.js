@@ -4,10 +4,11 @@ import api from "./api";
 
 
 
-const httmMethods = {
-    get(endpoint) {
+const httpMethods = {
+    get(endpoint, httpStrategy) {
+       
 
-        return api.createAPI()({
+        return api.createAPI(httpStrategy)({
             method: "GET",
             url: endpoint });
     },
@@ -19,38 +20,38 @@ const httmMethods = {
             url: endpoint });
     },
 
-    createRequest(method, endpoint, payload) {
+    createRequest(method, endpoint, payload, httpStrategy) {
 
-        return api.createAPI()({ method: method, url: endpoint, data: payload })
+        return api.createAPI(httpStrategy)({ method: method, url: endpoint, data: payload })
     },
 
 
 
-    post(endpoint, payload) {
-        return this.createRequest("POST", endpoint, payload);
+    post(endpoint, payload, httpStrategy) {
+        return this.createRequest("POST", endpoint, payload, httpStrategy);
 
     },
 
-    postFormData(endpoint, key, payload) {
+    postFormData(endpoint, key, payload, httpStrategy) {
         let data =  new FormData();
         data.append(key, payload);
         console.log("data", data);
-        return this.createRequest("POST", endpoint, data);
+        return this.createRequest("POST", endpoint, data, httpStrategy);
     },
 
-    delete(endpoint) {
-        return this.createRequest("DELETE", endpoint);
+    delete(endpoint, httpStrategy) {
+        return this.createRequest("DELETE", endpoint, httpStrategy);
     },
-    put(endpoint, payload) {
-        return this.createRequest("PUT", endpoint, payload);
+    put(endpoint, payload, httpStrategy) {
+        return this.createRequest("PUT", endpoint, payload, httpStrategy);
     },
 
-    async fetch(endpoint, data, dataLoading, loadOnce, onSuccess, onError){
+    async fetch(endpoint, data, dataLoading, loadOnce, onSuccess, onError, httpStrategy){
        dataLoading = true;
        if(loadOnce){
         if(data.length>0) return data;
        }
-      let res =await this.get(endpoint)
+      let res =await this.get(endpoint, httpStrategy)
                         .then((res)=>{
                           data =res.data;
                           onSuccess();
@@ -66,4 +67,4 @@ const httmMethods = {
 
     }
 }
-export default httmMethods;
+export default httpMethods;

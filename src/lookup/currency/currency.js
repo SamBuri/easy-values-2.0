@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import currencyNav from './CurrencyNav';
 export default {
     namespaced: true,
@@ -23,7 +23,7 @@ export default {
     }, actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(currencyNav.menu.path + "/mini")
+            httpMethods.get(currencyNav.menu.path + "/mini")
                 .then(response => {
                     let data = response.data
                     context.commit("mini", data);
@@ -42,7 +42,7 @@ export default {
 
         getCurrency(context, id) {
             context.state.currencyLoading= true;
-            httmMethods.get(`${currencyNav.menu.path}/${id}`)
+            httpMethods.get(`${currencyNav.menu.path}/${id}`)
                 .then(response => {
                     let data = response.data
                     context.state.currency= data;

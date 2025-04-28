@@ -53,7 +53,6 @@ const profilePictureModel = {
       data.append("imageType", this.imageType);
       data.append("photo", this.photo);
       data.append("caption", this.caption);
-      2200125001722001250017
       return data;
     },
   },

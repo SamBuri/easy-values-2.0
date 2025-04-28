@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted,computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { defineRootStore } from "@/root/RootStore";
 import constants from "@/utils/constants";
 const props = defineProps([
@@ -9,10 +9,10 @@ const props = defineProps([
   "data",
   "buttonLabel",
   "controller",
-  
+
 ]);
 const emit = defineEmits(["add"]);
-const rootState= props.controller.rootState;
+const rootState = props.controller.rootState;
 const options = props.controller.options;
 const isUpdate = props.controller.isUpdate;
 
@@ -22,41 +22,54 @@ const idForm = ref(null);
 
 
 onMounted(() => {
- try{
-  console.log("Controller", props.controller)
-  form.value.validate();
-  if (!props.dialog||props.buttonLabel ===constants.buttonTexts.save) {
-   if(!props.retain) props.controller.clear();
+  try {
+
+    console.log("Controller", props.controller)
+
+
+
+    form.value.validate();
+    if (!props.dialog || props.buttonLabel === constants.buttonTexts.save) {
+      if (!props.retain) props.controller.clear();
+
+    }
+
+    if (props.buttonLabel) {
+      props.controller.setButtonText(props.buttonLabel);
+      props.controller.rootState.value.showSearch = false;
+    }
+    if (props.data) {
+      props.controller.setData(props.data);
+    }
+  } catch (e) {
+    console.log("Error", e)
 
   }
 
- if(props.buttonLabel) {
-  props.controller.setButtonText(props.buttonLabel);
-  props.controller.rootState.value.showSearch =false;
- }
- if(props.data){
-  props.controller.setData(props.data);
- }
-}catch(e){
-  console.log("Error",e)
- 
-}
 
 });
 
-const edit = ()=>{
-     if(props.buttonLabel===constants.buttonTexts.done){
-        emit('add', props.controller.model.value, ()=>props.controller.clear());
-        // props.controller.clear()
-     }
-     else props.controller.editClicked()
- }
+const edit = () => {
+  if (props.buttonLabel === constants.buttonTexts.done) {
+    emit('add', props.controller.model.value, () => props.controller.clear());
+    // props.controller.clear()
+  }
+  else props.controller.editClicked()
+}
 
 const rootStore = defineRootStore();
+
+const changed = ()=>{
+    if(!rootState.id) props.controller.clear()
+    else{
+      props.controller.clear()
+      props.controller.search();
+  }
+  }
 </script>
 
 <template>
-  <v-card flat :max-width="options.maxWidth" class="mx-auto mt-0 pa-1 scrollable-card" >
+  <v-card flat :max-width="options.maxWidth" class="mx-auto mt-0 pa-1 scrollable-card">
     <slot name="before-card"></slot>
     <v-toolbar flat v-if="!props.inner">
       <v-card-title>
@@ -77,56 +90,47 @@ const rootStore = defineRootStore();
         <v-form ref="idForm" v-model="rootState.idValid" @submit="controller.search">
           <v-container>
 
-            
-            <v-row>
+
+            <v-row v-if="!controller.currentStore">
+
               <v-col cols="10">
-                <v-text-field
-                  label="Id"
-                  v-model="rootState.id"
-                  hint="Enter the id. and press enter to load data"
-                  v-on:keyup.enter="controller.search"
-                  :rules="rootState.idRules"
-                  required
-                  @change="controller.clear"
-                ></v-text-field>
+                <v-text-field label="Id" v-model="rootState.id" hint="Enter the id. and press enter to load data"
+                  v-on:keyup.enter="controller.search" :rules="rootState.idRules" required
+                  @change="controller.clear"></v-text-field>
               </v-col>
+
               <v-col cols="2">
-                <v-btn
-                  color="primary"
-                  text
-                  type="submit"
-                  :disabled="!rootState.idValid"
-                  :loading="rootStore.objLoading"
-                  loading-text="Please Wait..."
-                >
+                <v-btn color="primary" text type="submit" :disabled="!rootState.idValid" :loading="rootStore.objLoading"
+                  loading-text="Please Wait...">
                   search
                 </v-btn>
               </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" v-if="controller.currentStore">
+                <s-select-field id="Id" label="Id" hint="Enter the id. and press enter to load data"
+                  v-model="rootState.id" v-on:keyup.enter="controller.search"
+                   :rules="rootState.idRules" required
+                  @ok="controller.search" @change="changed"
+                   :items="controller?.currentStore?.mini || []"
+                  :headers="props.controller.currentNav.menu.miniHeaders || []"></s-select-field>
+
+              </v-col>
+
+
             </v-row>
           </v-container>
 
 
         </v-form>
       </template>
-      <v-form
-        ref="form"
-        v-model="rootState.valid"
-        @submit="(e) => e.preventDefault"
-      >
+      <v-form ref="form" v-model="rootState.valid" @submit="(e) => e.preventDefault">
         <v-container>
           <v-row>
-            <slot
-              name="form-header"
-              :isUpdate="controller.isUpdate"
-              :isPreview="controller.isPreview"
-            ></slot>
+            <slot name="form-header" :isUpdate="controller.isUpdate" :isPreview="controller.isPreview"></slot>
           </v-row>
           <v-row>
-            <slot
-              name="form-data"
-              :isUpdate="controller.isUpdate"
-              :isPreview="controller.isPreview"
-            ></slot>
+            <slot name="form-data" :isUpdate="controller.isUpdate" :isPreview="controller.isPreview"></slot>
           </v-row>
         </v-container>
         <!-- <v-dialog v-model="$store.state.search.miniDialog" :max-width="formWidth" persistent>
@@ -134,19 +138,13 @@ const rootStore = defineRootStore();
           </v-dialog> -->
 
         <v-dialog v-model="rootState.confirmEdit" :max-width="500">
-          <s-confirm-dialog
-            :message="options.warningMsg"
-            @confirm="controller.editConfirmOk"
-            @cancel="controller.cancelEdit"
-          />
+          <s-confirm-dialog :message="options.warningMsg" @confirm="controller.editConfirmOk"
+            @cancel="controller.cancelEdit" />
         </v-dialog>
 
         <v-dialog v-model="rootState.confirmDelete" :max-width="500">
-          <s-confirm-dialog
-            :message="options.warningMsg"
-            @confirm="controller.deleteOk"
-            @cancel="controller.cancelDelete"
-          />
+          <s-confirm-dialog :message="options.warningMsg" @confirm="controller.deleteOk"
+            @cancel="controller.cancelDelete" />
         </v-dialog>
       </v-form>
     </v-card-text>
@@ -155,40 +153,17 @@ const rootStore = defineRootStore();
       <slot name="left-actions"></slot>
       <v-spacer></v-spacer>
       <slot name="card-actions" :valid="rootState.valid">
-        <v-btn
-          color="primary"
-          v-if="props.dialog"
-          text
-          @click="$emit('cancel')"
-        >
+        <v-btn color="primary" v-if="props.dialog" text @click="$emit('cancel')">
           Cancel
         </v-btn>
-        <span
-          ><v-checkbox
-            label="Print"
-            v-model="rootState.printData"
-            v-if="options.showPrintPrompt"
-          >
-          </v-checkbox
-        ></span>
-        <v-btn
-          color="primary"
-          text
-          @click="edit"
-          :loading="rootStore.loading"
-          :disabled="!rootState.valid"
-        >
+        <span><v-checkbox label="Print" v-model="rootState.printData" v-if="options.showPrintPrompt">
+          </v-checkbox></span>
+        <v-btn color="primary" text @click="edit" :loading="rootStore.loading" :disabled="!rootState.valid">
           {{ rootState.buttonText }}
         </v-btn>
 
-        <v-btn
-          v-if="(isUpdate && options.showDelete)"
-          color="primary"
-          text
-          @click="controller.deleteData"
-          :disabled="!rootState.valid"
-          :loading="rootStore.deleteLoading"
-        >
+        <v-btn v-if="(isUpdate && options.showDelete)" color="primary" text @click="controller.deleteData"
+          :disabled="!rootState.valid" :loading="rootStore.deleteLoading">
           Delete
         </v-btn>
       </slot>

@@ -48,7 +48,7 @@ export default function engagementController() {
     lookupStore.getOpenStatuses();
 
     engagementStore.getMini();
-    controller.model.value.attendingPersonnel = controller.authStore.user.fullName;
+    controller.model.value.attendingPersonnel = controller.authStore.fullName;
 
 
   })

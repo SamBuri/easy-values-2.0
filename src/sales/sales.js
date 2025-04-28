@@ -1,4 +1,4 @@
-import httmMethods from '../utils/HttpMethods'
+import httpMethods from '../utils/HttpMethods'
 import invoice from './invoice/invoice.js'
 import invoicedetail from './invoicedetail/invoicedetail.js'
 import receipt from './receipt/receipt.js'
@@ -23,7 +23,7 @@ export default {
         getRefundTypes(context) {
             if (context.state.refundTypes.length > 0) { return; }
             context.state.refundTypesLoading = false;
-            httmMethods.get(`${context.state.path}/refundtypes`)
+            httpMethods.get(`${context.state.path}/refundtypes`)
                 .then(response => {
                     context.state.refundTypes = response.data;
                     context.state.refundTypesLoading = false;
@@ -39,7 +39,7 @@ export default {
         getWriteOffTypes(context) {
             if (context.state.writeOffTypes.length > 0) { return; }
             context.state.writeOffTypesLoading = false;
-            httmMethods.get(`${context.state.path}/writeofftypes`)
+            httpMethods.get(`${context.state.path}/writeofftypes`)
                 .then(response => {
                     context.state.writeOffTypes = response.data;
                     context.state.writeOffTypesLoading = false;

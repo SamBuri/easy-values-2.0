@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import constants from '../../utils/constants'; export default {
     namespaced: true, state: {
         mini: [],
@@ -18,7 +18,7 @@ import constants from '../../utils/constants'; export default {
     }, actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(constants.endPoints.subcounties + "/mini")
+            httpMethods.get(constants.endPoints.subcounties + "/mini")
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {
@@ -30,7 +30,7 @@ import constants from '../../utils/constants'; export default {
 
         getMiniSubCountiesByCounty(context, countyID) {
             if (context.miniSubCountiesByCounty) { return }
-            httmMethods.get(constants.endPoints.subcounties + "/mini/"+countyID)
+            httpMethods.get(constants.endPoints.subcounties + "/mini/"+countyID)
                 .then(response => {
                     context.commit("miniSubCountiesByCounty", response.data);
                 }).catch(e => {

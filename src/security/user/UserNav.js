@@ -1,38 +1,56 @@
 import User from './User.vue'
+import Users from './Users.vue'
 const userNav = {
-        route: {
-                path: '/user/:mode',
-                name: 'user',
-                component: User,
-                meta: {auth: true}
-        }, menu: {
+        routes: [
+                {
+                        path: '/user/:mode',
+                        name: 'user',
+                        component: User,
+                        meta: { auth: true },
+                },
+                {
+                        path: '/users',
+                        name: 'users',
+                        component: Users,
+                        meta: { auth: true },
+                },
+
+        ],
+        menu: {
                 id: "security.user",
-                name: "Users",
+                title: "Users",
                 component: User,
                 path: "users",
-                width: "700px",
-                editHeaders: [{ text: "First Name", value: "firstName" },
-                { text: "Last Name", value: "lastName" },
-                { text: "Staff No", value: "staffNo" },
-                { text: "Username", value: "username" },
-                { text: "Role", value: "role.displayKey" },
-                { text: "Locked", value: "locked" },
-                { text: "Actions", value: "actions" }], headers: [{
-                        text: "Id",
+                width: "1000px",
+                editHeaders: [{ title: "First Name", key: "firstName" },
+                { title: "Last Name", key: "lastName" },
+                { title: "Username", key: "username" },
+                { title: "Password", key: "password" },
+                { title: "Email", key: "email" },
+                { title: "Default Branch", key: "defaultBranch.id" },
+                { title: "Enabled", key: "enabled" },
+                { title: "Actions", key: "actions" }], headers: [{
+                        title: "Id",
                         align: "start",
                         // sortable: false,
-                        value: "id",
+                        key: "id",
                 },
-                { text: "First Name", value: "firstName" },
-                { text: "Last Name", value: "lastName" },
-                { text: "Staff No", value: "staffNo" },
-                { text: "Username", value: "username" },
-                { text: "Role", value: "role.displayKey" },
-                { text: "Locked", value: "locked" },
-                ],
-                children: [{ id: "security.user.new", name: "New", route: "user", mode: 0 },
-                { id: "security.user.edit", name: "Edit", route: "user", mode: 1 },
-                { id: "security.user.history", name: "History", route: "user", mode: 2 },
+                { title: "First Name", key: "firstName" },
+                { title: "Last Name", key: "lastName" },
+                { title: "Username", key: "username" },
+                { title: "Password", key: "password" },
+                { title: "Email", key: "email" },
+                { title: "Default Branch", key: "defaultBranch.id" },
+                { title: "Enabled", key: "enabled" },
+                { title: "Branch", key: "branch", },
+                { title: "Creation Date", key: "creationDate", label: "Creation Date", field: "creationDate", isDateTime: true },
+                { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
+                { title: "Created By", key: "createdBy", },
+                { title: "Modified By", key: "modifiedBy", }],
+                children: [{ id: "security.user.view", title: "View", icon: "mdi-table", to: { name: "users", } },
+                { id: "security.user.new", title: "New", icon: "mdi-plus-circle", to: { name: "user", params: { mode: 0 } } },
+                { id: "security.user.edit", title: "Edit", icon: "mdi-pencil", to: { name: "user", params: { mode: 1 } } },
+                { id: "security.user.history", title: "History", icon: "mdi-history", to: { name: "user", params: { mode: 2 } } },
                 ]
         }
 }

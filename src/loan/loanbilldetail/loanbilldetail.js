@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import loanBillDetailsNav from './LoanBillDetailNav';
 import storeFuncs from '../../utils/storeFuncs';
 export default {
@@ -15,7 +15,7 @@ export default {
     getMini(context) {
         if (context.state.mini) { return }
         context.state.miniLoading = true;
-        httmMethods.get(`${loanBillDetailsNav.menu.path}/mini`)
+        httpMethods.get(`${loanBillDetailsNav.menu.path}/mini`)
             .then(response => {
                 context.state.mini = response.data;
                 context.state.miniLoading = false;
@@ -29,7 +29,7 @@ export default {
 
     getNewLoanBillDetails(context) {
         context.state.newLoanBillDetailsLoading = true;
-        httmMethods.post(`${loanBillDetailsNav.menu.path}/list`, storeFuncs.getCreatedTodayCriteria())
+        httpMethods.post(`${loanBillDetailsNav.menu.path}/list`, storeFuncs.getCreatedTodayCriteria())
             .then(response => {
                 context.state.newLoanBillDetails = response.data;
                 context.state.newLoanBillDetailsLoading = false;

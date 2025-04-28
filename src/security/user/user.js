@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import userNav from './UserNav';
 import router from '@/router'
 import constants from '../../utils/constants';
@@ -65,7 +65,7 @@ export default {
         getMini(context) {
             if (context.mini) { return }
             context.commit("miniLoading", true);
-            httmMethods.get(`${userNav.menu.path}/mini`)
+            httpMethods.get(`${userNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                     context.commit("miniLoading", false);
@@ -82,7 +82,7 @@ export default {
                 console.log("Passed Token at login", localStorage.getItem(constants.LOCAL_STORAGE_KEYS.VUE_TOKEN))
                 context.commit("miniLoading", true);
                 context.commit("results", null, {root:true});
-                httmMethods.post(`${userNav.menu.path}/login`, login)
+                httpMethods.post(`${userNav.menu.path}/login`, login)
                     .then(response => {
 
                         let data = response.data;

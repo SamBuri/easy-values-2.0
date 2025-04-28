@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import measureRelationNav from './MeasureRelationNav';
 export default {
     namespaced: true,
@@ -18,7 +18,7 @@ export default {
     actions: {
         getMini(context) {
             if (context.mini) { return }
-            httmMethods.get(`${measureRelationNav.menu.path}/mini`)
+            httpMethods.get(`${measureRelationNav.menu.path}/mini`)
                 .then(response => {
                     context.commit("mini", response.data);
                 }).catch(e => {

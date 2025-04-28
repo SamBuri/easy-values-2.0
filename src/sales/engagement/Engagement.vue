@@ -53,7 +53,7 @@ const rules = controller.rules;
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-date-picker id="nextEngagementDate" label="Next Engagement Date" v-model="model.nextEngagementDate"
-          :rules="rules.nextEngagementDate" /></v-col>
+          :rules="rules.nextEngagementDate" allowFuture /></v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-autocomplete id="expectedNextEngagementMode" label="Expected Next Engagement Mode"
           v-model="model.expectedNextEngagementMode" :rules="rules.expectedNextEngagementMode"

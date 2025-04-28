@@ -1,4 +1,4 @@
-import httmMethods from '../../utils/HttpMethods'
+import httpMethods from '../../utils/HttpMethods'
 import expenseDetailsNav from './ExpenseDetailNav';
 import storeFuncs from '../../utils/storeFuncs';
 export default {
@@ -15,7 +15,7 @@ export default {
         getMini(context) {
             if (context.mini) { return }
             context.state.miniLoading = true;
-            httmMethods.get(`${expenseDetailsNav.menu.path}/mini`)
+            httpMethods.get(`${expenseDetailsNav.menu.path}/mini`)
                 .then(response => {
                     context.state.mini = response.data;
                     context.state.miniLoading = false;
@@ -29,7 +29,7 @@ export default {
 
         getNewExpenseDetails(context) {
             context.state.newExpenseDetailsLoading = true;
-            httmMethods.post(`${expenseDetailsNav.menu.path}/list`, storeFuncs.getCreatedTodayCriteria())
+            httpMethods.post(`${expenseDetailsNav.menu.path}/list`, storeFuncs.getCreatedTodayCriteria())
                 .then(response => {
                     context.state.newExpenseDetails = response.data;
                     context.state.newExpenseDetailsLoading = false;

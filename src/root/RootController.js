@@ -1,4 +1,4 @@
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { defineRootStore } from "./RootStore";
 import { useAuthStore } from "@/store/authstore";
 import { defineTenantStore } from "@/organisation/tenant/TenantStore";
@@ -10,10 +10,18 @@ import rootOptions from "./RootOptions";
 export default function rootController(rawModel, rawOptions = rootOptions, hooks = {}) {
   const path = rawModel.path;
   const rules = rawModel.rules;
+  
   const model = ref(rawModel.model);
   const rootStore = defineRootStore();
   const authStore = useAuthStore();
   const tenantStore =  defineTenantStore();
+  
+  const  httpStrategy = async()=>{
+    let strategy = rawModel.httpStrategy;
+    if(!strategy) return null;
+     return await strategy();
+  }
+
 
   const rootState = ref({
     id: "",
@@ -29,9 +37,6 @@ export default function rootController(rawModel, rawOptions = rootOptions, hooks
 
   const options = ref(rawOptions||rootOptions);
 
-  // const buttonText = ref(options);
-
-  // const props = (props) => props;
 
   const clear = () => model.value.clear();
 
@@ -78,9 +83,11 @@ const   afterSave= async(res)=>{
 
     if (!rootState.value.valid) return;
 
+    console.log("Strategy", await httpStrategy())
+
     console.log("Model ", model.value)
     if (model.value.modify) model.value.modify();
-    let res = await rootStore.post({ path: path, body: body() });
+    let res = await rootStore.post({ path: path, body: body(), httpStrategy: await httpStrategy(), });
      await afterSave(res);
     if (res.success) {
      if(rootState.value.printData) await print();
@@ -88,23 +95,7 @@ const   afterSave= async(res)=>{
     }
   };
 
-  // const save = async () => {
-  //   if (!rootState.value.valid) return;
-
-  //   if (model.value.modify) model.value.modify();
-  //   let res = await rootStore.post({ path: path, body: body() });
-    
-  //   // Call custom afterSave if provided, otherwise default
-  //   if (hooks.afterSave) {
-  //     hooks.afterSave(res);
-  //   } else {
-  //     afterSave(res);
-  //   }
-    
-  //   if (res.success && rootState.value.printData) await print();
-  //   clear();
-  // };
-
+  
   const afterUpdate=(res)=>{};
 
   const update = async () => {
@@ -113,6 +104,7 @@ const   afterSave= async(res)=>{
     let res = await rootStore.put({
       path: `${path}/${model.value.id}`,
       body: body(),
+      httpStrategy: await httpStrategy(),
     });
     afterUpdate(res);
   };
@@ -122,23 +114,24 @@ const   afterSave= async(res)=>{
 
   const getData =  async(id)=>{
     if(!id) return null;
-   return  rootStore.get(`${path}/${id}`);
+   return  rootStore.get(`${path}/${id}`,await  httpStrategy());
   }
-  const search = async (e) => {
+  const search = async (e,) => {
+    if(e.preventDefault)
     e.preventDefault();
     if (!rootState.value.idValid) return;
     console.log("Path", `${path}/${rootState.value.id}`);
-    let data = await getData(`${rootState.value.id}`);
+    let data = await getData(`${rootState.value.id}`, await httpStrategy());
     console.log("Returned data", data);
     if (data) setData(data);
   };
 
-  const republish = (id)=>{
+  const republish = async (id)=>{
     rootStore.republish(path, id);
   }
 
   const deleteData = async () => {
-    let res = await rootStore.delete(`${path}/${rootState.value.id}`);
+    let res = await rootStore.delete(`${path}/${rootState.value.id}`, await httpStrategy());
     if (res.success) {
       rootState.value.id = "";
       clear();
@@ -208,6 +201,7 @@ const   afterSave= async(res)=>{
     model,
     authStore,
     tenantStore,
+    rawModel,
     save,
     afterSave,
     update,

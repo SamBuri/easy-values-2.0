@@ -1,19 +1,26 @@
-import loginNav from './login/LoginNav'
+// import loginNav from './login/LoginNav'
+// import roleNav from './role/RoleNav'
+import groupNav from './group/GroupNav'
 import roleNav from './role/RoleNav'
 import userNav from './user/UserNav'
+
+
 const securityNavData = {
     routes: [
-      roleNav.route,
-      userNav.route,
-      loginNav.route,
+     
+      ...groupNav.routes,
+      ...userNav.routes,
+      ...roleNav.routes,
+     
     ],
     nav: {
       id: "security",
-      name: "Security",
+      title: "Security",
       icon: "mdi-view-dashbord",
       children: [
-        roleNav.menu,
+        groupNav.menu,
         userNav.menu,
+        roleNav.menu,
   
       ],
     }
