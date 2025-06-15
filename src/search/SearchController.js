@@ -4,6 +4,7 @@ import { ref, computed, watch, nextTick } from "vue";
 import { defineSearchStore } from "./SearchStore";
 import { defineBranchStore } from "@/organisation/branch/BranchStore";
 import constants from "@/utils/constants";
+
 export default function searchController(menu, menuItems) {
   const search = ref("");
   const mitems = ref([]);
@@ -24,6 +25,7 @@ export default function searchController(menu, menuItems) {
   const aggregate = ref("Sum");
   const aggregateValue = ref(0);
   const searchCriteriaDialog = ref(false);
+  const strategy = ref(null);
 
   const searchStore = defineSearchStore();
   const title = computed(() => (menu ? menu.title : "Not Set"));
@@ -219,7 +221,25 @@ export default function searchController(menu, menuItems) {
     }
   };
 
-  const searchData = () => {
+  const  httpStrategy = async()=>{
+    let strategy = menu.httpStrategy;
+    if(!strategy) return null;
+     return await strategy();
+  }
+
+  const filterable = ref(false)
+
+  const setFilterable = (httpStrategy) => {
+    if(!httpStrategy) {
+      filterable.value = true;
+      return;
+    };
+    filterable.value = httpStrategy.filterable;
+  }
+ 
+  
+
+  const searchData = async() => {
     let searchCriteria = searchOptions.value.searchCriteria;
 
     if (
@@ -236,10 +256,18 @@ export default function searchController(menu, menuItems) {
       path: menu.path,
       options: searchOptions.value,
     };
+    let path = menu.path;
+
+    if(!menu.httpStrategy){
+     path+="/search";
+    }
+    let strategy = await httpStrategy();
+    console.log("HTTP Strategy", strategy);
+    setFilterable(strategy);
     searchStore.getSearchData({
-      path: menu.path,
+      path: path,
       options: searchOptions.value,
-      httpStrategy: menu.httpStrategy,
+      httpStrategy: strategy,
     });
   };
 
@@ -322,12 +350,52 @@ export default function searchController(menu, menuItems) {
   })
 
 
+  // const setHttpStrategy= () => {
+  //   searchStore.setHttpStrategy(null)
+  //     let strategy = menu.httpStrategy;
+  //  if (strategy) {
+  //     strategy().then((s) => {
+  //       if (s) {
+  //         searchStore.setHttpStrategy(s);
+  //       }
+  //     }).catch((e) => {
+  //        searchStore.setHttpStrategy(null)
+  //       console.error("Error setting HTTP Strategy", e);
+  //     });
+  //   }
+  // }
 
-  const mounted = () => {
+  const setHttpStrategy = async () => {
+        searchStore.setHttpStrategy(null)
+      let strategy = menu.httpStrategy;
+  if (strategy) {
+
+    // Check if we already have a cached strategy
+   
+      const strategy = await strategy();
+      searchStore.setHttpStrategy(strategy);
+    
+    return strategy;
+  }
+  return null;
+}
+
+  const mounted = async () => {
     setBranchCriterion();
     searchData();
     setSearchCriterion();
+    
   };
+
+  const customFilter = (value, query, item) => {
+  if (!query) return true;
+  
+  // Convert both the query and value to lowercase for case-insensitive search
+  const searchTerm = query.toString().toLowerCase();
+  const itemValue = value != null ? value.toString().toLowerCase() : '';
+  
+  return itemValue.includes(searchTerm);
+};
 
 
 
@@ -374,6 +442,9 @@ export default function searchController(menu, menuItems) {
     currentItem,
     mode,
     setMode,
-    buttonLabel
+    buttonLabel,
+    filterable,
+    customFilter,
+    
   };
 }

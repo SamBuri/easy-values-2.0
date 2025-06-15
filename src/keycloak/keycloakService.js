@@ -173,7 +173,7 @@ const keycloakService = {
       strategyUrl: `${tenant.authUrl}/admin/realms/${tenant.realm}`,
       resultHandler: (response) => {
         let status = response.status
-        let success = status == 200 || status == 201 || status == 202
+        let success = status == 200 || status == 201 || status == 202 || status == 204
         return {
           message: success ? "Operation Successful" : "Operation failed",
           success: success,
@@ -204,6 +204,23 @@ const keycloakService = {
 
 
       },
+
+      filterable: false,
+
+      searchData: (httpMethods, payload) => {
+        return httpMethods.get(payload.path, payload.httpStrategy);
+      },
+
+      searchDataHandler: (response) => {
+        let data = response?.data || [];
+        let length = data.length;
+        return {
+          content: data,
+          totalPages: 1,
+          totalElements: length,
+          numberOfElements: length,
+        };
+      }
 
     };
 

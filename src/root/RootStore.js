@@ -34,11 +34,11 @@ export const defineRootStore = defineStore("root", {
       else this.results = null;
     },
 
-     strategyResults(response, httpStrategy){
+     strategyResults(response, httpStrategy, show=true){
       console.log("Response ", response);
       let resultHandler = httpStrategy?.resultHandler
           this.results = resultHandler?resultHandler(response): response.data;
-          this.results.show= true;
+          this.results.show= show;
           return this.results;
      },
 
@@ -54,7 +54,7 @@ export const defineRootStore = defineStore("root", {
       return this.results;
      },
 
-    async post(request) {
+    async post(request, show=true) {
       this.results = null;
       console.log("Request", request);
       this.loading = true;
@@ -65,7 +65,7 @@ export const defineRootStore = defineStore("root", {
         .post(request.path, request.body, request.httpStrategy)
         .then((response) => {
           
-          return this.strategyResults(response, request.httpStrategy);
+          return this.strategyResults(response, request.httpStrategy, show);
         })
         .catch((error) => {
           return this.strategyError(error, request.httpStrategy);
@@ -87,8 +87,7 @@ export const defineRootStore = defineStore("root", {
       let updateResults = await httpMethods
         .put(request.path, request.body, request.httpStrategy)
         .then((response) => {
-          var data = response.data;
-
+          
           console.log("Response", response.data);
 
           return this.strategyResults(response, request.httpStrategy);
@@ -101,24 +100,50 @@ export const defineRootStore = defineStore("root", {
       return updateResults;
     },
 
-    async delete(path, httpStrategy) {
-      this.deleteLoading = true;
-      let deleteResults = await httpMethods
-        .delete(path, httpStrategy)
-        .then((response) => {
-          var data = response.data;
 
-          console.log("Response", response.data);
-          return this.strategyResults(data, httpStrategy);
-         
+    async delete(request, show = true) {
+      this.results = null;
+      console.log("Request", request);
+      this.loading = true;
+
+      setTimeout(() => {}, 2000);
+
+      let saveResults = await httpMethods
+        .delete(request.path, request.body, request.httpStrategy)
+        .then((response) => {
+          
+          return this.strategyResults(response, request.httpStrategy, show);
         })
         .catch((error) => {
-          
           return this.strategyError(error, request.httpStrategy);
+          
+         
         })
-        .finally(() => (this.deleteLoading = false));
-      return deleteResults;
+        .finally(() => {
+          this.loading = false;
+        });
+
+      return saveResults;
     },
+
+    // async delete(path, httpStrategy, show = true) {
+    //   this.deleteLoading = true;
+    //   let deleteResults = await httpMethods
+    //     .delete(path, httpStrategy)
+    //     .then((response) => {
+    //       var data = response.data;
+
+    //       console.log("Response", response.data);
+    //       return this.strategyResults(data, httpStrategy, show);
+         
+    //     })
+    //     .catch((error) => {
+          
+    //       return this.strategyError(error, request.httpStrategy);
+    //     })
+    //     .finally(() => (this.deleteLoading = false));
+    //   return deleteResults;
+    // },
 
     async get(url, httpStrategy) {
       if(!url)return null;

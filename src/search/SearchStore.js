@@ -36,9 +36,15 @@ export const defineSearchStore = defineStore("search", {
     miniLoading: false,
     selectedMiniItem: null,
     miniDialog: false,
+    httpStrategy: null,
+
   }),
 
   actions: {
+
+    setHttpStrategy(strategy) {
+      this.httpStrategy = strategy;
+    },
     editData(obj) {
       let currentObjets = this.data.filter((item) => item.id === obj.id);
       if (currentObjets) {
@@ -58,6 +64,37 @@ export const defineSearchStore = defineStore("search", {
       rootStore.setResults(data);
     },
 
+    setResultData(response) {
+      console.log("Setting result data", response);
+      if (response) {
+        this.data = response.content;
+        this.totalPages = response.totalPages;
+        this.totalElements = response.totalElements;
+        this.numberOfElements = response.numberOfElements;
+
+      }
+
+      this.setResults({
+        success: true,
+        message: "Successful",
+        show: false,
+      });
+
+    },
+
+    setResultError(error) {
+      this.data = [];
+      this.totalPages = 0;
+      this.totalElements = 0;
+      this.numberOfElements = 0;
+
+      console.log("Error in Search Data", error);
+      this.setResults({ success: false, message: error.message, show: true });
+    },
+
+
+
+
     getData() {
       var page = this.currentPage > 0 ? this.currentPage - 1 : 0;
       this.loading = true;
@@ -71,7 +108,7 @@ export const defineSearchStore = defineStore("search", {
           this.totalPages = response.data.totalPages;
           this.totalElements = response.data.totalElements;
           this.numberOfElements = response.data.numberOfElements;
-          this.loading = false;
+
           this.setResults({
             success: true,
             message: "Successful",
@@ -98,38 +135,31 @@ export const defineSearchStore = defineStore("search", {
     },
 
     getSearchData(payload) {
-      let path = payload.path;
-
       let options = payload.options;
-
       this.loading = true;
       console.log("Search Options: ", options);
-
       this.setResults(null);
 
-      httpMethods
-        .post(`${path}/search`, options, payload.httpStrategy)
-        .then((response) => {
-          this.data = response.data.content;
-          console.log("data", response.data);
-          this.totalPages = response.data.totalPages;
-          this.totalElements = response.data.totalElements;
-          this.numberOfElements = response.data.numberOfElements;
+      let strategy = payload.httpStrategy || null;
+      if (strategy) {
+        strategy.searchData(httpMethods, payload).then((response) => {
+          this.setResultData(strategy.searchDataHandler(response));
+        }).catch((e) => {
+          this.setResultError(e);
+        }).finally(() => {
           this.loading = false;
-          this.setResults({
-            success: true,
-            message: "Successful",
-            show: false,
-          });
+        });
+        return;
+      }
+
+      httpMethods
+        .post(payload.path, options, payload.httpStrategy)
+        .then((response) => {
+          this.setResultData(response.data);
+
         })
         .catch((e) => {
-          this.data = [];
-          this.totalPages = 0;
-          this.totalElements = 0;
-          this.numberOfElements = 0;
-
-          console.log("Error in Search Data", e);
-          this.setResults({ success: false, message: e.message, show: true });
+          this.setResultError(e);
         })
         .finally(() => {
           this.loading = false;

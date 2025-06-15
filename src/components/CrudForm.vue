@@ -18,7 +18,7 @@ const isUpdate = props.controller.isUpdate;
 
 const form = ref(null);
 const idForm = ref(null);
-
+props.controller.setProps(props);
 
 
 onMounted(() => {
@@ -30,6 +30,7 @@ onMounted(() => {
 
     form.value.validate();
     if (!props.dialog || props.buttonLabel === constants.buttonTexts.save) {
+    
       if (!props.retain) props.controller.clear();
 
     }
@@ -60,10 +61,11 @@ const edit = () => {
 const rootStore = defineRootStore();
 
 const changed = ()=>{
+
     if(!rootState.id) props.controller.clear()
     else{
       props.controller.clear()
-      props.controller.search();
+      props.controller.setSearchedData();
   }
   }
 </script>
@@ -111,7 +113,7 @@ const changed = ()=>{
                 <s-select-field id="Id" label="Id" hint="Enter the id. and press enter to load data"
                   v-model="rootState.id" v-on:keyup.enter="controller.search"
                    :rules="rootState.idRules" required
-                  @ok="controller.search" @change="changed"
+                  @ok="controller.setSearchedData" @change="changed"
                    :items="controller?.currentStore?.mini || []"
                   :headers="props.controller.currentNav.menu.miniHeaders || []"></s-select-field>
 

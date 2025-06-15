@@ -13,6 +13,7 @@ const {
   searchOperators,
   searchOperations,
   isBetween,
+  
 } = searchController();
 
 const searchCriteriaHeaders = searchModel.searchCriteriaHeaders;
@@ -30,6 +31,8 @@ const addCriterion = () => {
     searchOptions.value.searchCriteria.push(searchCriterionCopy);
   }
 };
+
+
 </script>
 
 <template>
@@ -125,6 +128,7 @@ const addCriterion = () => {
           </v-row>
         </v-container>
       </v-form>
+ 
     </v-card-text>
 
     <v-card-actions>

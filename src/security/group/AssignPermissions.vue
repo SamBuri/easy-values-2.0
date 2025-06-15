@@ -13,11 +13,10 @@ const miniHeaders = groupNav.miniHeaders
 const model = controller.model;
 const rules = controller.rules;
 const search = ref('')
-const isUpdate =controller.isUpdate;
 
-const selected = controller.selected
+const selected = ref([])
 
-
+watch(() => model.value.roles, (newValue) => selected.value = newValue);
 
 </script><template>
   <crud-form :controller="controller" :miniHeaders="miniHeaders">
@@ -25,13 +24,13 @@ const selected = controller.selected
 
     <template #form-data>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <s-text-field id="group" label="Group" v-model="model.name" :rules="rules.name" :counter="100"></s-text-field>
+        <s-text-field id="group" label="Group" v-model="model.name" :rules="rules.group" :counter="100"></s-text-field>
       </v-col>
 
-      <v-col cols="12" v-if="isUpdate">
+      <v-col cols="12">
         <v-data-table title="Permissions" :headers="controller.roleNav.menu.editHeaders"
           :items="controller.roleStore.mini" :component="controller.roleNav.menu.component" maxWidth="1000px"
-          show-select v-model="selected" height="520px" items-per-page="50" :search="search" dense return-object>
+          show-select item-value="name" v-model="selected" height="520px" items-per-page="50" :search="search" dense>
 
           <template v-slot:top>
             <v-toolbar flat>
@@ -40,12 +39,10 @@ const selected = controller.selected
             
               <s-text-field label="Search" v-model="search" outlined rounded single-line hide-details
                 prepend-inner-icon="mdi-magnify" class="rounded-search"></s-text-field>
-                <!-- <v-btn text color="primary" @click="controller.updatePermissions">Update Permissions</v-btn> -->
             </v-toolbar>
           </template>
 
         </v-data-table>
-
       </v-col>
 
     </template>

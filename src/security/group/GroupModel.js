@@ -6,6 +6,7 @@ const groupModel = {
 
     clear() {
       this.name = "";
+      
     },
 
     copy(obj) {
@@ -15,11 +16,11 @@ const groupModel = {
 
     },
 
-    getFormData(){
-      return {name:this.name}
+    getFormData() {
+      return { name: this.name }
     },
-  
-    
+
+
     printOptions() {
       let data = [];
       data.push({ text: "Group", value: this.group.name });
@@ -39,7 +40,7 @@ const groupModel = {
 
   },
   path: "groups",
- httpStrategy: async () => keycloakService.getHttpStrategy(),
+  httpStrategy: async () => keycloakService.getHttpStrategy(),
   rules: {
     name: [(v) => !!v || "Group is required",
     (v) => v.length < 100 || "Group length must be less or equal to 100",],

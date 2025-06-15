@@ -1,5 +1,6 @@
 import User from './User.vue'
 import Users from './Users.vue'
+import keycloakService from '@/keycloak/keycloakService.js'
 const userNav = {
         routes: [
                 {
@@ -17,15 +18,16 @@ const userNav = {
 
         ],
         menu: {
+                httpStrategy: async () => keycloakService.getHttpStrategy(),
                 id: "security.user",
                 title: "Users",
                 component: User,
                 path: "users",
                 width: "1000px",
-                editHeaders: [{ title: "First Name", key: "firstName" },
+
+                 miniHeaders: [{ title: "First Name", key: "firstName" },
                 { title: "Last Name", key: "lastName" },
                 { title: "Username", key: "username" },
-                { title: "Password", key: "password" },
                 { title: "Email", key: "email" },
                 { title: "Default Branch", key: "defaultBranch.id" },
                 { title: "Enabled", key: "enabled" },
@@ -38,15 +40,35 @@ const userNav = {
                 { title: "First Name", key: "firstName" },
                 { title: "Last Name", key: "lastName" },
                 { title: "Username", key: "username" },
-                { title: "Password", key: "password" },
                 { title: "Email", key: "email" },
                 { title: "Default Branch", key: "defaultBranch.id" },
                 { title: "Enabled", key: "enabled" },
-                { title: "Branch", key: "branch", },
-                { title: "Creation Date", key: "creationDate", label: "Creation Date", field: "creationDate", isDateTime: true },
-                { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
-                { title: "Created By", key: "createdBy", },
-                { title: "Modified By", key: "modifiedBy", }],
+        ],
+
+                editHeaders: [{ title: "First Name", key: "firstName" },
+                { title: "Last Name", key: "lastName" },
+                { title: "Username", key: "username" },
+                { title: "Email", key: "email" },
+                { title: "Default Branch", key: "defaultBranch.id" },
+                { title: "Enabled", key: "enabled" },
+                { title: "Actions", key: "actions" }], headers: [{
+                        title: "Id",
+                        align: "start",
+                        // sortable: false,
+                        key: "id",
+                },
+                { title: "First Name", key: "firstName" },
+                { title: "Last Name", key: "lastName" },
+                { title: "Username", key: "username" },
+                { title: "Email", key: "email" },
+                { title: "Default Branch", key: "defaultBranch.id" },
+                { title: "Enabled", key: "enabled" },
+                // { title: "Branch", key: "branch", },
+                // { title: "Creation Date", key: "creationDate", label: "Creation Date", field: "creationDate", isDateTime: true },
+                // { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
+                // { title: "Created By", key: "createdBy", },
+                // { title: "Modified By", key: "modifiedBy", }
+        ],
                 children: [{ id: "security.user.view", title: "View", icon: "mdi-table", to: { name: "users", } },
                 { id: "security.user.new", title: "New", icon: "mdi-plus-circle", to: { name: "user", params: { mode: 0 } } },
                 { id: "security.user.edit", title: "Edit", icon: "mdi-pencil", to: { name: "user", params: { mode: 1 } } },

@@ -39,9 +39,14 @@ const httpMethods = {
         return this.createRequest("POST", endpoint, data, httpStrategy);
     },
 
-    delete(endpoint, httpStrategy) {
-        return this.createRequest("DELETE", endpoint, httpStrategy);
+     delete(endpoint, payload, httpStrategy) {
+        return this.createRequest("DELETE", endpoint, payload, httpStrategy);
+
     },
+
+    // delete(endpoint, httpStrategy, payload) {
+    //     return this.createRequest("DELETE", endpoint,payload, httpStrategy);
+    // },
     put(endpoint, payload, httpStrategy) {
         return this.createRequest("PUT", endpoint, payload, httpStrategy);
     },

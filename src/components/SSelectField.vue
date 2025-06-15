@@ -28,7 +28,8 @@ watch(
   (v) => {
     let data = props.items.filter((it) => it.id === v);
     if (!data.isEmpty()) emit("ok", data[0]);
-  }
+  },
+  {immediate: true}
 );
 </script>
 <template>

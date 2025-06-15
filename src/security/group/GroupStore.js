@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import groupNav from "./GroupNav";
 import keycloakService from "@/keycloak/keycloakService";
 import { defineRootStore } from "@/root/RootStore";
+
 export const defineGroupStore = defineStore("group", {
 
   state: () => ({
@@ -31,6 +32,40 @@ export const defineGroupStore = defineStore("group", {
 
     },
 
+    getPath(groupId){
+      return `${this.path}/${groupId}/role-mappings/realm`;
+    },
+
+    async assingnPermissions(groupId, permissions) {
+
+       console.log("Permissions to assign", permissions);
+      if(!permissions.length){
+        console.log("No permissions to assign");
+        return;
+      }
+      const rootStore = defineRootStore();
+      
+      return rootStore.post({
+        path: this.getPath(groupId),
+        body: permissions,
+        httpStrategy: await keycloakService.getHttpStrategy()
+      }
+      );
+    },
+
+     async unAssingnPermissions(groupId, permissions, show ) {
+       console.log("Permissions to un assign", permissions);
+      if(!permissions.length){
+        console.log("No permissions to unassign");
+        return;
+      }
+      const rootStore = defineRootStore();
+        return rootStore.delete({ path:this.getPath(groupId), body: permissions, httpStrategy:await keycloakService.getHttpStrategy(), show });
+     
+    }
+
   }
 });
+
+
 

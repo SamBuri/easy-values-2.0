@@ -4,6 +4,7 @@ import groupController from "./GroupController";
 import searchMenuController from "@/search/SearchMenuController";
 const controller= groupController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
+import keycloakService from '@/keycloak/keycloakService';
 const menu= groupNav.menu;
 const menuItems = [
       { title: "Add", icon: "mdi-plus", click: (options)=>save(options)},
