@@ -25,7 +25,7 @@ const userModel = {
       this.password = "";
       this.confirmPassword = "";
       this.requiredActions = [];
-      this.enabled = false;
+      this.enabled = true;
     },
     copy(obj) {
       this.id = obj.id;

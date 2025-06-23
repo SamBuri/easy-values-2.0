@@ -175,7 +175,7 @@ const keycloakService = {
         let status = response.status
         let success = status == 200 || status == 201 || status == 202 || status == 204
         return {
-          message: success ? "Operation Successful" : "Operation failed",
+          message: success ? "Operation Successful" :response?.error_description? response?.error_description:"Operation failed",
           success: success,
 
 

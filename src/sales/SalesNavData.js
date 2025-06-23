@@ -37,6 +37,22 @@ const salesNavData = {
         id: "sales",
         title: "Sales",
         icon: "mdi-cash-100",
+        requires:[
+            ...customerGroupNav.menu.requires,
+            ...customerGroupItemCategoryNav.menu.requires,
+            ...customerNav.menu.requires,
+            ...customerLedgerNav.menu.requires,
+            ...engagementNav.menu.requires,
+            engagementPreviewNav.menu.requires,
+            ledgerNav.route.requires,
+            ...invoiceNav.menu.requires,
+            ...receiptNav.menu.requires,
+            ...refundNav.menu.requires,
+
+            // salesAccountingSetupNav.menu.requires,
+
+            // writeOffNav.menu.requires
+        ],
         children: [
             customerGroupNav.menu,
             customerGroupItemCategoryNav.menu,

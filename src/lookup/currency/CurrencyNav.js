@@ -1,25 +1,30 @@
 import Currency from "./Currency.vue";
 import Currencies from "./Currencies.vue";
+import navUtils from "@/nav/NavUtils";
 const currencyNav = {
-  routes: [
-    {
-      path: "/currency/:mode",
-      name: "currency",
-      component: Currency,
-      meta: { auth: true },
-    },
-    {
-      path: "/currencies",
-      name: "currencies",
-      component: Currencies,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/currency/:mode",
+  //     name: "currency",
+  //     component: Currency,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/currencies",
+  //     name: "currencies",
+  //     component: Currencies,
+  //     meta: { auth: true },
+  //   },
+  // ],
+
+  routes: navUtils.allRoutes("currency", Currency, "currencies", Currencies, true),
   menu: {
     id: "lookup.currency",
     title: "Currencies",
     component: Currency,
     path: "currencies",
+    icon: "mdi-currency-usd",
+    requires: navUtils.allRoles("currency"),
     width: "700px",
     editHeaders: [
       { title: "Currency", key: "currency" },
@@ -55,24 +60,25 @@ const currencyNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      { id: "lookup.currency.view", title: "View", to: { name: "currencies" } },
-      {
-        id: "lookup.currency.new",
-        title: "New",
-        to: { name: "currency", params: { mode: 0 } },
-      },
-      {
-        id: "lookup.currency.edit",
-        title: "Edit",
-        to: { name: "currency", params: { mode: 1 } },
-      },
-      {
-        id: "lookup.currency.history",
-        title: "History",
-        to: { name: "currency", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   { id: "lookup.currency.view", title: "View", to: { name: "currencies" } },
+    //   {
+    //     id: "lookup.currency.new",
+    //     title: "New",
+    //     to: { name: "currency", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "lookup.currency.edit",
+    //     title: "Edit",
+    //     to: { name: "currency", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "lookup.currency.history",
+    //     title: "History",
+    //     to: { name: "currency", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren("lookup", "currency", "currencies", false),
   },
 };
 export default currencyNav;

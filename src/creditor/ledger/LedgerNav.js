@@ -1,17 +1,26 @@
 import funcs from "../../utils/funcs";
 import Ledger from "./Ledger.vue";
+import navUtils from "@/nav/NavUtils";
 const ledgerNav = {
-  route: {
-    path: "/creditorledger",
-    name: "creditorledger",
-    component: Ledger,
-    meta: { auth: true },
-  },
+  // route: {
+  //   path: "/creditorledger",
+  //   name: "creditorledger",
+
+  //   component: Ledger,
+  //   meta: { auth: true },
+  // },
+  route: navUtils.viewRoute(
+    "creditorledger",
+    Ledger,
+    true
+  ),
 
   menu: {
     id: "creditor.ledger",
     title: "Ledger",
     to: { name: "creditorledger" },
+    icon: "mdi-book-open-page-variant",
+    requires: navUtils.allRoles("creditorledger"),
   },
 
   headers: [

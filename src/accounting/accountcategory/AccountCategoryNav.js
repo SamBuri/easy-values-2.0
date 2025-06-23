@@ -1,25 +1,29 @@
 import AccountCategory from "./AccountCategory.vue";
 import AccountCategories from "./AccountCategories.vue";
+import navUtils from "@/nav/NavUtils";
 const accountCategoryNav = {
-  routes: [
-    {
-      path: "/accountcategory/:mode",
-      name: "accountcategory",
-      component: AccountCategory,
-      meta: { auth: true },
-    },
-    {
-      path: "/accountcategories",
-      name: "accountcategories",
-      component: AccountCategories,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/accountcategory/:mode",
+  //     name: "accountcategory",
+  //     component: AccountCategory,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/accountcategories",
+  //     name: "accountcategories",
+  //     component: AccountCategories,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes( "accountcategory", AccountCategory, "accountcategories", AccountCategories, true),
   menu: {
     id: "accounting.accountcategory",
     title: "Account Categories",
     component: AccountCategory,
     path: "accountcategories",
+    icon: "mdi-account-multiple",
+    requires: navUtils.allRoles("accountcategory"),
     width: "700px",
     editHeaders: [
       { title: "Account Type", key: "accountType" },
@@ -57,28 +61,29 @@ const accountCategoryNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "accounting.accountCategory.view",
-        title: "View",
-        to: { name: "accountcategories" },
-      },
-      {
-        id: "accounting.accountCategory.new",
-        title: "New",
-        to: { name: "accountcategory", params: { mode: 0 } },
-      },
-      {
-        id: "accounting.accountCategory.edit",
-        title: "Edit",
-        to: { name: "accountcategory", params: { mode: 1 } },
-      },
-      {
-        id: "accounting.accountCategory.history",
-        title: "History",
-        to: { name: "accountcategory", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "accounting.accountCategory.view",
+    //     title: "View",
+    //     to: { name: "accountcategories" },
+    //   },
+    //   {
+    //     id: "accounting.accountCategory.new",
+    //     title: "New",
+    //     to: { name: "accountcategory", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "accounting.accountCategory.edit",
+    //     title: "Edit",
+    //     to: { name: "accountcategory", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "accounting.accountCategory.history",
+    //     title: "History",
+    //     to: { name: "accountcategory", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren( "accounting", "accountcategory", "accountcategories", false),
   },
 };
 export default accountCategoryNav;

@@ -1,26 +1,29 @@
 import Loan from "./Loan.vue";
 import Loans from "./Loans.vue";
+import navUtils from "@/nav/NavUtils";
 
 const loanNav = {
-  routes: [
-    {
-      path: "/loan/:mode",
-      name: "loan",
-      component: Loan,
-      meta: { auth: true },
-    },
-    {
-      path: "/loans",
-      name: "loans",
-      component: Loans,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/loan/:mode",
+  //     name: "loan",
+  //     component: Loan,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/loans",
+  //     name: "loans",
+  //     component: Loans,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes("loan", Loan, "loans", Loans, true),
   menu: {
     id: "loan.loan",
     title: "Loans",
     component: Loan,
     path: "loans",
+    requires: navUtils.allRoles("loan"),
     width: "1000px",
 
     miniHeaders: [
@@ -135,30 +138,31 @@ const loanNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      { id: "loan.loan.view", title: "View", 
-        icon: "mdi-table",
-        to: { name: "loans" } },
-      {
-        id: "loan.loan.new",
-        title: "New",
-        icon: "mdi-plus",
-        to: { name: "loan", params: { mode: 0 } },
-      },
-      {
-        id: "loan.loan.edit",
-        title: "Edit",
-        icon: "mdi-pencil",
+    // children: [
+    //   { id: "loan.loan.view", title: "View", 
+    //     icon: "mdi-table",
+    //     to: { name: "loans" } },
+    //   {
+    //     id: "loan.loan.new",
+    //     title: "New",
+    //     icon: "mdi-plus",
+    //     to: { name: "loan", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "loan.loan.edit",
+    //     title: "Edit",
+    //     icon: "mdi-pencil",
         
-        to: { name: "loan", params: { mode: 1 } },
-      },
-      {
-        id: "loan.loan.history",
-        title: "History",
-        icon: "mdi-history",
-        to: { name: "loan", params: { mode: 2 } },
-      },
-    ],
+    //     to: { name: "loan", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "loan.loan.history",
+    //     title: "History",
+    //     icon: "mdi-history",
+    //     to: { name: "loan", params: { mode: 2 } },
+    //   },
+    // ],
+    children:  navUtils.allChildren("loan","loan", "loans", true,)
   },
 };
 export default loanNav;

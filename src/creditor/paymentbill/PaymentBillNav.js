@@ -1,25 +1,29 @@
 import PaymentBill from "./PaymentBill.vue";
 import PaymentBills from "./PaymentBills.vue";
+import navUtils from "@/nav/NavUtils";
 const paymentBillNav = {
-  routes: [
-    {
-      path: "/paymentbill/:mode",
-      name: "paymentbill",
-      component: PaymentBill,
-      meta: { auth: true },
-    },
-    {
-      path: "/paymentbills",
-      name: "paymentbills",
-      component: PaymentBills,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/paymentbill/:mode",
+  //     name: "paymentbill",
+  //     component: PaymentBill,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/paymentbills",
+  //     name: "paymentbills",
+  //     component: PaymentBills,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: [navUtils.viewRoute("paymentbills", PaymentBills, true),],
   menu: {
     id: "creditor.paymentbill",
     title: "Payment Bills",
     component: PaymentBill,
     path: "paymentbills",
+    requires: navUtils.allRoles("payment"),
+    icon: "mdi-cash-multiple",
     width: "700px",
     editHeaders: [
       { title: "Bill", key: "bill.id" },
@@ -55,28 +59,29 @@ const paymentBillNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "creditor.paymentBill.view",
-        title: "View",
-        to: { name: "paymentbills" },
-      },
-      {
-        id: "creditor.paymentBill.new",
-        title: "New",
-        to: { name: "paymentbill", params: { mode: 0 } },
-      },
-      {
-        id: "creditor.paymentBill.edit",
-        title: "Edit",
-        to: { name: "paymentbill", params: { mode: 1 } },
-      },
-      {
-        id: "creditor.paymentBill.history",
-        title: "History",
-        to: { name: "paymentbill", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "creditor.paymentBill.view",
+    //     title: "View",
+    //     to: { name: "paymentbills" },
+    //   },
+    //   {
+    //     id: "creditor.paymentBill.new",
+    //     title: "New",
+    //     to: { name: "paymentbill", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "creditor.paymentBill.edit",
+    //     title: "Edit",
+    //     to: { name: "paymentbill", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "creditor.paymentBill.history",
+    //     title: "History",
+    //     to: { name: "paymentbill", params: { mode: 2 } },
+    //   },
+    // ],
+
   },
 };
 export default paymentBillNav;

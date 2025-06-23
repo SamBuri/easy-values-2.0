@@ -1,25 +1,35 @@
 import CreditorItemCategory from "./CreditorItemCategory.vue";
 import CreditorItemCategories from "./CreditorItemCategories.vue";
+import navUtils from "@/nav/NavUtils";
 const creditorItemCategoryNav = {
-  routes: [
-    {
-      path: "/creditoritemcategory/:mode",
-      name: "creditoritemcategory",
-      component: CreditorItemCategory,
-      meta: { auth: true },
-    },
-    {
-      path: "/creditoritemcategories",
-      name: "creditoritemcategories",
-      component: CreditorItemCategories,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/creditoritemcategory/:mode",
+  //     name: "creditoritemcategory",
+  //     component: CreditorItemCategory,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/creditoritemcategories",
+  //     name: "creditoritemcategories",
+  //     component: CreditorItemCategories,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes(
+    "creditoritemcategory",
+    CreditorItemCategory,
+    "creditoritemcategories",
+    CreditorItemCategories,
+    true
+  ),
   menu: {
     id: "creditor.creditoritemcategory",
     title: "Creditor Item Categories",
     component: CreditorItemCategory,
     path: "creditoritemcategories",
+    icon: "mdi-account-cash",
+    requires: navUtils.allRoles("creditoritemcategory"),
     width: "700px",
     editHeaders: [
       { title: "Creditor Group", key: "creditorGroup.id", isNumeric: true },
@@ -59,28 +69,34 @@ const creditorItemCategoryNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "creditor.creditorItemCategory.view",
-        title: "View",
-        to: { name: "creditoritemcategories" },
-      },
-      {
-        id: "creditor.creditorItemCategory.new",
-        title: "New",
-        to: { name: "creditoritemcategory", params: { mode: 0 } },
-      },
-      {
-        id: "creditor.creditorItemCategory.edit",
-        title: "Edit",
-        to: { name: "creditoritemcategory", params: { mode: 1 } },
-      },
-      {
-        id: "creditor.creditorItemCategory.history",
-        title: "History",
-        to: { name: "creditoritemcategory", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "creditor.creditorItemCategory.view",
+    //     title: "View",
+    //     to: { name: "creditoritemcategories" },
+    //   },
+    //   {
+    //     id: "creditor.creditorItemCategory.new",
+    //     title: "New",
+    //     to: { name: "creditoritemcategory", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "creditor.creditorItemCategory.edit",
+    //     title: "Edit",
+    //     to: { name: "creditoritemcategory", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "creditor.creditorItemCategory.history",
+    //     title: "History",
+    //     to: { name: "creditoritemcategory", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.createViewChildren(
+      "creditor",
+      "creditoritemcategory",
+      "creditoritemcategories",
+      false
+    ),
   },
 };
 export default creditorItemCategoryNav;

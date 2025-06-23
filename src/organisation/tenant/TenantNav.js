@@ -1,25 +1,16 @@
 import Tenant from "./Tenant.vue";
 import Tenants from "./Tenants.vue";
+import navUtils from "@/nav/NavUtils";
 const tenantNav = {
-  routes: [
-    {
-      path: "/tenant/:mode",
-      name: "tenant",
-      component: Tenant,
-      meta: { auth: true },
-    },
-    {
-      path: "/tenants",
-      name: "tenants",
-      component: Tenants,
-      meta: { auth: true },
-    },
-  ],
+ 
+  routes: navUtils.allRoutes("tenant", Tenant, "tenants", Tenants, true),
   menu: {
     id: "organisation.tenant",
     title: "Tenants",
     component: Tenant,
+    icon: "mdi-domain",
     path: "tenants",
+    requires: navUtils.allRoles("tenant"),
     width: "700px",
     editHeaders: [
       {
@@ -144,30 +135,36 @@ const tenantNav = {
         field: "modifiedBy",
       },
     ],
-    children: [
-      {
-        id: "organisation.tenant.view",
-        title: "View",
-        to: { name: "tenants" },
-      },
-      { id: "organisation.tenant.new",
-        title: "New",
-        to: { name: "tenants", params: { mode: 0 } },
-      },
+    // children: [
+    //   {
+    //     id: "organisation.tenant.view",
+    //     title: "View",
+    //     to: { name: "tenants" },
+    //   },
+    //   { id: "organisation.tenant.new",
+    //     title: "New",
+    //     to: { name: "tenants", params: { mode: 0 } },
+    //   },
 
-      {
-        id: "organisation.tenant.edit",
-        title: "Edit",
-        route: "tenant",
-        to: { name: "tenants", params: { mode: 1 } },
-      },
-      {
-        id: "organisation.tenant.history",
-        title: "History",
-        route: "tenant",
-        to: { name: "tenants", params: { mode: 2 } },
-      },
-    ],
+    //   {
+    //     id: "organisation.tenant.edit",
+    //     title: "Edit",
+    //     route: "tenant",
+    //     to: { name: "tenants", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "organisation.tenant.history",
+    //     title: "History",
+    //     route: "tenant",
+    //     to: { name: "tenants", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren(
+      "organisation",
+      "tenant",
+      "tenants",
+      false
+    ),
   },
 };
 export default tenantNav;

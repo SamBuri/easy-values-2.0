@@ -12,7 +12,12 @@ const expensesNavData = {
   nav: {
     id: "expenses",
     title: "Expenses",
-    icon: "mdi-view-dashbord",
+    icon: "mdi-cash-remove",
+    requires: [
+      ...expenseGroupNav.menu.requires,
+      ...expenseNav.menu.requires,
+      ...expenseDetailNav.menu.requires,
+    ],
     children: [
       expenseGroupNav.menu,
       expenseNav.menu,

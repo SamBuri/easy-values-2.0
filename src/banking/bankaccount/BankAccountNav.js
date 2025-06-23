@@ -1,26 +1,29 @@
 import BankAccount from "./BankAccount.vue";
 import BankAccounts from "./BankAccounts.vue";
+import navUtils from "@/nav/NavUtils";
 const bankAccountNav = {
-  routes: [
-    {
-      path: "/bankaccount/:mode",
-      name: "bankaccount",
-      component: BankAccount,
-      meta: { auth: true },
-    },
-    {
-      path: "/bankaccounts",
-      name: "bankaccounts",
-      component: BankAccounts,
-      meta: { auth: true },
-    },
-  ],
+    // routes: [
+    //   {
+    //     path: "/bankaccount/:mode",
+    //     name: "bankaccount",
+    //     component: BankAccount,
+    //     meta: { auth: true },
+    //   },
+    //   {
+    //     path: "/bankaccounts",
+    //     name: "bankaccounts",
+    //     component: BankAccounts,
+    //     meta: { auth: true },
+    //   },
+    // ],
+    routes: navUtils.allRoutes("bankaccount",BankAccount,"bankaccounts",BankAccounts,true),
   menu: {
     id: "banking.bankaccount",
     title: "Bank Accounts",
-    icon: "mdi-wallet-outline",
+    icon: "mdi-wallet",
     component: BankAccount,
     path: "bankaccounts",
+    requires: navUtils.allRoles("bankaccount"),
     width: "1000px",
     editHeaders: [
       { title: "Bank Account Name", key: "bankAccountName" },
@@ -85,32 +88,33 @@ const bankAccountNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "banking.bankAccount.view",
-        title: "View",
-        icon: "mdi-table",
-        to: { name: "bankaccounts" },
-      },
-      {
-        id: "banking.bankAccount.new",
-        title: "New",
-        icon: "mdi-plus-circle",
-        to: { name: "bankaccount", params: { mode: 0 } },
-      },
-      {
-        id: "banking.bankAccount.edit",
-        title: "Edit",
-        icon: "mdi-pencil",
-        to: { name: "bankaccount", params: { mode: 1 } },
-      },
-      {
-        id: "banking.bankAccount.history",
-        title: "History",
-        icon: "mdi-history",
-        to: { name: "bankaccount",  params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "banking.bankAccount.view",
+    //     title: "View",
+    //     icon: "mdi-table",
+    //     to: { name: "bankaccounts" },
+    //   },
+    //   {
+    //     id: "banking.bankAccount.new",
+    //     title: "New",
+    //     icon: "mdi-plus-circle",
+    //     to: { name: "bankaccount", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "banking.bankAccount.edit",
+    //     title: "Edit",
+    //     icon: "mdi-pencil",
+    //     to: { name: "bankaccount", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "banking.bankAccount.history",
+    //     title: "History",
+    //     icon: "mdi-history",
+    //     to: { name: "bankaccount",  params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren("banking", "bankaccount", "bankaccounts", false),
   },
 };
 export default bankAccountNav;

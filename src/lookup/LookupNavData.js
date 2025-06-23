@@ -19,6 +19,14 @@ const lookupNavData = {
     id: "Lookup",
     title: "Lookup",
     icon: "mdi-form-dropdown",
+    requires: [
+      ...lookupDataNav.menu.requires,
+      ...measureGroupNav.menu.requires,
+      ...itemCategoryNav.menu.requires,
+      ...itemNav.menu.requires,
+      ...currencyNav.menu.requires,
+
+    ],
     children: [
       lookupDataNav.menu,
       measureGroupNav.menu,

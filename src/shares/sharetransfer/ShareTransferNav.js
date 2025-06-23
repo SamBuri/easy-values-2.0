@@ -1,25 +1,35 @@
 import ShareTransfer from "./ShareTransfer.vue";
 import ShareTransfers from "./ShareTransfers.vue";
+import navUtils from "@/nav/NavUtils";
 const shareTransferNav = {
-  routes: [
-    {
-      path: "/sharetransfer/:mode",
-      name: "sharetransfer",
-      component: ShareTransfer,
-      meta: { auth: true },
-    },
-    {
-      path: "/sharetransfers",
-      name: "sharetransfers",
-      component: ShareTransfers,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/sharetransfer/:mode",
+  //     name: "sharetransfer",
+  //     component: ShareTransfer,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/sharetransfers",
+  //     name: "sharetransfers",
+  //     component: ShareTransfers,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes(
+    "sharetransfer",
+    ShareTransfer,
+    "sharetransfers",
+    ShareTransfers,
+    true
+  ),
   menu: {
     id: "shares.sharetransfer",
     title: "Share Transfers",
     component: ShareTransfer,
     path: "sharetransfers",
+    requires: navUtils.allRoles("sharetransfer"),
+    icon: "mdi-account-multiple",
     width: "1000px",
 
     editHeaders: [

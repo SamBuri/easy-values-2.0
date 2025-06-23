@@ -1,27 +1,33 @@
 import CustomerLedger from './CustomerLedger.vue'
 import CustomerLedgers from './CustomerLedgers.vue'
+import navUtils from '@/nav/NavUtils'
 const customerLedgerNav = {
-        routes:[
-                // {
-                //         path: '/customerledger/:mode',
-                //         name: 'customerledger',
-                //         component: CustomerLedger,
-                //         meta: { auth: true },
-                //  },
-                 {
-                        path: '/customerledgers',
-                        name: 'customerledgers',
-                        component: CustomerLedgers,
-                        meta: { auth: true },
-                 },
+        // routes:[
+        //         // {
+        //         //         path: '/customerledger/:mode',
+        //         //         name: 'customerledger',
+        //         //         component: CustomerLedger,
+        //         //         meta: { auth: true },
+        //         //  },
+        //         //  {
+        //         //         path: '/customerledgers',
+        //         //         name: 'customerledgers',
+        //         //         component: CustomerLedgers,
+        //         //         meta: { auth: true },
+        //         //  },
+                
+        //         ], 
 
-                ], menu: {
+        routes: navUtils.allRoutes("customerledger", CustomerLedger, "customerledgers", CustomerLedgers, true),
+                
+                menu: {
                 id: "customer.customerledger",
                 title: "Customer Ledgers",
                 component: CustomerLedger,
                 path: "customerledgers",
                 to: {name: "customerledgers"},
                 icon: " mdi-format-list-bulleted-square",
+                requires: navUtils.allRoles("customerledger"),
                 width: "700px",
                 editHeaders: [
                 { title: "Tran Date", key: "tranDate" , isDate: true },

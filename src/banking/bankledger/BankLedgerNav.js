@@ -1,26 +1,29 @@
 import BankLedger from "./BankLedger.vue";
 import BankLedgers from "./BankLedgers.vue";
+import navUtils from "@/nav/NavUtils";
 const bankLedgerNav = {
-  routes: [
-    {
-      path: "/bankledger/:mode",
-      name: "bankledger",
-      component: BankLedger,
-      meta: { auth: true },
-    },
-    {
-      path: "/bankledgers",
-      name: "bankledgers",
-      component: BankLedgers,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/bankledger/:mode",
+  //     name: "bankledger",
+  //     component: BankLedger,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/bankledgers",
+  //     name: "bankledgers",
+  //     component: BankLedgers,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: [navUtils.viewRoute("bankledgers", BankLedgers, true)],
   menu: {
     id: "banking.bankledger",
     title: "Bank Ledgers",
     component: BankLedger,
     path: "bankledgers",
     icon: "mdi-book-open-variant",
+    requires: navUtils.viewRoles("bankledger"),
     width: "1000px",
     to: { name: "bankledgers" },
     editHeaders: [

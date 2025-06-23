@@ -1,26 +1,30 @@
 import ExpenseGroup from './ExpenseGroup.vue'
 import ExpenseGroups from './ExpenseGroups.vue'
+import navUtils from '@/nav/NavUtils'
 const expenseGroupNav = {
-        routes: [
-                {
-                        path: '/expensegroup/:mode',
-                        name: 'expensegroup',
-                        component: ExpenseGroup,
-                        meta: { auth: true },
-                },
-                {
-                        path: '/expensegroups',
-                        name: 'expensegroups',
-                        component: ExpenseGroups,
-                        meta: { auth: true },
-                },
+        // routes: [
+        //         {
+        //                 path: '/expensegroup/:mode',
+        //                 name: 'expensegroup',
+        //                 component: ExpenseGroup,
+        //                 meta: { auth: true },
+        //         },
+        //         {
+        //                 path: '/expensegroups',
+        //                 name: 'expensegroups',
+        //                 component: ExpenseGroups,
+        //                 meta: { auth: true },
+        //         },
 
-        ],
+        // ],
+        routes: navUtils.allRoutes("expensegroup", ExpenseGroup, "expensegroups", ExpenseGroups, true),
         menu: {
                 id: "expenses.expensegroup",
                 title: "Expense Groups",
                 component: ExpenseGroup,
                 path: "expensegroups",
+                icon: "mdi-cash-multiple",
+                requires: navUtils.allRoles("expensegroup"),
                 width: "700px",
                 editHeaders: [{ title: "Item Category", key: "itemCategoryId", isNumeric: true },
                 { title: "Gl Account", key: "glAccountId" },
@@ -45,11 +49,12 @@ const expenseGroupNav = {
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", },
                 { title: "Modified By", key: "modifiedBy", }],
-                children: [{ id: "expenses.expenseGroup.view", title: "View", to: { name: "expensegroups", } },
-                { id: "expenses.expenseGroup.new", title: "New", to: { name: "expensegroup", params: { mode: 0 } } },
-                { id: "expenses.expenseGroup.edit", title: "Edit", to: { name: "expensegroup", params: { mode: 1 } } },
-                { id: "expenses.expenseGroup.history", title: "History", to: { name: "expensegroup", params: { mode: 2 } } },
-                ]
+                // children: [{ id: "expenses.expenseGroup.view", title: "View", to: { name: "expensegroups", } },
+                // { id: "expenses.expenseGroup.new", title: "New", to: { name: "expensegroup", params: { mode: 0 } } },
+                // { id: "expenses.expenseGroup.edit", title: "Edit", to: { name: "expensegroup", params: { mode: 1 } } },
+                // { id: "expenses.expenseGroup.history", title: "History", to: { name: "expensegroup", params: { mode: 2 } } },
+                // ]
+                children:navUtils.allChildren('expenses', 'expensegroup', 'expensegroups', false),
         }
 }
 export default expenseGroupNav;

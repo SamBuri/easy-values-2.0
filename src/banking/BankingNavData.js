@@ -16,7 +16,9 @@ const bankingNavData = {
     nav: {
         id: "banking",
         title: "Banking",
-        icon: "mdi-bank-cirlce",
+        icon: "mdi-bank",
+        requires: [...bankAccountNav.menu.requires, ...bankTransactionNav.menu.requires, 
+            ...bankTransferNav.menu.requires, ...bankLedgerNav.menu.requires],
         children: [
             bankAccountNav.menu,
             bankTransferNav.menu,

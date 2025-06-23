@@ -1,15 +1,19 @@
 import funcs from '../../utils/funcs'
 import ShLedger from './ShLedger.vue'
+import navUtils from '@/nav/NavUtils'
 const shLedgerNav = {
 
-        route: {
-                path: '/shledger',
-                name: 'shledger',
-                component: ShLedger,
-                meta: { auth: true }
-        },
+        // route: {
+        //         path: '/shledger',
+        //         name: 'shledger',
+        //         component: ShLedger,
+        //         meta: { auth: true }
+        // },
+        route: navUtils.viewRoute("shledger", ShLedger, true),
 
-        menu:  { id: "shareholderledger.ledger", title: "Ledger",  to: {name:"shledger"} },
+        menu:  { id: "shareholderledger.ledger", title: "Ledger",  to: {name:"shledger"}, 
+        icon: "mdi-book-open-page-variant",
+        requires: navUtils.allRoles("shledger") },
 
         headers: [
         { title: "Tran Date", key: "tranDate", isDate:true },

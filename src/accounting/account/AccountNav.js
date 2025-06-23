@@ -1,25 +1,29 @@
 import Account from "./Account.vue";
 import Accounts from "./Accounts.vue";
+import navUtils from "@/nav/NavUtils";
 const accountNav = {
-  routes: [
-    {
-      path: "/account/:mode",
-      name: "account",
-      component: Account,
-      meta: { auth: true },
-    },
-    {
-      path: "/accounts",
-      name: "accounts",
-      component: Accounts,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/account/:mode",
+  //     name: "account",
+  //     component: Account,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/accounts",
+  //     name: "accounts",
+  //     component: Accounts,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes:navUtils.allRoutes("account", Account, "accounts", Accounts, true),
   menu: {
     id: "accounting.account",
     title: "Accounts",
     component: Account,
     path: "accounts",
+    icon: "mdi-wallet",
+    requires: navUtils.allRoles("account"),
     width: "1000px",
     editHeaders: [
       { title: "Account Type", key: "accountCategory.accountType" },
@@ -75,28 +79,29 @@ const accountNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "accounting.account.view",
-        title: "View",
-        to: { name: "accounts" },
-      },
-      {
-        id: "accounting.account.new",
-        title: "New",
-        to: { name: "account", params: { mode: 0 } },
-      },
-      {
-        id: "accounting.account.edit",
-        title: "Edit",
-        to: { name: "account", params: { mode: 1 } },
-      },
-      {
-        id: "accounting.account.history",
-        title: "History",
-        to: { name: "account", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "accounting.account.view",
+    //     title: "View",
+    //     to: { name: "accounts" },
+    //   },
+    //   {
+    //     id: "accounting.account.new",
+    //     title: "New",
+    //     to: { name: "account", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "accounting.account.edit",
+    //     title: "Edit",
+    //     to: { name: "account", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "accounting.account.history",
+    //     title: "History",
+    //     to: { name: "account", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren("accounting", "account", "accounts", false),
   },
 };
 export default accountNav;

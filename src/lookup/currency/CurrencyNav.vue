@@ -1,6 +1,7 @@
 import Currency from './Currency.vue'
  import Currencies from './Currencies.vue'
- const currencyNav={ routes:[
+ const currencyNav={ 
+        routes:[
         {
                 path: '/currency/:mode',
                 name: 'currency',

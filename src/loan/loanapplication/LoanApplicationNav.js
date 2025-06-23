@@ -1,25 +1,35 @@
 import LoanApplication from "./LoanApplication.vue";
 import LoanApplications from "./LoanApplications.vue";
+import navUtils from "@/nav/NavUtils";
 const loanApplicationNav = {
-  routes: [
-    {
-      path: "/loanapplication/:mode",
-      name: "loanapplication",
-      component: LoanApplication,
-      meta: { auth: true },
-    },
-    {
-      path: "/loanapplications",
-      name: "loanapplications",
-      component: LoanApplications,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/loanapplication/:mode",
+  //     name: "loanapplication",
+  //     component: LoanApplication,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/loanapplications",
+  //     name: "loanapplications",
+  //     component: LoanApplications,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes(
+    "loanapplication",
+    LoanApplication,
+    "loanapplications",
+    LoanApplications,
+    true
+  ),
   menu: {
     id: "loan.loanapplication",
     title: "Loan Applications",
     component: LoanApplication,
     path: "loanapplications",
+    requires: navUtils.allRoles("loanapplication"),
+    icon: "mdi-application-edit",
     width: "1000px",
     miniHeaders: [
       { title: "Id", key: "id" },
@@ -94,32 +104,32 @@ const loanApplicationNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "loan.loanApplication.view",
-        title: "View",
-        icon: "mdi-table",
-        to: { name: "loanapplications" },
-      },
-      {
-        id: "loan.loanApplication.new",
-        title: "New",
-        icon: "mdi-plus-circle",
-        to: { name: "loanapplication", params: { mode: 0 } },
-      },
-      {
-        id: "loan.loanApplication.edit",
-        title: "Edit",
-        icon: "mdi-pencil",
-        to: { name: "loanapplication", params: { mode: 1 } },
-      },
-      {
-        id: "loan.loanApplication.history",
-        title: "History",
-        icon: "mdi-history",
-        to: { name: "loanapplication", params: { mode: 2 } },
-      },
-    ],
-  },
+    // children: [
+    //   {
+    //     id: "loan.loanApplication.view",
+    //     title: "View",
+    //     icon: "mdi-table",
+    //     to: { name: "loanapplications" },
+    //   },
+    //   {
+    //     id: "loan.loanApplication.new",
+    //     title: "New",
+    //     icon: "mdi-plus-circle",
+    //     to: { name: "loanapplication", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "loan.loanApplication.edit",
+    //     title: "Edit",
+    //     icon: "mdi-pencil",
+    //     to: { name: "loanapplication", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "loan.loanApplication.history",
+    //     title: "History",
+    //     icon: "mdi-history",
+    //     to: { name: "loanapplication", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.createViewChildren ("loan", "loanapplication", "loanapplications", false),},
 };
 export default loanApplicationNav;

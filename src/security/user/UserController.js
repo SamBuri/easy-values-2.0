@@ -108,6 +108,7 @@ export default function userController() {
       model.groups = await currentStore.getUserGroups(id) || [];
     }
   });
+
   return controller;
 
 }

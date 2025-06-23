@@ -1,26 +1,33 @@
 import ItemCategory from './ItemCategory.vue'
- import ItemCategories from './ItemCategories.vue'
- const itemCategoryNav={ routes:[
-        {
-                path: '/itemcategory/:mode',
-                name: 'itemcategory',
-                component: ItemCategory,
-                meta: { auth: true },
-         },
-         {
-                path: '/itemcategories',
-                name: 'itemcategories',
-                component: ItemCategories,
-                meta: { auth: true },
-         },
+import ItemCategories from './ItemCategories.vue'
+import navUtils from '@/nav/NavUtils';
+const itemCategoryNav = {
+        // routes:[
+        // {
+        //         path: '/itemcategory/:mode',
+        //         name: 'itemcategory',
+        //         component: ItemCategory,
+        //         meta: { auth: true },
+        //  },
+        //  {
+        //         path: '/itemcategories',
+        //         name: 'itemcategories',
+        //         component: ItemCategories,
+        //         meta: { auth: true },
+        //  },
 
-        ], menu: {
+        // ], 
+
+        routes: navUtils.allRoutes('itemcategory', ItemCategory, 'itemcategories', ItemCategories, true),
+
+        menu: {
                 id: "lookup.itemcategory",
                 title: "Item Categories",
                 component: ItemCategory,
                 path: "itemcategories",
                 width: "700px",
                 icon: "mdi-forum",
+                requires: navUtils.allRoles('itemcategory'),
                 editHeaders: [{ title: "Item Category", key: "itemCategory", label: "Item Category", field: "itemCategory" },
                 { title: "Item Group", key: "itemGroup", label: "Item Group", field: "itemGroup" },
                 { title: "Billable", key: "billable", label: "Billable", field: "billable" },
@@ -42,12 +49,14 @@ import ItemCategory from './ItemCategory.vue'
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", label: "Created By", field: "createdBy" },
                 { title: "Modified By", key: "modifiedBy", label: "Modified By", field: "modifiedBy" }],
-                children: [
-                  { id: "lookup.itemCategory.view", title: "View", to:{ name: "itemcategories"}, icon: "mdi-table" },
-                  { id: "lookup.itemCategory.new", title: "New", to:{ name: "itemcategory", params: {mode:0}}, icon: "mdi-plus-circle" },
-                { id: "lookup.itemCategory.edit", title: "Edit", to:{ name: "itemcategory", params: {mode:1, }}, icon: "mdi-pencil" },
-                { id: "lookup.itemCategory.history", title: "History", to:{ name: "itemcategory", params: {mode:2}}, icon: "mdi-history" },
-                ]
+                // children: [
+                //   { id: "lookup.itemCategory.view", title: "View", to:{ name: "itemcategories"}, icon: "mdi-table" },
+                //   { id: "lookup.itemCategory.new", title: "New", to:{ name: "itemcategory", params: {mode:0}}, icon: "mdi-plus-circle" },
+                // { id: "lookup.itemCategory.edit", title: "Edit", to:{ name: "itemcategory", params: {mode:1, }}, icon: "mdi-pencil" },
+                // { id: "lookup.itemCategory.history", title: "History", to:{ name: "itemcategory", params: {mode:2}}, icon: "mdi-history" },
+                // ]
+
+                children: navUtils.allChildren('lookup', 'itemcategory', 'itemcategories', false),
         }
 }
 export default itemCategoryNav;

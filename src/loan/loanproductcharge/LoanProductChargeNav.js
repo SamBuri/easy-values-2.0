@@ -1,25 +1,34 @@
 import LoanProductCharge from "./LoanProductCharge.vue";
 import LoanProductCharges from "./LoanProductCharges.vue";
+import navUtils from "@/nav/NavUtils";
 const loanProductChargeNav = {
-  routes: [
-    {
-      path: "/loanproductcharge/:mode",
-      name: "loanproductcharge",
-      component: LoanProductCharge,
-      meta: { auth: true },
-    },
-    {
-      path: "/loanproductcharges",
-      name: "loanproductcharges",
-      component: LoanProductCharges,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/loanproductcharge/:mode",
+  //     name: "loanproductcharge",
+  //     component: LoanProductCharge,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/loanproductcharges",
+  //     name: "loanproductcharges",
+  //     component: LoanProductCharges,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes(
+    "loanproductcharge",
+    LoanProductCharge,
+    "loanproductcharges",
+    LoanProductCharges,
+    true
+  ),
   menu: {
     id: "loan.loanproductcharge",
     title: "Loan Product Charges",
     component: LoanProductCharge,
     path: "loanproductcharges",
+    requires: navUtils.allRoles("loanproduct"),
     width: "700px",
     miniHeaders: [
       { title: "Item", key: "itemName" },
@@ -69,28 +78,29 @@ const loanProductChargeNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "loan.loanProductCharge.view",
-        title: "View",
-        to: { name: "loanproductcharges" },
-      },
-      {
-        id: "loan.loanProductCharge.new",
-        title: "New",
-        to: { name: "loanproductcharge", params: { mode: 0 } },
-      },
-      {
-        id: "loan.loanProductCharge.edit",
-        title: "Edit",
-        to: { name: "loanproductcharge", params: { mode: 1 } },
-      },
-      {
-        id: "loan.loanProductCharge.history",
-        title: "History",
-        to: { name: "loanproductcharge", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "loan.loanProductCharge.view",
+    //     title: "View",
+    //     to: { name: "loanproductcharges" },
+    //   },
+    //   {
+    //     id: "loan.loanProductCharge.new",
+    //     title: "New",
+    //     to: { name: "loanproductcharge", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "loan.loanProductCharge.edit",
+    //     title: "Edit",
+    //     to: { name: "loanproductcharge", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "loan.loanProductCharge.history",
+    //     title: "History",
+    //     to: { name: "loanproductcharge", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren("loan", "loanproductcharge", "loanproductcharges", true),
   },
 };
 export default loanProductChargeNav;

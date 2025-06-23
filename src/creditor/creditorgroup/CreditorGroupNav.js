@@ -1,25 +1,35 @@
 import CreditorGroup from "./CreditorGroup.vue";
 import CreditorGroups from "./CreditorGroups.vue";
+import navUtils from "@/nav/NavUtils";
 const creditorGroupNav = {
-  routes: [
-    {
-      path: "/creditorgroup/:mode",
-      name: "creditorgroup",
-      component: CreditorGroup,
-      meta: { auth: true },
-    },
-    {
-      path: "/creditorgroups",
-      name: "creditorgroups",
-      component: CreditorGroups,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/creditorgroup/:mode",
+  //     name: "creditorgroup",
+  //     component: CreditorGroup,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/creditorgroups",
+  //     name: "creditorgroups",
+  //     component: CreditorGroups,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes(
+    "creditorgroup",
+    CreditorGroup,
+    "creditorgroups",
+    CreditorGroups,
+    true
+  ),
   menu: {
     id: "creditor.creditorgroup",
     title: "Creditor Groups",
     component: CreditorGroup,
     path: "creditorgroups",
+    icon: "mdi-account-group",
+    requires: navUtils.allRoles("creditorgroup"),
     width: "700px",
     editHeaders: [
       { title: "Name", key: "name" },
@@ -56,28 +66,34 @@ const creditorGroupNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "creditor.creditorGroup.view",
-        title: "View",
-        to: { name: "creditorgroups" },
-      },
-      {
-        id: "creditor.creditorGroup.new",
-        title: "New",
-        to: { name: "creditorgroup", params: { mode: 0 } },
-      },
-      {
-        id: "creditor.creditorGroup.edit",
-        title: "Edit",
-        to: { name: "creditorgroup", params: { mode: 1 } },
-      },
-      {
-        id: "creditor.creditorGroup.history",
-        title: "History",
-        to: { name: "creditorgroup", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "creditor.creditorGroup.view",
+    //     title: "View",
+    //     to: { name: "creditorgroups" },
+    //   },
+    //   {
+    //     id: "creditor.creditorGroup.new",
+    //     title: "New",
+    //     to: { name: "creditorgroup", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "creditor.creditorGroup.edit",
+    //     title: "Edit",
+    //     to: { name: "creditorgroup", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "creditor.creditorGroup.history",
+    //     title: "History",
+    //     to: { name: "creditorgroup", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren(
+      "creditor",
+      "creditorgroup",
+      "creditorgroups",
+      false
+    ),
   },
 };
 export default creditorGroupNav;

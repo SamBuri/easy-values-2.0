@@ -1,5 +1,6 @@
 import LoanApproval from "./LoanApproval.vue";
 import LoanApprovals from "./LoanApprovals.vue";
+import navUtils from "@/nav/NavUtils";
 const loanApprovalNav = {
   routes: [
     {
@@ -15,11 +16,13 @@ const loanApprovalNav = {
       meta: { auth: true },
     },
   ],
+  routes: navUtils.allRoutes("loanapproval", LoanApproval, "loanapprovals", LoanApprovals, true),
   menu: {
     id: "loan.loanapproval",
     title: "Loan Approvals",
     component: LoanApproval,
     path: "loanapprovals",
+    requires: navUtils.allRoles("loanapproval"),
     width: "1000px",
     editHeaders: [
       { title: "Loan Application", key: "loanApplication.id" },
@@ -77,32 +80,38 @@ const loanApprovalNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "loan.loanApproval.view",
-        title: "View",
-        icon: "mdi-table",
-        to: { name: "loanapprovals" },
-      },
-      {
-        id: "loan.loanApproval.new",
-        title: "New",
-        icon: "mdi-plus-circle",
-        to: { name: "loanapproval", params: { mode: 0 } },
-      },
-      {
-        id: "loan.loanApproval.edit",
-        icon: "mdi-pencil",
-        title: "Edit",
-        to: { name: "loanapproval", params: { mode: 1 } },
-      },
-      {
-        id: "loan.loanApproval.history",
-        icon: "mdi-history",
-        title: "History",
-        to: { name: "loanapproval", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "loan.loanApproval.view",
+    //     title: "View",
+    //     icon: "mdi-table",
+    //     to: { name: "loanapprovals" },
+    //   },
+    //   {
+    //     id: "loan.loanApproval.new",
+    //     title: "New",
+    //     icon: "mdi-plus-circle",
+    //     to: { name: "loanapproval", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "loan.loanApproval.edit",
+    //     icon: "mdi-pencil",
+    //     title: "Edit",
+    //     to: { name: "loanapproval", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "loan.loanApproval.history",
+    //     icon: "mdi-history",
+    //     title: "History",
+    //     to: { name: "loanapproval", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren(
+      "loan",
+      "loanapproval",
+      "loanapprovals",
+      true
+    ),
   },
 };
 export default loanApprovalNav;

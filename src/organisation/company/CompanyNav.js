@@ -1,25 +1,29 @@
 import Company from "./Company.vue";
 import Companies from "./Companies.vue";
+import navUtils from "@/nav/NavUtils";
 const companyNav = {
-  routes: [
-    {
-      path: "/company/:mode",
-      name: "company",
-      component: Company,
-      meta: { auth: true },
-    },
-    {
-      path: "/companies",
-      name: "companies",
-      component: Companies,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/company/:mode",
+  //     name: "company",
+  //     component: Company,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/companies",
+  //     name: "companies",
+  //     component: Companies,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes("company",  Company, "companies",  Companies,  true ),
   menu: {
     id: "organisation.company",
     title: "Companies",
     component: Company,
     path: "companies",
+    requires: navUtils.allRoles("company"),
+    icon: "mdi-domain",
     width: "1000px",
     editHeaders: [
       {
@@ -189,28 +193,29 @@ const companyNav = {
         field: "modifiedBy",
       },
     ],
-    children: [
-      {
-        id: "organisation.company.view",
-        title: "View",
-        to: { name: "companies" },
-      },
-      {
-        id: "organisation.company.new",
-        title: "New",
-        to: { name: "company", params: { mode: 0 } },
-      },
-      {
-        id: "organisation.company.edit",
-        title: "Edit",
-        to: { name: "company", params: { mode: 1 } },
-      },
-      {
-        id: "organisation.company.history",
-        title: "History",
-        to: { name: "company", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "organisation.company.view",
+    //     title: "View",
+    //     to: { name: "companies" },
+    //   },
+    //   {
+    //     id: "organisation.company.new",
+    //     title: "New",
+    //     to: { name: "company", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "organisation.company.edit",
+    //     title: "Edit",
+    //     to: { name: "company", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "organisation.company.history",
+    //     title: "History",
+    //     to: { name: "company", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren( "organisation", "company", "companies",  false ),
   },
 };
 export default companyNav;

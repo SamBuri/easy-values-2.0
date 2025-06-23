@@ -1,26 +1,32 @@
 import GeneralLedger from './GeneralLedger.vue'
 import GeneralLedgers from './GeneralLedgers.vue'
+import navUtils from '@/nav/NavUtils'
 const generalLedgerNav = {
-        routes: [
-                {
-                        path: '/generalledger/:mode',
-                        name: 'generalledger',
-                        component: GeneralLedger,
-                        meta: { auth: true },
-                },
-                {
-                        path: '/generalledgers',
-                        name: 'generalledgers',
-                        component: GeneralLedgers,
-                        meta: { auth: true },
-                },
+        // routes: [
+        //         {
+        //                 path: '/generalledger/:mode',
+        //                 name: 'generalledger',
+        //                 component: GeneralLedger,
+        //                 meta: { auth: true },
+        //         },
+        //         {
+        //                 path: '/generalledgers',
+        //                 name: 'generalledgers',
+        //                 component: GeneralLedgers,
+        //                 meta: { auth: true },
+        //         },
 
-        ], menu: {
+        // ],
+        routes: [navUtils.viewRoute("generalledgers", GeneralLedgers, true),],
+        
+        menu: {
                 id: "accounting.generalledger",
                 title: "General Ledgers",
                 component: GeneralLedger,
                 path: "generalledgers",
                 to: {name: "generalledgers"},
+                icon: "mdi-book-open-page-variant",
+                requires: navUtils.allRoles("generalledger"),
                 width: "1000px",
                 editHeaders: [{ title: "Financial Period Id", key: "financialPeriodId", label: "Financial Period Id", field: "financialPeriodId" },
                 { title: "Document Type", key: "documentType", label: "Document Type", field: "documentType" },

@@ -1,27 +1,31 @@
 import Refund from './Refund.vue'
 import Refunds from './Refunds.vue'
+import navUtils from '@/nav/NavUtils';
 const refundNav = {
-        routes: [
-                {
-                        path: '/refund/:mode',
-                        name: 'refund',
-                        component: Refund,
-                        meta: { auth: true },
-                },
-                {
-                        path: '/refunds',
-                        name: 'refunds',
-                        component: Refunds,
-                        meta: { auth: true },
-                },
+        // routes: [
+        //         {
+        //                 path: '/refund/:mode',
+        //                 name: 'refund',
+        //                 component: Refund,
+        //                 meta: { auth: true },
+        //         },
+        //         {
+        //                 path: '/refunds',
+        //                 name: 'refunds',
+        //                 component: Refunds,
+        //                 meta: { auth: true },
+        //         },
 
-        ], menu: {
+        // ], 
+        routes: navUtils.allRoutes("refund", Refund, "refunds", Refunds, true),
+        menu: {
                 id: "sales.refund",
                 title: "Refunds",
                 component: Refund,
                 path: "refunds",
                 width: "1000px",
                 icon:"mdi-cash-refund",
+                requires: navUtils.allRoles("refund"),
                 editHeaders: [{ title: "Receipt", key: "receipt", label: "Receipt", field: "receipt" },
                 { title: "Refund Date", key: "refundDate", label: "Refund Date", field: "refundDate", isDate: true },
                 { title: "Bank Account Type", key: "bankAccountType", label: "Bank Account Type", field: "bankAccountType" },
@@ -58,11 +62,12 @@ const refundNav = {
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", label: "Created By", field: "createdBy" },
                 { title: "Modified By", key: "modifiedBy", label: "Modified By", field: "modifiedBy" }],
-                children: [{ id: "sales.refund.view", title: "View",  to:{ name: "refunds", }, icon: "mdi-table" },
-                  { id: "sales.refund.new", title: "New",  to:{ name: "refund", params: {mode:0}}, icon: "mdi-plus-circle"},
-                //   { id: "sales.refund.edit", title: "Edit",  to:{ name: "refund", params: {mode:1}}},
-                  { id: "sales.refund.history", title: "History",  to:{ name: "refund", params: {mode:2}}, icon: "mdi-history"},
-                  ]
+                // children: [{ id: "sales.refund.view", title: "View",  to:{ name: "refunds", }, icon: "mdi-table" },
+                //   { id: "sales.refund.new", title: "New",  to:{ name: "refund", params: {mode:0}}, icon: "mdi-plus-circle"},
+                // //   { id: "sales.refund.edit", title: "Edit",  to:{ name: "refund", params: {mode:1}}},
+                //   { id: "sales.refund.history", title: "History",  to:{ name: "refund", params: {mode:2}}, icon: "mdi-history"},
+                //   ]
+                children: navUtils.allChildren('sales', 'refund', 'refunds', false),
         }
 }
 export default refundNav;

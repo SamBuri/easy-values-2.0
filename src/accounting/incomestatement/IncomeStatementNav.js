@@ -1,18 +1,23 @@
 import IncomeStatement from "./IncomeStatement.vue";
 import funcs from "../../utils/funcs";
+import navUtils from "@/nav/NavUtils";
 
 const incomestatementNav = {
-  route: {
-    path: "/incomestatement",
-    name: "incomestatement",
-    component: IncomeStatement,
-    meta: { auth: true },
-  },
+  // route: {
+  //   path: "/incomestatement",
+  //   name: "incomestatement",
+  //   component: IncomeStatement,
+  //   meta: { auth: true },
+  // },
+  route: navUtils.viewRoute('incomestatement', IncomeStatement, true),
 
   menu: {
     id: "accounting.incomestatement",
     title: "Income Statement",
     to: { name: "incomestatement" },
+    icon: "mdi-chart-line",
+    requires: [navUtils.viewRoles("generalledger")],
+
   },
 
   headers: [

@@ -1,26 +1,30 @@
 import Profile from './Profile.vue'
 import Profiles from './Profiles.vue'
+import navUtils from '@/nav/NavUtils';
 const profileNav = {
-        routes: [
-                {
-                        path: '/profile/:mode',
-                        name: 'profile',
-                        component: Profile,
-                        meta: { auth: true },
-                },
-                {
-                        path: '/profiles',
-                        name: 'profiles',
-                        component: Profiles,
-                        meta: { auth: true },
-                },
+        // routes: [
+        //         {
+        //                 path: '/profile/:mode',
+        //                 name: 'profile',
+        //                 component: Profile,
+        //                 meta: { auth: true },
+        //         },
+        //         {
+        //                 path: '/profiles',
+        //                 name: 'profiles',
+        //                 component: Profiles,
+        //                 meta: { auth: true },
+        //         },
 
-        ],
+        // ],
+        routes: navUtils.allRoutes("profile", Profile, "profiles", Profiles, true),
         menu: {
                 id: "profile.profile",
                 title: "Profiles",
                 component: Profile,
                 path: "profiles",
+                icon: "mdi-account-multiple",
+                requires: navUtils.allRoles("profile"),
                 width: "1000px",
                
                 editHeaders: [{ title: "Profile Type", key: "profileType" },
@@ -117,11 +121,12 @@ const profileNav = {
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", },
                 { title: "Modified By", key: "modifiedBy", }],
-                children: [{ id: "profile.profile.view", title: "View", icon: "mdi-table", to: { name: "profiles", } },
-                { id: "profile.profile.new", title: "New", icon: "mdi-plus-circle", to: { name: "profile", params: { mode: 0 } } },
-                { id: "profile.profile.edit", title: "Edit", icon: "mdi-pencil", to: { name: "profile", params: { mode: 1 } } },
-                { id: "profile.profile.history", title: "History", icon: "mdi-history", to: { name: "profile", params: { mode: 2 } } },
-                ]
+                // children: [{ id: "profile.profile.view", title: "View", icon: "mdi-table", to: { name: "profiles", } },
+                // { id: "profile.profile.new", title: "New", icon: "mdi-plus-circle", to: { name: "profile", params: { mode: 0 } } },
+                // { id: "profile.profile.edit", title: "Edit", icon: "mdi-pencil", to: { name: "profile", params: { mode: 1 } } },
+                // { id: "profile.profile.history", title: "History", icon: "mdi-history", to: { name: "profile", params: { mode: 2 } } },
+                // ]
+                children: navUtils.allChildren('profile', 'profile', 'profiles', false),
         }
 }
 export default profileNav;

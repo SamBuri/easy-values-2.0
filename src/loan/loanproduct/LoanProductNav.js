@@ -1,25 +1,35 @@
 import LoanProduct from "./LoanProduct.vue";
 import LoanProducts from "./LoanProducts.vue";
+import navUtils from "@/nav/NavUtils";
 const loanProductNav = {
-  routes: [
-    {
-      path: "/loanproduct/:mode",
-      name: "loanproduct",
-      component: LoanProduct,
-      meta: { auth: true },
-    },
-    {
-      path: "/loanproducts",
-      name: "loanproducts",
-      component: LoanProducts,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/loanproduct/:mode",
+  //     name: "loanproduct",
+  //     component: LoanProduct,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/loanproducts",
+  //     name: "loanproducts",
+  //     component: LoanProducts,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes(
+    "loanproduct",
+    LoanProduct,
+    "loanproducts",
+    LoanProducts,
+    true
+  ),
   menu: {
     id: "loan.loanproduct",
     title: "Loan Products",
     component: LoanProduct,
     path: "loanproducts",
+    icon: "mdi-product-hunt",
+    requires: navUtils.allRoles("loanproduct"),
     width: "1000px",
     editHeaders: [
       { title: "Product Name", key: "productName" },
@@ -82,32 +92,38 @@ const loanProductNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "loan.loanProduct.view",
-        title: "View",
-        icon: "mdi-table",
-        to: { name: "loanproducts" },
-      },
-      {
-        id: "loan.loanProduct.new",
-        title: "New",
-        icon: "mdi-plus-circle",
-        to: { name: "loanproduct", params: { mode: 0 } },
-      },
-      {
-        id: "loan.loanProduct.edit",
-        title: "Edit",
-        icon: "mdi-pencil",
-        to: { name: "loanproduct", params: { mode: 1 } },
-      },
-      {
-        id: "loan.loanProduct.history",
-        title: "History",
-        icon: "mdi-history",
-        to: { name: "loanproduct", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "loan.loanProduct.view",
+    //     title: "View",
+    //     icon: "mdi-table",
+    //     to: { name: "loanproducts" },
+    //   },
+    //   {
+    //     id: "loan.loanProduct.new",
+    //     title: "New",
+    //     icon: "mdi-plus-circle",
+    //     to: { name: "loanproduct", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "loan.loanProduct.edit",
+    //     title: "Edit",
+    //     icon: "mdi-pencil",
+    //     to: { name: "loanproduct", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "loan.loanProduct.history",
+    //     title: "History",
+    //     icon: "mdi-history",
+    //     to: { name: "loanproduct", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren(
+      "loan",
+      "loanproduct",
+      "loanproducts",
+      true
+    ),
   },
 };
 export default loanProductNav;

@@ -1,25 +1,29 @@
 import Payment from "./Payment.vue";
 import Payments from "./Payments.vue";
+import navUtils from "@/nav/NavUtils";
 const paymentNav = {
-  routes: [
-    {
-      path: "/payment/:mode",
-      name: "payment",
-      component: Payment,
-      meta: { auth: true },
-    },
-    {
-      path: "/payments",
-      name: "payments",
-      component: Payments,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/payment/:mode",
+  //     name: "payment",
+  //     component: Payment,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/payments",
+  //     name: "payments",
+  //     component: Payments,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes("payment", Payment, "payments", Payments, true),
   menu: {
     id: "creditor.payment",
     title: "Payments",
     component: Payment,
     path: "payments",
+    requires: navUtils.allRoles("payment"),
+    icon: "mdi-cash-multiple",
     width: "1000px",
     editHeaders: [
       { title: "Creditor", key: "creditor.id" },
@@ -82,24 +86,30 @@ const paymentNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      { id: "creditor.payment.view", title: "View", to: { name: "payments" } },
-      {
-        id: "creditor.payment.new",
-        title: "New",
-        to: { name: "payment", params: { mode: 0 } },
-      },
-      {
-        id: "creditor.payment.edit",
-        title: "Edit",
-        to: { name: "payment", params: { mode: 1 } },
-      },
-      {
-        id: "creditor.payment.history",
-        title: "History",
-        to: { name: "payment", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   { id: "creditor.payment.view", title: "View", to: { name: "payments" } },
+    //   {
+    //     id: "creditor.payment.new",
+    //     title: "New",
+    //     to: { name: "payment", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "creditor.payment.edit",
+    //     title: "Edit",
+    //     to: { name: "payment", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "creditor.payment.history",
+    //     title: "History",
+    //     to: { name: "payment", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.createViewChildren(
+      "creditor",
+      "payment",
+      "payments",
+      true
+    ),
   },
 };
 export default paymentNav;

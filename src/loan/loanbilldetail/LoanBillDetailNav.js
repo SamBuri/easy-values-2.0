@@ -1,20 +1,28 @@
 import LoanBillDetail from "./LoanBillDetail.vue";
 import LoanBillDetails from "./LoanBillDetails.vue";
+import navUtils from "@/nav/NavUtils";
 const loanBillDetailNav = {
-  routes: [
-    {
-      path: "/loanbilldetail/:mode",
-      name: "loanbilldetail",
-      component: LoanBillDetail,
-      meta: { auth: true },
-    },
-    {
-      path: "/loanbilldetails",
-      name: "loanbilldetails",
-      component: LoanBillDetails,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/loanbilldetail/:mode",
+  //     name: "loanbilldetail",
+  //     component: LoanBillDetail,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/loanbilldetails",
+  //     name: "loanbilldetails",
+  //     component: LoanBillDetails,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes(
+    "loanbilldetail",
+    LoanBillDetail,
+    "loanbilldetails",
+    LoanBillDetails,
+    true
+  ),
   menu: {
     id: "loan.loanbilldetail",
     title: "Loan Bill Details",
@@ -22,6 +30,7 @@ const loanBillDetailNav = {
     path: "loanbilldetails",
     icon: "mdi-view-list",
     to: { name: "loanbilldetails" },
+    requires: navUtils.allRoles("loanbill"),
     width: "700px",
     editHeaders: [
 

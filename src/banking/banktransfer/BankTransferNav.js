@@ -1,26 +1,29 @@
 import BankTransfer from "./BankTransfer.vue";
 import BankTransfers from "./BankTransfers.vue";
+import navUtils from "@/nav/NavUtils";
 const bankTransferNav = {
-  routes: [
-    {
-      path: "/banktransfer/:mode",
-      name: "banktransfer",
-      component: BankTransfer,
-      meta: { auth: true },
-    },
-    {
-      path: "/banktransfers",
-      name: "banktransfers",
-      icon: "mdi-transfer",
-      component: BankTransfers,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/banktransfer/:mode",
+  //     name: "banktransfer",
+  //     component: BankTransfer,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/banktransfers",
+  //     name: "banktransfers",
+  //     icon: "mdi-transfer",
+  //     component: BankTransfers,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes('banktransfers'),
   menu: {
     id: "banking.banktransfer",
     title: "Bank Transfers",
     component: BankTransfer,
     path: "banktransfers",
+    requires: navUtils.allRoutes('banktransfers'),
     width: "1000px",
     editHeaders: [
       { title: "From Account Type", key: "fromAccountType" },
@@ -66,27 +69,28 @@ const bankTransferNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "banking.bankTransfer.view",
-        title: "View",
-        icon: "mdi-table",
-        to: { name: "banktransfers" },
-      },
-      {
-        id: "banking.bankTransfer.new",
-        title: "New",
-        icon: "mdi-plus-circle",
-        to: { name: "banktransfer", params: { mode: 0 } },
-      },
+    // children: [
+    //   {
+    //     id: "banking.bankTransfer.view",
+    //     title: "View",
+    //     icon: "mdi-table",
+    //     to: { name: "banktransfers" },
+    //   },
+    //   {
+    //     id: "banking.bankTransfer.new",
+    //     title: "New",
+    //     icon: "mdi-plus-circle",
+    //     to: { name: "banktransfer", params: { mode: 0 } },
+    //   },
       
-      {
-        id: "banking.bankTransfer.history",
-        title: "History",
-        icon: "mdi-history",
-        to: { name: "banktransfer", params: { mode: 2 } },
-      },
-    ],
+    //   {
+    //     id: "banking.bankTransfer.history",
+    //     title: "History",
+    //     icon: "mdi-history",
+    //     to: { name: "banktransfer", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.createViewChildren('banking', 'banktransfer', 'banktransfers', false)
   },
 };
 export default bankTransferNav;

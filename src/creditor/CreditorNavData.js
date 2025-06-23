@@ -22,7 +22,18 @@ const creditorNavData = {
   nav: {
     id: "creditor",
     title: "Creditor",
-    icon: "mdi-view-dashbord",
+    icon: "mdi-account-multiple",
+    requires: [
+      ...creditorGroupNav.menu.requires,
+      ...creditorItemCategoryNav.menu.requires,
+      ...creditorNav.menu.requires,
+      ...billNav.menu.requires,
+      ...billItemNav.menu.requires,
+      ...creditorLedgerNav.menu.requires,
+      ...paymentNav.menu.requires,
+      ...paymentBillNav.menu.requires,
+      ...ledgerNav.menu.requires,
+    ],
     children: [
       creditorGroupNav.menu,
       creditorItemCategoryNav.menu,

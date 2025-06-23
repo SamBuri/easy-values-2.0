@@ -1,21 +1,23 @@
 import InvoiceDetail from './InvoiceDetail.vue'
 import InvoiceDetails from './InvoiceDetails.vue'
+import navUtils from '@/nav/NavUtils';
 const invoiceDetailNav = {
-        routes: [
-                {
-                        path: '/invoicedetail/:mode',
-                        name: 'invoicedetail',
-                        component: InvoiceDetail,
-                        meta: { auth: true },
-                },
-                {
-                        path: '/invoicedetails',
-                        name: 'invoicedetails',
-                        component: InvoiceDetails,
-                        meta: { auth: true },
-                },
+        // routes: [
+        //         {
+        //                 path: '/invoicedetail/:mode',
+        //                 name: 'invoicedetail',
+        //                 component: InvoiceDetail,
+        //                 meta: { auth: true },
+        //         },
+        //         {
+        //                 path: '/invoicedetails',
+        //                 name: 'invoicedetails',
+        //                 component: InvoiceDetails,
+        //                 meta: { auth: true },
+        //         },
 
-        ],
+        // ],
+        routes: [navUtils.viewRoute("invoicedetails", InvoiceDetails, true)],
         menu: {
                 id: "sales.invoicedetail",
                 title: "Invoice Details",
@@ -24,6 +26,7 @@ const invoiceDetailNav = {
                 width: "1000px",
                 to: { name: "invoicedetails", },
                 icon: "mdi-table",
+                requires: navUtils.viewRoles("invoice"),
                 editHeaders: [
                         { title: "Item Name", key: "itemName" },
                         { title: "Measure", key: "measure" },

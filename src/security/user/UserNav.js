@@ -1,79 +1,86 @@
 import User from './User.vue'
 import Users from './Users.vue'
 import keycloakService from '@/keycloak/keycloakService.js'
-const userNav = {
-        routes: [
-                {
-                        path: '/user/:mode',
-                        name: 'user',
-                        component: User,
-                        meta: { auth: true },
-                },
-                {
-                        path: '/users',
-                        name: 'users',
-                        component: Users,
-                        meta: { auth: true },
-                },
+import { defineTenantStore } from '@/organisation/tenant/TenantStore'
+import navUtils from '@/nav/NavUtils'
 
-        ],
+function getBranchName(branchId) {
+        const tenantStore = defineTenantStore();
+        return tenantStore.getBranchName(branchId);
+}
+
+
+
+const userNav = {
+
+
+        routes: navUtils.allRoutes('user', User, 'users', Users, true),
+
         menu: {
                 httpStrategy: async () => keycloakService.getHttpStrategy(),
                 id: "security.user",
                 title: "Users",
                 component: User,
                 path: "users",
+                icon: "mdi-account-multiple",
+                requires: navUtils.allRoles("user"),
                 width: "1000px",
 
-                 miniHeaders: [{ title: "First Name", key: "firstName" },
+                miniHeaders: [{ title: "First Name", key: "firstName" },
                 { title: "Last Name", key: "lastName" },
                 { title: "Username", key: "username" },
                 { title: "Email", key: "email" },
-                { title: "Default Branch", key: "defaultBranch.id" },
                 { title: "Enabled", key: "enabled" },
-                { title: "Actions", key: "actions" }], headers: [{
-                        title: "Id",
-                        align: "start",
-                        // sortable: false,
-                        key: "id",
-                },
-                { title: "First Name", key: "firstName" },
-                { title: "Last Name", key: "lastName" },
-                { title: "Username", key: "username" },
-                { title: "Email", key: "email" },
-                { title: "Default Branch", key: "defaultBranch.id" },
-                { title: "Enabled", key: "enabled" },
-        ],
+                ],
+                headers: [
+                        {
+                                title: "Id",
+                                align: "start",
+                                // sortable: false,
+                                key: "id",
+                        },
+                        { title: "First Name", key: "firstName" },
+                        { title: "Last Name", key: "lastName" },
+                        { title: "Username", key: "username" },
+                        { title: "Email", key: "email" },
+                        {
+                                title: "Default Branch", key: "attributes.defaultBranch",
+                                value: (item) => {
+                                        if (!item.attributes?.defaultBranch || !item.attributes?.defaultBranch?.length) return '';
+                                        return item.attributes.defaultBranch.map(b => getBranchName(b)).join(', ');
+                                }
+                        },
+
+                        {
+                                title: "Other Branches", key: "attributes.otherBranches",
+                                value: (item) => {
+                                        if (!item.attributes?.otherBranches || !item.attributes?.otherBranches?.length) return '';
+                                        return item.attributes.otherBranches.filter(b => !!b).map(b => getBranchName(b)).join(', ');
+                                }
+                        },
+                        {
+                                title: "Required Action", key: "requiredActions", value: (item) => {
+                                        if (!item?.requiredActions || !item?.requiredActions?.length) return '';
+                                        return item.requiredActions.join(', ');
+                                }
+                        },
+                        { title: "Email Verified", key: "emailVerified" },
+                        { title: "Creation Date", key: "createdTimestamp", isDateTime: true },
+                        { title: "Enabled", key: "enabled" },
+                ],
 
                 editHeaders: [{ title: "First Name", key: "firstName" },
                 { title: "Last Name", key: "lastName" },
                 { title: "Username", key: "username" },
                 { title: "Email", key: "email" },
-                { title: "Default Branch", key: "defaultBranch.id" },
+
                 { title: "Enabled", key: "enabled" },
-                { title: "Actions", key: "actions" }], headers: [{
-                        title: "Id",
-                        align: "start",
-                        // sortable: false,
-                        key: "id",
-                },
-                { title: "First Name", key: "firstName" },
-                { title: "Last Name", key: "lastName" },
-                { title: "Username", key: "username" },
-                { title: "Email", key: "email" },
-                { title: "Default Branch", key: "defaultBranch.id" },
-                { title: "Enabled", key: "enabled" },
-                // { title: "Branch", key: "branch", },
-                // { title: "Creation Date", key: "creationDate", label: "Creation Date", field: "creationDate", isDateTime: true },
-                // { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
-                // { title: "Created By", key: "createdBy", },
-                // { title: "Modified By", key: "modifiedBy", }
-        ],
-                children: [{ id: "security.user.view", title: "View", icon: "mdi-table", to: { name: "users", } },
-                { id: "security.user.new", title: "New", icon: "mdi-plus-circle", to: { name: "user", params: { mode: 0 } } },
-                { id: "security.user.edit", title: "Edit", icon: "mdi-pencil", to: { name: "user", params: { mode: 1 } } },
-                { id: "security.user.history", title: "History", icon: "mdi-history", to: { name: "user", params: { mode: 2 } } },
-                ]
+                { title: "Actions", key: "actions" }],
+
+                children: navUtils.allChildren("security", "user", "users", false)
+
+
+
         }
 }
 export default userNav;

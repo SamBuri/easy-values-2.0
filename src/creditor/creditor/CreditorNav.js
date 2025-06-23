@@ -1,25 +1,35 @@
 import Creditor from "./Creditor.vue";
 import Creditors from "./Creditors.vue";
+import navUtils from "@/nav/NavUtils";
 const creditorNav = {
-  routes: [
-    {
-      path: "/creditor/:mode",
-      name: "creditor",
-      component: Creditor,
-      meta: { auth: true },
-    },
-    {
-      path: "/creditors",
-      name: "creditors",
-      component: Creditors,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/creditor/:mode",
+  //     name: "creditor",
+  //     component: Creditor,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/creditors",
+  //     name: "creditors",
+  //     component: Creditors,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes(
+    "creditor",
+    Creditor,
+    "creditors",
+    Creditors,
+    true
+  ),
   menu: {
     id: "creditor.creditor",
     title: "Creditors",
     component: Creditor,
     path: "creditors",
+    icon: "mdi-account-multiple",
+    requires: navUtils.allRoles("creditor"),
     width: "700px",
     editHeaders: [
       { title: "Id", key: "id" },
@@ -66,28 +76,34 @@ const creditorNav = {
       { title: "Creditor Group", key: "creditorGroup.name" },
 
     ],
-    children: [
-      {
-        id: "creditor.creditor.view",
-        title: "View",
-        to: { name: "creditors" },
-      },
-      {
-        id: "creditor.creditor.new",
-        title: "New",
-        to: { name: "creditor", params: { mode: 0 } },
-      },
-      {
-        id: "creditor.creditor.edit",
-        title: "Edit",
-        to: { name: "creditor", params: { mode: 1 } },
-      },
-      {
-        id: "creditor.creditor.history",
-        title: "History",
-        to: { name: "creditor", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "creditor.creditor.view",
+    //     title: "View",
+    //     to: { name: "creditors" },
+    //   },
+    //   {
+    //     id: "creditor.creditor.new",
+    //     title: "New",
+    //     to: { name: "creditor", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "creditor.creditor.edit",
+    //     title: "Edit",
+    //     to: { name: "creditor", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "creditor.creditor.history",
+    //     title: "History",
+    //     to: { name: "creditor", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.allChildren(
+      "creditor",
+      "creditor",
+      "creditors",
+      true
+    ),
   },
 };
 export default creditorNav;

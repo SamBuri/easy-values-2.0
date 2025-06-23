@@ -1,22 +1,26 @@
 import ShareholderLedger from './ShareholderLedger.vue'
 import ShareholderLedgers from './ShareholderLedgers.vue'
+import navUtils from '@/nav/NavUtils'
 const shareholderLedgerNav = {
-        routes: [
+        // routes: [
 
-                {
-                        path: '/shareholderledgers',
-                        name: 'shareholderledgers',
-                        component: ShareholderLedgers,
-                        meta: { auth: true },
-                },
+        //         {
+        //                 path: '/shareholderledgers',
+        //                 name: 'shareholderledgers',
+        //                 component: ShareholderLedgers,
+        //                 meta: { auth: true },
+        //         },
 
-        ],
+        // ],
+        routes: [navUtils.viewRoute("shareholderledgers", ShareholderLedgers, true),],
         menu: {
                 id: "shares.shareholderledger",
                 title: "Shareholder Ledgers",
                 component: ShareholderLedger,
                 path: "shareholderledgers",
                 to:{name:"shareholderledgers"},
+                requires: navUtils.allRoles("shareholderledger"),
+                icon: "mdi-book-open-page-variant",
                 width: "1000px",
                 editHeaders: [{ title: "Shareholder Id", key: "shareholderId" },
                 { title: "Shareholder Name", key: "shareholderName" },

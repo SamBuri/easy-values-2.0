@@ -33,6 +33,8 @@ export const defineTenantStore =defineStore ("tenant", {
           return branches.length>0?branches[0]:null;
         },
 
+       
+
 
     },
 
@@ -140,6 +142,14 @@ export const defineTenantStore =defineStore ("tenant", {
         this.isFirstTenantLoading = false;
       
      },
+
+      getBranchName(branchId) {
+        if(!branchId) return '';
+          let branches = this.getCurrentTenantBranches;
+          let branch = branches.find(b => b.id === branchId.trim());
+          console.log("Branch ID:", branchId, "Found Branch:", branch);
+          return branch ? branch.branchName : 'UnKnown Branch';
+        }
 
 
  }

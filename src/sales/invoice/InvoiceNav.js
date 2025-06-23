@@ -1,27 +1,32 @@
 import Invoice from './Invoice.vue'
 import Invoices from './Invoices.vue'
+import navUtils from '@/nav/NavUtils';
 const invoiceNav = {
-        routes: [
-                {
-                        path: '/invoice/:mode',
-                        name: 'invoice',
-                        component: Invoice,
-                        meta: { auth: true },
-                },
-                {
-                        path: '/invoices',
-                        name: 'invoices',
-                        component: Invoices,
-                        meta: { auth: true },
-                },
+        // routes: [
+        //         {
+        //                 path: '/invoice/:mode',
+        //                 name: 'invoice',
+        //                 component: Invoice,
+        //                 meta: { auth: true },
+        //         },
+        //         {
+        //                 path: '/invoices',
+        //                 name: 'invoices',
+        //                 component: Invoices,
+        //                 meta: { auth: true },
+        //         },
 
-        ], menu: {
+        // ], 
+        routes: navUtils.allRoutes("invoice", Invoice, "invoices", Invoices, true),
+        
+        menu: {
                 id: "sales.invoice",
                 title: "Invoices",
                 component: Invoice,
                 path: "invoices",
                 width: "1000px",
                 icon: "mdi-receipt-text-clock-outline",
+                requires: navUtils.allRoles("invoice"),
                 editHeaders: [{ title: "Invoice Date", key: "invoiceDate" },
                 { title: "Invoice Type", key: "invoiceType" },
                 { title: "Sell To", key: "sellToId" },
@@ -70,11 +75,12 @@ const invoiceNav = {
                 { title: "Modified By", key: "modifiedBy", label: "Modified By", field: "modifiedBy" }
 
                 ],
-                children: [
-                  {id: "invoices.view", title: "View", to: {name: "invoices"}, icon: "mdi-table"},
-                  { id: "invoices.invoice.new", title: "New", route: "invoice", mode: 0, to:{name:"invoice", params:{mode:0}}, icon: "mdi-plus-circle" },
-                { id: "invoices.invoice.history", title: "History", route: "invoice", mode: 2, to:{name:"invoice", params: {mode:2}}, icon: "mdi-history" },
-                ],
+                // children: [
+                //   {id: "invoices.view", title: "View", to: {name: "invoices"}, icon: "mdi-table"},
+                //   { id: "invoices.invoice.new", title: "New", route: "invoice", mode: 0, to:{name:"invoice", params:{mode:0}}, icon: "mdi-plus-circle" },
+                // { id: "invoices.invoice.history", title: "History", route: "invoice", mode: 2, to:{name:"invoice", params: {mode:2}}, icon: "mdi-history" },
+                // ],
+                children: navUtils.createViewChildren('sales', 'invoice', 'invoices', false),
         }
 }
 export default invoiceNav;

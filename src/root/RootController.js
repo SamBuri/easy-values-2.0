@@ -7,6 +7,7 @@ import { useRoute } from "vue-router";
 import constants from "@/utils/constants";
 import rootOptions from "./RootOptions";
 
+
 export default function rootController(rawModel, rawOptions = rootOptions, hooks = {}) {
   const path = rawModel.path;
   const rules = rawModel.rules;
@@ -43,7 +44,7 @@ export default function rootController(rawModel, rawOptions = rootOptions, hooks
   }
 
 
-  const clear = () => model.value.clear();
+  const clear = () => {console.log("Clearing");model.value.clear();}
 
   const setButtonText = (text) => {
     rootState.value.buttonText = text;
@@ -53,7 +54,7 @@ export default function rootController(rawModel, rawOptions = rootOptions, hooks
   watch(
     () => route.params,
     (params) => {
-
+     
 
       rootState.value.showSearch = params.mode == 1 || params.mode == 2;
       const mode = params.mode;
@@ -65,9 +66,11 @@ export default function rootController(rawModel, rawOptions = rootOptions, hooks
             ? constants.buttonTexts.done
             : constants.buttonTexts.save;
       setButtonText(text);
-      if(text===constants.buttonTexts.save && !props.value?.retain) {
-      clear()
-      }
+      // if(text===constants.buttonTexts.save && !props.value?.retain) {
+      //   alert("Clearing at Setting Button Text")
+      //   console.log(text, constants.buttonTexts.save);
+      // clear()
+      // }
 
     },
     { immediate: true }
@@ -90,6 +93,11 @@ export default function rootController(rawModel, rawOptions = rootOptions, hooks
   const save = async () => {
 
     if (!rootState.value.valid) return;
+
+    if( hooks.save) {
+      hooks.save(model.value);
+      return;
+    }
 
     console.log("Strategy", await httpStrategy())
 
@@ -137,7 +145,8 @@ export default function rootController(rawModel, rawOptions = rootOptions, hooks
 
   const setSearchedData = async () => {
     console.log("Path", `${path}/${rootState.value.id}`);
-    let data = await getData(`${rootState.value.id}`, await httpStrategy());
+    // let data = await getData(`${rootState.value.id}`, await httpStrategy());
+    let data = await getData(`${rootState.value.id}`);
     console.log("Returned data", data);
     if (data) setData(data);
   };

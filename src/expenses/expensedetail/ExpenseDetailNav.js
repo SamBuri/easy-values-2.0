@@ -1,27 +1,31 @@
 import ExpenseDetail from './ExpenseDetail.vue'
 import ExpenseDetails from './ExpenseDetails.vue'
+import navUtils from '@/nav/NavUtils'
 const expenseDetailNav = {
-        routes: [
-                {
-                        path: '/expensedetail/:mode',
-                        name: 'expensedetail',
-                        component: ExpenseDetail,
-                        meta: { auth: true },
-                },
-                {
-                        path: '/expensedetails',
-                        name: 'expensedetails',
-                        component: ExpenseDetails,
-                        meta: { auth: true },
-                },
+        // routes: [
+        //         {
+        //                 path: '/expensedetail/:mode',
+        //                 name: 'expensedetail',
+        //                 component: ExpenseDetail,
+        //                 meta: { auth: true },
+        //         },
+        //         {
+        //                 path: '/expensedetails',
+        //                 name: 'expensedetails',
+        //                 component: ExpenseDetails,
+        //                 meta: { auth: true },
+        //         },
 
-        ],
+        // ],
+        routes: [navUtils.viewRoute('expensedetails', ExpenseDetails, true)],
         menu: {
                 id: "expenses.expensedetail",
                 title: "Expense Details",
                 component: ExpenseDetail,
                 path: "expensedetails",
                 to: {name: "expensedetails"},
+                icon: "mdi-format-list-bulleted",
+                requires: navUtils.viewRoles("expense"),
                 width: "700px",
                 editHeaders: [
                         { title: "Item Name", key: "itemName" },

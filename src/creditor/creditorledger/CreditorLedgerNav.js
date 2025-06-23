@@ -1,5 +1,6 @@
 import CreditorLedger from "./CreditorLedger.vue";
 import CreditorLedgers from "./CreditorLedgers.vue";
+import navUtils from "@/nav/NavUtils";
 const creditorLedgerNav = {
   routes: [
 
@@ -15,6 +16,8 @@ const creditorLedgerNav = {
     title: "Creditor Ledgers",
     component: CreditorLedger,
     path: "creditorledgers",
+    icon: "mdi-book-open-page-variant",
+    requires: navUtils.allRoles("creditorledger"),
     to: { name: "creditorledgers" },
     width: "1000px",
     editHeaders: [

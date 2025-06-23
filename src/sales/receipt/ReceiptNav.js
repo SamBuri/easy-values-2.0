@@ -1,31 +1,31 @@
-import { md } from 'vuetify/iconsets/md';
 import Receipt from './Receipt.vue'
 import Receipts from './Receipts.vue'
-import { mdi } from 'vuetify/iconsets/mdi-svg';
+import navUtils from '@/nav/NavUtils';
 
 const receiptNav = {
-         routes:[
-                {
-                        path: '/receipt/:mode',
-                        name: 'receipt',
-                        component: Receipt,
-                        meta: { auth: true },
-                 },
-                 {
-                        path: '/receipts',
-                        name: 'receipts',
-                        component: Receipts,
-                        meta: { auth: true },
-                 },
+        //  routes:[
+        //         {
+        //                 path: '/receipt/:mode',
+        //                 name: 'receipt',
+        //                 component: Receipt,
+        //                 meta: { auth: true },
+        //          },
+        //          {
+        //                 path: '/receipts',
+        //                 name: 'receipts',
+        //                 component: Receipts,
+        //                 meta: { auth: true },
+        //          },
 
-                ],
+        //         ],
 
-
+       routes: navUtils.allRoutes("receipt", Receipt, "receipts", Receipts, true),
         menu: {
                 id: "sales.receipt",
                 title: "Receipts",
                 component: Receipt,
                 path: "receipts",
+                requires: navUtils.allRoles("receipt"),
                 icon: "mdi-receipt",
                 width: "1000px",
                 miniHeaders: [
@@ -81,13 +81,14 @@ const receiptNav = {
                 ],
 
 
-                children: [
-                  { id: "sales.receipt.view", title: "View", route: "receipts",  to: {name: 'receipts' }, icon: "mdi-table" },
-                        { id: "sales.receipt.new", title: "New", route: "receipt", mode: 0, to: {name: 'receipt', params: { mode:0} }, icon: "mdi-plus-circle" },
-                        { id: "sales.receipt.preview", title: "Preview", route: "receipt", mode: 2, to: {name: 'receipt', params: { mode:2}}, icon: "mdi-file-document-outline" },
-                        { id: "sales.receipt.history", title: "History", route: "receipt", locked: true,  to: {name: 'receipt',params: { mode:3}}, icon: "mdi-history" },
+                // children: [
+                //   { id: "sales.receipt.view", title: "View", route: "receipts",  to: {name: 'receipts' }, icon: "mdi-table" },
+                //         { id: "sales.receipt.new", title: "New", route: "receipt", mode: 0, to: {name: 'receipt', params: { mode:0} }, icon: "mdi-plus-circle" },
+                //         { id: "sales.receipt.preview", title: "Preview", route: "receipt", mode: 2, to: {name: 'receipt', params: { mode:2}}, icon: "mdi-file-document-outline" },
+                //         { id: "sales.receipt.history", title: "History", route: "receipt", locked: true,  to: {name: 'receipt',params: { mode:3}}, icon: "mdi-history" },
 
-                ]
+                // ]
+                children: navUtils.createViewChildren('sales', 'receipt', 'receipts', false),
         }
 }
 export default receiptNav;

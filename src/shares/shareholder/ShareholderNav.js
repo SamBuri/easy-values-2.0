@@ -1,25 +1,35 @@
 import Shareholder from "./Shareholder.vue";
 import Shareholders from "./Shareholders.vue";
+import navUtils from "@/nav/NavUtils";
 const shareholderNav = {
-  routes: [
-    {
-      path: "/shareholder/:mode",
-      name: "shareholder",
-      component: Shareholder,
-      meta: { auth: true },
-    },
-    {
-      path: "/shareholders",
-      name: "shareholders",
-      component: Shareholders,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/shareholder/:mode",
+  //     name: "shareholder",
+  //     component: Shareholder,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/shareholders",
+  //     name: "shareholders",
+  //     component: Shareholders,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes(
+    "shareholder",
+    Shareholder,
+    "shareholders",
+    Shareholders,
+    true
+  ),
   menu: {
     id: "shares.shareholder",
     title: "Shareholders",
     component: Shareholder,
     path: "shareholders",
+    requires: navUtils.allRoles("shareholder"),
+    icon: "mdi-account-multiple",
     width: "700px",
     miniHeaders: [
       { title: "Id", key: "id" },
@@ -64,28 +74,34 @@ const shareholderNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "shares.shareholder.view",
-        title: "View",
-        to: { name: "shareholders" },
-      },
-      {
-        id: "shares.shareholder.new",
-        title: "New",
-        to: { name: "shareholder", params: { mode: 0 } },
-      },
-      {
-        id: "shares.shareholder.edit",
-        title: "Edit",
-        to: { name: "shareholder", params: { mode: 1 } },
-      },
-      {
-        id: "shares.shareholder.history",
-        title: "History",
-        to: { name: "shareholder", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   {
+    //     id: "shares.shareholder.view",
+    //     title: "View",
+    //     to: { name: "shareholders" },
+    //   },
+    //   {
+    //     id: "shares.shareholder.new",
+    //     title: "New",
+    //     to: { name: "shareholder", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "shares.shareholder.edit",
+    //     title: "Edit",
+    //     to: { name: "shareholder", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "shares.shareholder.history",
+    //     title: "History",
+    //     to: { name: "shareholder", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.createViewChildren(
+      "shares",
+      "shareholder",
+      "shareholders",
+      true
+    ),
   },
 };
 export default shareholderNav;

@@ -1,26 +1,36 @@
 import LoanTransition from "./LoanTransition.vue";
 import LoanTransitions from "./LoanTransitions.vue";
+import navUtils from "@/nav/NavUtils";
 const loanTransitionNav = {
-  routes: [
-    {
-      path: "/loantransition/:mode",
-      name: "loantransition",
-      component: LoanTransition,
-      meta: { auth: true },
-    },
-    {
-      path: "/loantransitions",
-      name: "loantransitions",
-      component: LoanTransitions,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/loantransition/:mode",
+  //     name: "loantransition",
+  //     component: LoanTransition,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/loantransitions",
+  //     name: "loantransitions",
+  //     component: LoanTransitions,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes(
+    "loantransition",
+    LoanTransition,
+    "loantransitions",
+    LoanTransitions,
+    true
+  ),
   menu: {
     id: "loan.loantransition",
     title: "Loan Transitions",
     icon: "mdi-transfer",
     component: LoanTransition,
     path: "loantransitions",
+    requires: navUtils.allRoles("loantransition"),
+    icon: "mdi-transfer",
     width: "700px",
     editHeaders: [
       { title: "Loan Id", key: "loanId.id" },
@@ -62,27 +72,33 @@ const loanTransitionNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "loan.loanTransition.view",
-        title: "View",
-        icon: "mdi-table",
-        to: { name: "loantransitions" },
-      },
-      {
-        id: "loan.loanTransition.new",
-        title: "New",
-        icon: "mdi-plus-circle",
-        to: { name: "loantransition", params: { mode: 0 } },
-      },
+    // children: [
+    //   {
+    //     id: "loan.loanTransition.view",
+    //     title: "View",
+    //     icon: "mdi-table",
+    //     to: { name: "loantransitions" },
+    //   },
+    //   {
+    //     id: "loan.loanTransition.new",
+    //     title: "New",
+    //     icon: "mdi-plus-circle",
+    //     to: { name: "loantransition", params: { mode: 0 } },
+    //   },
 
-      {
-        id: "loan.loanTransition.history",
-        title: "History",
-        icon: "mdi-history",
-        to: { name: "loantransition", params: { mode: 2 } },
-      },
-    ],
+    //   {
+    //     id: "loan.loanTransition.history",
+    //     title: "History",
+    //     icon: "mdi-history",
+    //     to: { name: "loantransition", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.createViewChildren(
+      "loan",
+      "loantransition",
+      "loantransitions",
+      false
+    ),
   },
 };
 export default loanTransitionNav;

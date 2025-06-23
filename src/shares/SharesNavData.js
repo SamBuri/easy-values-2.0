@@ -22,7 +22,16 @@ const sharesNavData = {
     nav: {
         id: "Shares",
         title: "Shares",
-        icon: "mdi-view-dashbord",
+        icon: "mdi-account-multiple",
+        requires: [
+            ...shareTypeNav.menu.requires,
+            ...shareholderNav.menu.requires,
+            ...investmentNav.menu.requires,
+            ...shareTransferNav.menu.requires,
+            ...shareholderLedgerNav.menu.requires,
+            ...shareholderSharesNav.menu.requires,
+            ...shLedgerNav.menu.requires
+        ],
         children: [
             shareTypeNav.menu,
             shareholderNav.menu,

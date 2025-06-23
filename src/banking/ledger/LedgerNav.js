@@ -1,5 +1,6 @@
 import funcs from "../../utils/funcs";
 import Ledger from "./Ledger.vue";
+import navUtils from "@/nav/NavUtils";
 const ledgerNav = {
   route: {
     path: "/bankaccountledger",
@@ -32,6 +33,7 @@ const ledgerNav = {
     startDate: funcs.formatDate(funcs.addDays(funcs.today(), -7)),
     endDate: funcs.today(),
     path: `bankledgers/ledger`,
+    requires: navUtils.allRoles('bankledger'),
     branches: [],
     setData(data) {
       this.accountId = data.id;

@@ -1,21 +1,10 @@
+
 import Customer from './Customer.vue'
 import Customers from './Customers.vue'
+import navUtils from '@/nav/NavUtils'
 const customerNav = {
-       routes: [
-              {
-                     path: '/customer/:mode',
-                     name: 'customer',
-                     component: Customer,
-                     meta: { auth: true },
-              },
-              {
-                     path: '/customers',
-                     name: 'customers',
-                     component: Customers,
-                     meta: { auth: true },
-              },
-
-       ],
+      
+     routes: navUtils.allRoutes('customer', Customer, 'customers', Customers, true),
        menu: {
               id: "customer.customer",
               title: "Customers",
@@ -23,6 +12,7 @@ const customerNav = {
               path: "customers",
               width: "1000px",
               icon: "mdi-account-outline",
+              requires: navUtils.allRoles("customer"),
               miniHeaders: [{ title: "Profile Id", key: "id" },
               { title: "Customer Name", key: "customerName" },
               { title: "Phone No", key: "phoneNo" },
@@ -76,11 +66,12 @@ const customerNav = {
               { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
               { title: "Created By", key: "createdBy", },
               { title: "Modified By", key: "modifiedBy", }],
-              children: [{ id: "customer.customer.view", title: "View", to: { name: "customers"}, icon: "mdi-table" }, 
-              { id: "customer.customer.new", title: "New", to: { name: "customer", params: { mode: 0 } }, icon: "mdi-plus-circle" },
-              { id: "customer.customer.edit", title: "Edit", to: { name: "customer", params: { mode: 1 } }, icon: "mdi-pencil" },
-              { id: "customer.customer.history", title: "History", to: { name: "customer", params: { mode: 2 } } , icon: "mdi-history" },
-              ]
+              // children: [{ id: "customer.customer.view", title: "View", to: { name: "customers"}, icon: "mdi-table" }, 
+              // { id: "customer.customer.new", title: "New", to: { name: "customer", params: { mode: 0 } }, icon: "mdi-plus-circle" },
+              // { id: "customer.customer.edit", title: "Edit", to: { name: "customer", params: { mode: 1 } }, icon: "mdi-pencil" },
+              // { id: "customer.customer.history", title: "History", to: { name: "customer", params: { mode: 2 } } , icon: "mdi-history" },
+              // ]
+              children: navUtils.allChildren('customer', 'customer', 'customers', false),
        }
 }
 export default customerNav;

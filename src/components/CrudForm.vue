@@ -24,13 +24,10 @@ props.controller.setProps(props);
 onMounted(() => {
   try {
 
-    console.log("Controller", props.controller)
-
-
 
     form.value.validate();
     if (!props.dialog || props.buttonLabel === constants.buttonTexts.save) {
-    
+   
       if (!props.retain) props.controller.clear();
 
     }
@@ -61,6 +58,7 @@ const edit = () => {
 const rootStore = defineRootStore();
 
 const changed = ()=>{
+
 
     if(!rootState.id) props.controller.clear()
     else{
@@ -97,8 +95,8 @@ const changed = ()=>{
 
               <v-col cols="10">
                 <v-text-field label="Id" v-model="rootState.id" hint="Enter the id. and press enter to load data"
-                  v-on:keyup.enter="controller.search" :rules="rootState.idRules" required
-                  @change="controller.clear"></v-text-field>
+                  v-on:keyup.enter="controller.search" :rules="rootState.idRules" required @change="controller.clear"
+                 ></v-text-field>
               </v-col>
 
               <v-col cols="2">

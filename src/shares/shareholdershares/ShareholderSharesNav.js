@@ -1,20 +1,25 @@
 import ShareholderShares from './ShareholderShares.vue'
+import navUtils from '@/nav/NavUtils'
 const shareholderSharesNav = {
-        routes:[
+        // routes: [
 
-                 {
-                        path: '/shareholdershares',
-                        name: 'shareholdershares',
-                        component: ShareholderShares,
-                        meta: { auth: true },
-                 },
+        //         {
+        //                 path: '/shareholdershares',
+        //                 name: 'shareholdershares',
+        //                 component: ShareholderShares,
+        //                 meta: { auth: true },
+        //         },
 
-                ], menu: {
+        // ], 
+        routes: [navUtils.viewRoute("shareholdershares", ShareholderShares, true),],
+        menu: {
                 id: "shares.shareholdershares",
                 title: "Shareholder Shares",
                 component: ShareholderShares,
                 path: "shareholdershares",
-                to:{name:"shareholdershares"},
+                to: { name: "shareholdershares" },
+                requires: navUtils.allRoles("shareholderledger"),
+                icon: "mdi-account-multiple",
                 width: "700px",
                 editHeaders: [{ title: "Shareholder", key: "shareholder" },
                 { title: "Share Type", key: "shareType.name", isNumeric: true },

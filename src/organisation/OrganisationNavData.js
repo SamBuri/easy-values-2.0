@@ -12,7 +12,12 @@ const organisationNavData = {
   nav: {
     id: "organisation",
     title: "Organisation",
-    icon: "mdi-view-dashbord",
+    icon: "mdi-domain-account  ",
+    requires: [
+      ...companyNav.menu.requires,
+      ...branchNav.menu.requires,
+      ...tenantNav.menu.requires,
+    ],
     children: [
       companyNav.menu,
       branchNav.menu,

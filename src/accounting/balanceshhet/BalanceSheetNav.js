@@ -1,18 +1,22 @@
 import BalanceSheet from "./BalanceSheet.vue";
 import funcs from "../../utils/funcs";
+import navUtils from "@/nav/NavUtils";
 
 const balanceSheetNav = {
-  route: {
-    path: "/balancesheet",
-    name: "balancesheet",
-    component: BalanceSheet,
-    meta: { auth: true },
-  },
+  // route: {
+  //   path: "/balancesheet",
+  //   name: "balancesheet",
+  //   component: BalanceSheet,
+  //   meta: { auth: true },
+  // },
+  route: navUtils.viewRoute('balancesheet', BalanceSheet, true),
 
   menu: {
     id: "accounting.balancesheet",
     title: "Balance Sheet",
     to: { name: "balancesheet" },
+    icon: "mdi-chart-bar",
+    requires: [navUtils.viewRoles("generalledger")],
   },
 
   headers: [

@@ -1,25 +1,29 @@
 import BankTransaction from "./BankTransaction.vue";
 import BankTransactions from "./BankTransactions.vue";
+import navUtils from "@/nav/NavUtils";
 const bankTransactionNav = {
-  routes: [
-    {
-      path: "/banktransaction/:mode",
-      name: "banktransaction",
-      component: BankTransaction,
-      meta: { auth: true },
-    },
-    {
-      path: "/banktransactions",
-      name: "banktransactions",
-      component: BankTransactions,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/banktransaction/:mode",
+  //     name: "banktransaction",
+  //     component: BankTransaction,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/banktransactions",
+  //     name: "banktransactions",
+  //     component: BankTransactions,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes("banktransaction",BankTransaction,"banktransactions",BankTransactions,true),
   menu: {
     id: "banking.banktransaction",
     title: "Bank Transactions",
     component: BankTransaction,
     path: "banktransactions",
+    icon:"mdi-cash-multiple",
+    requires: navUtils.allRoles("banktransaction"),
     width: "700px",
     editHeaders: [
       { title: "Bank Account", key: "bankAccount.bankAccountName" },
@@ -59,27 +63,29 @@ const bankTransactionNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "banking.bankTransaction.view",
-        title: "View",
-        icon: "mdi-table",
-        to: { name: "banktransactions" },
-      },
-      {
-        id: "banking.bankTransaction.new",
-        title: "New",
-        icon: "mdi-plus-circle",
-        to: { name: "banktransaction", params: { mode: 0 } },
-      },
+    // children: [
+    //   {
+    //     id: "banking.bankTransaction.view",
+    //     title: "View",
+    //     icon: "mdi-table",
+    //     to: { name: "banktransactions" },
+    //   },
+    //   {
+    //     id: "banking.bankTransaction.new",
+    //     title: "New",
+    //     icon: "mdi-plus-circle",
+    //     to: { name: "banktransaction", params: { mode: 0 } },
+    //   },
 
-      {
-        id: "banking.bankTransaction.history",
-        title: "History",
-        icon: "mdi-history",
-        to: { name: "banktransaction", params: { mode: 2 } },
-      },
-    ],
+    //   {
+    //     id: "banking.bankTransaction.history",
+    //     title: "History",
+    //     icon: "mdi-history",
+    //     to: { name: "banktransaction", params: { mode: 2 } },
+    //   },
+    // ],
+
+    children: navUtils.createViewChildren('banktransactions', 'banktransaction', 'banktransactions', false),
   },
 };
 export default bankTransactionNav;

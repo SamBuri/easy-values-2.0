@@ -1,26 +1,30 @@
 import Bill from "./Bill.vue";
 import Bills from "./Bills.vue";
+import navUtils from "@/nav/NavUtils";
 const billNav = {
-  routes: [
-    {
-      path: "/bill/:mode",
-      name: "bill",
-      component: Bill,
-      meta: { auth: true },
-    },
-    {
-      path: "/bills",
-      name: "bills",
-      component: Bills,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/bill/:mode",
+  //     name: "bill",
+  //     component: Bill,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/bills",
+  //     name: "bills",
+  //     component: Bills,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes("bill", Bill, "bills", Bills, true),
   menu: {
     id: "creditor.bill",
     title: "Bills",
     component: Bill,
     path: "bills",
     width: "700px",
+    requires: navUtils.allRoles("bill"),
+    icon: "mdi-file-document",
     editHeaders: [
       {
         title: "Id",
@@ -66,24 +70,30 @@ const billNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      { id: "creditor.bill.view", title: "View", to: { name: "bills" } },
-      {
-        id: "creditor.bill.new",
-        title: "New",
-        to: { name: "bill", params: { mode: 0 } },
-      },
-      {
-        id: "creditor.bill.edit",
-        title: "Edit",
-        to: { name: "bill", params: { mode: 1 } },
-      },
-      {
-        id: "creditor.bill.history",
-        title: "History",
-        to: { name: "bill", params: { mode: 2 } },
-      },
-    ],
+    // children: [
+    //   { id: "creditor.bill.view", title: "View", to: { name: "bills" } },
+    //   {
+    //     id: "creditor.bill.new",
+    //     title: "New",
+    //     to: { name: "bill", params: { mode: 0 } },
+    //   },
+    //   {
+    //     id: "creditor.bill.edit",
+    //     title: "Edit",
+    //     to: { name: "bill", params: { mode: 1 } },
+    //   },
+    //   {
+    //     id: "creditor.bill.history",
+    //     title: "History",
+    //     to: { name: "bill", params: { mode: 2 } },
+    //   },
+    // ],
+    children: navUtils.createViewChildren(
+      "creditor",
+      "bill",
+      "bills",
+      true
+    ),
   },
 };
 export default billNav;

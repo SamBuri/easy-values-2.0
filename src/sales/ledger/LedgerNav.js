@@ -1,17 +1,22 @@
 import funcs from '../../utils/funcs'
 import Ledger from './Ledger.vue'
+import navUtils from '@/nav/NavUtils';
 const ledgerNav = {
 
-        route: {
-                path: '/customerledger',
-                name: 'customerledger',
-                component: Ledger,
-                meta: { auth: true }
-        },
+        // route: {
+        //         path: '/customerledger',
+        //         name: 'customerledger',
+        //         component: Ledger,
+        //         meta: { auth: true }
+        // },
+        route: navUtils.viewRoute('customerledger', Ledger, true),
 
-        menu: { id: "customerledger.ledger", title: "Ledger",
-           to: {name: "customerledger"},
-        icon:"mdi-view-list" },
+        menu: {
+                id: "customerledger.ledger", title: "Ledger",
+                to: { name: "customerledger" },
+                icon: "mdi-view-list",
+                requires: navUtils.viewRoles("customerledger"),
+        },
 
         headers: [
                 {
@@ -38,14 +43,15 @@ const ledgerNav = {
                 startDate: funcs.addDays(new Date, -365),
                 endDate: new Date(),
                 path: `customerledgers/ledger`,
+                requires: navUtils.viewRoles("customerledger"),
                 branches: [],
                 phoneNo: '',
                 address: '',
                 setData(data) {
-                  this.accountId = data.id;
-                  this.accountName = data.customerName;
-                  this.phoneNo= data.phoneNo
-                  this.address= data.address;
+                        this.accountId = data.id;
+                        this.accountName = data.customerName;
+                        this.phoneNo = data.phoneNo
+                        this.address = data.address;
                 },
         }
 

@@ -1,17 +1,22 @@
 import funcs from "../../utils/funcs";
 import AccountLedger from "./AccountLedger.vue";
+import navUtils from "@/nav/NavUtils";
 const accountLedgerNav = {
-  route: {
-    path: "/accountledger",
-    name: "accountledger",
-    component: AccountLedger,
-    meta: { auth: true },
-  },
+  // route: {
+  //   path: "/accountledger",
+  //   name: "accountledger",
+  //   component: AccountLedger,
+  //   meta: { auth: true },
+  // },
+
+  route: navUtils.viewRoute('accountledger', AccountLedger, true),
 
   menu: {
     id: "generalledger.ledger",
     title: "Ledger",
     to: { name: "accountledger" },
+    icon: "mdi-book-open-variant",
+    requires: navUtils.viewRoles("generalledger"),
   },
 
   headers: [

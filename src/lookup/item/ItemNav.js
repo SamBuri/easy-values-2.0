@@ -1,27 +1,30 @@
 import Item from "./Item.vue";
 import Items from "./Items.vue";
+import navUtils from "@/nav/NavUtils";
 const itemNav = {
-  routes: [
-    {
-      path: "/item/:mode",
-      name: "item",
-      component: Item,
-      meta: { auth: true },
-    },
-    {
-      path: "/items",
-      name: "items",
-      component: Items,
-      meta: { auth: true },
-    },
-  ],
+  // routes: [
+  //   {
+  //     path: "/item/:mode",
+  //     name: "item",
+  //     component: Item,
+  //     meta: { auth: true },
+  //   },
+  //   {
+  //     path: "/items",
+  //     name: "items",
+  //     component: Items,
+  //     meta: { auth: true },
+  //   },
+  // ],
+  routes: navUtils.allRoutes("item", Item, "items", Items, true),
   menu: {
     id: "lookup.item",
     title: "Items",
     component: Item,
     path: "items",
     width: "1000px",
-    icon: "mdi-invoice-list",
+    icon: "mdi-microsoft-xbox-controller-menu",
+    requires: navUtils.allRoles("item"),
     miniHeaders: [
       {
         title: "Id",
@@ -78,26 +81,27 @@ const itemNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      { id: "lookup.item.view", title: "View", to: { name: "items" }, icon: "mdi-table"  },
-      {
-        id: "lookup.item.new",
-        title: "New",
-        to: { name: "item", params: { mode: 0 } },
-       icon: "mdi-plus-circle",
-      },
-      {
-        id: "lookup.item.edit",
-        title: "Edit",
-        to: { name: "item", params: { mode: 1 } , },
-        icon: "mdi-pencil"
-      },
-      {
-        id: "lookup.item.history",
-        title: "History",
-        to: { name: "item", params: { mode: 2 } , icon: "mdi-history"},
-      },
-    ],
+    // children: [
+    //   { id: "lookup.item.view", title: "View", to: { name: "items" }, icon: "mdi-table"  },
+    //   {
+    //     id: "lookup.item.new",
+    //     title: "New",
+    //     to: { name: "item", params: { mode: 0 } },
+    //    icon: "mdi-plus-circle",
+    //   },
+    //   {
+    //     id: "lookup.item.edit",
+    //     title: "Edit",
+    //     to: { name: "item", params: { mode: 1 } , },
+    //     icon: "mdi-pencil"
+    //   },
+    //   {
+    //     id: "lookup.item.history",
+    //     title: "History",
+    //     to: { name: "item", params: { mode: 2 } , icon: "mdi-history"},
+    //   },
+    // ],
+    children: navUtils.allChildren("lookup", "item", "items", false),
   },
 };
 export default itemNav;

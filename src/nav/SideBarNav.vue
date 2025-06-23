@@ -114,6 +114,61 @@ const caseSensitive = ref(false);
 //     : undefined;
 // });
 
+
+const visibleItems = computed(() => {
+  return filterVisibleItems(items)
+})
+
+// const hasAnyPermission = (requiredPermissions) => {
+//   if (!requiredPermissions || requiredPermissions.length === 0) return true
+//   return requiredPermissions.some(perm => props.permissions.includes(perm))
+//     return requiredRoles.some(role => keycloak.hasRealmRole(role))
+// }
+
+// function filterVisibleItems(items) {
+//   return items
+//     .map(item => ({ ...item })) // shallow clone
+//     .filter(item => {
+//       // Check if item should be visible
+//       if (item.show === false) return false
+//       if (typeof item.show === 'function' && !item.show()) return false
+//       return true
+//     })
+//     .map(item => {
+//       // Recursively filter children
+//       if (item.children) {
+//         item.children = filterVisibleItems(item.children)
+//       }
+//       return item
+//     })
+// }
+
+
+const hasAnyPermission = (requiredRoles) => {
+  if (!requiredRoles || requiredRoles.length === 0) return true
+  return requiredRoles.some(role => authStore?.keycloak?.hasRealmRole(role))
+}
+
+
+function filterVisibleItems(items) {
+  return items
+    .map(item => ({ ...item })) // shallow clone
+    .filter(item => {
+      if (item.show === false) return false
+      if (Array.isArray(item.requires)) {
+        return hasAnyPermission(item.requires)
+      }
+      return true
+    })
+    .map(item => {
+      if (item.children) {
+        item.children = filterVisibleItems(item.children)
+      }
+      return item
+    })
+}
+
+
 const filter = computed(() => {
   return (item, searchTerm, textKey) => {
     const itemText = item[textKey];
@@ -179,7 +234,7 @@ const authStore = useAuthStore();
 
             <v-treeview 
             :filter="filter"
-              :items="items" 
+              :items="visibleItems" 
               :search="search" 
               item-value="id"
               :open="openedInitially"
@@ -193,7 +248,7 @@ const authStore = useAuthStore();
               fluid
               v-on:error="onTreeviewError"
             >
-              <template v-slot:prepend="{ item, isOpen }">
+              <template v-slot:prepend="{ item, isOpen }" >
                 <v-icon 
                   v-if="item.icon" 
                   :icon="item.icon" 
@@ -202,7 +257,7 @@ const authStore = useAuthStore();
               </template>
 
               <template v-slot:title="{ item }">
-                <span @click="handleItemClick(item)">
+                <span  @click="handleItemClick(item)" >
                   {{ item.title ? item.title.toUpperCase() : item.title }}
                 </span>
               </template>

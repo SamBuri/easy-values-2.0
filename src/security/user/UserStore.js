@@ -73,7 +73,18 @@ export const defineUserStore = defineStore("user", {
       const rootStore = defineRootStore();
       return rootStore.delete({ path: this.getPath(userId,groupId), httpStrategy: await keycloakService.getHttpStrategy(), show });
 
-    }
+    },
+
+     async resetPassword(userId, payload) {
+      
+      const rootStore = defineRootStore();
+      return rootStore.put({
+        path: `${this.path}/${userId}/reset-password`,
+        body:payload,
+        httpStrategy: await keycloakService.getHttpStrategy()
+      }
+      );
+    },
 
   }
 });

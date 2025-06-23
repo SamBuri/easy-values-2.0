@@ -21,6 +21,7 @@ import Search from '../search/Search.vue';
 import SCurrencyField from './SCurrencyField.vue';
 import SSingleSelectField from './SSingleSelectField.vue';
 import SBankAccountField from './SBankAccountField.vue';
+import SPasswordField from './SPasswordField.vue';
 
 
 export default function register(Vue){
@@ -45,6 +46,7 @@ export default function register(Vue){
   Vue.component('SCurrencyField', SCurrencyField);
   Vue.component('SSingleSelectField', SSingleSelectField);
   Vue.component('SBankAccountField', SBankAccountField);
+  Vue.component('SPasswordField', SPasswordField);
 
 }
 

@@ -21,7 +21,16 @@ import profileNav from "./profile/ProfileNav"
       nav:{
       id: "profile",
         title: "Profile",
-        icon: "mdi-view-dashbord",
+        icon: "mdi-account",
+        requires: [
+          ...countryNav.menu.requires,
+          ...districtNav.menu.requires,
+          ...countyNav.menu.requires,
+          ...subCountyNav.menu.requires,
+          ...parishNav.menu.requires,
+          ...villageNav.menu.requires,
+          ...profileNav.menu.requires,
+        ],
         children: [
           // countryNav.menu,
           // districtNav.menu,
@@ -32,7 +41,15 @@ import profileNav from "./profile/ProfileNav"
           {
             id: "profile.address",
               title: "Address",
-              icon: "mdi-view-dashbord",
+              icon: "mdi-map-marker",
+              requires: [
+                ...countryNav.menu.requires,
+                ...districtNav.menu.requires,
+                ...countyNav.menu.requires,
+                ...subCountyNav.menu.requires,
+                ...parishNav.menu.requires,
+                ...villageNav.menu.requires,
+              ],
               children: [
                 countryNav.menu,
                 districtNav.menu,
