@@ -38,7 +38,7 @@ const set = () => {
     </v-card-title>
 
     <v-card-text>
-       <v-autocomplete :items=" tenantStore.getCurrentTenantBranches" v-model="selectedItem" density="compact"
+       <v-autocomplete :items="branchStore.getCurrentUserBranches" v-model="selectedItem" density="compact"
        item-title="branchName" item-value="id" return-object=""></v-autocomplete>
     </v-card-text>
 

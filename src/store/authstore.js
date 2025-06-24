@@ -8,6 +8,8 @@ export const useAuthStore = defineStore('auth', {
     idToken: null,
     authenticated: false,
     fullName: null,
+    defaultBranch: null,
+    otherBranches: [],
   }),
   persist: true,
   actions: {
@@ -29,6 +31,13 @@ export const useAuthStore = defineStore('auth', {
       this.fullName =  data.idTokenParsed.given_name && data.idTokenParsed.family_name
       ? `${data.idTokenParsed.given_name} ${data.idTokenParsed.family_name}`
       : data.preferred_username;
+      let defaultBranch= data.idTokenParsed.defaultBranch
+      if(Array.isArray(defaultBranch)){
+        this.defaultBranch = defaultBranch.length>0?defaultBranch[0]: null;
+      }else{
+        this.defaultBranch = defaultBranch || null;
+      }
+      this.otherBranches = data.idTokenParsed.otherBranches || [];
     },
   },
 });

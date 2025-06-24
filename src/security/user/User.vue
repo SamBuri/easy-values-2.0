@@ -61,7 +61,7 @@ const confirmPasswordRules = computed(() => {
 
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-autocomplete id="defaultBranch" label="Default Branch" v-model="model.defaultBranch"
-          :rules="rules.defaultBranchId" :items="controller.branchStore.mini"
+          :rules="rules.defaultBranch" :items="controller.branchStore.mini"
           :loading="controller.branchStore.miniLoading" item-title="branchName" item-value="id"></s-autocomplete>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
