@@ -125,6 +125,7 @@ const userModel = {
      defaultBranch: [(v) => !!v || "Default Branch is required",
     ], otherBranches: [(v) => !!v || "Other Branches is required",
     ], groups: [(v) => !!v || "Groups is required",
+      (v)=>v.length>0||"Must have at least one group"
     ], requiredActions: [(v) => !!v || "RequiredActions is required",
     ],
 
