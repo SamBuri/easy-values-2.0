@@ -16,7 +16,7 @@ const incomestatementNav = {
     title: "Income Statement",
     to: { name: "incomestatement" },
     icon: "mdi-chart-line",
-    requires: [navUtils.viewRoles("generalledger")],
+    requires: ['financial_reports_view'],
 
   },
 

@@ -16,7 +16,7 @@ const balanceSheetNav = {
     title: "Balance Sheet",
     to: { name: "balancesheet" },
     icon: "mdi-chart-bar",
-    requires: [navUtils.viewRoles("generalledger")],
+    requires: ['financial_reports_view'],
   },
 
   headers: [
