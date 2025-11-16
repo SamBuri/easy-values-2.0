@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 import { defineTenantStore } from "../tenant/TenantStore";
 import { defineBranchStore } from "./BranchStore";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 
 const props = defineProps(["dialog"]);
 const emit = defineEmits(['close'])
@@ -14,6 +14,10 @@ const tenantStore = defineTenantStore();
 const branchStore = defineBranchStore();
 const tenant = computed(() => tenantStore.firstTenant);
 const selectedItem = ref(branchStore.currentBranch);
+onMounted(() => {
+//  branchStore.setCurrentUserBranches();
+  
+});
 const set = () => {
   console.log("Selected Item", selectedItem)
  branchStore.setCurrentBranch(selectedItem.value);
@@ -30,7 +34,7 @@ const set = () => {
   <v-card class="mx-auto mt-4 pa-1" max-width="520" tile>
     <v-card-title>
       <v-toolbar flat>
-          Set a {{ tenantStore.getCurrentCompany.companyName }} Branch
+          Set a {{ branchStore.currentUserCompany?.companyName }} Branch
           <v-spacer></v-spacer>
           <v-icon v-if="dialog" @click="$emit('close')"
             >mdi-close</v-icon
@@ -38,7 +42,7 @@ const set = () => {
     </v-card-title>
 
     <v-card-text>
-       <v-autocomplete :items="branchStore.getCurrentUserBranches" v-model="selectedItem" density="compact"
+       <v-autocomplete :items="branchStore.currentUserBranches" v-model="selectedItem" density="compact"
        item-title="branchName" item-value="id" return-object=""></v-autocomplete>
     </v-card-text>
 

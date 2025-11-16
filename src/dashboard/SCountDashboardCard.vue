@@ -36,7 +36,7 @@ const model = ref(false);
 
 // Computed properties
 const count = computed(() => {
-  if (!props.items) return 0;
+  if (!props.items || !Array.isArray(props.items))  return 0;
   return props.items.length;
 });
 

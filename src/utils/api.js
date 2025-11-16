@@ -41,10 +41,8 @@ const api = {
         Username: localStorage.getItem(constants.LOCAL_STORAGE_KEYS.USERNAME),
         Authorization: `Bearer ${token}`,
         "Tenant-Id": tenant.id,
-        "Tenant-Type": tenant.tenantType,
         "Branch-Id": currentBranch.id,
         Branch: currentBranch.branchName,
-        "Dev-Name": tenant.company.devName,
       };
     },
 
@@ -102,9 +100,9 @@ const api = {
 
   createAPINoHeaders() {
     let api = axios.create({
-      baseURL: apiUrl,
+      baseURL: baseURL,
     });
-    console.log("API URL NO headers URL ", apiUrl);
+    console.log("API URL NO headers URL ", baseURL);
     return api;
   },
 };

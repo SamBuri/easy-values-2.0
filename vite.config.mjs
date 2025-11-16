@@ -4,6 +4,8 @@ import Vue from '@vitejs/plugin-vue'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
 
+
+
 // Utilities
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
@@ -15,7 +17,12 @@ export default defineConfig({
       template: { transformAssetUrls }
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
-    Vuetify(),
+    Vuetify(
+      {
+      autoImport: true, // Auto-import Vuetify components
+      
+    }
+    ),
     Components(),
     ViteFonts({
       google: {
@@ -26,6 +33,16 @@ export default defineConfig({
       },
     }),
   ],
+
+   build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vuetify: ['vuetify', 'vuetify/components', 'vuetify/directives'],
+        }
+      }
+    }
+  },
 
   resolve: {
     alias: {

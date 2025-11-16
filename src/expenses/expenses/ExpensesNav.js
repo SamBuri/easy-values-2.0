@@ -1,5 +1,7 @@
+import { Router } from 'express';
 import Expenses from './Expenses.vue'
 import Expenseses from './Expenseses.vue'
+// import navUtils from '@/nav/NavUtils';
 const expensesNav = {
         routes: [
                 {
@@ -16,6 +18,7 @@ const expensesNav = {
                 },
 
         ],
+
         menu: {
                 id: "expenses.expenses",
                 title: "Expenseses",
@@ -32,7 +35,9 @@ const expensesNav = {
                 { title: "Amount", key: "amount", isNumeric: true },
                 { title: "Amount Words", key: "amountWords" },
                 { title: "Description", key: "description" },
-                { title: "Actions", key: "actions" }], headers: [{
+                { title: "Actions", key: "actions" }], 
+                
+                headers: [{
                         title: "Id",
                         align: "start",
                         // sortable: false,
@@ -48,6 +53,7 @@ const expensesNav = {
                 { title: "Amount", key: "amount", isNumeric: true },
                 { title: "Amount Words", key: "amountWords" },
                 { title: "Description", key: "description" },
+                { title: "Bl Posted", key: "blPosted" },
                 { title: "BL Posted", key: "blPosted", },
                 { title: "GL Posted", key: "glPosted", },
                 { title: "Branch", key: "branch", },

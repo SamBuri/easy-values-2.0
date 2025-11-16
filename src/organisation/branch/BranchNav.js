@@ -22,7 +22,7 @@ const branchNav = {
                         // sortable: false,
                         key: "id",
                 },
-                { title: "Company", key: "company.id" },
+                { title: "Company", key: "company.companyName" },
                 { title: "Branch Name", key: "branchName" },
                 { title: "Address", key: "address" },
                 { title: "Phone No", key: "phoneNo" },

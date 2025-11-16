@@ -11,7 +11,6 @@ import reportsNavData from '../reports/ReportNavData'
 import expensesNavData from '../expenses/EpensesNavData'
 import sharesNavData from '../shares/SharesNavData'
 import creditorNavData from '../creditor/CreditorNavData';
-// import interviewNavData from '../interview/InterviewNavData'
 
 const navData = {
 
@@ -30,26 +29,7 @@ tree: [
           organisationNavData.nav,
           securityNavData.nav,
 
-          // interviewNavData.nav
-
-
-
-
 ],
-
-// menus: [
-//     ...sharesNavData.nav.children,
-//     ...salesNavData.menus,
-//     ...loanNavData.menus,
-//     ...bankingNavData.menus,
-//     ...profileNavData.menus,
-//     ...expensesNavData.nav.children,
-//     ...accountingNavData.menus,
-//     ...lookupNavData.menus,
-//     ...sharesNavData.menus,
-//     ...organisationNavData.menus,
-// ],
-
 
 }
 

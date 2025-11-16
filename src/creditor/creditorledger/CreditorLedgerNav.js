@@ -10,6 +10,12 @@ const creditorLedgerNav = {
       component: CreditorLedgers,
       meta: { auth: true },
     },
+    // navUtils.viewRoute(
+    //   "creditorledger",
+    //   CreditorLedgers,
+    //   "creditorledgers",
+    //   true
+    // ),
   ],
   menu: {
     id: "creditor.creditorledger",
@@ -17,7 +23,7 @@ const creditorLedgerNav = {
     component: CreditorLedger,
     path: "creditorledgers",
     icon: "mdi-book-open-page-variant",
-    requires: navUtils.allRoles("creditorledger"),
+    requires: navUtils.viewRoles("creditorledger"),
     to: { name: "creditorledgers" },
     width: "1000px",
     editHeaders: [
@@ -66,6 +72,9 @@ const creditorLedgerNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
+
+   
+    
 
   },
 };

@@ -33,6 +33,7 @@ const isUpdate =controller.isUpdate
           v-model="model.name"
           :rules="rules.name"
           :counter="100"
+          disabled
         ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
@@ -42,6 +43,7 @@ const isUpdate =controller.isUpdate
           v-model="model.phoneNo"
           :rules="rules.phoneNo"
           :counter="100"
+          disabled
         ></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">

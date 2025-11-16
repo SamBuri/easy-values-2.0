@@ -35,15 +35,15 @@ const creditorNavData = {
       ...ledgerNav.menu.requires,
     ],
     children: [
-      creditorGroupNav.menu,
-      creditorItemCategoryNav.menu,
-      creditorNav.menu,
       billNav.menu,
       billItemNav.menu,
       paymentNav.menu,
       paymentBillNav.menu,
       creditorLedgerNav.menu,
       ledgerNav.menu,
+      creditorGroupNav.menu,
+      creditorItemCategoryNav.menu,
+      creditorNav.menu,
     ],
   },
 };

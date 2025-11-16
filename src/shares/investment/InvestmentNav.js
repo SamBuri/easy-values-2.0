@@ -28,7 +28,7 @@ const investmentNav = {
                 width: "700px",
                 editHeaders: [{ title: "Shareholder", key: "shareholder.id" },
                 { title: "Tran Date", key: "tranDate", isDate: true },
-                { title: "Share Type", key: "shareType.id", isNumeric: true },
+                { title: "Share Type", key: "shareType.name", isNumeric: true },
                 { title: "Share Action", key: "shareAction" },
                 { title: "Bank Account", key: "bankAccountId", isNumeric: true },
                 { title: "Quantity", key: "quantity", isNumeric: true },
@@ -42,9 +42,9 @@ const investmentNav = {
                 },
                 { title: "Shareholder", key: "shareholder.id" },
                 { title: "Tran Date", key: "tranDate", isDate: true },
-                { title: "Share Type", key: "shareType.id", isNumeric: true },
+                { title: "Share Type", key: "shareType.name", isNumeric: true },
                 { title: "Share Action", key: "shareAction" },
-                { title: "Bank Account", key: "bankAccountId", isNumeric: true },
+                { title: "Bank Account", key: "bankAccount" },
                 { title: "Quantity", key: "quantity", isNumeric: true },
                 { title: "Unit Price", key: "unitPrice", isNumeric: true },
                 { title: "Amount", key: "amount", isNumeric: true },
@@ -52,12 +52,11 @@ const investmentNav = {
                 { title: "Creation Date", key: "creationDate", label: "Creation Date", field: "creationDate", isDateTime: true },
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", },
-                { title: "Modified By", key: "modifiedBy", }],
-                // children: [{ id: "shares.investment.view", title: "View", to: { name: "investments", } },
-                // { id: "shares.investment.new", title: "New", to: { name: "investment", params: { mode: 0 } } },
-                // { id: "shares.investment.edit", title: "Edit", to: { name: "investment", params: { mode: 1 } } },
-                // { id: "shares.investment.history", title: "History", to: { name: "investment", params: { mode: 2 } } },
-                // ]
+                { title: "Modified By", key: "modifiedBy", },
+                { title: "BL Posted", key: "blPosted", },
+                { title: "GL Posted", key: "glPosted", }
+        ],
+              
                 children: navUtils.createViewChildren("shares", "investment", "investments", true),
         }
 }

@@ -17,13 +17,13 @@ const bankTransferNav = {
   //     meta: { auth: true },
   //   },
   // ],
-  routes: navUtils.allRoutes('banktransfers'),
+  routes: navUtils.allRoutes('banktransfer', BankTransfer, 'banktransfers', BankTransfers, true),
   menu: {
     id: "banking.banktransfer",
     title: "Bank Transfers",
     component: BankTransfer,
     path: "banktransfers",
-    requires: navUtils.allRoutes('banktransfers'),
+    requires: navUtils.allRoles('banktransfer'),
     width: "1000px",
     editHeaders: [
       { title: "From Account Type", key: "fromAccountType" },

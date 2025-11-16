@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { defineBranchStore } from '@/organisation/branch/BranchStore';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -16,10 +17,10 @@ export const useAuthStore = defineStore('auth', {
     setAuthData(data) {
       this.keycloak = data;
       if(!data){
-        token = data.token || null;
-        refreshToken = data.refreshToken || null;
-        idToken = data.idToken || null;
-        authenticated = data.authenticated || false;
+        this.token = data.token || null;
+        this.refreshToken = data.refreshToken || null;
+        this.idToken = data.idToken || null;
+        this.authenticated = data.authenticated || false;
         this.fullName = null;
         return;
 
@@ -38,6 +39,11 @@ export const useAuthStore = defineStore('auth', {
         this.defaultBranch = defaultBranch || null;
       }
       this.otherBranches = data.idTokenParsed.otherBranches || [];
+      const allBranches =  Array.from(new Set([this.defaultBranch, ...this.otherBranches].filter(b => b !== null)));
+      const branchStore = defineBranchStore();
+      branchStore.setCurrentUserBranches(allBranches);
+
+      //  branchStore.setCurrentBranch(this.defaultBranch);
     },
   },
 });

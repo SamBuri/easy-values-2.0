@@ -81,12 +81,13 @@ export const defineTenantStore =defineStore ("tenant", {
         if (this.firstTenant) {
           return this.firstTenant;
         }
+         const host = window.location.host;
   
         this.isFirstTenantLoading = true;
         this.tenantError = null;
   
         try {
-          const host = window.location.host;
+         
           const response = await httpMethods.getNoHeaders(`${tenantNav.menu.path}/mini/host/${host}`);
           // const response = await withTimeout(
           //   httpMethods.getNoHeaders(`${tenantNav.menu.path}/mini/host/${host}`),

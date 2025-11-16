@@ -16,7 +16,7 @@ const companyNav = {
   //     meta: { auth: true },
   //   },
   // ],
-  routes: navUtils.allRoutes("company",  Company, "companies",  Companies,  true ),
+  routes: navUtils.allRoutes("company", Company, "companies", Companies, true),
   menu: {
     id: "organisation.company",
     title: "Companies",
@@ -55,43 +55,11 @@ const companyNav = {
       },
       {
         title: "Dev Name",
-        key: "devName",
+        key: "devConfig?.devName",
         label: "Dev Name",
         field: "devName",
       },
-      { title: "Db Type", key: "dbType", label: "Db Type", field: "dbType" },
-      {
-        title: "Db Username",
-        key: "dbUsername",
-        label: "Db Username",
-        field: "dbUsername",
-      },
-      {
-        title: "Db Password",
-        key: "dbPassword",
-        label: "Db Password",
-        field: "dbPassword",
-      },
-      {
-        title: "Db Port",
-        key: "dbPort",
-        label: "Db Port",
-        field: "dbPort",
-        isNumeric: true,
-      },
-      { title: "Db Host", key: "dbHost", label: "Db Host", field: "dbHost" },
-      {
-        title: "Db Driver Class Name",
-        key: "dbDriverClassName",
-        label: "Db Driver Class Name",
-        field: "dbDriverClassName",
-      },
-      {
-        title: "Db Initialize",
-        key: "dbInitialize",
-        label: "Db Initialize",
-        field: "dbInitialize",
-      },
+
       { title: "Actions", key: "actions" },
     ],
     headers: [
@@ -126,53 +94,22 @@ const companyNav = {
       {
         title: "Tag Line",
         key: "tagLine",
-        label: "Tag Line",
-        field: "tagLine",
+
       },
       {
         title: "Dev Name",
-        key: "devName",
-        label: "Dev Name",
-        field: "devName",
+        key: "devConfig.devName",
       },
-      { title: "Db Type", key: "dbType", label: "Db Type", field: "dbType" },
+
       {
-        title: "Db Username",
-        key: "dbUsername",
-        label: "Db Username",
-        field: "dbUsername",
+        title: "Disabled",
+        key: "disabled",
       },
-      {
-        title: "Db Password",
-        key: "dbPassword",
-        label: "Db Password",
-        field: "dbPassword",
-      },
-      {
-        title: "Db Port",
-        key: "dbPort",
-        label: "Db Port",
-        field: "dbPort",
-        isNumeric: true,
-      },
-      { title: "Db Host", key: "dbHost", label: "Db Host", field: "dbHost" },
-      {
-        title: "Db Driver Class Name",
-        key: "dbDriverClassName",
-        label: "Db Driver Class Name",
-        field: "dbDriverClassName",
-      },
-      {
-        title: "Db Initialize",
-        key: "dbInitialize",
-        label: "Db Initialize",
-        field: "dbInitialize",
-      },
+
       {
         title: "Creation Date",
         key: "creationDate",
-        label: "Creation Date",
-        field: "creationDate",
+
         isDateTime: true,
       },
       {
@@ -215,7 +152,7 @@ const companyNav = {
     //     to: { name: "company", params: { mode: 2 } },
     //   },
     // ],
-    children: navUtils.allChildren( "organisation", "company", "companies",  false ),
+    children: navUtils.allChildren("organisation", "company", "companies", false),
   },
 };
 export default companyNav;

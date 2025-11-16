@@ -20,6 +20,14 @@ const httpMethods = {
             url: endpoint });
     },
 
+postNoHeaders(endpoint, payload) {
+
+        return api.createAPINoHeaders()({
+            method: "POST",
+            url: endpoint,
+        data: payload });
+    },
+
     createRequest(method, endpoint, payload, httpStrategy) {
 
         return api.createAPI(httpStrategy)({ method: method, url: endpoint, data: payload })

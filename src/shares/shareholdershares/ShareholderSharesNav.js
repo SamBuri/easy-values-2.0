@@ -18,7 +18,7 @@ const shareholderSharesNav = {
                 component: ShareholderShares,
                 path: "shareholdershares",
                 to: { name: "shareholdershares" },
-                requires: navUtils.allRoles("shareholderledger"),
+                requires: navUtils.allRoles("shareholdershares"),
                 icon: "mdi-account-multiple",
                 width: "700px",
                 editHeaders: [{ title: "Shareholder", key: "shareholder" },

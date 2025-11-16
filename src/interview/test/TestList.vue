@@ -1,13 +1,15 @@
 <script setup>
 import { computed, onMounted } from 'vue';
-import testController from './TestController';
+import candidateStore from "@/interview/test/testStore";
 import { ref } from 'vue';
-const {candidates, mount} = testController();
-
+// const candidates = candidateStore.candidates;
 onMounted(()=>{
-  mount();
+
 })
 const search = ref('')
+const searchTerm = ref('');
+const searchResults =candidateStore.searchResults;
+const isSearching =candidateStore.isSearching;
 
 const filteredCandidates = computed(()=>{
     if(!search.value) return candidates.value;
@@ -15,77 +17,52 @@ const filteredCandidates = computed(()=>{
     .filter(c=>c.skills.toString().toLowerCase()
     .includes(search.value.toLowerCase()))
 })
+
+const candidates = candidateStore.candidates;
+
+const searchData = (e)=>{
+  e.preventDefault();
+  candidateStore.search(searchTerm.value);
+}
+
+const clearSearch =(e)=>{
+  e.preventDefault();
+  candidateStore.clearSearch();
+  searchTerm.value='';
+}
+
 </script>
 
 <template>
-    <div>
+    <div class="outer">
+
+      <button @click="$router.push({name: 'test'})" class="button">Test</button>
+        <p><input type="text" placeholder="Search by Skill" class="input" v-model="searchTerm" /> <button @click="searchData" class="button" v-if="searchTerm"> Search</button> <button v-if="isSearching"  @click="clearSearch" class="button">Clear Search</button></p>
+      <div v-if="isSearching"><h1> Search Results {{ searchResults.length }}</h1></div>
+      <div v-else> <h1> All Candidates {{ candidates.length }}</h1></div>
 
 
-        <input type="text" placeholder="Search by Skill" class="input" v-model="search" />
-        <h1> Registered Data {{ filteredCandidates.length||0 }}</h1> <button @click="$router.push({name: 'test'})">Test</button>
-
-        <div class="card" v-for="model, i in filteredCandidates" :key="i">
+        <div v-if="isSearching" class="card" v-for="model, i in searchResults" :key="i">
 
             <p>First Name: {{ model.firstName }}</p>
             <p>Last Name: {{ model.lastName }}</p>
             <p>Email: {{ model.email }}</p>
-            <p>Skill: {{ model.skills }}</p>
-
-            <p></p>
+            <h5>Skills: {{model.skills?.join(", ")}}</h5>
+             <p v-for="skill in  model.skills" :key="skill">{{ skill }}</p>
 
         </div>
+      <div v-else class="card" v-for="model, j in candidates" :key="j">
+
+        <p>First Name: {{ model.firstName }}</p>
+        <p>Last Name: {{ model.lastName }}</p>
+        <p>Email: {{ model.email }}</p>
+       Skills: {{model.skills?.join(", ")}}
+<!--        <p v-for="skill in  model.skills" :key="skill">{{ skill }}</p>-->
+
+      </div>
     </div>
 </template>
-<!--
-<script>
-export default {
-    name: "TestList",
-    data: () => ({
-        profiles: [],
-        search: ''
-    }),
 
-    created() {
-        let data = localStorage.getItem("profiles");
-        this.profiles = data ? JSON.parse(data) : [];
-    },
-
-    computed: {
-        count() {
-            return this.filteredProfiles.length;
-        },
-
-        filteredProfiles() {
-
-            if (this.search.length) {
-                return this.profiles.filter(p => p.skill.toLowerCase().includes(this.search.toLowerCase()))
-            }
-            else {
-               return this.profiles;
-            }
-        },
-
-    },
-
-    watch: {
-
-    },
-
-    methods: {
-        validateEmail() {
-            // Regular expression for a basic email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            // Update isEmailValid based on the validation result
-            this.isEmailValid = emailRegex.test(this.email);
-        },
-    }
-
-
-
-}
-
-</script> -->
 <style>
 .input {
     border: 1px solid #ccc;
@@ -106,5 +83,14 @@ export default {
     color: #666;
     font-size: 14px;
     line-height: 1.5;
+}
+
+.button {
+  color: #a7ffeb;
+  background: #0d47a1;
+}
+
+.outer{
+  padding: 10px;
 }
 </style>

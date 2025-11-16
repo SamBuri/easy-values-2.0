@@ -13,36 +13,7 @@ const tenantNav = {
     requires: navUtils.allRoles("tenant"),
     width: "700px",
     editHeaders: [
-      {
-        title: "Tenant Type",
-        key: "tenantType",
-        label: "Tenant Type",
-        field: "tenantType",
-      },
-      {
-        title: "Company Id",
-        key: "company.id",
-        label: "Company",
-        field: "company.id",
-      },
-      {
-        title: "Company",
-        key: "company.companyName",
-        label: "Company",
-        field: "company.companyName",
-      },
-      {
-        title: "Source Id",
-        key: "sourceId",
-        label: "Source Id",
-        field: "sourceId",
-      },
-      {
-        title: "Source Name",
-        key: "sourceName",
-        label: "Source Name",
-        field: "sourceName",
-      },
+     
       { title: "Host", key: "host", label: "Host", field: "host" },
       {
         title: "Auth Url",
@@ -50,65 +21,38 @@ const tenantNav = {
         label: "Auth Url",
         field: "authUrl",
       },
-      { title: "Realm", key: "realm", label: "Realm", field: "realm" },
+      { title: "Realm", key: "realm", },
       { title: "Actions", key: "actions" },
     ],
     headers: [
-      {
-        title: "Id",
-        align: "start",
-        // sortable: false,
-        key: "id",
-      },
-      {
-        title: "Tenant Type",
-        key: "tenantType",
-        label: "Tenant Type",
-        field: "tenantType",
-      },
-      {
-        title: "CompanyId",
-        key: "company.id",
-        label: "Company",
-        field: "company.id",
-      },
-      {
-        title: "Company",
-        key: "company.companyName",
-        label: "Company",
-        field: "company.companyName",
-      },
-      {
-        title: "Source Id",
-        key: "sourceId",
-        label: "Source Id",
-        field: "sourceId",
-      },
-      {
-        title: "Source Name",
-        key: "sourceName",
-        label: "Source Name",
-        field: "sourceName",
-      },
-      { title: "Host", key: "host", label: "Host", field: "host" },
+      
+      { title: "Host", key: "host", },
       {
         title: "Auth Url",
         key: "authUrl",
         label: "Auth Url",
         field: "authUrl",
       },
-      { title: "Realm", key: "realm", label: "Realm", field: "realm" },
+      { title: "Realm", key: "realm",  },
       {
         title: "Issuer Url",
         key: "issuerUrl",
-        label: "Issuer Url",
-        field: "issuerUrl",
+       
       },
       {
-        title: "Jwk Set Url",
-        key: "jwkSetUrl",
-        label: "Jwk Set Url",
-        field: "jwkSetUrl",
+        title: "Implicit Client Id",
+        key: "implicitClientId",
+       
+      },
+
+      {
+        title: "Implicit Client Secret",
+        key: "implicitClientSecret",
+      },
+      {
+        title: "Disabled",
+        key: "disabled",
+      
       },
       {
         title: "Creation Date",
@@ -135,30 +79,7 @@ const tenantNav = {
         field: "modifiedBy",
       },
     ],
-    // children: [
-    //   {
-    //     id: "organisation.tenant.view",
-    //     title: "View",
-    //     to: { name: "tenants" },
-    //   },
-    //   { id: "organisation.tenant.new",
-    //     title: "New",
-    //     to: { name: "tenants", params: { mode: 0 } },
-    //   },
-
-    //   {
-    //     id: "organisation.tenant.edit",
-    //     title: "Edit",
-    //     route: "tenant",
-    //     to: { name: "tenants", params: { mode: 1 } },
-    //   },
-    //   {
-    //     id: "organisation.tenant.history",
-    //     title: "History",
-    //     route: "tenant",
-    //     to: { name: "tenants", params: { mode: 2 } },
-    //   },
-    // ],
+   
     children: navUtils.allChildren(
       "organisation",
       "tenant",

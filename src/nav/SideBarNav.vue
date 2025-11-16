@@ -1,101 +1,4 @@
-<!-- 
-<script setup>
-import { ref, computed, watch } from "vue";
-import navData from "./NavData";
-import { useRouter } from "vue-router";
 
-const items = navData.tree;
-const openedInitially = ["sales", "loan"];
-const search = ref(null);
-const caseSensitive = ref(false);
-const filter = computed(() => {
-  return caseSensitive.value
-    ? (item, search, textKey) => item[textKey].indexOf(search) > -1
-    : undefined;
-});
-
-const active = ref([])
-const selected = ref([]);
-const router = useRouter();
-const cardWidth = 700;
-
-watch(selected, (newValue, oldValue) => {
-  console.log("selected", newValue);
-});
-
-const handleItemClick = (item) => {
-  if (item.to) {
-    router.push(item.to);
-  }
-};
-</script>
-
-<template>
-  <v-container fluid>
-    <v-row fluid>
-      <v-col cols="12">
-        <v-card color="primary" :max-width="cardWidth">
-          <v-sheet class="pa-1 white lighten-2">
-            <v-text-field v-model="search" label="Search" dark flat solo-inverted hide-details clearable
-              clear-icon="mdi-close-circle-outline"></v-text-field>
-          </v-sheet>
-          <v-card-text class="pa-1 py-1">
-            <v-btn @click="$router.push({ name: 'dashboard' })" text>
-              <v-icon small> mdi-view-dashboard-outline</v-icon>
-              <span>Dashboard</span>
-            </v-btn>
-            <br />
-            <v-btn @click="$router.push({ name: 'loandashboard' })" text>
-              <v-icon small>mdi-desktop-classic</v-icon>
-              <span>Loan Dashbord</span></v-btn
-            >
-
-            <v-treeview :items="items" :search="search" item-value="id" 
-              :opened="openedInitially" activatable
-              open-on-click item-disabled="locked" 
-              @update:active="handleItemClick"
-              v-model:selected="selected"
-              v-model:activated="active"
-              item-props
-              fluid
-              >
-              <template v-slot:prepend="{ item, isOpen } " >
-               <v-icon v-if="item.icon" :icon="item.icon" @click="handleItemClick(item)"></v-icon>
-              </template>
-
-              <template v-slot:title="{ item }">
-               
-                <span @click="handleItemClick(item)">
-                  {{ item.title?item.title.toUpperCase():item.title }}
-                </span>
-              </template>
-            </v-treeview>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
-</template>
-
-<style scoped>
-.v-btn {
-  text-transform: none;
-}
-
-html {
-  overflow: hidden !important;
-}
-
-.v-card {
-  display: flex !important;
-  flex-direction: column;
-}
-
-.v-card__text {
-  flex-grow: 1;
-  overflow: auto;
-}
-</style> -->
 
 <script setup>
 import { ref, computed, watch } from "vue";
@@ -119,29 +22,6 @@ const visibleItems = computed(() => {
   return filterVisibleItems(items)
 })
 
-// const hasAnyPermission = (requiredPermissions) => {
-//   if (!requiredPermissions || requiredPermissions.length === 0) return true
-//   return requiredPermissions.some(perm => props.permissions.includes(perm))
-//     return requiredRoles.some(role => keycloak.hasRealmRole(role))
-// }
-
-// function filterVisibleItems(items) {
-//   return items
-//     .map(item => ({ ...item })) // shallow clone
-//     .filter(item => {
-//       // Check if item should be visible
-//       if (item.show === false) return false
-//       if (typeof item.show === 'function' && !item.show()) return false
-//       return true
-//     })
-//     .map(item => {
-//       // Recursively filter children
-//       if (item.children) {
-//         item.children = filterVisibleItems(item.children)
-//       }
-//       return item
-//     })
-// }
 
 
 const hasAnyPermission = (requiredRoles) => {
@@ -169,15 +49,30 @@ function filterVisibleItems(items) {
 }
 
 
-const filter = computed(() => {
-  return (item, searchTerm, textKey) => {
-    const itemText = item[textKey];
-    const searchText = searchTerm || '';
-    return caseSensitive.value
-      ? itemText.indexOf(searchText) > -1
-      : itemText.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+// const filter = computed(() => {
+//   return (item, searchTerm, textKey) => {
+//     const itemText = item[textKey];
+//     const searchText = searchTerm || '';
+//     return caseSensitive.value
+//       ? itemText.indexOf(searchText) > -1
+//       : itemText.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+//   };
+// });
+
+ const filter =(value, search, item) =>{
+
+    if (!search) return true;
+    if (!value) return false;
+    if (typeof value !== 'string') {
+      value = value.toString();
+    }
+    if (typeof search !== 'string') {
+      search = search.toString();
+    }
+    // console.log("filter", value, search, item);
+  console.log("filter", value, search, item);
+    return caseSensitive.value ? value.indexOf(search) > -1 : value.toLowerCase().indexOf(search.toLowerCase()) > -1
   };
-});
 
 const active = ref([]);
 const selected = ref([]);
@@ -206,7 +101,7 @@ const authStore = useAuthStore();
   <v-container fluid>
     <v-row fluid>
       <v-col cols="12">
-        <v-card color="primary"  :width="cardWidth">
+        <v-card  color="primary"  :width="cardWidth">
           <v-sheet class="pa-1 white lighten-2">
             <v-text-field 
               v-model="search" 
@@ -217,15 +112,16 @@ const authStore = useAuthStore();
               hide-details 
               clearable
               clear-icon="mdi-close-circle-outline"
+
             ></v-text-field>
           </v-sheet>
           <v-card-text class="pa-1 py-1">
-            <v-btn @click="$router.push({ name: 'dashboard' })" text>
+            <v-btn @click="$router.push({ name: 'dashboard' })" text color="primary" >
               <v-icon small>mdi-view-dashboard-outline</v-icon>
               <span>Dashboard</span>
             </v-btn>
             <br />
-            <v-btn @click="$router.push({ name: 'loandashboard' })" text>
+            <v-btn @click="$router.push({ name: 'loandashboard' })" text color="primary" >
               <v-icon small>mdi-desktop-classic</v-icon>
               <span>Loan Dashboard</span>
             </v-btn>
@@ -233,8 +129,7 @@ const authStore = useAuthStore();
           
 
             <v-treeview 
-            :filter="filter"
-              :items="visibleItems" 
+               :items="visibleItems" 
               :search="search" 
               item-value="id"
               :open="openedInitially"
@@ -247,6 +142,7 @@ const authStore = useAuthStore();
               item-props
               fluid
               v-on:error="onTreeviewError"
+             
             >
               <template v-slot:prepend="{ item, isOpen }" >
                 <v-icon 

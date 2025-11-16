@@ -7,6 +7,7 @@ const controller = accountController();
 
 const model = controller.model;
 const rules = controller.rules;
+const isUpdate=controller.isUpdate;
 </script>
 <template>
   <crud-form :controller="controller">
@@ -101,7 +102,7 @@ const rules = controller.rules;
           v-model="model.readOnly"
         ></v-checkbox>
       </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
+      <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
         <v-checkbox
           id="hidden"
           label="Hidden"

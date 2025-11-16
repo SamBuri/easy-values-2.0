@@ -1,5 +1,5 @@
 
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { defineTenantStore } from "../tenant/TenantStore";
 import { useRouter } from "vue-router";
 import { defineBranchStore } from "./BranchStore";
@@ -25,13 +25,18 @@ const router = useRouter();
 //   }
 // }
 
+onMounted(() => {
+ branchStore.getCurrentUserBranches();
+  
+});
+
 const set= ()=> {
 
   let branches = tenant.value.branches
   let selectedBranch = branches[selectedItem.value];
   console.log(selectedBranch)
    branchStore.setCurrentBranch(selectedBranch);
-
+  
 
   if (props.dialog) {
     emit('close');

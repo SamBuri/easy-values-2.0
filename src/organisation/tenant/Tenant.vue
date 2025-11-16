@@ -1,159 +1,45 @@
-<template>
-  <crud-form @save="save" @update="update" @search="search" @updateDialog="updateDialog" @reset="reset" @done="done"
-    @updateCrudTableDialog="updateCrudTableDialog" @resetCrudTableDialog="resetCrudTableDialog" :path="path"
-    :maxWidth="maxWidth">
-    <template slot="heading">Tenant</template>
+<script setup>
+import tenantController from "./TenantController";
+const cols = 12;
+const sm = 6;
+const md = 6;
+const controller = tenantController();
+const isUpdate = controller.isUpdate;
 
-    <template slot="form-data">
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-select label="Tenant Type" v-model="tenant.tenantType" :rules="tenantTypeRules" :counter="100"
-          :items="$store.state.organisation.tenantTypes" :loading="$store.state.organisation.tenantTypesLoading"
-          return-object></v-select>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-select label="Company" v-model="tenant.company" :rules="companyRules" :counter="100"
-          :items="$store.state.organisation.company.mini" :loading="$store.state.organisation.company.miniLoading"
-          item-text="companyName" item-value="id" return-object></v-select>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md" v-if="isBranch">
-        <v-select label="Branch" v-model="tenant.branch" :rules="branchRules" :counter="100"
-          :items="$store.state.organisation.branch.branchByCompanyId"
-          :loading="$store.state.organisation.branch.branchByCompanyIdLoading" item-text="branchName" item-value="id"
-          return-object></v-select>
-      </v-col>
+const model = controller.model;
+const rules = controller.rules;
+</script><template>
+  <crud-form :controller="controller">
+    <template #heading>Tenant</template>
+
+    <template #form-data>
 
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field label="Host" v-model="tenant.host" :rules="hostRules" :counter="100"></v-text-field>
+        <s-text-field id="host" label="Host" v-model="model.host" :rules="rules.host" :counter="50"></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field label="Auth Url" v-model="tenant.authUrl" :rules="authUrlRules" :counter="50"></v-text-field>
+        <s-text-field id="authUrl" label="Auth Url" v-model="model.authUrl" :rules="rules.authUrl"
+          :counter="50"></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field label="Realm" v-model="tenant.realm" :rules="realmRules" :counter="50"></v-text-field>
+        <s-text-field id="realm" label="Realm" v-model="model.realm" :rules="rules.realm" :counter="50"></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field label="Issuer Url" v-model="tenant.issuerUrl" :rules="issuerUrlRules"
-          :counter="100"></v-text-field>
+        <s-text-field id="issuerUrl" label="Issuer Url" v-model="model.issuerUrl" :rules="rules.issuerUrl"
+          :counter="100"></s-text-field>
+      </v-col>
+    
+      <v-col :cols="cols" :sm="sm" :md="md">
+        <s-text-field id="implicitClientId" label="Implicit Client Id" v-model="model.implicitClientId"
+          :rules="rules.implicitClientId" :counter="100"></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <v-text-field label="Jwk Url" v-model="tenant.jwkUrl" :rules="jwkUrlRules" :counter="100"></v-text-field>
+        <s-textarea id="implicitClientSecret" label="Implicit Client Secret" v-model="model.implicitClientSecret"
+          :rules="rules.implicitClientSecret" :counter="100" />
       </v-col>
     </template>
+      <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
+        <v-checkbox id="disabled" label="Disabled" v-model="model.disabled" />
+      </v-col>
   </crud-form>
 </template>
-<script>
-import tenantModel from "./TenantModel";
-export default {
-  components: {},
-  name: "Tenant",
-  data: () => ({
-    cols: 12,
-    sm: 6,
-    md: 6,
-    maxWidth: 800,
-    path: tenantModel.path,
-    tenant: tenantModel.tenant,
-    tenantTypeRules: [(v) => !!v || "Tenant Type is required",
-    ], companyRules: [(v) => !!v || "Company is required",
-    ], branchRules: [(v) => !!v || "Branch is required",
-    ], hostRules: [(v) => !!v || "Host is required",
-    (v) => v.length < 100 || "Host length must be less or equal to 100",], authUrlRules: [(v) => !!v || "Auth Url is required",
-    (v) => v.length < 100 || "Auth Url length must be less or equal to 100",], realmRules: [(v) => !!v || "Realm is required",
-    (v) => v.length < 100 || "Realm length must be less or equal to 100",],
-    issuerUrlRules: [(v) => !!v || "Issuer Url is required",
-    (v) => v.length < 100 || "Issuer Url length must be less or equal to 100",], jwkUrlRules: [(v) => !!v || "Jwk Url is required",
-    (v) => v.length < 100 || "Jwk Url length must be less or equal to 100",],
-
-    branchTenantType: "Branch",
-    companyTenantType: "Company",
-  }),
-  created() {
-    this.$store.dispatch("organisation/getTenantTypes");
-    this.$store.dispatch("organisation/company/getMini");
-
-  },
-  computed: {
-    isBranch() {
-      return this.tenant.tenantType === this.branchTenantType
-    },
-    tenantType() {
-      return this.tenant.tenantType;
-    },
-
-    companyId() {
-      return this.tenant.company.id;
-    },
-
-    branch() {
-      return this.tenant.branch;
-    }
-  },
-
-  watch: {
-    tenantType() {
-      this.setSourceId();
-    },
-    companyId() {
-      if (this.isBranch) {
-        this.$store.dispatch("organisation/branch/getBranchByCompanyId", this.companyId);
-      }
-      this.setSourceId();
-
-    },
-    branch() {
-
-      this.setSourceId();
-    }
-  },
-
-  methods: {
-    save() {
-      this.$store.dispatch("post", { path: this.path, body: this.tenant });
-    },
-    update() {
-      this.$store.dispatch("put", { path: `${this.path}/${this.tenant.id}`, body: this.tenant });
-    },
-    updateDialog() {
-      var obj = this.$store.state.search.selectedData[0].value;
-      this.setDialog(obj);
-    },
-    async search() {
-      var obj = this.$store.state.obj;
-      this.tenant = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    reset() {
-      this.tenant.clear();
-    },
-    setObjects(obj) {
-
-      console.log(obj);
-    }, setDialog(obj) {
-      this.tenant = Object.assign({}, obj);
-      this.setObjects(obj);
-    },
-    done() {
-      this.$store.commit(
-        "crudtable/data",
-        Object.assign({}, this.tenant)
-      );
-    },
-    updateCrudTableDialog() {
-      this.setDialog(this.$store.state.crudtable.data);
-    },
-    resetCrudTableDialog() {
-      this.reset();
-    },
-
-    setSourceId() {
-      if (this.isBranch) {
-        this.tenant.sourceId = this.tenant.branch.id;
-      }
-      else if (this.tenant.tenantType === this.companyTenantType) {
-        this.tenant.sourceId = this.tenant.company.id;
-
-      }
-    }
-  }
-};
-</script>

@@ -26,7 +26,7 @@ const rules = controller.rules;
 
 
   <crud-form :controller="controller">
-   
+
     <template #heading> Profile </template>
 
     <template #form-header v-if="isUpdate">
@@ -42,8 +42,8 @@ const rules = controller.rules;
     </template>
 
     <template #form-data>
-     
-      
+
+
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-autocomplete id="profileType" label="Profile Type" v-model="model.profileType" :rules="rules.profileType"
           :items="controller.profileStore.profileTypes"
@@ -181,7 +181,7 @@ const rules = controller.rules;
       <v-col :cols="cols" :sm="sm" :md="md">
         <v-checkbox id="phoneVerified" label="Phone Verified" v-model="model.phoneVerified"></v-checkbox>
       </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
+      <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
         <v-checkbox id="hidden" label="Hidden" v-model="model.hidden"></v-checkbox>
       </v-col>
     </template>
@@ -191,7 +191,7 @@ const rules = controller.rules;
           buttonLabel="Save" :retain="true"></ProfilePicture>
       </v-dialog>
       <v-card flat :max-width="maxWidth">
-        
+
         <v-container v-if="isUpdate">
           <v-row><v-btn color="primary" text @click="controller.addPicture" v-if="model.saved">Upload Photos</v-btn></v-row>
           <v-row v-if="showPictures">

@@ -15,7 +15,7 @@ const companyModel = {
     dbPort: "",
     dbHost: "",
     dbDriverClassName: "",
-    dbInitialize: false,
+    disabled: false,
 
     clear() {
       this.logo = null;
@@ -26,14 +26,8 @@ const companyModel = {
       this.email = "";
       this.website = "";
       this.tagLine = "";
-      this.devName = "";
-      this.dbType = "";
-      this.dbUsername = "";
-      this.dbPassword = "";
-      this.dbPort = "";
-      this.dbHost = "";
-      this.dbDriverClassName = "";
-      this.dbInitialize = false;
+      this.devConfigId=null,
+      this.disabled = false;
     },
     copy(obj) {
       this.id = obj.id;
@@ -45,14 +39,9 @@ const companyModel = {
       this.email = obj.email;
       this.website = obj.website;
       this.tagLine = obj.tagLine;
-      this.devName = obj.devName;
-      this.dbType = obj.dbType;
-      this.dbUsername = obj.dbUsername;
-      this.dbPassword = obj.dbPassword;
-      this.dbPort = obj.dbPort;
-      this.dbHost = obj.dbHost;
-      this.dbDriverClassName = obj.dbDriverClassName;
-      this.dbInitialize = obj.dbInitialize;
+      this.devConfigId= obj.devConfig?.id;
+     
+      this.disabled = obj.disabled;
     },
     printOptions() {
       let data = [];
@@ -67,12 +56,8 @@ const companyModel = {
       data.push({ text: "Email", value: this.company.email });
       data.push({ text: "Website", value: this.company.website });
       data.push({ text: "Tag Line", value: this.company.tagLine });
-      data.push({ text: "Dev Name", value: this.company.devName });
-      data.push({ text: "Db Type", value: this.company.dbType });
-      data.push({ text: "Db Username", value: this.company.dbUsername });
-      data.push({ text: "Db Password", value: this.company.dbPassword });
-      data.push({ text: "Db Port", value: this.company.dbPort });
-      data.push({ text: "Db Host", value: this.company.dbHost });
+      data.push({ text: "Dev Config Id", value: this.devConfigId });
+   
       data.push({
         text: "Db Driver Class Name",
         value: this.company.dbDriverClassName,
@@ -99,14 +84,8 @@ const companyModel = {
       data.append("email", this.email);
       data.append("website", this.website);
       data.append("tagLine", this.tagLine);
-      data.append("devName", this.devName);
-      data.append("dbType", this.dbType);
-      data.append("dbUsername", this.dbUsername);
-      data.append("dbPassword", this.dbPassword);
-      data.append("dbPort", this.dbPort);
-      data.append("dbHost", this.dbHost);
-      data.append("dbDriverClassName", this.dbDriverClassName);
-      data.append("dbInitialize", this.dbInitialize);
+      data.append("devConfigId", this.devConfigId);
+      data.append("disabled", this.disabled);
 
       return data;
     },

@@ -1,16 +1,21 @@
 import { defineStore } from "pinia";
 import httpMethods from "@/utils/HttpMethods";
 import branchNav from './BranchNav';
-import { defineTenantStore } from "../tenant/TenantStore";
-import { useAuthStore } from "@/store/authstore";
+// import { defineTenantStore } from "../tenant/TenantStore";
+// import { useAuthStore } from "@/store/authstore";
+import { defineRootStore } from "@/root/RootStore";
 export const defineBranchStore = defineStore("branch", {
   state: () => ({
+    path: branchNav.menu.path,
     mini: [],
     miniLoading: false,
     branchByCompanyId: [],
     branchByCompanyIdLoading: false,
     currentBranch: null,
     branchName: 'No Branch',
+    currentUserBranches: [],
+    currentUserBranchesLoading: false,
+    currentUserCompany: null,
   }),
   persist: true,
   getters: {
@@ -19,20 +24,13 @@ export const defineBranchStore = defineStore("branch", {
       return this.currentBranch.branchName;
     },
 
-    getCurrentUserBranches(){
-       let tenantStore = defineTenantStore();
-      let tenantBranches = tenantStore.getCurrentTenantBranches;
-       let authStore = useAuthStore();
-      this.mini= tenantBranches.filter(branch => authStore.otherBranches.includes(branch.id)||branch.id===authStore.defaultBranch)||[]
-      return this.mini;
 
-    },
     loadCurrentBranchVue() {
-      let tenantStore = defineTenantStore();
-      let authStore = useAuthStore();
-      let currentBranches =tenantStore.getCurrentTenantBranches.filter(branch=>branch.id===authStore.defaultBranch)
-      this.currentBranch=currentBranches.length>0 ?currentBranches[0]:null
-      if (this.currentBranch) return false;
+      // let tenantStore = defineTenantStore();
+      // let authStore = useAuthStore();
+      // let currentBranches = tenantStore.getCurrentTenantBranches.filter(branch => branch.id === authStore.defaultBranch)
+      // this.currentBranch = currentBranches.length > 0 ? currentBranches[0] : null
+      // if (this.currentBranch) return false;
       // return tenantStore.hasBraches;
       return false;
     },
@@ -54,17 +52,38 @@ export const defineBranchStore = defineStore("branch", {
 
   actions: {
 
+    setCurrentUserBranches(branches) {
+
+        console.log("Setting Current User Branches: ", branches);
+
+         httpMethods.postNoHeaders(`${this.path}/mini/ids`, branches)
+          .then(res => {
+            console.log("Branch Ids Response: ", res);
+
+            this.currentUserBranches = res.data;
+
+          if (this.currentUserBranches.length > 0) {this.currentUserCompany = this.currentUserBranches[0].company;
+            this.setCurrentBranch(this.currentUserBranches[0])
+          }
+          else this.currentUserCompany = null;
+
+          }).catch(error => {
+            console.log("Error fetching branches by ids: ", error);
+          }).finally(() => {
+            this.currentUserBranchesLoading = false;
+          });
+
+
+
+
+
+    },
+
     setCurrentBranch(currentBranch) {
       this.currentBranch = currentBranch;
     },
 
 
-    // isBranchSet() {
-    //   if (this.currentBranch) {
-    //     return true
-    //   }
-    //   else { return !this.hasBraches }
-    // },
 
     getMini() {
       // if (this.mini.length > 0) { return }
@@ -84,12 +103,13 @@ export const defineBranchStore = defineStore("branch", {
     },
 
     getBranchByCompanyId(companyId) {
-      if (this.mini) { return }
+
       this.branchByCompanyIdLoading = true
-      httpMethods.get(`${branchNav.menu.path}/companyId/${companyId}`)
+      httpMethods.get(`${branchNav.menu.path}/companyid/${companyId}`)
         .then(response => {
           this.branchByCompanyId = response.data;
           this.branchByCompanyIdLoading = false;
+          console.log("Branch By Company Id: ", this.branchByCompanyId);
         }).catch(e => {
           this.branchByCompanyId = [];
           console.log(e);

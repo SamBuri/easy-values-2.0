@@ -1,3 +1,5 @@
+import funcs from "@/utils/funcs";
+
 const profileModel = {
       model: {
             profileType: "Individual",
@@ -21,7 +23,7 @@ const profileModel = {
             residentialAddress: "",
             residenceCoordinates: "",
             addressDetails: "",
-            joinDate: null,
+            joinDate: funcs.today(),
             occupationId: "",
             workType: "",
             businessCategoryId: "",
@@ -56,7 +58,7 @@ const profileModel = {
                   this.residentialAddress = "";
                   this.residenceCoordinates = "";
                   this.addressDetails = "";
-                  this.joinDate = null;
+                  this.joinDate = funcs.today();
                   this.occupationId = "";
                   this.workType = "";
                   this.businessCategoryId = "";

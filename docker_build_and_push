@@ -1,24 +1,59 @@
+# #!/bin/bash
+
+# # Define variables
+# IMAGE_NAME="samburi/easyvalues"
+# TAG="2.0.2"
+# FULL_IMAGE="$IMAGE_NAME:$TAG"
+
+# echo "Building Docker image: $FULL_IMAGE"
+# docker build -t "$FULL_IMAGE" .
+
+# if [ $? -ne 0 ]; then
+#   echo "Docker build failed. Exiting..."
+#   exit 1
+# fi
+
+# echo "Pushing Docker image to registry: $FULL_IMAGE"
+# docker push "$FULL_IMAGE"
+
+# if [ $? -ne 0 ]; then
+#   echo "Docker push failed. Exiting..."
+#   exit 1
+# fi
+
+# echo "Docker image $FULL_IMAGE built and pushed successfully!"
+
 #!/bin/bash
 
 # Define variables
 IMAGE_NAME="samburi/easyvalues"
-TAG="2.0.1"
+TAG="2.0.4"
 FULL_IMAGE="$IMAGE_NAME:$TAG"
 
-echo "Building Docker image: $FULL_IMAGE"
-docker build -t "$FULL_IMAGE" .
+# Check if Buildx builder exists, create or append if necessary
+echo "Setting up Docker Buildx..."
+if docker buildx inspect multiarch-builder > /dev/null 2>&1; then
+  echo "Builder 'multiarch-builder' already exists, reusing it..."
+  docker buildx use multiarch-builder
+else
+  echo "Creating new Buildx builder 'multiarch-builder'..."
+  docker buildx create --name multiarch-builder --use || { echo "Failed to create Buildx builder"; exit 1; }
+fi
+
+# Bootstrap the builder
+docker buildx inspect --bootstrap || { echo "Failed to bootstrap Buildx"; exit 1; }
+
+echo "Building multi-arch Docker image: $FULL_IMAGE for linux/amd64,linux/arm64"
+docker buildx build --platform linux/amd64,linux/arm64 \
+  -t "$FULL_IMAGE" \
+  --push .
 
 if [ $? -ne 0 ]; then
-  echo "Docker build failed. Exiting..."
+  echo "Docker Buildx build failed. Exiting..."
   exit 1
 fi
 
-echo "Pushing Docker image to registry: $FULL_IMAGE"
-docker push "$FULL_IMAGE"
+echo "Docker image $FULL_IMAGE built and pushed successfully for multiple architectures!"
 
-if [ $? -ne 0 ]; then
-  echo "Docker push failed. Exiting..."
-  exit 1
-fi
-
-echo "Docker image $FULL_IMAGE built and pushed successfully!"
+# Clean up Buildx builder (optional, comment out if you want to keep it)
+# docker buildx rm multiarch-builder

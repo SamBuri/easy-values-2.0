@@ -43,23 +43,21 @@ const expenseNav = {
                 },
                 { title: "Tran Date", key: "tranDate", isDate: true },
                 { title: "Bank AccountType", key: "bankAccountType" },
-                { title: "Bank Account", key: "bankAccountId", isNumeric: true },
+                { title: "Bank Account", key: "bankAccount", },
                 { title: "Base Amount", key: "baseAmount", isNumeric: true },
                 { title: "Currency", key: "currencyId", isNumeric: true },
                 { title: "Exchange Rate", key: "exchangeRate", isNumeric: true },
                 { title: "Amount", key: "amount", isNumeric: true },
                 { title: "Amount Words", key: "amountWords" },
                 { title: "Description", key: "description" },
+                { title: "BL Posted", key: "blPosted", },
+                { title: "GL Posted", key: "glPosted", },
                 { title: "Branch", key: "branch", },
                 { title: "Creation Date", key: "creationDate", label: "Creation Date", field: "creationDate", isDateTime: true },
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", },
                 { title: "Modified By", key: "modifiedBy", }],
-                // children: [{ id: "expenses.expense.view", title: "View", to: { name: "expenses", } },
-                // { id: "expenses.expense.new", title: "New", to: { name: "expense", params: { mode: 0 } } },
-                // { id: "expenses.expense.edit", title: "Edit", to: { name: "expense", params: { mode: 1 } } },
-                // { id: "expenses.expense.history", title: "History", to: { name: "expense", params: { mode: 2 } } },
-                // ]
+
                 children: navUtils.allChildren('expenses', 'expense', 'expenses', false),
         }
 }

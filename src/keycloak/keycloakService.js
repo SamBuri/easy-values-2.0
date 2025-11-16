@@ -140,12 +140,13 @@ const keycloakService = {
   },
 
   async getKeyServiceAccountToken(tenant) {
+    console.log('Service Account Tenant', tenant)
     const tokenResponse = await axios.post(
       `${tenant.issuerUrl}/protocol/openid-connect/token`,
       new URLSearchParams({
         grant_type: 'client_credentials',
-        client_id: 'easy-values-implicit', // Replace with your service account client ID
-        client_secret: '0GMSsrG4tDmXLk840VnHhShHvmXuoRrQ', // Replace with your client secret
+        client_id: tenant.implicitClientId, // Replace with your service account client ID
+        client_secret: tenant.implicitClientSecret, // Replace with your client secret
       }),
       {
         headers: {

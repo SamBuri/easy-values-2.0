@@ -1,6 +1,8 @@
+import funcs from "@/utils/funcs";
+
 const billModel = {
  model: {
-tranDate:null,
+tranDate:funcs.today(),
 creditorId:"",
 startDate:null,
 endDate:null,
@@ -9,7 +11,7 @@ amountWords:"",
 billItems:[],
 
 clear(){
-this.tranDate=null;
+this.tranDate=funcs.today();
 this.creditorId="";
 this.startDate=null;
 this.endDate=null;

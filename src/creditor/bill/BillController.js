@@ -27,7 +27,7 @@ export default function billController() {
   onMounted(() => {
     creditorStore.getMini();
 
-    billItemStore.getMini();
+    // billItemStore.getMini();
   });
 
   const model=controller.model.value;

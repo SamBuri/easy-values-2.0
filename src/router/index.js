@@ -19,7 +19,6 @@ import expensesNavData from "../expenses/EpensesNavData";
 // import storeFuncs from "../utils/storeFuncs";
 import sharesNavData from "../shares/SharesNavData";
 import SBarChart from "../components/SBarChart.vue";
-import interviewNavData from "../interview/InterviewNavData";
 import creditorNavData from "../creditor/CreditorNavData";
 
 
@@ -67,7 +66,7 @@ const routes = [
         meta: { auth: true },
       },
 
-   
+
 
       {
         path: "/search/:action",
@@ -88,7 +87,6 @@ const routes = [
       ...expensesNavData.routes,
       ...sharesNavData.routes,
       ...creditorNavData.routes,
-      ...interviewNavData.routes,
     ],
   },
 ];
@@ -100,9 +98,9 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
- 
+
   const branchStore = defineBranchStore();
-  if (branchStore.loadCurrentBranchVue && to.name !== 'currentbranch' && from.name !== 'currentbranch') {
+  if (branchStore.currentBranch && to.name !== 'currentbranch' && from.name !== 'currentbranch') {
 
     next("/currentbranch");
 
