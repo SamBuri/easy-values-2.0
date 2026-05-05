@@ -16,6 +16,7 @@ const companyModel = {
     dbHost: "",
     dbDriverClassName: "",
     disabled: false,
+    branches: [],
 
     clear() {
       this.logo = null;
@@ -28,6 +29,7 @@ const companyModel = {
       this.tagLine = "";
       this.devConfigId=null,
       this.disabled = false;
+      this.branches = [];
     },
     copy(obj) {
       this.id = obj.id;
@@ -42,6 +44,7 @@ const companyModel = {
       this.devConfigId= obj.devConfig?.id;
      
       this.disabled = obj.disabled;
+      this.branches = obj.branches || [];
     },
     printOptions() {
       let data = [];
@@ -86,6 +89,15 @@ const companyModel = {
       data.append("tagLine", this.tagLine);
       data.append("devConfigId", this.devConfigId);
       data.append("disabled", this.disabled);
+
+      if (this.branches) {
+        this.branches.forEach((branch, index) => {
+          data.append(`branches[${index}].branchName`, branch.branchName);
+          data.append(`branches[${index}].address`, branch.address);
+          data.append(`branches[${index}].phoneNo`, branch.phoneNo);
+          data.append(`branches[${index}].email`, branch.email);
+        });
+      }
 
       return data;
     },

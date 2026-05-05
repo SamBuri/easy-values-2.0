@@ -1,11 +1,9 @@
 import Role from './Role.vue'
 import Roles from './Roles.vue'
-import keycloakService from '@/keycloak/keycloakService';
 import navUtils from '@/nav/NavUtils';
 const roleNav = {
         routes: navUtils.allRoutes('role', Role, 'roles', Roles, true),
         menu: {
-                httpStrategy: async () => keycloakService.getHttpStrategy(),
                 id: "security.role",
                 title: "ROLES",
                 component: Role,

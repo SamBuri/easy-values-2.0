@@ -57,6 +57,10 @@ const isUpdate = controller.isUpdate;
       <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
         <v-checkbox id="disabled" label="Disabled" v-model="model.disabled"></v-checkbox>
       </v-col>
+      <v-col cols="12">
+        <crud-table title="Branches" :headers="controller.branchNav.menu.editHeaders" :items="model.branches"
+          :component="controller.branchNav.menu.component" maxWidth="700px" />
+      </v-col>
     </template>
   </crud-form>
 </template>

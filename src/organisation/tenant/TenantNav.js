@@ -2,7 +2,7 @@ import Tenant from "./Tenant.vue";
 import Tenants from "./Tenants.vue";
 import navUtils from "@/nav/NavUtils";
 const tenantNav = {
- 
+
   routes: navUtils.allRoutes("tenant", Tenant, "tenants", Tenants, true),
   menu: {
     id: "organisation.tenant",
@@ -13,46 +13,35 @@ const tenantNav = {
     requires: navUtils.allRoles("tenant"),
     width: "700px",
     editHeaders: [
-     
-      { title: "Host", key: "host", label: "Host", field: "host" },
+
+      { title: "Host", key: "host", label: "Host"},
       {
-        title: "Auth Url",
-        key: "authUrl",
-        label: "Auth Url",
-        field: "authUrl",
+        title: "Tenant Group",
+        key: "tenantGroup",
+
       },
-      { title: "Realm", key: "realm", },
       { title: "Actions", key: "actions" },
     ],
     headers: [
-      
+
       { title: "Host", key: "host", },
       {
         title: "Auth Url",
-        key: "authUrl",
+        key: "tenantGroup.authUrl",
         label: "Auth Url",
         field: "authUrl",
       },
-      { title: "Realm", key: "realm",  },
+      { title: "Realm", key: "tenantGroup.realm",  },
       {
         title: "Issuer Url",
-        key: "issuerUrl",
-       
-      },
-      {
-        title: "Implicit Client Id",
-        key: "implicitClientId",
-       
+        key: "tenantGroup.issuerUrl",
+
       },
 
       {
-        title: "Implicit Client Secret",
-        key: "implicitClientSecret",
-      },
-      {
         title: "Disabled",
         key: "disabled",
-      
+
       },
       {
         title: "Creation Date",
@@ -79,7 +68,7 @@ const tenantNav = {
         field: "modifiedBy",
       },
     ],
-   
+
     children: navUtils.allChildren(
       "organisation",
       "tenant",

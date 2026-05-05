@@ -16,7 +16,7 @@ const confirmPasswordRules = computed(() => {
   return [
      v => !!v || 'Confirm Password is required',
     v => v === model.value.password || 'Passwords do not match',
-   
+
   ];
 });
 
@@ -26,7 +26,7 @@ const confirmPasswordRules = computed(() => {
 
     <template #form-data>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <s-text-field id="firstName" label="First Name" v-model="model.firstName" :rules="rules.firstName" 
+        <s-text-field id="firstName" label="First Name" v-model="model.firstName" :rules="rules.firstName"
           :counter="20"></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
@@ -42,8 +42,8 @@ const confirmPasswordRules = computed(() => {
         <s-text-field id="username" label="Username" v-model="model.username" :rules="rules.username"
           :disabled="isUpdate" :counter="50"></s-text-field>
       </v-col>
-  
-    
+
+
 
       <v-col :cols="cols" :sm="sm" :md="md" v-if="!isUpdate">
         <s-password-field id="password" label="Password" v-model="model.password" :username="model.username" :email="model.email"
@@ -57,17 +57,17 @@ const confirmPasswordRules = computed(() => {
 
       </v-col>
 
-      
+
 
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-autocomplete id="defaultBranch" label="Default Branch" v-model="model.defaultBranch"
-          :rules="rules.defaultBranch" :items="controller.branchStore.mini"
-          :loading="controller.branchStore.miniLoading" item-title="branchName" item-value="id"></s-autocomplete>
+          :rules="rules.defaultBranch" :items="controller.branchStore.currentUserBranches"
+          :loading="controller.branchStore.currentUserBranchesLoading" item-title="branchName" item-value="id"></s-autocomplete>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <v-autocomplete id="otherBranches" label="Other Branches" v-model="model.otherBranches"
-          :rules="rules.otherBranches" :items="controller.branchStore.mini"
-          :loading="controller.branchStore.miniLoading" item-title="branchName" item-value="id"
+          :rules="rules.otherBranches" :items="controller.branchStore.currentUserBranches"
+          :loading="controller.branchStore.currentUserBranchesLoading" item-title="branchName" item-value="id"
           multiple></v-autocomplete>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
@@ -94,7 +94,7 @@ const confirmPasswordRules = computed(() => {
         <v-checkbox id="enabled" label="Enabled" v-model="model.enabled"></v-checkbox>
       </v-col>
 
-   
+
     </template>
   </crud-form>
 </template>

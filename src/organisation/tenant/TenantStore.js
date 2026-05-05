@@ -15,25 +15,25 @@ export const defineTenantStore =defineStore ("tenant", {
     persist: true,
     getters: {
 
-      getCurrentCompany(){
-         if(this.firstTenant) return this.firstTenant.company;
-         return {};
-      },
-        getCurrentTenantBranches(){
-          if(!this.firstTenant) return [];
-          return this.getCurrentCompany.branches;
-        },
+      // getCurrentCompany(){
+      //    if(this.firstTenant) return this.firstTenant.company;
+      //    return {};
+      // },
+      //   getCurrentTenantBranches(){
+      //     if(!this.firstTenant) return [];
+      //     return this.getCurrentCompany?.branches||[];
+      //   },
+      //
+      //   hasBraches() {
+      //    return this.getCurrentTenantBranches.length>0;
+      //   },
+      //
+      //   getDefaultBranch(){
+      //     let branches =this.getCurrentTenantBranches;
+      //     return branches.length>0?branches[0]:null;
+      //   },
 
-        hasBraches() {
-         return this.getCurrentTenantBranches.length>0;
-        },
 
-        getDefaultBranch(){
-          let branches =this.getCurrentTenantBranches;
-          return branches.length>0?branches[0]:null;
-        },
-
-       
 
 
     },
@@ -75,33 +75,33 @@ export const defineTenantStore =defineStore ("tenant", {
         this.firstTenant=firstTenant;
       },
 
-      
+
 
       async getFirstTenant() {
         if (this.firstTenant) {
           return this.firstTenant;
         }
          const host = window.location.host;
-  
+
         this.isFirstTenantLoading = true;
         this.tenantError = null;
-  
+
         try {
-         
+
           const response = await httpMethods.getNoHeaders(`${tenantNav.menu.path}/mini/host/${host}`);
           // const response = await withTimeout(
           //   httpMethods.getNoHeaders(`${tenantNav.menu.path}/mini/host/${host}`),
           //   10000 // 10-second timeout
           // );
-          
+
           const res = response.data;
-  
+
           if (!res) {
             console.warn(`No tenant found for host: ${host}`);
             this.firstTenant = null;
             return null;
           }
-  
+
           this.firstTenant = res;
           return res;
         } catch (e) {
@@ -141,16 +141,10 @@ export const defineTenantStore =defineStore ("tenant", {
         this.mini = [];
         this.miniLoading = false;
         this.isFirstTenantLoading = false;
-      
+
      },
 
-      getBranchName(branchId) {
-        if(!branchId) return '';
-          let branches = this.getCurrentTenantBranches;
-          let branch = branches.find(b => b.id === branchId.trim());
-          console.log("Branch ID:", branchId, "Found Branch:", branch);
-          return branch ? branch.branchName : 'UnKnown Branch';
-        }
+
 
 
  }

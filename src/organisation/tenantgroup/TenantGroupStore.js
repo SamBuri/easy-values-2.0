@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-import realmAccessNav from "./RealmAccessNav";
+import tenantGroupNav from "./TenantGroupNav";
 import {defineRootStore} from "@/root/RootStore";
-   export const defineRealmAccessStore = defineStore("realmAccess", {
+   export const defineTenantGroupStore = defineStore("tenantGroup", {
  
 state: () => ({
-path: realmAccessNav.menu.path,
+path: tenantGroupNav.menu.path,
     mini: [],
     miniLoading: false,
   }),

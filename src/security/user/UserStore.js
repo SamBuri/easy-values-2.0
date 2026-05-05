@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import userNav from "./UserNav";
 import { defineRootStore } from "@/root/RootStore";
-import keycloakService from "@/keycloak/keycloakService";
 export const defineUserStore = defineStore("user", {
 
   state: () => ({
@@ -17,7 +16,7 @@ export const defineUserStore = defineStore("user", {
 
       // if (this.mini.length > 0) return this.mini;
       const rootStore = defineRootStore();
-      let data = rootStore.fetch(this.path,
+      let data = rootStore.fetch(`${this.path}/mini`,
         () => {
           this.miniLoading = true
           this.mini = [];
@@ -26,7 +25,7 @@ export const defineUserStore = defineStore("user", {
 
         res => this.mini = res.data,
 
-        () => this.miniLoading = false, await keycloakService.getHttpStrategy());
+        () => this.miniLoading = false);
       return data;
 
     },
@@ -48,7 +47,7 @@ export const defineUserStore = defineStore("user", {
 
         res => this.userGroups = res.data,
 
-        () => this.userGroupsLoading = false, await keycloakService.getHttpStrategy());
+        () => this.userGroupsLoading = false);
       console.log("User Groups", data);
       return data;
 
@@ -62,8 +61,7 @@ export const defineUserStore = defineStore("user", {
       const rootStore = defineRootStore();
 
       return rootStore.put({
-        path: this.getPath(userId, groupId),
-        httpStrategy: await keycloakService.getHttpStrategy()
+        path: this.getPath(userId, groupId)
       }
       );
     },
@@ -71,21 +69,19 @@ export const defineUserStore = defineStore("user", {
     async unAssignGroups(userId, groupId, show) {
       console.log("To Un assign", groupId);
       const rootStore = defineRootStore();
-      return rootStore.delete({ path: this.getPath(userId,groupId), httpStrategy: await keycloakService.getHttpStrategy(), show });
+      return rootStore.delete({ path: this.getPath(userId,groupId), show });
 
     },
 
      async resetPassword(userId, payload) {
-      
+
       const rootStore = defineRootStore();
       return rootStore.put({
         path: `${this.path}/${userId}/reset-password`,
-        body:payload,
-        httpStrategy: await keycloakService.getHttpStrategy()
+        body:payload
       }
       );
     },
 
   }
 });
-

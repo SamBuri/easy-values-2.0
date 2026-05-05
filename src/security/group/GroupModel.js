@@ -1,29 +1,24 @@
-import keycloakService from "@/keycloak/keycloakService";
-
 const groupModel = {
   model: {
+    id: "",
     name: "",
-
+    path: "",
     clear() {
+      this.id = "";
       this.name = "";
-      
+      this.path = "";
     },
-
     copy(obj) {
       this.id = obj.id;
       this.name = obj.name;
-      this.roles = obj.realmRoles;
-
+      this.path = obj.path;
+       this.roles=obj.realmRoles
     },
-
-    getFormData() {
-      return { name: this.name }
-    },
-
-
     printOptions() {
       let data = [];
-      data.push({ text: "Group", value: this.group.name });
+      data.push({ text: "Id", value: this.group.id });
+      data.push({ text: "Name", value: this.group.name });
+      data.push({ text: "Path", value: this.group.path });
 
       return {
         data: data,
@@ -40,10 +35,9 @@ const groupModel = {
 
   },
   path: "groups",
-  httpStrategy: async () => keycloakService.getHttpStrategy(),
   rules: {
-    name: [(v) => !!v || "Group is required",
-    (v) => v.length < 100 || "Group length must be less or equal to 100",],
+    name: [(v) => !!v || "Name is required",
+    (v) => v.length < 100 || "Name length must be less or equal to 100",],
 
   }
 }

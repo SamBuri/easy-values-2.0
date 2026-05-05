@@ -62,7 +62,7 @@ export const defineBranchStore = defineStore("branch", {
 
             this.currentUserBranches = res.data;
 
-          if (this.currentUserBranches.length > 0) {this.currentUserCompany = this.currentUserBranches[0].company;
+          if (this.currentUserBranches.length > 0) {
             this.setCurrentBranch(this.currentUserBranches[0])
           }
           else this.currentUserCompany = null;
@@ -73,14 +73,19 @@ export const defineBranchStore = defineStore("branch", {
             this.currentUserBranchesLoading = false;
           });
 
+    },
 
-
-
-
+    getUserBranchName(branchId) {
+      if(!branchId) return '';
+      let branches = this.currentUserBranches;
+      let branch = branches?.find(b => b.id === branchId.trim());
+      console.log("Branch ID:", branchId, "Found Branch:", branch);
+      return branch ? branch.branchName : 'UnKnown Branch';
     },
 
     setCurrentBranch(currentBranch) {
       this.currentBranch = currentBranch;
+      this.currentUserCompany = this.currentBranch?.company;
     },
 
 

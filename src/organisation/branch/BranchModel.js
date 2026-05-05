@@ -5,6 +5,7 @@ const branchModel = {
     address: "",
     phoneNo: "",
     email: "",
+    inactive: false,
 
     clear() {
       this.companyId = "";
@@ -12,6 +13,7 @@ const branchModel = {
       this.address = "";
       this.phoneNo = "";
       this.email = "";
+      this.inactive = false;
     },
     copy(obj) {
       this.id = obj.id;
@@ -20,6 +22,7 @@ const branchModel = {
       this.address = obj.address;
       this.phoneNo = obj.phoneNo;
       this.email = obj.email;
+      this.inactive = obj.inactive;
 
     },
     printOptions() {

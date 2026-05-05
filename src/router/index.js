@@ -100,7 +100,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
 
   const branchStore = defineBranchStore();
-  if (branchStore.currentBranch && to.name !== 'currentbranch' && from.name !== 'currentbranch') {
+  if (!branchStore.currentBranch && to.name !== 'currentbranch' && from.name !== 'currentbranch') {
 
     next("/currentbranch");
 

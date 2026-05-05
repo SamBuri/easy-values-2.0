@@ -32,13 +32,13 @@ export const useAuthStore = defineStore('auth', {
       this.fullName =  data.idTokenParsed.given_name && data.idTokenParsed.family_name
       ? `${data.idTokenParsed.given_name} ${data.idTokenParsed.family_name}`
       : data.preferred_username;
-      let defaultBranch= data.idTokenParsed.defaultBranch
+      let defaultBranch= data.idTokenParsed.default_branch || data.idTokenParsed.defaultBranch;
       if(Array.isArray(defaultBranch)){
         this.defaultBranch = defaultBranch.length>0?defaultBranch[0]: null;
       }else{
         this.defaultBranch = defaultBranch || null;
       }
-      this.otherBranches = data.idTokenParsed.otherBranches || [];
+      this.otherBranches = data.idTokenParsed.other_branches || data.idTokenParsed.otherBranches || [];
       const allBranches =  Array.from(new Set([this.defaultBranch, ...this.otherBranches].filter(b => b !== null)));
       const branchStore = defineBranchStore();
       branchStore.setCurrentUserBranches(allBranches);

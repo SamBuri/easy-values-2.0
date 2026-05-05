@@ -13,7 +13,6 @@ export const defineRootStore = defineStore("root", {
     obj: null,
     objLoading: false,
     results: null,
-    loading: false,
     deleteLoading: false,
     mode: 0,
   }),
@@ -32,6 +31,24 @@ export const defineRootStore = defineStore("root", {
           entity: data.entity,
         };
       else this.results = null;
+    },
+
+    showSuccess(message) {
+
+        this.results = {
+          success: true,
+          message: message,
+          show: true
+        }
+    },
+
+    showError(message) {
+
+      this.results = {
+        success: false,
+        message: message,
+        show: true
+      }
     },
 
      strategyResults(response, httpStrategy, show=true){
@@ -54,6 +71,50 @@ export const defineRootStore = defineStore("root", {
       return this.results;
      },
 
+    async importData(request, show = true) {
+      this.results = null;
+      console.log("Import Request", request);
+      this.loading = true;
+
+      let importResults = await httpMethods
+        .post(request.path, request.body, request.httpStrategy)
+        .then((response) => {
+          let data = response.data;
+
+          // Unwrap if backend returns ResponseObj<ImportResponse>
+          if (data && typeof data === 'object' && data.entity) {
+            this.results = data.entity;
+          } else if (data && typeof data === 'object') {
+            this.results = data;
+          } else {
+             // Fallback if backend returns string, empty, or unexpected format
+             this.results = {
+                successful: 0,
+                failed: 1,
+                errors: [{ rowNumber: '-', externalReference: '-', errorMessage: data || "Invalid response format from server" }]
+             };
+          }
+
+          this.results.show = show;
+          return this.results;
+        })
+        .catch((error) => {
+          console.error("Import Error", error);
+          this.results = {
+            successful: 0,
+            failed: 1,
+            errors: [{ rowNumber: 0, externalReference: '-', errorMessage: error.message || "Unknown error occurred" }],
+            show: show
+          };
+          return this.results;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+
+      return importResults;
+    },
+
     async post(request, show=true) {
       this.results = null;
       console.log("Request", request);
@@ -64,13 +125,13 @@ export const defineRootStore = defineStore("root", {
       let saveResults = await httpMethods
         .post(request.path, request.body, request.httpStrategy)
         .then((response) => {
-          
+
           return this.strategyResults(response, request.httpStrategy, show);
         })
         .catch((error) => {
           return this.strategyError(error, request.httpStrategy);
-          
-         
+
+
         })
         .finally(() => {
           this.loading = false;
@@ -87,7 +148,7 @@ export const defineRootStore = defineStore("root", {
       let updateResults = await httpMethods
         .put(request.path, request.body, request.httpStrategy)
         .then((response) => {
-          
+
           console.log("Response", response.data);
 
           return this.strategyResults(response, request.httpStrategy);
@@ -111,13 +172,13 @@ export const defineRootStore = defineStore("root", {
       let saveResults = await httpMethods
         .delete(request.path, request.body, request.httpStrategy)
         .then((response) => {
-          
+
           return this.strategyResults(response, request.httpStrategy, show);
         })
         .catch((error) => {
           return this.strategyError(error, request.httpStrategy);
-          
-         
+
+
         })
         .finally(() => {
           this.loading = false;
@@ -135,10 +196,10 @@ export const defineRootStore = defineStore("root", {
 
     //       console.log("Response", response.data);
     //       return this.strategyResults(data, httpStrategy, show);
-         
+
     //     })
     //     .catch((error) => {
-          
+
     //       return this.strategyError(error, request.httpStrategy);
     //     })
     //     .finally(() => (this.deleteLoading = false));
@@ -152,7 +213,8 @@ export const defineRootStore = defineStore("root", {
       let data = await httpMethods
         .get(url,httpStrategy)
         .then((response) => {
-          this.obj = response.data;
+          let entity =  response.data?.entity;
+          this.obj = entity||response.data;
           console.log("Returned Data", this.obj);
           if (!this.obj) {
             this.results = {
@@ -185,14 +247,15 @@ export const defineRootStore = defineStore("root", {
       httpMethods
         .get(path, httpStrategy)
         .then((response) => {
-          this.data = response.data;
+          let entity =response?.data?.entity;
+          this.data = entity||response.data;
           console.log("Response", response);
           this.results = { success: true, message: "Successful", show: false };
         })
         .catch((error) => {
           console.log(error);
           this.data = [];
-         
+
           this.results = { success: false, message: error, show: true };
         })
         .finally(()=> this.dataLoading = false);

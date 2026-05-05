@@ -1,9 +1,8 @@
 import { defineStore } from "pinia";
 import roleNav from "./RoleNav";
 import {defineRootStore} from "@/root/RootStore";
-import keycloakService from "@/keycloak/keycloakService";
    export const defineRoleStore = defineStore("role", {
- 
+
 state: () => ({
 path: roleNav.menu.path,
     mini: [],
@@ -14,7 +13,7 @@ actions: {
 
  if(this.mini.length>0) return this.mini;
       const rootStore = defineRootStore();
-       let data = rootStore.fetch(`${this.path}`,
+       let data = rootStore.fetch(`${this.path}/mini`,
        ()=>{
         this.miniLoading =true
         this.mini = [];
@@ -23,11 +22,9 @@ actions: {
 
        res=>this.mini = res.data,
 
-       ()=>this.miniLoading = false,
-      await keycloakService.getHttpStrategy()); 
+       ()=>this.miniLoading = false);
        return data;
 
      },
 
 }});
-

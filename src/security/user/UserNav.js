@@ -1,12 +1,11 @@
 import User from './User.vue'
 import Users from './Users.vue'
-import keycloakService from '@/keycloak/keycloakService.js'
-import { defineTenantStore } from '@/organisation/tenant/TenantStore'
 import navUtils from '@/nav/NavUtils'
+import {defineBranchStore} from "@/organisation/branch/BranchStore";
 
 function getBranchName(branchId) {
-        const tenantStore = defineTenantStore();
-        return tenantStore.getBranchName(branchId);
+        const branchStore = defineBranchStore();
+        return branchStore.getUserBranchName(branchId);
 }
 
 
@@ -17,7 +16,6 @@ const userNav = {
         routes: navUtils.allRoutes('user', User, 'users', Users, true),
 
         menu: {
-                httpStrategy: async () => keycloakService.getHttpStrategy(),
                 id: "security.user",
                 title: "Users",
                 component: User,
@@ -44,18 +42,18 @@ const userNav = {
                         { title: "Username", key: "username" },
                         { title: "Email", key: "email" },
                         {
-                                title: "Default Branch", key: "attributes.defaultBranch",
+                                title: "Default Branch", key: "attributes.default_branch",
                                 value: (item) => {
-                                        if (!item.attributes?.defaultBranch || !item.attributes?.defaultBranch?.length) return '';
-                                        return item.attributes.defaultBranch.map(b => getBranchName(b)).join(', ');
+                                        if (!item.attributes?.default_branch || !item.attributes?.default_branch?.length) return '';
+                                        return item.attributes.default_branch.map(b => getBranchName(b)).join(', ');
                                 }
                         },
 
                         {
-                                title: "Other Branches", key: "attributes.otherBranches",
+                                title: "Other Branches", key: "attributes.other_branches",
                                 value: (item) => {
-                                        if (!item.attributes?.otherBranches || !item.attributes?.otherBranches?.length) return '';
-                                        return item.attributes.otherBranches.filter(b => !!b).map(b => getBranchName(b)).join(', ');
+                                        if (!item.attributes?.other_branches || !item.attributes?.other_branches?.length) return '';
+                                        return item.attributes.other_branches.filter(b => !!b).map(b => getBranchName(b)).join(', ');
                                 }
                         },
                         {

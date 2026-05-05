@@ -87,7 +87,7 @@ const handleItemClick = (item) => {
   if (item.to) {
     router.push(item.to);
   }
- 
+
 };
 
 const onTreeviewError = (error) => {
@@ -103,13 +103,13 @@ const authStore = useAuthStore();
       <v-col cols="12">
         <v-card  color="primary"  :width="cardWidth">
           <v-sheet class="pa-1 white lighten-2">
-            <v-text-field 
-              v-model="search" 
-              label="Search" 
-              dark 
-              flat 
-              solo-inverted 
-              hide-details 
+            <v-text-field
+              v-model="search"
+              label="Search"
+              dark
+              flat
+              solo-inverted
+              hide-details
               clearable
               clear-icon="mdi-close-circle-outline"
 
@@ -126,15 +126,15 @@ const authStore = useAuthStore();
               <span>Loan Dashboard</span>
             </v-btn>
 
-          
 
-            <v-treeview 
-               :items="visibleItems" 
-              :search="search" 
+
+            <v-treeview
+               :items="visibleItems"
+              :search="search"
               item-value="id"
               :open="openedInitially"
               activatable
-              open-on-click 
+              open-on-click
               item-disabled="locked"
               @update:active="handleItemClick"
               v-model:selected="selected"
@@ -142,19 +142,20 @@ const authStore = useAuthStore();
               item-props
               fluid
               v-on:error="onTreeviewError"
-             
+
             >
               <template v-slot:prepend="{ item, isOpen }" >
-                <v-icon 
-                  v-if="item.icon" 
-                  :icon="item.icon" 
+                <v-icon
+                  v-if="item.icon"
+                  :icon="item.icon"
                   @click="handleItemClick(item)"
                 ></v-icon>
               </template>
 
               <template v-slot:title="{ item }">
                 <span  @click="handleItemClick(item)" >
-                  {{ item.title ? item.title.toUpperCase() : item.title }}
+<!--                  {{ item.title ? item.title.toUpperCase() : item.title }}-->
+                  {{ item.title }}
                 </span>
               </template>
             </v-treeview>

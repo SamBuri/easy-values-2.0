@@ -15,6 +15,7 @@ export default async function initKeyCloak() {
   let tenant;
   try {
     tenant = await tenantStore.getFirstTenant();
+    console.log("Tenant", tenant)
   } catch (e) {
     console.error('Failed to fetch tenant:', e);
     throw new Error('Unable to initialize Keycloak due to tenant fetch failure');
@@ -27,7 +28,7 @@ export default async function initKeyCloak() {
   }
 
   // Validate tenant values
-  if (!tenant.authUrl || !tenant.realm || !tenant.clientId) {
+  if (!tenant.authUrl || !tenant.realm || !tenant.authClientId) {
     throw new Error('Invalid tenant configuration: authUrl, realm, or clientId is missing');
   }
 
@@ -35,7 +36,7 @@ export default async function initKeyCloak() {
   const keyCloakOptions = {
     url: tenant.authUrl,
     realm: tenant.realm,
-    clientId: tenant.clientId,
+    clientId: tenant.authClientId,
   };
 
   const keycloak = new Keycloak(keyCloakOptions);

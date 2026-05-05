@@ -6,6 +6,7 @@ import printPDF from "@/utils/PrintPDF";
 import { useRoute } from "vue-router";
 import constants from "@/utils/constants";
 import rootOptions from "./RootOptions";
+import {defineBranchStore} from "@/organisation/branch/BranchStore";
 
 
 export default function rootController(rawModel, rawOptions = rootOptions, hooks = {}) {
@@ -16,6 +17,7 @@ export default function rootController(rawModel, rawOptions = rootOptions, hooks
   const rootStore = defineRootStore();
   const authStore = useAuthStore();
   const tenantStore = defineTenantStore();
+  const branchStore = defineBranchStore();
   const props = ref(null)
 
   const httpStrategy = async () => {
@@ -54,7 +56,7 @@ export default function rootController(rawModel, rawOptions = rootOptions, hooks
   watch(
     () => route.params,
     (params) => {
-     
+
 
       rootState.value.showSearch = params.mode == 1 || params.mode == 2;
       const mode = params.mode;
@@ -112,7 +114,7 @@ export default function rootController(rawModel, rawOptions = rootOptions, hooks
   };
 
 
-  const afterUpdate = (res, model) => { 
+  const afterUpdate = (res, model) => {
     if( hooks.afterUpdate) {
       hooks.afterUpdate(res, model);
     }
@@ -234,8 +236,10 @@ export default function rootController(rawModel, rawOptions = rootOptions, hooks
     path,
     rules,
     model,
+    rootStore,
     authStore,
     tenantStore,
+    branchStore,
     rawModel,
     save,
     afterSave,

@@ -27,7 +27,7 @@ onMounted(() => {
 
     form.value.validate();
     if (!props.dialog || props.buttonLabel === constants.buttonTexts.save) {
-   
+
       if (!props.retain) props.controller.clear();
 
     }
@@ -51,21 +51,20 @@ const edit = () => {
   if (props.buttonLabel === constants.buttonTexts.done) {
     emit('add', props.controller.model.value, () => props.controller.clear());
     // props.controller.clear()
-  }
-  else props.controller.editClicked()
+  } else props.controller.editClicked()
 }
 
 const rootStore = defineRootStore();
 
-const changed = ()=>{
+const changed = () => {
 
 
-    if(!rootState.id) props.controller.clear()
-    else{
-      props.controller.clear()
-      props.controller.setSearchedData();
+  if (!rootState.id) props.controller.clear()
+  else {
+    props.controller.clear()
+    props.controller.setSearchedData();
   }
-  }
+}
 </script>
 
 <template>
@@ -74,11 +73,11 @@ const changed = ()=>{
     <v-toolbar flat v-if="!props.inner">
       <v-card-title>
         <!-- <span class="headline"> -->
-        <slot name="heading"> </slot>
+        <slot name="heading"></slot>
         <!-- </span> -->
       </v-card-title>
       <v-spacer></v-spacer>
-      <slot name="right"> </slot>
+      <slot name="right"></slot>
       <v-btn color="primary" v-if="props.dialog" text @click="$emit('cancel')">
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -95,13 +94,14 @@ const changed = ()=>{
 
               <v-col cols="10">
                 <v-text-field label="Id" v-model="rootState.id" hint="Enter the id. and press enter to load data"
-                  v-on:keyup.enter="controller.search" :rules="rootState.idRules" required @change="controller.clear"
-                 ></v-text-field>
+                              v-on:keyup.enter="controller.search" :rules="rootState.idRules" required
+                              @change="controller.clear"
+                ></v-text-field>
               </v-col>
 
               <v-col cols="2">
                 <v-btn color="primary" text type="submit" :disabled="!rootState.idValid" :loading="rootStore.objLoading"
-                  loading-text="Please Wait...">
+                       loading-text="Please Wait...">
                   search
                 </v-btn>
               </v-col>
@@ -109,11 +109,11 @@ const changed = ()=>{
             <v-row>
               <v-col cols="12" v-if="controller.currentStore">
                 <s-select-field id="Id" label="Id" hint="Enter the id. and press enter to load data"
-                  v-model="rootState.id" v-on:keyup.enter="controller.search"
-                   :rules="rootState.idRules" required
-                  @ok="controller.setSearchedData" @change="changed"
-                   :items="controller?.currentStore?.mini || []"
-                  :headers="props.controller.currentNav.menu.miniHeaders || []"></s-select-field>
+                                v-model="rootState.id" v-on:keyup.enter="controller.search"
+                                :rules="rootState.idRules" required
+                                @ok="controller.setSearchedData" @change="changed"
+                                :items="controller?.currentStore?.mini || []"
+                                :headers="props.controller.currentNav.menu.miniHeaders || []"></s-select-field>
 
               </v-col>
 
@@ -139,12 +139,12 @@ const changed = ()=>{
 
         <v-dialog v-model="rootState.confirmEdit" :max-width="500">
           <s-confirm-dialog :message="options.warningMsg" @confirm="controller.editConfirmOk"
-            @cancel="controller.cancelEdit" />
+                            @cancel="controller.cancelEdit"/>
         </v-dialog>
 
         <v-dialog v-model="rootState.confirmDelete" :max-width="500">
           <s-confirm-dialog :message="options.warningMsg" @confirm="controller.deleteOk"
-            @cancel="controller.cancelDelete" />
+                            @cancel="controller.cancelDelete"/>
         </v-dialog>
       </v-form>
     </v-card-text>
@@ -163,12 +163,12 @@ const changed = ()=>{
         </v-btn>
 
         <v-btn v-if="(isUpdate && options.showDelete)" color="primary" text @click="controller.deleteData"
-          :disabled="!rootState.valid" :loading="rootStore.deleteLoading">
+               :disabled="!rootState.valid" :loading="rootStore.deleteLoading">
           Delete
         </v-btn>
       </slot>
     </v-card-actions>
-    <snack-bar />
+    <snack-bar/>
     <slot name="after-card"></slot>
   </v-card>
 </template>

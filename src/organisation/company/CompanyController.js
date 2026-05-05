@@ -3,6 +3,8 @@ import companyModel from "./CompanyModel";
 import { onMounted } from "vue";
 import { defineDevConfigStore } from "../devconfig/DevConfigStore";
 import { defineOrganisationStore } from "@/organisation/OrganisationStore.js"
+import branchNav from "../branch/BranchNav";
+
 export default function companyController() {
 
   const controller = rootController(companyModel);
@@ -10,6 +12,7 @@ export default function companyController() {
   controller.organisationStore = organisationStore;
   const devConfigStore = defineDevConfigStore();
   controller.devConfigStore = devConfigStore;
+  controller.branchNav = branchNav;
   onMounted(() => {
     organisationStore.getBusinessTypes();
 
@@ -18,6 +21,11 @@ export default function companyController() {
 
 
   })
+
+  controller.resetOnboarding = async (item) => {
+    return await controller.rootStore.post({ path: `onboarding/reset-company/${item.id}`, body: {} });
+  };
+
   return controller;
 
 }

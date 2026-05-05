@@ -1,4 +1,3 @@
-import keycloakService from "@/keycloak/keycloakService";
 import { h } from "vue";
 const resetPasswordModel = {
   model: {
@@ -47,7 +46,6 @@ const resetPasswordModel = {
 
   },
   path: "resetpasswords",
-  httpStrategy: async () => keycloakService.getHttpStrategy(),
   rules: {
     userId: [(v) => !!v || "User is required",
     ], name: [(v) => !!v || "Name is required",

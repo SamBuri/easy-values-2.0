@@ -11,7 +11,7 @@ const branchNav = {
                 path: "branches",
                 requires: navUtils.allRoles("branch"),
                 width: "700px",
-                editHeaders: [{ title: "Company", key: "company.id" },
+                editHeaders: [
                 { title: "Branch Name", key: "branchName" },
                 { title: "Address", key: "address" },
                 { title: "Phone No", key: "phoneNo" },

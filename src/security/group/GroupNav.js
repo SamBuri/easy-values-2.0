@@ -1,7 +1,5 @@
-import { ro } from 'vuetify/locale';
 import Group from './Group.vue'
 import Groups from './Groups.vue'
-import keycloakService from '@/keycloak/keycloakService';
 import navUtils from '@/nav/NavUtils';
 
 const groupNav = {
@@ -22,7 +20,6 @@ const groupNav = {
         // ],
         routes: navUtils.allRoutes('group', Group, 'groups', Groups, true),
         menu: {
-                httpStrategy: async () => keycloakService.getHttpStrategy(),
                 id: "security.group",
                 title: "Groups",
                 icon: "mdi-account-group",

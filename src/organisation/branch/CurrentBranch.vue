@@ -16,7 +16,7 @@ const tenant = computed(() => tenantStore.firstTenant);
 const selectedItem = ref(branchStore.currentBranch);
 onMounted(() => {
 //  branchStore.setCurrentUserBranches();
-  
+
 });
 const set = () => {
   console.log("Selected Item", selectedItem)
@@ -43,7 +43,7 @@ const set = () => {
 
     <v-card-text>
        <v-autocomplete :items="branchStore.currentUserBranches" v-model="selectedItem" density="compact"
-       item-title="branchName" item-value="id" return-object=""></v-autocomplete>
+       item-title="display" item-value="id" return-object=""></v-autocomplete>
     </v-card-text>
 
     <v-card-actions>

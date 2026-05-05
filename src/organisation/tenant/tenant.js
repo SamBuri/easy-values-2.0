@@ -51,7 +51,7 @@ actions: {
         },
 
         async getFirstTenant(context, host) {
-            if (context.state.tenant) { return }
+            // if (context.state.tenant) { return }
             httpMethods.getNoHeaders(`${tenantNav.menu.path}/mini/host/${host}`)
                 .then(response => {
                     let res = response.data;

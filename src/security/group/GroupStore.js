@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import groupNav from "./GroupNav";
-import keycloakService from "@/keycloak/keycloakService";
 import { defineRootStore } from "@/root/RootStore";
 
 export const defineGroupStore = defineStore("group", {
@@ -15,7 +14,7 @@ export const defineGroupStore = defineStore("group", {
 
       if (this.mini.length > 0) return this.mini;
       const rootStore = defineRootStore();
-      let data = rootStore.fetch(this.path,
+      let data = rootStore.fetch(`${this.path}/mini`,
         () => {
           this.miniLoading = true
           this.mini = [];
@@ -24,8 +23,7 @@ export const defineGroupStore = defineStore("group", {
 
         res => this.mini = res.data,
 
-        () => this.miniLoading = false,
-        await keycloakService.getHttpStrategy());
+        () => this.miniLoading = false);
 
       console.log("Groups", data)
       return data;
@@ -33,7 +31,7 @@ export const defineGroupStore = defineStore("group", {
     },
 
     getPath(groupId){
-      return `${this.path}/${groupId}/role-mappings/realm`;
+      return `${this.path}/${groupId}/roles`;
     },
 
     async assingnPermissions(groupId, permissions) {
@@ -44,11 +42,10 @@ export const defineGroupStore = defineStore("group", {
         return;
       }
       const rootStore = defineRootStore();
-      
+
       return rootStore.post({
         path: this.getPath(groupId),
-        body: permissions,
-        httpStrategy: await keycloakService.getHttpStrategy()
+        body: permissions
       }
       );
     },
@@ -60,12 +57,9 @@ export const defineGroupStore = defineStore("group", {
         return;
       }
       const rootStore = defineRootStore();
-        return rootStore.delete({ path:this.getPath(groupId), body: permissions, httpStrategy:await keycloakService.getHttpStrategy(), show });
-     
+        return rootStore.delete({ path:this.getPath(groupId), body: permissions, show });
+
     }
 
   }
 });
-
-
-

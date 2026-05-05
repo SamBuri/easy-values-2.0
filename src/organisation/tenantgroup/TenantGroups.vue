@@ -1,15 +1,16 @@
 <script setup>
-import realmAccessNav from './RealmAccessNav';
-import realmAccessController from "./RealmAccessController";
+import tenantGroupNav from './TenantGroupNav';
+import tenantGroupController from "./TenantGroupController";
 import searchMenuController from "@/search/SearchMenuController";
-const controller= realmAccessController();
+const controller= tenantGroupController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
-const menu= realmAccessNav.menu;
+const menu= tenantGroupNav.menu;
 const menuItems = [
       { title: "Add", icon: "mdi-plus", click: (options)=>save(options)},
       { title: "Edit", icon: "mdi-pencil",click: (options)=>edit(options) },
       { title: "Delete", icon: "mdi-delete",click:(options)=>deleteItem(options) },
       { title: "Re-post", icon: "mdi-send",click: (options)=>republish(options) },
+      { title: "Reset Onboarding", icon: "mdi-refresh", click: (options)=>controller.resetOnboarding(options.item) },
     ]
 
     

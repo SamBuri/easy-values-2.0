@@ -27,7 +27,7 @@
 
 # Define variables
 IMAGE_NAME="samburi/easyvalues"
-TAG="2.0.4"
+TAG="2.0.5"
 FULL_IMAGE="$IMAGE_NAME:$TAG"
 
 # Check if Buildx builder exists, create or append if necessary

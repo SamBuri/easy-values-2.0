@@ -16,11 +16,26 @@ const photoUrl = ref(null);
 
 // Watch for changes in internalValue and update photoUrl
 watch(internalValue, (newFile) => {
-  if (newFile) {
-    photoUrl.value = URL.createObjectURL(newFile);
+  // Clean up the old URL to prevent memory leaks
+  if (photoUrl.value) {
+    URL.revokeObjectURL(photoUrl.value);
+  }
+
+  // Extract the file if Vuetify returned an array
+  const fileToDisplay = Array.isArray(newFile) ? newFile[0] : newFile;
+
+  // Proactive check: Ensure it's a valid object type
+  if (fileToDisplay instanceof File || fileToDisplay instanceof Blob) {
+    try {
+      photoUrl.value = URL.createObjectURL(fileToDisplay);
+    } catch (error) {
+      console.error("Failed to create object URL for the file:", error);
+      photoUrl.value = null; // Fallback so the UI doesn't break
+    }
   } else {
     photoUrl.value = null;
   }
+  
   emit('update:modelValue', newFile);  // Emit the updated file to the parent
 });
 
