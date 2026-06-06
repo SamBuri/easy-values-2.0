@@ -1,22 +1,8 @@
 import Profile from './Profile.vue'
 import Profiles from './Profiles.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 const profileNav = {
-        // routes: [
-        //         {
-        //                 path: '/profile/:mode',
-        //                 name: 'profile',
-        //                 component: Profile,
-        //                 meta: { auth: true },
-        //         },
-        //         {
-        //                 path: '/profiles',
-        //                 name: 'profiles',
-        //                 component: Profiles,
-        //                 meta: { auth: true },
-        //         },
 
-        // ],
         routes: navUtils.allRoutes("profile", Profile, "profiles", Profiles, true),
         menu: {
                 id: "profile.profile",
@@ -26,7 +12,7 @@ const profileNav = {
                 icon: "mdi-account-multiple",
                 requires: navUtils.allRoles("profile"),
                 width: "1000px",
-               
+
                 editHeaders: [{ title: "Profile Type", key: "profileType" },
                 { title: "Photo", key: "photo" },
                 { title: "First Name", key: "firstName" },
@@ -46,7 +32,7 @@ const profileNav = {
                 { title: "Other Phone Nos", key: "otherPhoneNos" },
                 { title: "Email", key: "email" },
                 { title: "Home Address", key: "homeAddress" },
-                { title: "Residential Address", key: "residentialAddress" },
+                { title: "Residential Address", key: "residentialAddress", noWrap: "true" },
                 { title: "Residence Coordinates", key: "residenceCoordinates" },
                 { title: "Address Details", key: "addressDetails" },
                 { title: "Join Date", key: "joinDate", isDate: true },
@@ -65,7 +51,7 @@ const profileNav = {
 
 
                 miniHeaders: [
-                       
+
                         { title: "Name", key: "display" },
                         { title: "Birth Date", key: "birthDate", isDate: true },
                         { title: "Gender", key: "gender" },
@@ -75,7 +61,7 @@ const profileNav = {
                         { title: "Home Address", key: "homeAddress" },
                         { title: "Address Details", key: "addressDetails" },
                      ],
-                
+
                 headers: [{
                         title: "Id",
                         align: "start",
@@ -89,19 +75,18 @@ const profileNav = {
                 { title: "Other Names", key: "otherNames" },
                 { title: "Birth Date", key: "birthDate", isDate: true },
                 { title: "Gender", key: "gender" },
-                { title: "Marital Status", key: "maritalStatusId" },
-                { title: "Country", key: "countryId" },
+                { title: "Marital Status", key: "maritalStatus.display" },
                 { title: "Spouse Name", key: "spouseName" },
                 { title: "Spouse Contact", key: "spouseContact" },
                 { title: "NO Kin", key: "nOKin" },
                 { title: "NO Kin Contact", key: "nOKinContact" },
-                { title: "Id Type", key: "idTypeId" },
+                { title: "Id Type", key: "idType.display" },
                 { title: "Id No", key: "idNo" },
                 { title: "Primary Phone No", key: "primaryPhoneNo" },
                 { title: "Other Phone Nos", key: "otherPhoneNos" },
                 { title: "Email", key: "email" },
-                { title: "Home Address", key: "homeAddress" },
-                { title: "Residential Address", key: "residentialAddress" },
+                { title: "Home Address", key: "homeAddress", noWrap: true },
+                { title: "Residential Address", key: "residentialAddress", noWrap: true},
                 { title: "Residence Coordinates", key: "residenceCoordinates" },
                 { title: "Address Details", key: "addressDetails" },
                 { title: "Join Date", key: "joinDate", isDate: true },
@@ -111,13 +96,13 @@ const profileNav = {
                 { title: "Business Description", key: "businessDescriptions" },
                 { title: "Designation", key: "designation" },
                 { title: "Business Name", key: "businessName" },
-                { title: "Business Location", key: "businessLocation" },
+                { title: "Business Location", key: "businessLocation", noWrap: true },
                 { title: "Work Coordinates", key: "workCoordinates" },
                 { title: "Id No Verified", key: "idNoVerified" },
                 { title: "Phone Verified", key: "phoneVerified" },
                 { title: "Hidden", key: "hidden" },
                 { title: "Branch", key: "branch", },
-                { title: "Creation Date", key: "creationDate", label: "Creation Date", field: "creationDate", isDateTime: true },
+                { title: "Creation Date", key: "creationDate",isDateTime: true, },
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", },
                 { title: "Modified By", key: "modifiedBy", }],

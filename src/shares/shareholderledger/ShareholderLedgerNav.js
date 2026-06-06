@@ -1,6 +1,6 @@
 import ShareholderLedger from './ShareholderLedger.vue'
 import ShareholderLedgers from './ShareholderLedgers.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const shareholderLedgerNav = {
         // routes: [
 

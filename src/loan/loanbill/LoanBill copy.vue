@@ -34,15 +34,13 @@
 </template>
 <script>
 import loanBillModel from "./LoanBillModel";
-import CrudForm from "../../components/CrudForm.vue";
-import CrudTable from "../../components/CrudTable.vue";
 import loanBillDetailNav from "../loanbilldetail/LoanBillDetailNav.js";
 import loanConstants from "../LoanConstants";
 import constants from '../../utils/constants'
 import SNumberInput from '../../components/SNumberInput.vue';
 import loanNav from "../loan/LoanNav";
 export default {
-  components: { CrudForm, CrudTable, SNumberInput },
+  components: { SNumberInput },
   name: "LoanBill",
   data: () => ({
     cols: 12,

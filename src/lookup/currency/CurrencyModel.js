@@ -1,50 +1,48 @@
 const currencyModel = {
- model: {
-currency:"",
-buying:"",
-selling:"",
-isDefault:false,
+  model: {
+    currencyCode: "",
+    currencyName: "",
+    symbol: "",
 
-clear(){
-this.currency="";
-this.buying="";
-this.selling="";
-this.isDefault=false;
-},
-copy(obj){
-this.id=obj.id;
-this.currency = obj.currency;
-this.buying = obj.buying;
-this.selling = obj.selling;
-this.isDefault = obj.isDefault;
+    clear() {
+      this.currencyCode = "";
+      this.currencyName = "";
+      this.symbol = "";
+    },
+    copy(obj) {
+      this.id = obj.id;
+      this.currencyCode = obj.currencyCode;
+      this.currencyName = obj.currencyName;
+      this.symbol = obj.symbol;
+    },
+    printOptions() {
+      let data = [];
+      data.push({ text: "Currency Code", value: this.currencyCode });
+      data.push({ text: "Currency Name", value: this.currencyName });
+      data.push({ text: "Symbol", value: this.symbol });
 
-},
-printOptions(){let data = [];
-data.push({ text: "Currency", value: this.currency.currency });
-data.push({ text: "Buying", value: this.currency.buying });
-data.push({ text: "Selling", value: this.currency.selling });
-
- return {
+      return {
         data: data,
         startXPos: 10,
         startYPos: 25,
         lineBreak: 4,
         hSpace: 50,
         vSpace: 10,
-        title: "Currency"
-
+        title: "Currency",
       };
-},
-
-},
-path:"currencies",
-rules: {
-currency:[(v) => !!v || "Currency is required",
-(v) => v.length < 100 || "Currency length must be less or equal to 100", ],buying:[(v) => !!v || "Buying is required",
- ],selling:[(v) => !!v || "Selling is required",
- ],
-
-}
-}
+    },
+  },
+  path: "currencies",
+  rules: {
+    currencyCode: [
+      (v) => !!v || "Currency Code is required",
+      (v) => v.length <= 3 || "Currency Code length must be less or equal to 3",
+    ],
+    currencyName: [
+      (v) => !!v || "Currency Name is required",
+      (v) => v.length <= 100 || "Currency Name length must be less or equal to 100",
+    ],
+  },
+};
 
 export default currencyModel;

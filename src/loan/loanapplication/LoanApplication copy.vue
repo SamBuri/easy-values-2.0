@@ -67,12 +67,9 @@
 </template>
 <script>
 import loanApplicationModel from "./LoanApplicationModel";
-import CrudForm from "../../components/CrudForm.vue";
-import SDatePicker from '../../components/SDatePicker.vue';
 import profileNav from '../../profile/profile/ProfileNav';
 export default {
-  components: { CrudForm, SDatePicker },
-  name: "LoanApplication",
+    name: "LoanApplication",
   data: () => ({
     cols: 12,
     sm: 3,

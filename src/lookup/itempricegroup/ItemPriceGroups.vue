@@ -1,7 +1,7 @@
 <script setup>
 import itemPriceGroupNav from './ItemPriceGroupNav';
 import itemPriceGroupController from "./ItemPriceGroupController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= itemPriceGroupController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= itemPriceGroupNav.menu;

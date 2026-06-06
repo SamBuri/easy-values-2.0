@@ -1,7 +1,7 @@
 <script setup>
 import customerGroupItemCategoryNav from './CustomerGroupItemCategoryNav';
 import customerGroupItemCategoryController from "./CustomerGroupItemCategoryController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= customerGroupItemCategoryController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= customerGroupItemCategoryNav.menu;

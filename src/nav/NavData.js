@@ -1,3 +1,4 @@
+import { reactive } from 'vue';
 import organisationNavData from '../organisation/OrganisationNavData'
 import accountingNavData from '../accounting/AccountingNavData'
 import lookupNavData from '../lookup/LookupNavData'
@@ -11,26 +12,32 @@ import reportsNavData from '../reports/ReportNavData'
 import expensesNavData from '../expenses/EpensesNavData'
 import sharesNavData from '../shares/SharesNavData'
 import creditorNavData from '../creditor/CreditorNavData';
+import loanDashboardNav from '../loan/loaddashboard/LoanDashboardNav';
 
-const navData = {
+const navData = reactive({
 
-tree: [
+  tree: [
+    {
+      id: 'dashboard',
+      title: 'Dashboard',
+      icon: 'mdi-view-dashboard',
+      to: { name: 'dashboard' }
+    },
+    loanDashboardNav.menu,
+    salesNavData.nav,
+    loanNavData.nav,
+    bankingNavData.nav,
+    profileNavData.nav,
+    reportsNavData.nav,
+    expensesNavData.nav,
+    accountingNavData.nav,
+    lookupNavData.nav,
+    sharesNavData.nav,
+    creditorNavData.nav,
+    organisationNavData.nav,
+    securityNavData.nav,
+  ],
 
-          salesNavData.nav,
-          loanNavData.nav,
-          bankingNavData.nav,
-          profileNavData.nav,
-          reportsNavData.nav,
-          expensesNavData.nav,
-          accountingNavData.nav,
-          lookupNavData.nav,
-          sharesNavData.nav,
-          creditorNavData.nav,
-          organisationNavData.nav,
-          securityNavData.nav,
-
-],
-
-}
+})
 
 export default navData;

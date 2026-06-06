@@ -1,6 +1,6 @@
 import ShareType from './ShareType.vue'
 import ShareTypes from './ShareTypes.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const shareTypeNav = {
         // routes:[
         // {

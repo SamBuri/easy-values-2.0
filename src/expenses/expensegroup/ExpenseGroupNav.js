@@ -1,6 +1,6 @@
 import ExpenseGroup from './ExpenseGroup.vue'
 import ExpenseGroups from './ExpenseGroups.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const expenseGroupNav = {
         // routes: [
         //         {

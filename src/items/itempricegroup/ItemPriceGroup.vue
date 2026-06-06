@@ -49,10 +49,8 @@
 </template>
 <script>
 import itemPriceGroupModel from "./ItemPriceGroupModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "ItemPriceGroup",
+    name: "ItemPriceGroup",
   data: () => ({
     cols: 12,
     sm: 6,

@@ -1,7 +1,7 @@
 <script setup>
 import paymentNav from './PaymentNav';
 import paymentController from "./PaymentController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= paymentController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= paymentNav.menu;

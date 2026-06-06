@@ -1,6 +1,6 @@
 import CreditorGroup from "./CreditorGroup.vue";
 import CreditorGroups from "./CreditorGroups.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const creditorGroupNav = {
   // routes: [
   //   {

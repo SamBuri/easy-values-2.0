@@ -1,7 +1,7 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
 import { defineBranchStore } from "@/organisation/branch/BranchStore";
-import Search from "@/search/Search.vue";
+import { Search } from "saburi-vue-utils";
 import lookupNavData from "../lookup/LookupNavData";
 import accountingNavData from "../accounting/AccountingNavData";
 import organisationNavData from "../organisation/OrganisationNavData";
@@ -10,7 +10,6 @@ import bankingNavData from "../banking/BankingNavData";
 import salesNavData from "../sales/SalesNavData";
 import loanNavData from "../loan/LoanNavData";
 import securityNavData from "../security/securityNavData";
-import SDataFileInput from "../components/SDataFileInput.vue";
 import Dashboard from "../dashboard/Dashboard.vue";
 // import store from '../store/index'
 import profileNavData from "../profile/ProfileNavData";
@@ -18,7 +17,7 @@ import reportsNavData from "../reports/ReportNavData";
 import expensesNavData from "../expenses/EpensesNavData";
 // import storeFuncs from "../utils/storeFuncs";
 import sharesNavData from "../shares/SharesNavData";
-import SBarChart from "../components/SBarChart.vue";
+
 import creditorNavData from "../creditor/CreditorNavData";
 
 
@@ -65,9 +64,12 @@ const routes = [
         component: Dashboard,
         meta: { auth: true },
       },
-
-
-
+      {
+        path: "/profile",
+        name: "user-profile",
+        component: () => import("../security/user/UserProfile.vue"),
+        meta: { auth: true },
+      },
       {
         path: "/search/:action",
         name: "search",

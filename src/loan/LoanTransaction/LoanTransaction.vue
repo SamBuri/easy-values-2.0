@@ -15,15 +15,11 @@
 <script>
 
 
-import SDataFileInputVue from "../../components/SDataFileInput.vue";
 // import SnackBar from "./SnackBar.vue";
 export default {
   name: "LoanTransactions",
   props: {},
-  components: {
-    // SnackBar,
-    SDataFileInputVue,
-  },
+  components: { // SnackBar },
   data: () => ({
     headers: [
       {value: "tranId", text: "Tran Id"},

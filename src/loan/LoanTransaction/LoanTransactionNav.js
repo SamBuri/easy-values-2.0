@@ -1,5 +1,5 @@
 import LoanTransaction from './LoanTransaction.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 const loanTransactionNav = {
         route: {
                 path: '/loantransaction',

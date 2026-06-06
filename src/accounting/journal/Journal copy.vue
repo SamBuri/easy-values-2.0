@@ -53,12 +53,10 @@
 </template>
 <script>
 import journalModel from "./JournalModel";
-import CrudTable from "../../components/CrudTable.vue";
 import journalDetailsNav from '../journaldetails/JournalDetailsNav.js';
 import funcs from "../../utils/funcs";
 export default {
-  components: { CrudTable },
-  name: "Journal",
+    name: "Journal",
   data: () => ({
     cols: 12,
     sm: 6,

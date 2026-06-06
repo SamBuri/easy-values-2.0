@@ -53,10 +53,8 @@ item-text="securedResourceName"
 </template>
 <script>
 import roleDetailsModel from "./RoleDetailsModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "RoleDetails",
+    name: "RoleDetails",
 data: () => ({
     cols: 12,
     sm:6,

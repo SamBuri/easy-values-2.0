@@ -1,7 +1,7 @@
 
 import Customer from './Customer.vue'
 import Customers from './Customers.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const customerNav = {
       
      routes: navUtils.allRoutes('customer', Customer, 'customers', Customers, true),

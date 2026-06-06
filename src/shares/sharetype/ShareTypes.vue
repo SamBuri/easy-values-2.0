@@ -1,7 +1,7 @@
 <script setup>
 import shareTypeNav from './ShareTypeNav';
 import shareTypeController from "./ShareTypeController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= shareTypeController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= shareTypeNav.menu;

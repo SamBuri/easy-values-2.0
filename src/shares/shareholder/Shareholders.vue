@@ -1,7 +1,7 @@
 <script setup>
 import shareholderNav from './ShareholderNav';
 import shareholderController from "./ShareholderController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= shareholderController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= shareholderNav.menu;

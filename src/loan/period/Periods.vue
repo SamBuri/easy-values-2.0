@@ -1,7 +1,7 @@
 <script setup>
 import periodNav from './PeriodNav';
 import periodController from "./PeriodController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= periodController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= periodNav.menu;

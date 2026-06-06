@@ -1,6 +1,6 @@
 import Expense from './Expense.vue'
 import Expenses from './Expenses.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 const expenseNav = {
         // routes: [
         //         {

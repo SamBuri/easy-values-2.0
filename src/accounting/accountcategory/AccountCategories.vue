@@ -1,7 +1,7 @@
 <script setup>
 import accountCategoryNav from './AccountCategoryNav';
 import accountCategoryController from "./AccountCategoryController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= accountCategoryController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= accountCategoryNav.menu;

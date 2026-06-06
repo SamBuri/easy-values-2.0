@@ -17,7 +17,7 @@ const loanStore = defineLoanStore();
 
 </script>
 <template>
-     <s-data-dashboard title="Completed Loan Summary"  :headers="headers" :data="dashboardList" chartWidth="500" chartHeight="500"></s-data-dashboard>
+     <s-data-dashboard title="Completed Loan Summary"  :headers="headers" :data="dashboardList" chartWidth="500" chartHeight="500" chartType="pie"></s-data-dashboard>
 </template>
 
 <!-- <script>

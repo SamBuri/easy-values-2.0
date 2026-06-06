@@ -1,5 +1,5 @@
 import EngagementPreview from './EngagementPreview.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 const engagementPreviewNav = {
         route: navUtils.viewRoute('engagementpreview', EngagementPreview, true),
         // route: {

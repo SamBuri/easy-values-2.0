@@ -1,6 +1,6 @@
 import Company from "./Company.vue";
 import Companies from "./Companies.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const companyNav = {
   // routes: [
   //   {

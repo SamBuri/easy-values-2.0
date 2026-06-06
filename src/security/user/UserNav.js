@@ -1,6 +1,6 @@
 import User from './User.vue'
 import Users from './Users.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 import {defineBranchStore} from "@/organisation/branch/BranchStore";
 
 function getBranchName(branchId) {

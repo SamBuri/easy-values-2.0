@@ -92,10 +92,8 @@
 </template>
 <script>
 import financialPeriodModel from "./FinancialPeriodModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "FinancialPeriod",
+    name: "FinancialPeriod",
   data: () => ({
     cols: 12,
     sm: 6,

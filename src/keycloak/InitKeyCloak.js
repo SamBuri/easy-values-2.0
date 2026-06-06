@@ -48,9 +48,26 @@ export default async function initKeyCloak() {
       await keycloak.updateToken(30);
       console.log('Token updated successfully');
     } catch (e) {
-      console.error('Failed to update token:', e);
+      console.error('Failed to update token, logging out:', e);
+      authStore.setAuthData(null);
+      keycloak.logout();
     }
   };
+
+  // Periodically check token validity every 10 seconds to handle background tabs/throttling
+  setInterval(async () => {
+    if (keycloak.authenticated && keycloak.isTokenExpired(30)) {
+      console.log('Periodic check: Token will expire soon. Updating token...');
+      try {
+        await keycloak.updateToken(30);
+        console.log('Periodic check: Token updated successfully');
+      } catch (e) {
+        console.error('Periodic check: Failed to update token, logging out:', e);
+        authStore.setAuthData(null);
+        keycloak.logout();
+      }
+    }
+  }, 10000);
 
   // Set up auth event handlers
   keycloak.onAuthRefreshSuccess = () => {

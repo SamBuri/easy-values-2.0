@@ -1,7 +1,7 @@
 <script setup>
 import financialPeriodNav from './FinancialPeriodNav';
 import financialPeriodController from "./FinancialPeriodController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= financialPeriodController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= financialPeriodNav.menu;

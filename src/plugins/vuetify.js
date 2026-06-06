@@ -1,91 +1,17 @@
-/**
- * plugins/vuetify.js
- *
- * Framework documentation: https://vuetifyjs.com`
- */
-
-// Styles
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 
-import { VTreeview } from 'vuetify/labs/VTreeview'
-// Composables
 import { createVuetify } from 'vuetify'
-import { VTextField } from 'vuetify/components/VTextField'
-import { VTextarea } from 'vuetify/components/VTextarea'
-import { VAutocomplete } from 'vuetify/components/VAutocomplete'
-import { VFileInput } from 'vuetify/components/VFileInput'
-import { VCheckbox } from 'vuetify/components/VCheckbox'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import * as labsComponents from 'vuetify/labs/components'
+import { saburiVuetifyConfig } from 'saburi-vue-utils'
 
-
-
-// https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
+  ...saburiVuetifyConfig,
   components: {
-     VTreeview
+    ...components,
+    ...labsComponents,
   },
-  aliases: {
-     STextField: VTextField,
-     STextarea: VTextarea,
-     SAutocomplete: VAutocomplete,
-  },
-  defaults: {
-    STextField: {
-      density: "compact"
-    },
-
-    VTextField: {
-      density: "compact"
-    },
-
-    VSelect: {
-      density: "compact"
-    },
-    VAutocomplete: {
-      density: "compact",
-      clearable:true
-    },
-
-    SAutocomplete: {
-      density: "compact",
-      clearable: true,
-    },
-    STextarea: {
-      density: "compact",
-      rows: 1,
-      autoGrow: true
-    },
-
-    VTextarea: {
-      density: "compact",
-      rows: 1,
-      autoGrow: true
-    },
-
-    VFileInput: {
-      density: "compact"
-    },
-
-    VCheckbox: {
-      density: "compact"
-    },
-
-  },
-  // theme: {
-  //   defaultTheme: 'light',
-    
-  // },
-
-  theme: {
-    themes: {
-      light: {
-        disabled: 'yellow',
-        // other theme overrides
-      },
-      dark: {
-        disabled: 'yellow',
-        // other theme overrides
-      }
-    }
-  }
+  directives,
 })

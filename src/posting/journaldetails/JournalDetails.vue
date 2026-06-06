@@ -96,10 +96,8 @@
 <script>
 import journalDetailsModel from "./JournalDetailsModel";
 import constants from "../../utils/constants";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "JournalDetails",
+    name: "JournalDetails",
   data: () => ({
     cols: 12,
     sm: 6,

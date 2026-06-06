@@ -11,12 +11,10 @@
 
 <script>
 import cruds from "../utils/MenuOptions";
-import ListMenu from '../components/ListMenu.vue'
 
 export default {
   props:{menuname: String, menus: Array,  path: String},
-  components: { ListMenu },
-  data: () => ({
+    data: () => ({
     cruds,
   }),
 

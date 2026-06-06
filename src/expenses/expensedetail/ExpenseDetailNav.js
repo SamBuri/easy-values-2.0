@@ -1,6 +1,6 @@
 import ExpenseDetail from './ExpenseDetail.vue'
 import ExpenseDetails from './ExpenseDetails.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const expenseDetailNav = {
         // routes: [
         //         {

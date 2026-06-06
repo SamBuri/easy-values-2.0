@@ -3,6 +3,8 @@ import measureGroupNav from './measuregroup/MeasureGroupNav'
 import itemCategoryNav from './itemcategory/ItemCategoryNav'
 import itemNav from './item/ItemNav'
 import currencyNav from './currency/CurrencyNav.js'
+import exchangeRateNav from './exchangerate/ExchangeRateNav.js'
+import countryNav from './country/CountryNav.js'
 
 
 
@@ -13,6 +15,8 @@ const lookupNavData = {
     ...itemCategoryNav.routes,
     ...itemNav.routes,
     ...currencyNav.routes,
+    ...exchangeRateNav.routes,
+    ...countryNav.routes,
 
   ],
   nav: {
@@ -25,6 +29,8 @@ const lookupNavData = {
       ...itemCategoryNav.menu.requires,
       ...itemNav.menu.requires,
       ...currencyNav.menu.requires,
+      ...exchangeRateNav.menu.requires,
+      ...countryNav.menu.requires,
 
     ],
     children: [
@@ -33,6 +39,8 @@ const lookupNavData = {
       itemCategoryNav.menu,
       itemNav.menu,
       currencyNav.menu,
+      exchangeRateNav.menu,
+      countryNav.menu,
 
 
     ],
@@ -43,6 +51,8 @@ const lookupNavData = {
     itemCategoryNav.menu,
     itemNav.menu,
     currencyNav.menu,
+    exchangeRateNav.menu,
+    countryNav.menu,
 
 
   ],

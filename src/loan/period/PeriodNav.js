@@ -1,6 +1,6 @@
 import Period from './Period.vue'
 import Periods from './Periods.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const periodNav = {
         // routes: [
         //         {

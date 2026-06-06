@@ -16,7 +16,7 @@
     ];
 </script>
 <template>
-    <s-data-dashboard title="Defaulted Loan Summary" :headers="headers" :data="dashboardList"></s-data-dashboard>
+    <s-data-dashboard title="Defaulted Loan Summary" :headers="headers" :data="dashboardList" chartType="pie"></s-data-dashboard>
 </template>
 <!-- 
 <script>

@@ -1,7 +1,7 @@
 <script setup>
 import creditorNav from './CreditorNav';
 import creditorController from "./CreditorController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= creditorController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= creditorNav.menu;

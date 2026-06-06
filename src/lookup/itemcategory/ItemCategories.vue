@@ -1,6 +1,6 @@
 <script setup>
 import itemCategoryController from "./ItemCategoryController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 import itemCategoryNav from "./ItemCategoryNav";
 const controller= itemCategoryController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)

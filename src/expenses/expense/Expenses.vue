@@ -1,7 +1,7 @@
 <script setup>
 import expenseNav from './ExpenseNav';
 import expenseController from "./ExpenseController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= expenseController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= expenseNav.menu;

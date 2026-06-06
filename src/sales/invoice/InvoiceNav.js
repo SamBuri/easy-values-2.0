@@ -1,6 +1,6 @@
 import Invoice from './Invoice.vue'
 import Invoices from './Invoices.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 const invoiceNav = {
         // routes: [
         //         {

@@ -1,6 +1,6 @@
 import LoanTransition from "./LoanTransition.vue";
 import LoanTransitions from "./LoanTransitions.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const loanTransitionNav = {
   // routes: [
   //   {

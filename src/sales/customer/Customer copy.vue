@@ -153,10 +153,8 @@
 </template>
 <script>
 import customerModel from "./CustomerModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "Customer",
+    name: "Customer",
   data: () => ({
     cols: 12,
     sm: 6,

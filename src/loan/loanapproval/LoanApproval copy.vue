@@ -105,13 +105,11 @@
 </template>
 <script>
 import loanApprovalModel from "./LoanApprovalModel";
-import CrudForm from "../../components/CrudForm.vue";
 import constants from "../../utils/constants";
-import SDatePicker from '../../components/SDatePicker.vue';
 import SNumberInput from '../../components/SNumberInput.vue';
 
 export default {
-  components: { CrudForm, SDatePicker, SNumberInput },
+  components: { SNumberInput },
   name: "LoanApproval",
   data: () => ({
     cols: 12,

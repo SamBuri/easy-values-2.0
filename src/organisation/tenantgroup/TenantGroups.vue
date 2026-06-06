@@ -1,7 +1,7 @@
 <script setup>
 import tenantGroupNav from './TenantGroupNav';
 import tenantGroupController from "./TenantGroupController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= tenantGroupController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= tenantGroupNav.menu;

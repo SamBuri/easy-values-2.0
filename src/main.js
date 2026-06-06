@@ -10,38 +10,28 @@ import { registerPlugins } from "@/plugins";
 
 // Components
 import App from "./App.vue";
-import registerComponents from "./components";
 
 // Composables
 import { createApp } from "vue";
-
 import initKeyCloak from "./keycloak/InitKeyCloak";
+import { useAuthStore } from "@/store/authstore";
+import { defineTenantStore } from "@/organisation/tenant/TenantStore";
 
 const app = createApp(App);
 
-import { provide } from "vue";
-
 registerPlugins(app);
-//register components. Create all utility components in  the components folder
-registerComponents(app);
 
-// app.mount("#app");
+const authStore = useAuthStore();
+const tenantStore = defineTenantStore();
+
 // initialize keycloak
-initKeyCloak(() => {
-    console.log("Keycloak initialized successfully");
-    
-  })
+initKeyCloak()
     .then((keycloak) => {
-      // Store Keycloak instance in app's global properties
-    //   app.config.globalProperties.$keycloak = keycloak;
       app.provide('keycloak', keycloak);
       app.mount("#app");
-     
     })
     .catch((error) => {
       console.error("Failed to initialize Keycloak:", error);
-      // Optionally mount the app anyway or show an error page
-    //   app.mount("#app");
     });
 // initKeyCloak(()=>app.mount("#app"));
 console.log("Environment Variables:", import.meta.env);

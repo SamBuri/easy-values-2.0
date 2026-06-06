@@ -1,7 +1,7 @@
 <script setup>
 import journalNav from './JournalNav';
 import journalController from "./JournalController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= journalController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= journalNav.menu;

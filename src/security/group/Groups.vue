@@ -1,7 +1,7 @@
 <script setup>
 import groupNav from './GroupNav';
 import groupController from "./GroupController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= groupController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 import keycloakService from '@/keycloak/keycloakService';

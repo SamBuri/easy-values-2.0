@@ -1,7 +1,7 @@
 <script setup>
 import investmentNav from './InvestmentNav';
 import investmentController from "./InvestmentController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= investmentController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= investmentNav.menu;

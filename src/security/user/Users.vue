@@ -1,7 +1,7 @@
 <script setup>
 import userNav from './UserNav';
 import userController from "./UserController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= userController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= userNav.menu;

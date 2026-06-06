@@ -1,6 +1,6 @@
 import Bill from "./Bill.vue";
 import Bills from "./Bills.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const billNav = {
   // routes: [
   //   {

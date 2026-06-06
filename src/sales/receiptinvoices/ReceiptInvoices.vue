@@ -55,10 +55,8 @@ item-text="invoiceName"
 </template>
 <script>
 import receiptInvoicesModel from "./ReceiptInvoicesModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "ReceiptInvoices",
+    name: "ReceiptInvoices",
 data: () => ({
     cols: 12,
     sm:6,

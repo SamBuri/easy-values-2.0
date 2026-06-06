@@ -1,6 +1,6 @@
 import LoanBill from "./LoanBill.vue";
 import LoanBills from "./LoanBills.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const loanBillNav = {
   // routes: [
   //   {

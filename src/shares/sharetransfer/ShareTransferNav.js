@@ -1,6 +1,6 @@
 import ShareTransfer from "./ShareTransfer.vue";
 import ShareTransfers from "./ShareTransfers.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const shareTransferNav = {
   // routes: [
   //   {

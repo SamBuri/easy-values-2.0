@@ -1,6 +1,6 @@
 import Role from './Role.vue'
 import Roles from './Roles.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 const roleNav = {
         routes: navUtils.allRoutes('role', Role, 'roles', Roles, true),
         menu: {

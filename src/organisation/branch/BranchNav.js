@@ -1,4 +1,4 @@
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 import Branch from './Branch.vue'
 import Branches from './Branches.vue'
 const branchNav = {

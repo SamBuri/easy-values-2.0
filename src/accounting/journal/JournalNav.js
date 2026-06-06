@@ -1,7 +1,7 @@
 
 import Journal from './Journal.vue'
 import Journals from './Journals.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const journalNav = {
         // routes: [
         //         {

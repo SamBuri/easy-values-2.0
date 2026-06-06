@@ -1,22 +1,8 @@
 import Currency from "./Currency.vue";
 import Currencies from "./Currencies.vue";
-import navUtils from "@/nav/NavUtils";
-const currencyNav = {
-  // routes: [
-  //   {
-  //     path: "/currency/:mode",
-  //     name: "currency",
-  //     component: Currency,
-  //     meta: { auth: true },
-  //   },
-  //   {
-  //     path: "/currencies",
-  //     name: "currencies",
-  //     component: Currencies,
-  //     meta: { auth: true },
-  //   },
-  // ],
+import { navUtils } from 'saburi-vue-utils';
 
+const currencyNav = {
   routes: navUtils.allRoutes("currency", Currency, "currencies", Currencies, true),
   menu: {
     id: "lookup.currency",
@@ -27,29 +13,20 @@ const currencyNav = {
     requires: navUtils.allRoles("currency"),
     width: "700px",
     editHeaders: [
-      { title: "Currency", key: "currency" },
-      { title: "Buying", key: "buying", isNumeric: true },
-      { title: "Selling", key: "selling", isNumeric: true },
-      { title: "Is Default", key: "isDefault" },
+      { title: "Code", key: "currencyCode" },
+      { title: "Name", key: "currencyName" },
+      { title: "Symbol", key: "symbol" },
       { title: "Actions", key: "actions" },
     ],
     headers: [
-      {
-        title: "Id",
-        align: "start",
-        // sortable: false,
-        key: "id",
-      },
-      { title: "Currency", key: "currency" },
-      { title: "Buying", key: "buying", isNumeric: true },
-      { title: "Selling", key: "selling", isNumeric: true },
-      { title: "Is Default", key: "isDefault" },
+      { title: "Id", align: "start", key: "id" },
+      { title: "Code", key: "currencyCode" },
+      { title: "Name", key: "currencyName" },
+      { title: "Symbol", key: "symbol" },
       { title: "Branch", key: "branch" },
       {
         title: "Creation Date",
         key: "creationDate",
-        label: "Creation Date",
-        field: "creationDate",
         isDateTime: true,
       },
       {
@@ -60,24 +37,6 @@ const currencyNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    // children: [
-    //   { id: "lookup.currency.view", title: "View", to: { name: "currencies" } },
-    //   {
-    //     id: "lookup.currency.new",
-    //     title: "New",
-    //     to: { name: "currency", params: { mode: 0 } },
-    //   },
-    //   {
-    //     id: "lookup.currency.edit",
-    //     title: "Edit",
-    //     to: { name: "currency", params: { mode: 1 } },
-    //   },
-    //   {
-    //     id: "lookup.currency.history",
-    //     title: "History",
-    //     to: { name: "currency", params: { mode: 2 } },
-    //   },
-    // ],
     children: navUtils.allChildren("lookup", "currency", "currencies", false),
   },
 };

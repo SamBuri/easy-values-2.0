@@ -8,18 +8,19 @@ const profileModel = {
             otherNames: "",
             birthDate: null,
             gender: "",
-            maritalStatusId: "",
+            maritalStatus: "",
             countryId: "",
             spouseName: "",
             spouseContact: "",
             nOKin: "",
             nOKinContact: "",
-            idTypeId: "",
+            idType: "",
             idNo: "",
             primaryPhoneNo: "",
             otherPhoneNos: "",
             email: "",
             homeAddress: "",
+            homeCoordinates: "",
             residentialAddress: "",
             residenceCoordinates: "",
             addressDetails: "",
@@ -43,18 +44,19 @@ const profileModel = {
                   this.otherNames = "";
                   this.birthDate = null;
                   this.gender = "";
-                  this.maritalStatusId = "";
+                  this.maritalStatus = "";
                   this.countryId = "";
                   this.spouseName = "";
                   this.spouseContact = "";
                   this.nOKin = "";
                   this.nOKinContact = "";
-                  this.idTypeId = "";
+                  this.idType = "";
                   this.idNo = "";
                   this.primaryPhoneNo = "";
                   this.otherPhoneNos = "";
                   this.email = "";
                   this.homeAddress = "";
+                  this.homeCoordinates = "";
                   this.residentialAddress = "";
                   this.residenceCoordinates = "";
                   this.addressDetails = "";
@@ -81,18 +83,19 @@ const profileModel = {
                   this.otherNames = obj.otherNames;
                   this.birthDate = obj.birthDate;
                   this.gender = obj.gender;
-                  this.maritalStatusId = obj.maritalStatusId;
+                  this.maritalStatus = obj.maritalStatus;
                   this.countryId = obj.countryId;
                   this.spouseName = obj.spouseName;
                   this.spouseContact = obj.spouseContact;
                   this.nOKin = obj.nOKin;
                   this.nOKinContact = obj.nOKinContact;
-                  this.idTypeId = obj.idTypeId;
+                  this.idType = obj.idType;
                   this.idNo = obj.idNo;
                   this.primaryPhoneNo = obj.primaryPhoneNo;
                   this.otherPhoneNos = obj.otherPhoneNos;
                   this.email = obj.email;
                   this.homeAddress = obj.homeAddress;
+                  this.homeCoordinates = obj.homeCoordinates;
                   this.residentialAddress = obj.residentialAddress;
                   this.residenceCoordinates = obj.residenceCoordinates;
                   this.addressDetails = obj.addressDetails;
@@ -119,18 +122,19 @@ const profileModel = {
                   data.push({ text: "Other Names", value: this.profile.otherNames });
                   data.push({ text: "Birth Date", value: this.profile.birthDate });
                   data.push({ text: "Gender", value: this.profile.gender });
-                  data.push({ text: "Marital Status", value: this.profile.maritalStatusId });
+                  data.push({ text: "Marital Status", value: this.profile.maritalStatus });
                   data.push({ text: "Country", value: this.profile.countryId });
                   data.push({ text: "Spouse Name", value: this.profile.spouseName });
                   data.push({ text: "Spouse Contact", value: this.profile.spouseContact });
                   data.push({ text: "NO Kin", value: this.profile.nOKin });
                   data.push({ text: "NO Kin Contact", value: this.profile.nOKinContact });
-                  data.push({ text: "Id Type", value: this.profile.idTypeId });
+                  data.push({ text: "Id Type", value: this.profile.idType });
                   data.push({ text: "Id No", value: this.profile.idNo });
                   data.push({ text: "Primary Phone No", value: this.profile.primaryPhoneNo });
                   data.push({ text: "Other Phone Nos", value: this.profile.otherPhoneNos });
                   data.push({ text: "Email", value: this.profile.email });
                   data.push({ text: "Home Address", value: this.profile.homeAddress });
+                  data.push({ text: "Home Coordinates", value: this.profile.homeCoordinates });
                   data.push({ text: "Residential Address", value: this.profile.residentialAddress });
                   data.push({ text: "Residence Coordinates", value: this.profile.residenceCoordinates });
                   data.push({ text: "Address Details", value: this.profile.addressDetails });
@@ -156,51 +160,51 @@ const profileModel = {
                   };
             },
 
-          
+
       },
       path: "profiles",
       rules: {
             profileType: [(v) => !!v || "Profile Type is required",
             ], firstName: [(v) => !!v || "First Name is required",
-            (v) => v.length < 20 || "First Name length must be less or equal to 20",], 
+            (v) => v.length < 20 || "First Name length must be less or equal to 20",],
             lastName: [(v) => !!v || "Last Name is required",
-            (v) => v.length < 20 || "Last Name length must be less or equal to 20",], 
-            otherNames: [], 
+            (v) => v.length < 20 || "Last Name length must be less or equal to 20",],
+            otherNames: [],
             birthDate: [(v) => !!v || "Birth Date is required",
             ], gender: [(v) => !!v || "Gender is required",
-            ], maritalStatusId: [(v) => !!v || "Marital Status is required",
+            ], maritalStatus: [(v) => !!v || "Marital Status is required",
             ], countryId: [(v) => !!v || "Country is required",
-            ], 
-            spouseName: [], 
-            spouseContact: [], 
-            nOKin: [], 
-            nOKinContact: [], 
-            idTypeId: [(v) => !!v || "Id Type is required",
+            ],
+            spouseName: [],
+            spouseContact: [],
+            nOKin: [],
+            nOKinContact: [],
+            idType: [(v) => !!v || "Id Type is required",
             ], idNo: [(v) => !!v || "Id No is required",
-            (v) => v.length < 100 || "Id No length must be less or equal to 100",], 
+            (v) => v.length < 100 || "Id No length must be less or equal to 100",],
             primaryPhoneNo: [(v) => !!v || "Primary Phone No is required",
-            (v) => v.length < 30 || "Primary Phone No length must be less or equal to 30",], 
-            otherPhoneNos: [], 
-            email: [], 
+            (v) => v.length < 30 || "Primary Phone No length must be less or equal to 30",],
+            otherPhoneNos: [],
+            email: [],
             homeAddress: [(v) => !!v || "Home Address is required",
-            (v) => v.length < 200 || "Home Address length must be less or equal to 200",], 
+            (v) => v.length < 500 || "Home Address length must be less or equal to 500",],
             residentialAddress: [(v) => !!v || "Residential Address is required",
-            (v) => v.length < 200 || "Residential Address length must be less or equal to 200",], 
-           
+            (v) => v.length < 500 || "Residential Address length must be less or equal to 500",],
+
             addressDetails: [(v) => !!v || "Address Details is required",
-            (v) => v.length < 200 || "Address Details length must be less or equal to 200",], 
+            (v) => v.length < 500 || "Address Details length must be less or equal to 500",],
             joinDate: [(v) => !!v || "Join Date is required",
             ], occupationId: [(v) => !!v || "Occupation is required",
             ], workType: [(v) => !!v || "Work Type is required",
             ], businessCategoryId: [(v) => !!v || "Business Category is required",
             ], businessDescriptions: [(v) => !!v || "Business Description is required",
-            (v) => v.length < 200 || "Business Description length must be less or equal to 200",], 
+            (v) => v.length < 500 || "Business Description length must be less or equal to 500",],
             designation: [(v) => !!v || "Designation is required",
-            (v) => v.length < 100 || "Designation length must be less or equal to 100",], 
+            (v) => v.length < 100 || "Designation length must be less or equal to 100",],
             businessName: [(v) => !!v || "Business Name is required",
-            (v) => v.length < 100 || "Business Name length must be less or equal to 100",], 
+            (v) => v.length < 100 || "Business Name length must be less or equal to 100",],
             businessLocation: [(v) => !!v || "Business Location is required",
-            (v) => v.length < 100 || "Business Location length must be less or equal to 100",], 
+            (v) => v.length < 500 || "Business Location length must be less or equal to 500",],
             workCoordinates: [],
 
       }

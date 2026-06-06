@@ -1,6 +1,6 @@
 import funcs from "../../utils/funcs";
 import Ledger from "./Ledger.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const ledgerNav = {
   // route: {
   //   path: "/creditorledger",

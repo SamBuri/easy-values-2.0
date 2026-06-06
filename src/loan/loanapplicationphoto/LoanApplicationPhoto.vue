@@ -61,10 +61,8 @@ rows="1"
 </template>
 <script>
 import loanApplicationPhotoModel from "./LoanApplicationPhotoModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "LoanApplicationPhoto",
+    name: "LoanApplicationPhoto",
 data: () => ({
     cols: 12,
     sm:6,

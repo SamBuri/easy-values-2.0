@@ -50,10 +50,8 @@
 </template>
 <script>
 import measureRelationModel from "./MeasureRelationModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "MeasureRelation",
+    name: "MeasureRelation",
   data: () => ({
     cols: 12,
     sm: 6,

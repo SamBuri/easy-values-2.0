@@ -1,6 +1,6 @@
 import funcs from "../../utils/funcs";
 import AccountLedger from "./AccountLedger.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const accountLedgerNav = {
   // route: {
   //   path: "/accountledger",

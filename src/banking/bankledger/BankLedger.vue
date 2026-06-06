@@ -116,10 +116,8 @@
 </template>
 <script>
 import bankLedgerModel from "./BankLedgerModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "BankLedger",
+    name: "BankLedger",
 data: () => ({
     cols: 12,
     sm:6,

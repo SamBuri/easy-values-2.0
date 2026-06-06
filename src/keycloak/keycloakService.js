@@ -60,9 +60,26 @@ const keycloakService = {
           authenticated: keycloakInstance.authenticated,
         });
       } catch (e) {
-        console.error('Failed to update token:', e);
+        console.error('Failed to update token, logging out:', e);
+        authStore.setAuthData(null);
+        keycloakInstance.logout();
       }
     };
+
+    // Periodically check token validity every 10 seconds to handle background tabs/throttling
+    setInterval(async () => {
+      if (keycloakInstance.authenticated && keycloakInstance.isTokenExpired(30)) {
+        console.log('Periodic check: Token will expire soon. Updating token...');
+        try {
+          await keycloakInstance.updateToken(30);
+          console.log('Periodic check: Token updated successfully');
+        } catch (e) {
+          console.error('Periodic check: Failed to update token, logging out:', e);
+          authStore.setAuthData(null);
+          keycloakInstance.logout();
+        }
+      }
+    }, 10000);
 
     // Set up auth event handlers
     keycloakInstance.onAuthRefreshSuccess = () => {

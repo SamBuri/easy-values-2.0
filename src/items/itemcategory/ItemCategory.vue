@@ -39,10 +39,8 @@
 </template>
 <script>
 import itemCategoryModel from "./ItemCategoryModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "ItemCategory",
+    name: "ItemCategory",
   data: () => ({
     cols: 12,
     sm: 12,

@@ -1,7 +1,7 @@
 <script setup>
 import billNav from './BillNav';
 import billController from "./BillController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= billController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= billNav.menu;

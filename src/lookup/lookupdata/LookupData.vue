@@ -11,7 +11,9 @@ const rules= controller.rules;
 const model = controller.model
 // const { rules, model } = lookupDataController();
 const lookupObjectStore = defineLookupObjectStore();
+console.log("LookupData.vue setup script executed");
 onMounted(() => {
+  console.log("LookupData.vue onMounted hook executed");
   lookupObjectStore.getMini();
 });
 </script>

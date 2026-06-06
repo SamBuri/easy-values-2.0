@@ -60,10 +60,8 @@ item-text="loanApplicationName"
 </template>
 <script>
 import loanApplicationImagesModel from "./LoanApplicationImagesModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "LoanApplicationImages",
+    name: "LoanApplicationImages",
 data: () => ({
     cols: 12,
     sm:6,

@@ -138,10 +138,8 @@
 </template>
 <script>
 import invoiceDetailModel from "./InvoiceDetailModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "InvoiceDetails",
+    name: "InvoiceDetails",
   data: () => ({
     cols: 12,
     sm: 6,

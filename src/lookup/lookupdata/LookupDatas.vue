@@ -8,7 +8,7 @@
 <script setup>
 import lookupDataNav from "./LookupDataNav";
 import lookupDataController from "./LookupdataController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= lookupDataController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= lookupDataNav.menu;

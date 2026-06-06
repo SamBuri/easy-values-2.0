@@ -43,10 +43,8 @@ item-text="permissionName"
 </template>
 <script>
 import rolePermissionModel from "./RolePermissionModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "RolePermission",
+    name: "RolePermission",
 data: () => ({
     cols: 12,
     sm:6,

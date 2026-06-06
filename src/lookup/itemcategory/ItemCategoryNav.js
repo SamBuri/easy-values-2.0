@@ -1,6 +1,6 @@
 import ItemCategory from './ItemCategory.vue'
 import ItemCategories from './ItemCategories.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 const itemCategoryNav = {
         // routes:[
         // {

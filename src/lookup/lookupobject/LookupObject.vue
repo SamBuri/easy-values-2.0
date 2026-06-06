@@ -32,10 +32,8 @@
 <script>
 import lookupObjectModel from "./LookupObjectModel";
 import constants from "../../utils/constants";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "LookupObject",
+    name: "LookupObject",
   data: () => ({
     cols: 12,
     sm: 6,

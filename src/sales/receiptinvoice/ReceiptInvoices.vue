@@ -1,7 +1,7 @@
 <script setup>
 import receiptInvoiceNav from './ReceiptInvoiceNav';
 import receiptInvoiceController from "./ReceiptInvoiceController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= receiptInvoiceController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= receiptInvoiceNav.menu;

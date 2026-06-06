@@ -1,6 +1,6 @@
 import Investment from './Investment.vue'
 import Investments from './Investments.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const investmentNav = {
         // routes:[
         //         {

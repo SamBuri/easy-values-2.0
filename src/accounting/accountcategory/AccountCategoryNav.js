@@ -1,6 +1,6 @@
 import AccountCategory from "./AccountCategory.vue";
 import AccountCategories from "./AccountCategories.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const accountCategoryNav = {
   // routes: [
   //   {

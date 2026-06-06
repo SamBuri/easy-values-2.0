@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import Expenses from './Expenses.vue'
 import Expenseses from './Expenseses.vue'
-// import navUtils from '@/nav/NavUtils';
+// import { navUtils } from 'saburi-vue-utils';
 const expensesNav = {
         routes: [
                 {

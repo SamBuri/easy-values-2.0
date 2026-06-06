@@ -1,6 +1,6 @@
 import Group from './Group.vue'
 import Groups from './Groups.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 
 const groupNav = {
         // routes: [

@@ -1,6 +1,6 @@
 import Creditor from "./Creditor.vue";
 import Creditors from "./Creditors.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const creditorNav = {
   // routes: [
   //   {

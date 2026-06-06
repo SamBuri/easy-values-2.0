@@ -1,7 +1,7 @@
 <script setup>
 import customerSponsorNav from './CustomerSponsorNav';
 import customerSponsorController from "./CustomerSponsorController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= customerSponsorController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= customerSponsorNav.menu;

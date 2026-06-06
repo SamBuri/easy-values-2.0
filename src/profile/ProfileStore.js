@@ -9,39 +9,47 @@ export const defineProfileStore = defineStore("profile", {
     imageTypesLoading: false,
     profileTypes: [],
     profileTypesLoading: false,
+    idTypes: [],
+    idTypesLoading: false,
+    maritalStatuses: [],
+    maritalStatusesLoading: false,
   }),
 
   actions: {
-    async getProfileTypes() {
+    /**
+     * A generic helper to fetch enums
+     * @param {string} endpoint - The sub-path (e.g., 'idtypes')
+     * @param {string} stateKey - The state property to update (e.g., 'idTypes')
+     */
+    async fetchEnum(endpoint, stateKey) {
       const rootStore = defineRootStore();
-      let data = await rootStore.fetch(`${this.path}/profiletypes`,
+      const loadingKey = `${stateKey}Loading`;
+
+      return await rootStore.fetch(
+        `${this.path}${endpoint}`,
         () => {
-          this.profileTypesLoading = true;
-          this.profileTypes = [];
+          this[loadingKey] = true;
+          this[stateKey] = [];
         },
-
-        (res) => (this.profileTypes = res.data),
-
-        () => (this.profileTypesLoading = false)
+        (res) => (this[stateKey] = res.data),
+        () => (this[loadingKey] = false)
       );
-      return data;
+    },
+    async getProfileTypes() {
+      return this.fetchEnum("profiletypes", "profileTypes");
     },
 
     async getImageTypes() {
-      const rootStore = defineRootStore();
-      let data = await rootStore.fetch(`${this.path}/imagetypes`,
-        () => {
-          this.imageTypesLoading = true;
-          this.imageTypes = [];
-        },
-
-        (res) => (this.imageTypes = res.data),
-
-        () => (this.imageTypesLoading = false)
-      );
-      return data;
+      return this.fetchEnum("imagetypes", "imageTypes");
     },
 
+    async getIdTypes() {
+      return this.fetchEnum("idtypes", "idTypes");
+    },
+
+    async getMaritalStatuses() {
+      return this.fetchEnum("maritalstatuses", "maritalStatuses");
+    },
 
 
   },

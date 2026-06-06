@@ -1,7 +1,7 @@
 <script setup>
 import branchNav from './BranchNav';
 import branchController from "./BranchController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= branchController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= branchNav.menu;

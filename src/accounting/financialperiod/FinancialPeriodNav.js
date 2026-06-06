@@ -1,6 +1,6 @@
 import FinancialPeriod from './FinancialPeriod.vue'
 import FinancialPeriods from './FinancialPeriods.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 const financialPeriodNav = {
         // routes: [
         //         {

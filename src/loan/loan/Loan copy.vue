@@ -71,14 +71,11 @@
 </template>
 <script>
 import loanModel from "./LoanModel";
-import CrudForm from "../../components/CrudForm.vue";
-import CrudTable from "../../components/CrudTable.vue";
 import loanBillDetailNav from '../loanbilldetail/LoanBillDetailNav'
 import loanConstants from "../LoanConstants";
 import funcs from "../../utils/funcs";
 export default {
-  components: { CrudForm, CrudTable },
-  name: "Loan",
+    name: "Loan",
   data: () => ({
     cols: 12,
     sm: 6,

@@ -1,6 +1,6 @@
 import Tenant from "./Tenant.vue";
 import Tenants from "./Tenants.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const tenantNav = {
 
   routes: navUtils.allRoutes("tenant", Tenant, "tenants", Tenants, true),

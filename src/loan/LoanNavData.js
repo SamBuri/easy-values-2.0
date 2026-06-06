@@ -27,7 +27,7 @@ const loanNavData = {
         title: "Loan",
         icon: "mdi-cash-100",
         requires: [
-            // ...loanDashboardNav.menu.requires,
+            ...loanDashboardNav.menu.requires,
             ...periodNav.menu.requires,
             ...loanProductNav.menu.requires,
             ...loanApplicationNav.menu.requires,
@@ -37,6 +37,7 @@ const loanNavData = {
             ...loanBillDetailNav.menu.requires,
             ...loanTransitionNav.menu.requires,],
         children: [
+            loanDashboardNav.menu,
             periodNav.menu,
             loanProductNav.menu,
             loanApplicationNav.menu,
@@ -45,8 +46,6 @@ const loanNavData = {
             loanBillNav.menu,
             loanBillDetailNav.menu,
             loanTransitionNav.menu,
-
-
         ],
     },
     menus: [

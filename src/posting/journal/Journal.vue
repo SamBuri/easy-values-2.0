@@ -168,13 +168,10 @@
 </template>
 <script>
 import journalModel from "./JournalModel";
-import CrudForm from "../../components/CrudForm.vue";
-import CrudTable from "../../components/CrudTable.vue";
 import journalDetailsNav from "../journaldetails/JournalDetailsNav.js";
 import funcs from "../../utils/funcs";
 export default {
-  components: { CrudForm, CrudTable },
-  name: "Journal",
+    name: "Journal",
   data: () => ({
     cols: 12,
     sm: 6,

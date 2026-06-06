@@ -1,6 +1,6 @@
 import IncomeStatement from "./IncomeStatement.vue";
 import funcs from "../../utils/funcs";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 
 const incomestatementNav = {
   // route: {

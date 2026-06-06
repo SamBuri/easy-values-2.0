@@ -1,6 +1,6 @@
 import CreditorItemCategory from "./CreditorItemCategory.vue";
 import CreditorItemCategories from "./CreditorItemCategories.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const creditorItemCategoryNav = {
   // routes: [
   //   {

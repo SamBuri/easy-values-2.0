@@ -1,4 +1,4 @@
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 import LookupData from "./LookupData.vue";
 import LookupDatas from "./LookupDatas.vue";
 const lookupDataNav = {

@@ -1,7 +1,7 @@
 <script setup>
 import devConfigNav from './DevConfigNav';
 import devConfigController from "./DevConfigController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= devConfigController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= devConfigNav.menu;

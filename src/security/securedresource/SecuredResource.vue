@@ -43,10 +43,8 @@
 </template>
 <script>
 import securedResourceModel from "./SecuredResourceModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "SecuredResource",
+    name: "SecuredResource",
 data: () => ({
     cols: 12,
     sm:6,

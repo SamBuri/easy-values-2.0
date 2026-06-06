@@ -1,6 +1,6 @@
 import PaymentBill from "./PaymentBill.vue";
 import PaymentBills from "./PaymentBills.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const paymentBillNav = {
   // routes: [
   //   {

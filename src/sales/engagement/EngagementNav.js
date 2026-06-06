@@ -1,7 +1,7 @@
 
 import Engagement from './Engagement.vue'
 import Engagements from './Engagements.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const engagementNav = {
         // routes: [
         //         {

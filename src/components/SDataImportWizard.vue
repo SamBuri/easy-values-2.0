@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import { defineRootStore } from "@/root/RootStore";
 import * as XLSX from 'xlsx';
-import SnackBar from "@/components/SnackBar.vue";
 
 const props = defineProps({
   title: {

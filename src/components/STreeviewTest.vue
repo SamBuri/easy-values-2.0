@@ -1,5 +1,4 @@
 <script setup>
-import STreeview from './STreeview.vue';
 import navData from '../nav/NavData'
 const data = navData.tree;
    const items =  [

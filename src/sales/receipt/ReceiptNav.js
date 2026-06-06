@@ -1,6 +1,6 @@
 import Receipt from './Receipt.vue'
 import Receipts from './Receipts.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 
 const receiptNav = {
         //  routes:[

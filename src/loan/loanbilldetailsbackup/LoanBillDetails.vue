@@ -56,10 +56,9 @@
 </template>
 <script>
 import loanBillDetailsModel from "./LoanBillDetailsModel";
-import CrudForm from "../../components/CrudForm.vue";
 import SNumberInput from '../../components/SNumberInput.vue';
 export default {
-  components: { CrudForm, SNumberInput },
+  components: { SNumberInput },
   name: "LoanBillDetails",
   data: () => ({
     cols: 12,

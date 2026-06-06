@@ -1,6 +1,6 @@
 import BankAccount from "./BankAccount.vue";
 import BankAccounts from "./BankAccounts.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const bankAccountNav = {
     // routes: [
     //   {

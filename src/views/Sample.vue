@@ -46,11 +46,9 @@
  
 <script>
 import constants from "../utils/constants";
-import CrudeForm from "../components/CrudForm.vue";
 import countryModel from "../address/country/CountryModel";
 export default {
-  components: { CrudeForm },
-  name: "Sample",
+    name: "Sample",
   data: () => ({
     path: constants.endPoints.countries,
     responseMessage: "",

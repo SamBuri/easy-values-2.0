@@ -1,7 +1,7 @@
 <script setup>
 import profileNav from './ProfileNav';
 import profileController from "./ProfileController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= profileController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= profileNav.menu;
@@ -12,7 +12,7 @@ const menuItems = [
       { title: "Re-post", icon: "mdi-send",click: (options)=>republish(options) },
     ]
 
-    
+
 </script>
 <template>
   <search :menu="menu" :menuItems ="menuItems"></search>

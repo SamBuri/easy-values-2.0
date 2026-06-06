@@ -1,41 +1,48 @@
 <template>
   <v-app>
-    <v-navigation-drawer app dark v-model="drawer" :width="325" v-if="authStore.authenticated && tenantStore.firstTenant">
-      <side-bar-nav />
+    <v-navigation-drawer app v-model="drawer" :width="300" color="primary" v-if="authStore.authenticated && tenantStore.firstTenant">
+      <SideBarNav :nav-items="navData.tree" :capitalize="true" variant="list" density="comfortable" title-class="text-subtitle-1" />
     </v-navigation-drawer>
 
-    <v-app-bar app color="primary" dark dense v-if="authStore.authenticated && tenantStore.firstTenant">
+    <v-app-bar app flat border v-if="authStore.authenticated && tenantStore.firstTenant">
       <v-app-bar-nav-icon @click="drawer = !drawer" />
 
-      <v-toolbar-title class="mr-3">Easy Values</v-toolbar-title>
+      <v-toolbar-title class="font-weight-bold mr-3">Easy Values</v-toolbar-title>
 
-      <div  class="mx-3">
-        <v-icon small>mdi-source-branch</v-icon>{{ branchStore.getBranchName }}
-        <v-icon small @click="currentBranchDialog = true">mdi-arrow-down-drop-circle-outline</v-icon>
-        <v-dialog v-model="currentBranchDialog" width="300" persistent>
-          <current-branch :dialog="currentBranchDialog" @close="closeCurrentBranch" />
+      <v-spacer></v-spacer>
+
+      <div v-if="branchStore.currentBranch" class="mx-4 d-flex align-center">
+        <v-icon start color="primary" class="mr-2">mdi-office-building-marker</v-icon>
+        <span class="text-subtitle-2 font-weight-bold">
+          {{ branchStore.currentUserCompany?.companyName || 'Easy Values' }} - {{ branchStore.getBranchName }}
+        </span>
+        <v-btn icon="mdi-chevron-down" variant="text" density="comfortable" @click="currentBranchDialog = true" class="ml-1"></v-btn>
+        
+        <v-dialog v-model="currentBranchDialog" width="900" persistent>
+          <current-branch :dialog="true" @close="closeCurrentBranch" />
         </v-dialog>
       </div>
 
-      <v-spacer></v-spacer>
-      <div>
-        <top-right-menu />
-      </div>
+      <top-right-menu :menu-items="[
+        { title: 'Security Profile', icon: 'mdi-shield-account', to: '/profile' }
+      ]" />
     </v-app-bar>
 
     <v-main>
-      <!-- <loading-page v-if="tenantStore.isFirstTenantLoading || tenantStore.tenantError || !tenantStore.firstTenant" :tenant-store="tenantStore" /> -->
-      <router-view  />
+      <v-container fluid>
+        <router-view />
+      </v-container>
     </v-main>
-    <v-footer app color="primary" dark dense v-if="authStore.authenticated && tenantStore.firstTenant">
-      <p><span>@Powered by Capidattex Consults Ltd</span></p>
+
+    <v-footer app border v-if="authStore.authenticated && tenantStore.firstTenant" class="d-flex justify-center pa-2">
+      <span class="text-caption text-grey">© Powered by Capidattex Consults Ltd</span>
     </v-footer>
   </v-app>
 </template>
 
 <script setup>
-import SideBarNav from './nav/SideBarNav.vue';
-import TopRightMenu from './components/TopRightMenu.vue';
+import { SideBarNav } from 'saburi-vue-utils';
+import navData from './nav/NavData';
 import CurrentBranch from './organisation/branch/CurrentBranch.vue';
 // import LoadingPage from './views/LoadingPage.vue';
 import { useAuthStore } from './store/authstore';

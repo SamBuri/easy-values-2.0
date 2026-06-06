@@ -1,7 +1,7 @@
 <script setup>
 import bankLedgerNav from './BankLedgerNav';
 import bankLedgerController from "./BankLedgerController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= bankLedgerController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= bankLedgerNav.menu;

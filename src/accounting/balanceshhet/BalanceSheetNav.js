@@ -1,6 +1,6 @@
 import BalanceSheet from "./BalanceSheet.vue";
 import funcs from "../../utils/funcs";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 
 const balanceSheetNav = {
   // route: {

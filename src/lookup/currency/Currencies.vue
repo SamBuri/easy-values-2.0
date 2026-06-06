@@ -1,7 +1,7 @@
 <script setup>
 import currencyNav from './CurrencyNav';
 import currencyController from "./CurrencyController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= currencyController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= currencyNav.menu;

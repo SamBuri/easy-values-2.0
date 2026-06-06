@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import profileNav from "./ProfileNav";
 import {defineRootStore} from "@/root/RootStore";
    export const defineProfileStore = defineStore("profile", {
- 
+
 state: () => ({
 path: profileNav.menu.path,
     mini: [],
@@ -19,13 +19,13 @@ actions: {
        ()=>{
         this.miniLoading =true
         this.mini = [];
-        
+
 
       },
 
        res=>this.mini = res.data,
 
-       ()=>this.miniLoading = false); 
+       ()=>this.miniLoading = false);
        return data;
 
      },
@@ -46,6 +46,7 @@ actions: {
       );
       return data;
     },
+
 
 }});
 

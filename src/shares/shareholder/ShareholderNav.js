@@ -1,6 +1,6 @@
 import Shareholder from "./Shareholder.vue";
 import Shareholders from "./Shareholders.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const shareholderNav = {
   // routes: [
   //   {

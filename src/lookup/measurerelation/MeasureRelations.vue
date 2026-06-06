@@ -1,7 +1,7 @@
 <script setup>
 import measureRelationNav from './MeasureRelationNav';
 import measureRelationController from "./MeasureRelationController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= measureRelationController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= measureRelationNav.menu;

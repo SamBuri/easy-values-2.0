@@ -117,10 +117,8 @@
 </template>
 <script>
 import customerLedgerModel from "./CustomerLedgerModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "CustomerLedger",
+    name: "CustomerLedger",
 data: () => ({
     cols: 12,
     sm:6,

@@ -1,7 +1,7 @@
 <script setup>
 import bankTransferNav from './BankTransferNav';
 import bankTransferController from "./BankTransferController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= bankTransferController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= bankTransferNav.menu;

@@ -114,11 +114,9 @@
 </template>
 <script>
 import writeOffModel from "./WriteOffModel";
-import CrudTable from "../../components/CrudTable.vue";
 import writeOffInvoiceNav from "../writeoffinvoice/WriteOffInvoiceNav.js";
 export default {
-  components: { CrudTable },
-  name: "WriteOff",
+    name: "WriteOff",
   data: () => ({
     cols: 12,
     sm: 6,

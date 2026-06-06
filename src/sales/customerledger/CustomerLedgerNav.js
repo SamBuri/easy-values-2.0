@@ -1,6 +1,6 @@
 import CustomerLedger from './CustomerLedger.vue'
 import CustomerLedgers from './CustomerLedgers.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const customerLedgerNav = {
         // routes:[
         //         // {

@@ -1,6 +1,6 @@
 import MeasureGroup from "./MeasureGroup.vue";
 import MeasureGroups from "./MeasureGroups.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const measureGroupNav = {
   // routes: [
   //   {

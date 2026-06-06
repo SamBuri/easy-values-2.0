@@ -40,13 +40,11 @@
 </template>
 <script>
 import customerLedgerPreviewModel from "./CustomerLedgerPreviewModel";
-import CrudTable from "../../components/CrudTable.vue";
 import customerLedgerNav from "../customerledger/CustomerLedgerNav.js";
 import customerNav from '../customer/CustomerNav';
 
 export default {
-  components: { CrudTable },
-  name: "CustomerLedgerPreview",
+    name: "CustomerLedgerPreview",
   props: ['passedCustomerNo'],
   data: () => ({
     cols: 12,

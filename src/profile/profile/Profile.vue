@@ -73,10 +73,10 @@ const rules = controller.rules;
             :items="controller.lookupStore.gender" :loading="controller.lookupStore.genderLoading"></s-autocomplete>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-autocomplete id="maritalStatusId" label="Marital Status" v-model="model.maritalStatusId"
-            :rules="rules.maritalStatusId" :items="controller.lookupDataStore.maritalStatuses"
-            :loading="controller.lookupDataStore.maritalStatusesLoading" item-title="lookupDataName"
-            item-value="id"></s-autocomplete>
+          <s-autocomplete id="maritalStatus" label="Marital Status" v-model="model.maritalStatus"
+            :rules="rules.maritalStatus" :items="controller.profileStore.maritalStatuses"
+            :loading="controller.profileStore.maritalStatusesLoading" item-title="display"
+            item-value="name"></s-autocomplete>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
           <s-autocomplete id="countryId" label="Country" v-model="model.countryId" :rules="rules.countryId"
@@ -100,36 +100,33 @@ const rules = controller.rules;
             :rules="rules.nOKinContact" :counter="100"></s-text-field>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-autocomplete id="idTypeId" label="Id Type" v-model="model.idTypeId" :rules="rules.idTypeId"
-            :items="controller.lookupDataStore.idTypes" :loading="controller.lookupDataStore.idTypesLoading"
-            item-title="lookupDataName" item-value="id"></s-autocomplete>
+          <s-autocomplete id="idType" label="Id Type" v-model="model.idType" :rules="rules.idType"
+            :items="controller.profileStore.idTypes" :loading="controller.profileStore.idTypesLoading"
+            item-title="display" item-value="name"></s-autocomplete>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
           <s-text-field id="idNo" label="Id No" v-model="model.idNo" :rules="rules.idNo" :counter="100"></s-text-field>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-text-field id="primaryPhoneNo" label="Primary Phone No" v-model="model.primaryPhoneNo"
-            :rules="rules.primaryPhoneNo" :counter="30"></s-text-field>
+          <s-phone-number id="primaryPhoneNo" label="Primary Phone No" v-model="model.primaryPhoneNo"
+            :rules="rules.primaryPhoneNo" :counter="30"></s-phone-number>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-text-field id="otherPhoneNos" label="Other Phone Nos" v-model="model.otherPhoneNos"
-            :rules="rules.otherPhoneNos" :counter="30"></s-text-field>
+          <s-phone-number id="otherPhoneNos" label="Other Phone Nos" v-model="model.otherPhoneNos"
+            :rules="rules.otherPhoneNos" :counter="30"></s-phone-number>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
           <s-text-field id="email" label="Email" v-model="model.email" :rules="rules.email"
             :counter="100"></s-text-field>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-textarea id="homeAddress" label="Home Address" v-model="model.homeAddress" :rules="rules.homeAddress"
-            :counter="200" rows="1" auto-grow></s-textarea>
+          <s-location-picker id="homeAddress" label="Home Address" v-model:address="model.homeAddress"
+            v-model:coordinates="model.homeCoordinates" :rules="rules.homeAddress"
+            :counter="500"></s-location-picker>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-textarea id="residentialAddress" label="Residential Address" v-model="model.residentialAddress"
-            :rules="rules.residentialAddress" :counter="200" rows="1" auto-grow></s-textarea>
-        </v-col>
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <s-textarea id="residenceCoordinates" label="Residence Coordinates" v-model="model.residenceCoordinates"
-            :rules="rules.residenceCoordinates" :counter="200" rows="1" auto-grow></s-textarea>
+          <s-location-picker id="residentialAddress" label="Residential Address" v-model:address="model.residentialAddress"
+            v-model:coordinates="model.residenceCoordinates" :rules="rules.residentialAddress" :counter="200"></s-location-picker>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
           <s-textarea id="addressDetails" label="Address Details" v-model="model.addressDetails"
@@ -168,12 +165,8 @@ const rules = controller.rules;
           :counter="100"></s-text-field>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
-        <s-text-field id="businessLocation" label="Business Location" v-model="model.businessLocation"
-          :rules="rules.businessLocation" :counter="100"></s-text-field>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <s-text-field id="workCoordinates" label="Work Coordinates" v-model="model.workCoordinates"
-          :rules="rules.workCoordinates" :counter="100"></s-text-field>
+        <s-location-picker id="businessLocation" label="Business Location" v-model:address="model.businessLocation"
+          v-model:coordinates="model.workCoordinates" :rules="rules.businessLocation" :counter="100"></s-location-picker>
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <v-checkbox id="idNoVerified" label="Id No Verified" v-model="model.idNoVerified"></v-checkbox>

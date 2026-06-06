@@ -5,19 +5,19 @@ import funcs from '../../utils/funcs'
 import { defineProfileStore } from "@/profile/ProfileStore.js"
 import { defineLookupStore } from "@/lookup/LookupStore.js"
 import { defineLookupDataStore } from "@/lookup/lookupdata/LookupDataStore.js"
-import { defineCountryStore } from "@/profile/country/CountryStore.js"
+import { defineCountryStore } from "@/lookup/country/CountryStore.js"
 import profilePictureController from "@/profile/profilepicture/ProfilePictureController.js";
 import { defineProfilePictureStore } from "../profilepicture/ProfilePictureStore";
 export default function profileController() {
 
   const hooks = {
     afterSave: (res) => {
-     
+
       if (res.success) {
         addPictureOnSave(res.entity);
-        
+
       }
-     
+
     }
   };
 
@@ -35,11 +35,11 @@ export default function profileController() {
 
     lookupStore.getGender();
 
-    lookupDataStore.getMaritalStatuses();
+    profileStore.getMaritalStatuses();
 
     countryStore.getMini();
 
-    lookupDataStore.getIdTypes();
+    profileStore.getIdTypes();
 
     lookupDataStore.getOccupations();
 
@@ -51,9 +51,9 @@ export default function profileController() {
   })
 
    const model = controller.model.value;
-  
+
     const profilePictureStore = defineProfilePictureStore();
-  
+
     const pictureController = profilePictureController();
     controller.pictureController = pictureController;
     controller.profilePictureStore = profilePictureStore;
@@ -75,7 +75,7 @@ export default function profileController() {
         controller.showPictures = showPictures;
         const profilePictures = computed(() => profilePictureStore.profilePictures);
         controller.profilePictures = profilePictures;
-        
+
         const addPictureDialog = ref(false);
           const showAddPictureDialog = () => addPictureDialog.value = true;
           const addPicture = () => {
@@ -88,21 +88,21 @@ export default function profileController() {
             }
             showAddPictureDialog();
           };
-        
+
           const addPictureOnSave = (entity) => {
             pictureController.setProfile(entity);
             pictureController.setImagePrimaryImage();
             showAddPictureDialog();
           };
-        
+
           const closeAddPictureDialog = () => {
             addPictureDialog.value = false;
           };
-        
+
           controller.addPictureDialog = addPictureDialog;
           controller.addPicture = addPicture;
           controller.closeAddPictureDialog = closeAddPictureDialog;
-        
+
 
   return controller;
 

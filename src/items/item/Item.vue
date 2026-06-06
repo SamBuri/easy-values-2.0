@@ -115,12 +115,9 @@
 </template>
 <script>
 import itemModel from "./ItemModel";
-import CrudForm from "../../components/CrudForm.vue";
-import CrudTable from "../../components/CrudTable.vue";
 import itemPriceGroupNav from "../itempricegroup/ItemPriceGroupNav.js";
 export default {
-  components: { CrudForm, CrudTable },
-  name: "Item",
+    name: "Item",
   data: () => ({
     cols: 12,
     sm: 6,

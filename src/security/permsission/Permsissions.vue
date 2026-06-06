@@ -1,7 +1,7 @@
 <script setup>
 import permsissionNav from './PermsissionNav';
 import permsissionController from "./PermsissionController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= permsissionController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= permsissionNav.menu;

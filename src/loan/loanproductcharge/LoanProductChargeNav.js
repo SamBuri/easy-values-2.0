@@ -1,6 +1,6 @@
 import LoanProductCharge from "./LoanProductCharge.vue";
 import LoanProductCharges from "./LoanProductCharges.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const loanProductChargeNav = {
   // routes: [
   //   {

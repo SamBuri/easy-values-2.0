@@ -1,7 +1,7 @@
 <script setup>
 import engagementNav from './EngagementNav';
 import engagementController from "./EngagementController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= engagementController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= engagementNav.menu;

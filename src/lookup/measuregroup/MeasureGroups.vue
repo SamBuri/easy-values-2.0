@@ -1,7 +1,7 @@
 <script setup>
 import measureGroupNav from './MeasureGroupNav';
 import measureGroupController from "./MeasureGroupController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= measureGroupController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= measureGroupNav.menu;

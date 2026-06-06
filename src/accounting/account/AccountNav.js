@@ -1,6 +1,6 @@
 import Account from "./Account.vue";
 import Accounts from "./Accounts.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 const accountNav = {
   // routes: [
   //   {

@@ -30,13 +30,11 @@
 </template>
 <script>
 
-import CrudTable from "../../components/CrudTable.vue";
 import bankLedgerNav from "../bankledger/BankLedgerNav";
 
 
 export default {
-  components: { CrudTable },
-  name: "BankLedgerPreview",
+    name: "BankLedgerPreview",
   data: () => ({
     cols: 12,
     sm: 6,

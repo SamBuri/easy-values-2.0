@@ -1,6 +1,6 @@
 import DevConfig from './DevConfig.vue'
 import DevConfigs from './DevConfigs.vue'
-import navUtils from '@/nav/NavUtils';
+import { navUtils } from 'saburi-vue-utils';
 const devConfigNav = {
         routes: navUtils.allRoutes("devconfig", DevConfig, "devconfigs", DevConfigs, true),
         menu: {

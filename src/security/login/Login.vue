@@ -52,10 +52,8 @@
 </template>
 <script>
 import loginModel from "./LoginModel";
-import CrudForm from "../../components/CrudForm.vue";
 export default {
-  components: { CrudForm },
-  name: "Login",
+    name: "Login",
   data: () => ({
     cols: 12,
     sm: 12,

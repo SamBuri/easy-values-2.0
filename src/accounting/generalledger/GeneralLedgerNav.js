@@ -1,6 +1,6 @@
 import GeneralLedger from './GeneralLedger.vue'
 import GeneralLedgers from './GeneralLedgers.vue'
-import navUtils from '@/nav/NavUtils'
+import { navUtils } from 'saburi-vue-utils';
 const generalLedgerNav = {
         // routes: [
         //         {

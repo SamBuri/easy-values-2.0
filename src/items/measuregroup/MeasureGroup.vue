@@ -37,12 +37,9 @@
 </template>
 <script>
 import measureGroupModel from "./MeasureGroupModel";
-import CrudForm from "../../components/CrudForm.vue";
-import CrudTable from "../../components/CrudTable.vue";
 import measureRelationNav from "../measurerelation/MeasureRelationNav.js";
 export default {
-  components: { CrudForm, CrudTable },
-  name: "MeasureGroup",
+    name: "MeasureGroup",
   data: () => ({
     cols: 12,
     sm: 6,

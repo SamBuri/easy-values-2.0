@@ -1,7 +1,7 @@
 <script setup>
 import resetPasswordNav from './ResetPasswordNav';
 import resetPasswordController from "./ResetPasswordController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= resetPasswordController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= resetPasswordNav.menu;

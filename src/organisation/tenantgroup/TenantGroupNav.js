@@ -1,6 +1,6 @@
 import TenantGroup from './TenantGroup.vue'
 import TenantGroups from './TenantGroups.vue'
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 
 const tenantGroupNav = {
   routes: navUtils.allRoutes("tenantgroup", TenantGroup, "tenantgroups", TenantGroups, true),

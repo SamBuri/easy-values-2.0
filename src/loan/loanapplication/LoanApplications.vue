@@ -1,7 +1,7 @@
 <script setup>
 import loanApplicationNav from './LoanApplicationNav';
 import loanApplicationController from "./LoanApplicationController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= loanApplicationController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= loanApplicationNav.menu;

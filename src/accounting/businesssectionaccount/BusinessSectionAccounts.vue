@@ -1,7 +1,7 @@
 <script setup>
 import businessSectionAccountNav from './BusinessSectionAccountNav';
 import businessSectionAccountController from "./BusinessSectionAccountController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= businessSectionAccountController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= businessSectionAccountNav.menu;

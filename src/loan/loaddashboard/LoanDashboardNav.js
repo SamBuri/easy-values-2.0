@@ -8,9 +8,13 @@ const loanDashboardNav = {
       component: LoanDashboard,
       meta: { auth: true },
     },
-     
   ],
-  
-  
+  menu: {
+    id: "loandashboard",
+    title: "Loan Dashboard",
+    icon: "mdi-view-dashboard-outline",
+    to: { name: "loandashboard" },
+    requires: [],
+  },
 };
 export default loanDashboardNav;

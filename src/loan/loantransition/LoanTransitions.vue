@@ -1,7 +1,7 @@
 <script setup>
 import loanTransitionNav from './LoanTransitionNav';
 import loanTransitionController from "./LoanTransitionController";
-import searchMenuController from "@/search/SearchMenuController";
+import { searchMenuController } from "saburi-vue-utils";
 const controller= loanTransitionController();
 const {save, edit, deleteItem, republish}=searchMenuController(controller)
 const menu= loanTransitionNav.menu;

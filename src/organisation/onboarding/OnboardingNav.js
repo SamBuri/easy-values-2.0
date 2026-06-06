@@ -1,5 +1,5 @@
 import Onboarding from "./Onboarding.vue";
-import navUtils from "@/nav/NavUtils";
+import { navUtils } from 'saburi-vue-utils';
 
 
 const onboardingNav = {
