@@ -1,25 +1,15 @@
 import ItemPriceGroup from "./ItemPriceGroup.vue";
 import ItemPriceGroups from "./ItemPriceGroups.vue";
+import { navUtils } from "saburi-vue-utils";
+
 const itemPriceGroupNav = {
-  routes: [
-    {
-      path: "/itempricegroup/:mode",
-      name: "itempricegroup",
-      component: ItemPriceGroup,
-      meta: { auth: true },
-    },
-    {
-      path: "/itempricegroups",
-      name: "itempricegroups",
-      component: ItemPriceGroups,
-      meta: { auth: true },
-    },
-  ],
+  routes: navUtils.allRoutes("item-price-group", ItemPriceGroup, "item-price-groups", ItemPriceGroups, true, "itempricegroup"),
   menu: {
     id: "lookup.itempricegroup",
-    title: "ItemPriceGroups",
+    title: "Item Price Groups",
     component: ItemPriceGroup,
-    path: "itempricegroups",
+    path: "item-price-groups",
+    requires: navUtils.allRoles("item-price-groups"),
     width: "700px",
     editHeaders: [
       // { title: "Price Group Id", key: "priceGroupId" },
@@ -56,28 +46,7 @@ const itemPriceGroupNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "lookup.itemPriceGroup.view",
-        title: "View",
-        to: { name: "itempricegroups" },
-      },
-      {
-        id: "lookup.itemPriceGroup.new",
-        title: "New",
-        to: { name: "itempricegroup", params: { mode: 0 } },
-      },
-      {
-        id: "lookup.itemPriceGroup.edit",
-        title: "Edit",
-        to: { name: "itempricegroup", params: { mode: 1 } },
-      },
-      {
-        id: "lookup.itemPriceGroup.history",
-        title: "History",
-        to: { name: "itempricegroup", params: { mode: 2 } },
-      },
-    ],
+    children: navUtils.allChildren("lookup", "item-price-groups", "item-price-groups", false, "itempricegroup"),
   },
 };
 export default itemPriceGroupNav;

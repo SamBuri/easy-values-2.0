@@ -42,6 +42,11 @@ const rules = controller.rules;
         <s-text-field id="dbDriverClassName" label="Db Driver Class Name" v-model="model.dbDriverClassName"
           :rules="rules.dbDriverClassName" :counter="100"></s-text-field>
       </v-col>
+      <v-col :cols="cols" :sm="sm" :md="md">
+        <s-autocomplete id="clientGroupId" label="Client Group" v-model="model.clientGroupId"
+          :items="controller.clientGroupStore.mini" item-title="groupName" item-value="id"
+          :loading="controller.clientGroupStore.miniLoading"></s-autocomplete>
+      </v-col>
       <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
         <v-checkbox id="disabled" label="Disabled" v-model="model.disabled"></v-checkbox>
       </v-col>

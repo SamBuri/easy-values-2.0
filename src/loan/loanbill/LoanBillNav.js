@@ -16,13 +16,13 @@ const loanBillNav = {
   //     meta: { auth: true },
   //   },
   // ],
-  routes: navUtils.allRoutes("loanbill", LoanBill, "loanbills", LoanBills, true),
+  routes: navUtils.allRoutes("loan-bill", LoanBill, "loan-bills", LoanBills, true, "loanbill"),
   menu: {
     id: "loan.loanbill",
     title: "Loan Bills",
     component: LoanBill,
-    path: "loanbills",
-    requires: navUtils.allRoles("loanbill"),
+    path: "loan-bills",
+    requires: navUtils.allRoles("loan-bills"),
     width: "700px",
     editHeaders: [
       { title: "Loan", key: "loan.id" },
@@ -77,9 +77,10 @@ const loanBillNav = {
     // ],
     children: navUtils.createViewChildren(
       "loan",
-      "loanbill",
-      "loanbills",
-      false
+      "loan-bills",
+      "loan-bills",
+      false,
+      "loanbill"
     ),
   },
 };

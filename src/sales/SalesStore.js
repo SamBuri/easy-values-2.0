@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
-import {defineRootStore} from "@/root/RootStore"
-export const defineSalesStore = defineStore("sales", {
+import { defineRootStore } from "saburi-vue-utils";export const defineSalesStore = defineStore("sales", {
   state: () => ({
-    path: "salesenums",
+    path: "sales-enums",
     engagementModes: [],
     engagementModesLoading: false,
     engagementReasons: [],
@@ -18,7 +17,7 @@ export const defineSalesStore = defineStore("sales", {
     async getEngagementModes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        `${this.path}/engagementmodes`,
+        `${this.path}/engagement-modes`,
         () => {
           this.engagementModesLoading = true;
           this.engagementModes = [];
@@ -34,7 +33,7 @@ export const defineSalesStore = defineStore("sales", {
     async getEngagementReasons() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        `${this.path}/engagementreasons`,
+        `${this.path}/engagement-reasons`,
         () => {
           this.engagementReasonsLoading = true;
           this.engagementReasons = [];
@@ -50,7 +49,7 @@ export const defineSalesStore = defineStore("sales", {
     async getRefundTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        `${this.path}/refundtypes`,
+        `${this.path}/refund-types`,
         () => {
           this.refundTypesLoading = true;
           this.refundTypes = [];
@@ -66,7 +65,7 @@ export const defineSalesStore = defineStore("sales", {
     async getWriteOffTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        `${this.path}/writeofftypes`,
+        `${this.path}/write-off-types`,
         () => {
           this.writeOffTypesLoading = true;
           this.writeOffTypes = [];

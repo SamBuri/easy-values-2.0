@@ -42,7 +42,7 @@ data.push({ text: "Category Name", value: this.accountCategory.categoryName });
 },
 
 },
-path:"accountcategories",
+path:"account-categories",
 rules: {
 accountType:[(v) => !!v || "Account Type is required",
  ],parentCategoryId:[],

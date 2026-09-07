@@ -43,7 +43,7 @@ data.push({ text: "Withholding Tax Account", value: this.customerGroup.withholdi
 
 
 },
-path:"customergroups",
+path:"customer-groups",
 rules: {
 customerGroup:[(v) => !!v || "Customer Group is required",
 (v) => v.length < 40 || "Customer Group length must be less or equal to 40", ],receivableAccountId:[(v) => !!v || "Receivable Account is required",

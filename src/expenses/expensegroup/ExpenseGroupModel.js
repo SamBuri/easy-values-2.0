@@ -46,7 +46,7 @@ data.push({ text: "Alert Percent", value: this.expenseGroup.alertPercent });
 
 
 },
-path:"expensegroups",
+path:"expense-groups",
 rules: {
 itemCategoryId:[(v) => !!v || "Item Category is required",
  ],glAccountId:[(v) => !!v || "Gl Account is required",

@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import financialPeriodNav from './FinancialPeriodNav';
+import { httpMethods } from "saburi-vue-utils";import financialPeriodNav from './FinancialPeriodNav';
 export default {
     namespaced: true,
     state: {

@@ -3,14 +3,14 @@ import ExchangeRates from "./ExchangeRates.vue";
 import { navUtils } from 'saburi-vue-utils';
 
 const exchangeRateNav = {
-  routes: navUtils.allRoutes("exchangerate", ExchangeRate, "exchangerates", ExchangeRates, true),
+  routes: navUtils.allRoutes("exchange-rate", ExchangeRate, "exchange-rates", ExchangeRates, true, "exchangerate"),
   menu: {
     id: "lookup.exchangerate",
     title: "Exchange Rates",
     component: ExchangeRate,
-    path: "exchangerates",
+    path: "exchange-rates",
     icon: "mdi-cash-sync",
-    requires: navUtils.allRoles("exchangerate"),
+    requires: navUtils.allRoles("exchange-rates"),
     width: "700px",
     editHeaders: [
       { title: "Currency", key: "currencyCode" },
@@ -41,7 +41,7 @@ const exchangeRateNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: navUtils.allChildren("lookup", "exchangerate", "exchangerates", false)
+    children: navUtils.allChildren("lookup", "exchange-rates", "exchange-rates", false, "exchangerate")
 }
 };
 

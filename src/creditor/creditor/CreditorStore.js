@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import creditorNav from "./CreditorNav";
-import {defineRootStore} from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
    export const defineCreditorStore = defineStore("creditor", {
  
 state: () => ({

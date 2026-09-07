@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import profileNav from "./ProfileNav";
-import {defineRootStore} from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
    export const defineProfileStore = defineStore("profile", {
 
 state: () => ({

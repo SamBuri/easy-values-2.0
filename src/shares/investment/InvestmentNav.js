@@ -23,7 +23,7 @@ const investmentNav = {
                 title: "Investments",
                 component: Investment,
                 path: "investments",
-                requires: navUtils.allRoles("investment"),
+                requires: navUtils.allRoles("investments"),
                 icon: "mdi-cash-multiple",
                 width: "700px",
                 editHeaders: [{ title: "Shareholder", key: "shareholder.id" },
@@ -57,7 +57,7 @@ const investmentNav = {
                 { title: "GL Posted", key: "glPosted", }
         ],
               
-                children: navUtils.createViewChildren("shares", "investment", "investments", true),
+                children: navUtils.allChildren("shares", "investments", "investments", false, "investment"),
         }
 }
 export default investmentNav;

@@ -56,7 +56,7 @@ const profilePictureModel = {
       return data;
     },
   },
-  path: "profilepictures",
+  path: "profile-pictures",
   rules: {
     profileId: [(v) => !!v || "Profile is required"],
     name: [

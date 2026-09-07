@@ -50,7 +50,7 @@ data.push({ text: "Amount", value: this.bankTransaction.amount });
 },
 
 },
-path:"banktransactions",
+path:"bank-transactions",
 rules: {
 bankAccount:[(v) => !!v || "Bank Account is required",
  ],currencyId:[(v) => !!v || "Currency is required",

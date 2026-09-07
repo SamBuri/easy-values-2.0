@@ -25,7 +25,7 @@ const journalNav = {
                 component: Journal,
                 path: "journals",
                 icon: "mdi-book-open-page-variant",
-                requires: navUtils.allRoles("journal"),
+                requires: navUtils.allRoles("journals"),
                 width: "1000px",
                 editHeaders: [{ title: "Financial Period Id", key: "financialPeriodId" },
                 { title: "Tran Date", key: "tranDate", isDate: true },
@@ -58,12 +58,7 @@ const journalNav = {
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", },
                 { title: "Modified By", key: "modifiedBy", }],
-                // children: [{ id: "accounting.journal.view", title: "View", to: { name: "journals", } },
-                // { id: "accounting.journal.new", title: "New", to: { name: "journal", params: { mode: 0 } } },
-                // { id: "accounting.journal.edit", title: "Edit", to: { name: "journal", params: { mode: 1 } } },
-                // { id: "accounting.journal.history", title: "History", to: { name: "journal", params: { mode: 2 } } },
-                // ]
-                children: navUtils.allChildren('accounting', 'journal', 'journals', false),
+                children: navUtils.allChildren('accounting', 'journals', 'journals', false, 'journal'),
         }
 }
 export default journalNav;

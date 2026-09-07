@@ -16,14 +16,14 @@ const bankTransactionNav = {
   //     meta: { auth: true },
   //   },
   // ],
-  routes: navUtils.allRoutes("banktransaction",BankTransaction,"banktransactions",BankTransactions,true),
+  routes: navUtils.allRoutes("bank-transaction", BankTransaction, "bank-transactions", BankTransactions, true, "banktransaction"),
   menu: {
     id: "banking.banktransaction",
     title: "Bank Transactions",
     component: BankTransaction,
-    path: "banktransactions",
+    path: "bank-transactions",
     icon:"mdi-cash-multiple",
-    requires: navUtils.allRoles("banktransaction"),
+    requires: navUtils.allRoles("bank-transactions"),
     width: "700px",
     editHeaders: [
       { title: "Bank Account", key: "bankAccount.bankAccountName" },
@@ -85,7 +85,7 @@ const bankTransactionNav = {
     //   },
     // ],
 
-    children: navUtils.createViewChildren('banktransactions', 'banktransaction', 'banktransactions', false),
+    children: navUtils.createViewChildren('banking', 'bank-transactions', 'bank-transactions', false, 'banktransaction'),
   },
 };
 export default bankTransactionNav;

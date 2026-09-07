@@ -24,10 +24,10 @@ const customerLedgerNav = {
                 id: "customer.customerledger",
                 title: "Customer Ledgers",
                 component: CustomerLedger,
-                path: "customerledgers",
+                path: "customer-ledgers",
                 to: {name: "customerledgers"},
                 icon: " mdi-format-list-bulleted-square",
-                requires: navUtils.allRoles("customerledger"),
+                requires: navUtils.viewRoles("customer-ledgers"),
                 width: "700px",
                 editHeaders: [
                 { title: "Tran Date", key: "tranDate" , isDate: true },

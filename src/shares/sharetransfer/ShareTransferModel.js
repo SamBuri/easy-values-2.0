@@ -59,7 +59,7 @@ data.push({ text: "Amount", value: this.shareTransfer.amount });
 
 
 },
-path:"sharetransfers",
+path:"share-transfers",
 rules: {
 transferFromId:[(v) => !!v || "Transfer From is required",
  ],transferFromName:[(v) => !!v || "Transfer From Name is required",

@@ -46,7 +46,7 @@ data.push({ text: "Expense Account", value: this.businessSectionAccount.expenseA
 },
 
 },
-path:"businesssectionaccounts",
+path:"business-section-accounts",
 rules: {
 name:[(v) => !!v || "Name is required",
 (v) => v.length < 100 || "Name length must be less or equal to 100", ],businessSectionId:[(v) => !!v || "Business Section is required",

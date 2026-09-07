@@ -17,13 +17,13 @@ const bankTransferNav = {
   //     meta: { auth: true },
   //   },
   // ],
-  routes: navUtils.allRoutes('banktransfer', BankTransfer, 'banktransfers', BankTransfers, true),
+  routes: navUtils.allRoutes("bank-transfer", BankTransfer, "bank-transfers", BankTransfers, true, "banktransfer"),
   menu: {
     id: "banking.banktransfer",
     title: "Bank Transfers",
     component: BankTransfer,
-    path: "banktransfers",
-    requires: navUtils.allRoles('banktransfer'),
+    path: "bank-transfers",
+    requires: navUtils.allRoles("bank-transfers"),
     width: "1000px",
     editHeaders: [
       { title: "From Account Type", key: "fromAccountType" },
@@ -90,7 +90,7 @@ const bankTransferNav = {
     //     to: { name: "banktransfer", params: { mode: 2 } },
     //   },
     // ],
-    children: navUtils.createViewChildren('banking', 'banktransfer', 'banktransfers', false)
+    children: navUtils.createViewChildren('banking', 'bank-transfers', 'bank-transfers', false, 'banktransfer')
   },
 };
 export default bankTransferNav;

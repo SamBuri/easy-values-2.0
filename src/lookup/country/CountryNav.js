@@ -10,7 +10,7 @@ const countryNav = {
     component: Country,
     path: "countries",
     icon: "mdi-earth",
-    requires: navUtils.allRoles("country"),
+    requires: navUtils.allRoles("countries"),
     width: "700px",
     editHeaders: [
       { title: "Country Name", key: "countryName" },
@@ -41,7 +41,7 @@ const countryNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: navUtils.allChildren("lookup", "country", "countries", false)
+    children: navUtils.allChildren("lookup", "countries", "countries", false, "country")
 }
 };
 export default countryNav;

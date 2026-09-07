@@ -1,5 +1,4 @@
-import httpMethods from '../utils/HttpMethods'
-import invoice from './invoice/invoice.js'
+import { httpMethods } from "saburi-vue-utils";import invoice from './invoice/invoice.js'
 import invoicedetail from './invoicedetail/invoicedetail.js'
 import receipt from './receipt/receipt.js'
 import refund from './refund/refund.js'

@@ -43,7 +43,7 @@ data.push({ text: "Withholding Tax Account", value: this.creditorGroup.withholdi
 
 
 },
-path:"creditorgroups",
+path:"creditor-groups",
 rules: {
 name:[(v) => !!v || "Name is required",
 (v) => v.length < 100 || "Name length must be less or equal to 100", ],creditAccountId:[(v) => !!v || "Credit Account is required",

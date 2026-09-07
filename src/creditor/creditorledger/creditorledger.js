@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import creditorLedgerNav from './CreditorLedgerNav';
+import { httpMethods } from "saburi-vue-utils";import creditorLedgerNav from './CreditorLedgerNav';
 export default {
 namespaced: true,
 state: {

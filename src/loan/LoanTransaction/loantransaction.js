@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-// import constants from '../../utils/constants';
+import { httpMethods } from "saburi-vue-utils";// import constants from '../../utils/constants';
 
 import funcs from "../../utils/funcs";
 import * as XLSX from 'xlsx/xlsx.mjs';

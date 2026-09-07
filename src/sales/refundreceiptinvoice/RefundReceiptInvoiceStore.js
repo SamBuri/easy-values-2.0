@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import refundReceiptInvoiceNav from "./RefundReceiptInvoiceNav";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 export const defineRefundReceiptInvoiceStore = defineStore(
   "refundReceiptInvoice",
   {

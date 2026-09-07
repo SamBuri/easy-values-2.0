@@ -38,7 +38,7 @@ data.push({ text: "Dividend Percent", value: this.shareType.dividendPercent });
 
 
 },
-path:"sharetypes",
+path:"share-types",
 rules: {
 name:[(v) => !!v || "Name is required",
 (v) => v.length < 40 || "Name length must be less or equal to 40", ],unitPrice:[(v) => !!v || "Unit Price is required",

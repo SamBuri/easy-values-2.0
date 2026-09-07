@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import customerGroupNav from "./CustomerGroupNav";
-import {defineRootStore} from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
    export const defineCustomerGroupStore = defineStore("customerGroup", {
  
 state: () => ({

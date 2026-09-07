@@ -15,7 +15,7 @@ const ledgerNav = {
                 id: "customerledger.ledger", title: "Ledger",
                 to: { name: "customerledger" },
                 icon: "mdi-view-list",
-                requires: navUtils.viewRoles("customerledger"),
+                requires: navUtils.viewRoles("customer-ledgers"),
         },
 
         headers: [
@@ -42,8 +42,8 @@ const ledgerNav = {
                 accountName: "",
                 startDate: funcs.addDays(new Date, -365),
                 endDate: new Date(),
-                path: `customerledgers/ledger`,
-                requires: navUtils.viewRoles("customerledger"),
+                path: `customer-ledgers/ledger`,
+                requires: navUtils.viewRoles("customer-ledgers"),
                 branches: [],
                 phoneNo: '',
                 address: '',

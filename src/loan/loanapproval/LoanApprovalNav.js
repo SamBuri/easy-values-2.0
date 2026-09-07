@@ -16,13 +16,13 @@ const loanApprovalNav = {
       meta: { auth: true },
     },
   ],
-  routes: navUtils.allRoutes("loanapproval", LoanApproval, "loanapprovals", LoanApprovals, true),
+  routes: navUtils.allRoutes("loan-approval", LoanApproval, "loan-approvals", LoanApprovals, true, "loanapproval"),
   menu: {
     id: "loan.loanapproval",
     title: "Loan Approvals",
     component: LoanApproval,
-    path: "loanapprovals",
-    requires: navUtils.allRoles("loanapproval"),
+    path: "loan-approvals",
+    requires: navUtils.allRoles("loan-approvals"),
     width: "1000px",
     editHeaders: [
       { title: "Loan Application", key: "loanApplication.id" },
@@ -108,9 +108,10 @@ const loanApprovalNav = {
     // ],
     children: navUtils.allChildren(
       "loan",
-      "loanapproval",
-      "loanapprovals",
-      true
+      "loan-approvals",
+      "loan-approvals",
+      true,
+      "loanapproval"
     ),
   },
 };

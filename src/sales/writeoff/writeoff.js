@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import writeOffNav from './WriteOffNav';
+import { httpMethods } from "saburi-vue-utils";import writeOffNav from './WriteOffNav';
 export default {
     namespaced: true,
     state: {

@@ -41,11 +41,11 @@ const salesNavData = {
             ...receiptNav.menu.requires,
             ...refundNav.menu.requires,
             ...invoiceNav.menu.requires,
-            ledgerNav.route.requires,
+            ...ledgerNav.menu.requires,
             ...customerNav.menu.requires,
             ...customerLedgerNav.menu.requires,
             ...engagementNav.menu.requires,
-            engagementPreviewNav.menu.requires,
+            ...engagementPreviewNav.menu.requires,
             ...customerGroupNav.menu.requires,
             ...customerGroupItemCategoryNav.menu.requires,
 

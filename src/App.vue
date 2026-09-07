@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-navigation-drawer app v-model="drawer" :width="300" color="primary" v-if="authStore.authenticated && tenantStore.firstTenant">
+    <v-navigation-drawer app v-model="drawer" :width="300" color="primary" v-if="authStore.authenticated">
       <SideBarNav :nav-items="navData.tree" :capitalize="true" variant="list" density="comfortable" title-class="text-subtitle-1" />
     </v-navigation-drawer>
 
-    <v-app-bar app flat border v-if="authStore.authenticated && tenantStore.firstTenant">
+    <v-app-bar app flat border v-if="authStore.authenticated">
       <v-app-bar-nav-icon @click="drawer = !drawer" />
 
       <v-toolbar-title class="font-weight-bold mr-3">Easy Values</v-toolbar-title>
@@ -24,6 +24,7 @@
       </div>
 
       <top-right-menu :menu-items="[
+        { title: 'Organisation Profile', icon: 'mdi-office-building-cog', to: '/organisation-profile' },
         { title: 'Security Profile', icon: 'mdi-shield-account', to: '/profile' }
       ]" />
     </v-app-bar>
@@ -34,31 +35,25 @@
       </v-container>
     </v-main>
 
-    <v-footer app border v-if="authStore.authenticated && tenantStore.firstTenant" class="d-flex justify-center pa-2">
+    <v-footer app border v-if="authStore.authenticated" class="d-flex justify-center pa-2">
       <span class="text-caption text-grey">© Powered by Capidattex Consults Ltd</span>
     </v-footer>
   </v-app>
 </template>
 
 <script setup>
-import { SideBarNav } from 'saburi-vue-utils';
+import { SideBarNav, TopRightMenu, useThemeResolver } from 'saburi-vue-utils';
 import navData from './nav/NavData';
 import CurrentBranch from './organisation/branch/CurrentBranch.vue';
-// import LoadingPage from './views/LoadingPage.vue';
 import { useAuthStore } from './store/authstore';
 import { defineBranchStore } from './organisation/branch/BranchStore';
-import { defineTenantStore } from './organisation/tenant/TenantStore';
 import { ref, onMounted } from 'vue';
-import { inject } from 'vue';
-const keycloak = inject('keycloak')
 
-console.log("Injected Keycloak", keycloak);
-
-const drawer = ref(false);
+const drawer = ref(null);
 const authStore = useAuthStore();
 const branchStore = defineBranchStore();
-const tenantStore = defineTenantStore();
 const currentBranchDialog = ref(false);
+const { resolveAndApply } = useThemeResolver();
 
 const closeCurrentBranch = () => {
   currentBranchDialog.value = false;
@@ -66,35 +61,29 @@ const closeCurrentBranch = () => {
 
 onMounted(async () => {
   try {
-    await tenantStore.getFirstTenant();
-   if(!branchStore.currentBranch) currentBranchDialog.value = true;
-
+    await resolveAndApply();
+    if(authStore.authenticated && !branchStore.currentBranch) currentBranchDialog.value = true;
   } catch (e) {
     console.error('Failed to initialize app:', e);
-
   }
 });
 </script>
 
 <style>
-tbody tr:nth-of-type(even) {
-  background-color: rgba(236, 237, 237);
+/* Theme-aware alternating table row background */
+.v-table .v-table__wrapper > table > tbody > tr:nth-of-type(even) {
+  background-color: rgba(var(--v-theme-on-surface), 0.02);
 }
 
-tbody tr:nth-of-type(odd) {
-  background-color: rgb(250, 250, 250);
+.v-table .v-table__wrapper > table > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(var(--v-theme-on-surface), 0.04);
 }
 
-.v-data-table-header {
-  background-color: rgba(182, 183, 187);
-  color: white;
+.v-table .v-table__wrapper > table > tbody > tr:hover {
+  background-color: rgba(var(--v-theme-primary), 0.08) !important;
 }
 
-.v-data-footer {
-  background-color: rgb(250, 250, 250);
-}
-
-.theme--light.v-data-table thead tr th {
-  color: white;
+.v-data-table-header th {
+  font-weight: 600 !important;
 }
 </style>

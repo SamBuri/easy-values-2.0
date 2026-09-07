@@ -17,19 +17,20 @@ const creditorGroupNav = {
   //   },
   // ],
   routes: navUtils.allRoutes(
-    "creditorgroup",
+    "creditor-group",
     CreditorGroup,
-    "creditorgroups",
+    "creditor-groups",
     CreditorGroups,
-    true
+    true,
+    "creditorgroup"
   ),
   menu: {
     id: "creditor.creditorgroup",
     title: "Creditor Groups",
     component: CreditorGroup,
-    path: "creditorgroups",
+    path: "creditor-groups",
     icon: "mdi-account-group",
-    requires: navUtils.allRoles("creditorgroup"),
+    requires: navUtils.allRoles("creditor-groups"),
     width: "700px",
     editHeaders: [
       { title: "Name", key: "name" },
@@ -46,6 +47,7 @@ const creditorGroupNav = {
         // sortable: false,
         key: "id",
       },
+      { title: "Name", key: "name" },
       { title: "Credit Account", key: "creditAccount" },
       { title: "Discount Account", key: "discountAccount" },
       { title: "Debt Relief Account", key: "debtReliefAccount" },
@@ -66,33 +68,13 @@ const creditorGroupNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    // children: [
-    //   {
-    //     id: "creditor.creditorGroup.view",
-    //     title: "View",
-    //     to: { name: "creditorgroups" },
-    //   },
-    //   {
-    //     id: "creditor.creditorGroup.new",
-    //     title: "New",
-    //     to: { name: "creditorgroup", params: { mode: 0 } },
-    //   },
-    //   {
-    //     id: "creditor.creditorGroup.edit",
-    //     title: "Edit",
-    //     to: { name: "creditorgroup", params: { mode: 1 } },
-    //   },
-    //   {
-    //     id: "creditor.creditorGroup.history",
-    //     title: "History",
-    //     to: { name: "creditorgroup", params: { mode: 2 } },
-    //   },
-    // ],
+
     children: navUtils.allChildren(
       "creditor",
-      "creditorgroup",
-      "creditorgroups",
-      false
+      "creditor-groups",
+      "creditor-groups",
+      false,
+      "creditorgroup"
     ),
   },
 };

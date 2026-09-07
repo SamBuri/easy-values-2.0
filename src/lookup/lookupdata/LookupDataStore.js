@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
-import httpMethods from "@/utils/HttpMethods";
 import lookupobjects from '../lookupobject/lookupobjects';
 import lookupDataNav from "./LookupDataNav";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 export const defineLookupDataStore = defineStore("lookupdata", {
   state: () => ({
     path: lookupDataNav.menu.path,
@@ -171,7 +170,7 @@ export const defineLookupDataStore = defineStore("lookupdata", {
 
      },
 
-  
+
 
 
 

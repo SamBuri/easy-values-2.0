@@ -17,20 +17,21 @@ const loanBillDetailNav = {
   //   },
   // ],
   routes: navUtils.allRoutes(
-    "loanbilldetail",
+    "loan-bill-detail",
     LoanBillDetail,
-    "loanbilldetails",
+    "loan-bill-details",
     LoanBillDetails,
-    true
+    true,
+    "loanbilldetail"
   ),
   menu: {
     id: "loan.loanbilldetail",
     title: "Loan Bill Details",
     component: LoanBillDetail,
-    path: "loanbilldetails",
+    path: "loan-bill-details",
     icon: "mdi-view-list",
     to: { name: "loanbilldetails" },
-    requires: navUtils.allRoles("loanbill"),
+    requires: navUtils.allRoles("loan-bill-details"),
     width: "700px",
     editHeaders: [
 

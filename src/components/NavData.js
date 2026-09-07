@@ -1,4 +1,5 @@
 import organisationNavData from '../organisation/OrganisationNavData'
+import onboardingNavData from '../onboarding/OnboardingNavData'
 import accountingNavData from '../accounting/AccountingNavData'
 import customerNavData from '../customer/CustomerNavData'
 import lookupNavData from '../lookup/LookupNavData'
@@ -17,6 +18,7 @@ export default [
   
         
           customerNavData.nav,
+          onboardingNavData.nav,
           salesNavData.nav,
           loanNavData.nav,
           bankingNavData.nav,

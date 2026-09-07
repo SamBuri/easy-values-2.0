@@ -1,25 +1,15 @@
 import BusinessSectionAccount from "./BusinessSectionAccount.vue";
 import BusinessSectionAccounts from "./BusinessSectionAccounts.vue";
+import { navUtils } from "saburi-vue-utils";
+
 const businessSectionAccountNav = {
-  routes: [
-    {
-      path: "/businesssectionaccount/:mode",
-      name: "businesssectionaccount",
-      component: BusinessSectionAccount,
-      meta: { auth: true },
-    },
-    {
-      path: "/businesssectionaccounts",
-      name: "businesssectionaccounts",
-      component: BusinessSectionAccounts,
-      meta: { auth: true },
-    },
-  ],
+  routes: navUtils.allRoutes("business-section-account", BusinessSectionAccount, "business-section-accounts", BusinessSectionAccounts, true, "businesssectionaccount"),
   menu: {
     id: "accounting.businesssectionaccount",
     title: "Business Section Accounts",
     component: BusinessSectionAccount,
-    path: "businesssectionaccounts",
+    path: "business-section-accounts",
+    requires: navUtils.allRoles("business-section-accounts"),
     width: "700px",
     editHeaders: [
       { title: "Name", key: "name" },
@@ -57,28 +47,7 @@ const businessSectionAccountNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "accounting.businessSectionAccount.view",
-        title: "View",
-        to: { name: "businesssectionaccounts" },
-      },
-      {
-        id: "accounting.businessSectionAccount.new",
-        title: "New",
-        to: { name: "businesssectionaccount", params: { mode: 0 } },
-      },
-      {
-        id: "accounting.businessSectionAccount.edit",
-        title: "Edit",
-        to: { name: "businesssectionaccount", params: { mode: 1 } },
-      },
-      {
-        id: "accounting.businessSectionAccount.history",
-        title: "History",
-        to: { name: "businesssectionaccount", params: { mode: 2 } },
-      },
-    ],
+    children: navUtils.allChildren("accounting", "business-section-accounts", "business-section-accounts", false, "businesssectionaccount"),
   },
 };
 export default businessSectionAccountNav;

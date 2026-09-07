@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
-import {defineRootStore} from "@/root/RootStore"
-export const defineAccountingStore = defineStore("accounting", {
+import { defineRootStore } from "saburi-vue-utils";export const defineAccountingStore = defineStore("accounting", {
   state: () => ({
-    path: "accountingenums",
+    path: "accounting-enums",
     accountTypes: [],
     accountTypesLoading: false,
   }),
@@ -11,7 +10,7 @@ export const defineAccountingStore = defineStore("accounting", {
     async getAccountTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        `${this.path}/accounttypes`,
+        `${this.path}/account-types`,
         () => {
           this.accountTypesLoading = true;
           this.accountTypes = [];

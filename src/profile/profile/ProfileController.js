@@ -2,12 +2,15 @@ import rootController from "@/root/RootController";
 import profileModel from "./ProfileModel";
 import { ref,onMounted, watch, computed } from "vue";
 import funcs from '../../utils/funcs'
-import { defineProfileStore } from "@/profile/ProfileStore.js"
+import { defineProfileEnumStore } from "@/profile/ProfileStore.js"
 import { defineLookupStore } from "@/lookup/LookupStore.js"
 import { defineLookupDataStore } from "@/lookup/lookupdata/LookupDataStore.js"
 import { defineCountryStore } from "@/lookup/country/CountryStore.js"
 import profilePictureController from "@/profile/profilepicture/ProfilePictureController.js";
 import { defineProfilePictureStore } from "../profilepicture/ProfilePictureStore";
+import { defineCustomerGroupStore } from "@/sales/customergroup/CustomerGroupStore";
+import { defineCreditorGroupStore } from "@/creditor/creditorgroup/CreditorGroupStore.js";
+import { defineAccountStore } from "@/accounting/account/AccountStore.js";
 export default function profileController() {
 
   const hooks = {
@@ -22,7 +25,7 @@ export default function profileController() {
   };
 
   const controller = rootController(profileModel, null, hooks);
-  const profileStore = defineProfileStore();
+  const profileStore = defineProfileEnumStore();
   controller.profileStore = profileStore;
   const lookupStore = defineLookupStore();
   controller.lookupStore = lookupStore;
@@ -30,6 +33,15 @@ export default function profileController() {
   controller.lookupDataStore = lookupDataStore;
   const countryStore = defineCountryStore();
   controller.countryStore = countryStore;
+  
+  const customerGroupStore = defineCustomerGroupStore();
+  controller.customerGroupStore = customerGroupStore;
+  
+  const creditorGroupStore = defineCreditorGroupStore();
+  controller.creditorGroupStore = creditorGroupStore;
+  
+  const accountStore = defineAccountStore();
+  controller.accountStore = accountStore;
   onMounted(() => {
     profileStore.getProfileTypes();
 
@@ -46,6 +58,10 @@ export default function profileController() {
     lookupStore.getWorkTypes();
 
     lookupDataStore.getBusinessCategories();
+
+    customerGroupStore.getMini();
+    creditorGroupStore.getMini();
+    accountStore.getEquityAccounts();
 
 
   })

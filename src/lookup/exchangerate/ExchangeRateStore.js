@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 
 export const defineExchangeRateStore = defineStore("exchangeRate", {
   state: () => ({
-    path: "exchangerates",
+    path: "exchange-rates",
     mini: [],
     miniLoading: false
 }),

@@ -1,52 +1,30 @@
 
-import { computed, ref, onMounted } from "vue";
-import { defineTenantStore } from "../tenant/TenantStore";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { defineBranchStore } from "./BranchStore";
 
 export default function currentBranchController(props){
-
-
-  // const emit = defineEmits('close')
-  const tenantStore = defineTenantStore();
-
-
   const branchStore = defineBranchStore();
+  const selectedItem = ref('');
+  const router = useRouter();
 
-  const tenant = computed(()=>  tenantStore.firstTenant)
+  onMounted(() => {
+    branchStore.getCurrentUserBranches();
+  });
 
+  const set = () => {
+    let branches = branchStore.currentUserBranches || [];
+    let selectedBranch = branches[selectedItem.value] || selectedItem.value;
+    branchStore.setCurrentBranch(selectedBranch);
 
-const selectedItem = ref('')
-const router = useRouter();
+    if (props && props.dialog) {
+      // close dialog
+    } else {
+      router.push({name: "dashboard"});
+    }
+  };
 
-// selectCurrentBranch() {
-//   if (this.currentBranch) {
-//     this.selectedItem = this.branches.map((b) => b.id).indexOf(this.currentBranch.id);
-//   }
-// }
-
-onMounted(() => {
- branchStore.getCurrentUserBranches();
-  
-});
-
-const set= ()=> {
-
-  let branches = tenant.value.branches
-  let selectedBranch = branches[selectedItem.value];
-  console.log(selectedBranch)
-   branchStore.setCurrentBranch(selectedBranch);
-  
-
-  if (props.dialog) {
-    emit('close');
-  }else{
-    router.push({name: "dashboard"})
-  }
-};
-
-return {tenant, set, selectedItem}
-
+  return { set, selectedItem };
 }
 
 

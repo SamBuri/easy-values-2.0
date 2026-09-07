@@ -206,13 +206,14 @@ const today = now.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric'
 /* ── Root ──────────────────────────────────────────────── */
 .dashboard-root {
   min-height: 100vh;
-  background: #f4f6f9;
+  background: rgb(var(--v-theme-background));
+  color: rgb(var(--v-theme-on-background));
 }
 
 /* ── Hero ──────────────────────────────────────────────── */
 .dashboard-hero {
   position: relative;
-  background: linear-gradient(135deg, rgb(var(--v-theme-primary)) 0%, rgb(var(--v-theme-navy)) 100%);
+  background: linear-gradient(135deg, rgb(var(--v-theme-primary)) 0%, rgb(var(--v-theme-surface-variant)) 100%);
   padding: 36px 32px 48px;
   overflow: hidden;
   color: white;
@@ -264,7 +265,7 @@ const today = now.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric'
 .dashboard-body {
   margin-top: -20px;
   border-radius: 20px 20px 0 0;
-  background: #f4f6f9;
+  background: rgb(var(--v-theme-background));
 }
 
 /* ── Section Headers ───────────────────────────────────── */
@@ -279,7 +280,7 @@ const today = now.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric'
   text-transform: uppercase;
   letter-spacing: 1px;
   color: rgb(var(--v-theme-primary));
-  opacity: 0.8;
+  opacity: 0.9;
 }
 .section-line {
   flex: 1;
@@ -301,7 +302,8 @@ const today = now.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric'
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
 }
 .card-wrap :deep(.v-card) {
-  background: white !important;
+  background: rgb(var(--v-theme-surface)) !important;
+  color: rgb(var(--v-theme-on-surface)) !important;
   border-radius: 10px !important;
   border: none !important;
 }
@@ -316,6 +318,10 @@ const today = now.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric'
 .summary-card-wrap:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+.summary-card-wrap :deep(.v-card) {
+  background: rgb(var(--v-theme-surface)) !important;
+  color: rgb(var(--v-theme-on-surface)) !important;
 }
 
 /* ── Calm blue-family accent borders ───────────────────── */

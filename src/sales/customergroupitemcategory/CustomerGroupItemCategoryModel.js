@@ -43,7 +43,7 @@ data.push({ text: "Expense Account", value: this.customerGroupItemCategory.expen
 
 
 },
-path:"customergroupitemcategories",
+path:"customer-group-item-categories",
 rules: {
 name:[(v) => !!v || "Name is required",
 (v) => v.length < 100 || "Name length must be less or equal to 100", ],customerGroupId:[(v) => !!v || "Customer Group is required",

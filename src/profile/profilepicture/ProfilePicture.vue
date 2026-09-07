@@ -1,16 +1,17 @@
 <script setup>
 import profilePictureController from "./ProfilePictureController";
 import funcs from "../../utils/funcs";
+const props = defineProps(["controller", "dialog", "retain", "buttonLabel"]);
 const cols = 12;
 const sm = 6;
 const md = 6;
-const controller = profilePictureController();
+const controller = props.controller || profilePictureController();
 
 const model = controller.model;
 const rules = controller.rules;
 </script>
 <template>
-  <crud-form :controller="controller">
+  <crud-form :controller="controller" :dialog="props.dialog" :retain="props.retain" :buttonLabel="props.buttonLabel">
     <template #heading>Profile Picture</template>
 
     <template #form-data>

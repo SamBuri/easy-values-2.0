@@ -30,7 +30,7 @@ const itemCategoryModel = {
   copy(obj){
     this.model = Object.assign({}, obj);
   },
-  path: "itemcategories",
+  path: "item-categories",
   rules:{
     itemCategory: [(v) => !!v || "Item Category is required",
     (v) => v.length < 40 || "Item Category length must be less or equal to 40",],

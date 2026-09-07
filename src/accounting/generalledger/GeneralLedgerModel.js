@@ -28,6 +28,6 @@ this.credit="";
 this.balance="";
 }
 },
-path:"generalledgers"}
+path:"general-ledgers"}
 
 export default generalLedgerModel;

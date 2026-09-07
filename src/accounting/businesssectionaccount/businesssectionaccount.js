@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import businessSectionAccountNav from './BusinessSectionAccountNav';
+import { httpMethods } from "saburi-vue-utils";import businessSectionAccountNav from './BusinessSectionAccountNav';
 export default {
 namespaced: true,
 state: {

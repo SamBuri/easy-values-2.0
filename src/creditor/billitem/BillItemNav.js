@@ -17,19 +17,20 @@ const billItemNav = {
   //   },
   // ],
   routes: navUtils.allRoutes(
-    "billitem",
+    "bill-item",
     BillItem,
-    "billitems",
+    "bill-items",
     BillItems,
-    true
+    true,
+    "billitem"
   ),
   menu: {
     id: "creditor.billitem",
     title: "Bill Items",
     component: BillItem,
-    path: "billitems",
+    path: "bill-items",
     to: { name: "billitems" },
-    requires: navUtils.allRoles("bill"),
+    requires: navUtils.allRoles("bill-items"),
     icon: "mdi-file-document-edit-outline",
     width: "700px",
     editHeaders: [

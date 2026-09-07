@@ -17,19 +17,20 @@ const loanProductNav = {
   //   },
   // ],
   routes: navUtils.allRoutes(
-    "loanproduct",
+    "loan-product",
     LoanProduct,
-    "loanproducts",
+    "loan-products",
     LoanProducts,
-    true
+    true,
+    "loanproduct"
   ),
   menu: {
     id: "loan.loanproduct",
     title: "Loan Products",
     component: LoanProduct,
-    path: "loanproducts",
+    path: "loan-products",
     icon: "mdi-product-hunt",
-    requires: navUtils.allRoles("loanproduct"),
+    requires: navUtils.allRoles("loan-products"),
     width: "1000px",
     editHeaders: [
       { title: "Product Name", key: "productName" },
@@ -120,9 +121,10 @@ const loanProductNav = {
     // ],
     children: navUtils.allChildren(
       "loan",
-      "loanproduct",
-      "loanproducts",
-      true
+      "loan-products",
+      "loan-products",
+      true,
+      "loanproduct"
     ),
   },
 };

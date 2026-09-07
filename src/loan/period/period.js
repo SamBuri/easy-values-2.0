@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import periodNav from './PeriodNav';
+import { httpMethods } from "saburi-vue-utils";import periodNav from './PeriodNav';
 export default {
 namespaced: true,
 state() {

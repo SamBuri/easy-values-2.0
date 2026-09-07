@@ -54,7 +54,7 @@ data.push({ text: "Bill Duration", value: this.loanProductCharge.billDuration })
 
 
 },
-path:"loanproductcharges",
+path:"loan-product-charges",
 rules: {
 loanProductId:[(v) => !!v || "Loan Product is required",
  ],itemId:[(v) => !!v || "Item is required",

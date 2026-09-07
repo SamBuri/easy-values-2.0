@@ -1,7 +1,7 @@
 import rootController from "@/root/RootController";
 import profilePictureModel from "./ProfilePictureModel";
 import { onMounted } from "vue";
-import { defineProfileStore } from "@/profile/ProfileStore";
+import { defineProfileEnumStore } from "@/profile/ProfileStore";
 import { defineProfilePictureStore } from "../profilepicture/ProfilePictureStore";
 
 export default function profilePictureController() {
@@ -17,7 +17,7 @@ export default function profilePictureController() {
     }
   };
   const controller = rootController(profilePictureModel, null, hooks);
-  const profileStore = defineProfileStore();
+  const profileStore = defineProfileEnumStore();
   controller.profileStore = profileStore;
 
   onMounted(() => {
@@ -32,12 +32,19 @@ export default function profilePictureController() {
   const setProfile = (profile) => {
     console.log("Profile", profile);
     model.profileId = "";
-      model.name ="";
-    if (model) {
+    model.name = "";
+    if (model && profile) {
       model.profileId = profile.id;
-      let otherName = profile.otherNames;
-      otherName = otherName?` ${otherName} `:''
-      model.name = `${profile.firstName} ${otherName} ${profile.lastName}`;
+      const profileType = profile.profileType && typeof profile.profileType === "object" ? profile.profileType.name : profile.profileType;
+      if (profile.display) {
+        model.name = profile.display;
+      } else if (profileType === "Organisation") {
+        model.name = profile.businessName || "";
+      } else {
+        let otherName = profile.otherNames;
+        otherName = otherName ? ` ${otherName} ` : ' ';
+        model.name = `${profile.firstName || ''}${otherName}${profile.lastName || ''}`.trim();
+      }
     }
   };
 

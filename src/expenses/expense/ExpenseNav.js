@@ -24,7 +24,7 @@ const expenseNav = {
                 component: Expense,
                 path: "expenses",
                 icon: "mdi-cash-remove",
-                requires: navUtils.allRoles("expense"),
+                requires: navUtils.allRoles("expenses"),
                 width: "1000px",
                 editHeaders: [{ title: "Tran Date", key: "tranDate", isDate: true },
                 { title: "Bank AccountType", key: "bankAccountType" },
@@ -58,7 +58,7 @@ const expenseNav = {
                 { title: "Created By", key: "createdBy", },
                 { title: "Modified By", key: "modifiedBy", }],
 
-                children: navUtils.allChildren('expenses', 'expense', 'expenses', false),
+                children: navUtils.allChildren('expenses', 'expenses', 'expenses', false, 'expense'),
         }
 }
 export default expenseNav;

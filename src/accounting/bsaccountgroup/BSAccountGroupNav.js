@@ -1,25 +1,15 @@
 import BSAccountGroup from "./BSAccountGroup.vue";
 import BSAccountGroups from "./BSAccountGroups.vue";
+import { navUtils } from "saburi-vue-utils";
+
 const bSAccountGroupNav = {
-  routes: [
-    {
-      path: "/bsaccountgroup/:mode",
-      name: "bsaccountgroup",
-      component: BSAccountGroup,
-      meta: { auth: true },
-    },
-    {
-      path: "/bsaccountgroups",
-      name: "bsaccountgroups",
-      component: BSAccountGroups,
-      meta: { auth: true },
-    },
-  ],
+  routes: navUtils.allRoutes("bs-account-group", BSAccountGroup, "bs-account-groups", BSAccountGroups, true, "bsaccountgroup"),
   menu: {
     id: "accounting.bsaccountgroup",
     title: "BS Account Groups",
     component: BSAccountGroup,
-    path: "bsaccountgroups",
+    path: "bs-account-groups",
+    requires: navUtils.allRoles("bs-account-groups"),
     width: "700px",
     editHeaders: [
       {
@@ -117,26 +107,7 @@ const bSAccountGroupNav = {
         field: "modifiedBy",
       },
     ],
-    children: [
-      {
-        id: "accounting.bSAccountGroup.new",
-        name: "New",
-        route: "bSAccountGroup",
-        mode: 0,
-      },
-      {
-        id: "accounting.bSAccountGroup.edit",
-        name: "Edit",
-        route: "bSAccountGroup",
-        mode: 1,
-      },
-      {
-        id: "accounting.bSAccountGroup.history",
-        name: "History",
-        route: "bSAccountGroup",
-        mode: 2,
-      },
-    ],
+    children: navUtils.allChildren("accounting", "bs-account-groups", "bs-account-groups", false, "bsaccountgroup"),
   },
 };
 export default bSAccountGroupNav;

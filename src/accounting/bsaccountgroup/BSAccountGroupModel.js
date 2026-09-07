@@ -12,6 +12,6 @@ this.equityAccount={id: ""};
 this.liabilityAccount={id: ""};
 }
 },
-path:"bsaccountgroups"}
+path:"bs-account-groups"}
 
 export default bSAccountGroupModel;

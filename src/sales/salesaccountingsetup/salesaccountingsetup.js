@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import salesAccountingSetupNav from './SalesAccountingSetupNav';
+import { httpMethods } from "saburi-vue-utils";import salesAccountingSetupNav from './SalesAccountingSetupNav';
 export default {
 namespaced: true,
 state() {

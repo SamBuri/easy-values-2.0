@@ -1,4 +1,6 @@
 import LookupObject from "./LookupObject.vue";
+import { navUtils } from "saburi-vue-utils";
+
 const lookupObjectNav = {
   route: {
     path: "/lookupObject/:mode",
@@ -8,9 +10,10 @@ const lookupObjectNav = {
   },
   menu: {
     id: "lookup.lookupobject",
-    title: "LookupObjects",
+    title: "Lookup Objects",
     component: LookupObject,
-    path: "lookupobjects",
+    path: "lookup-objects",
+    requires: navUtils.allRoles("lookup-objects"),
     width: "700px",
     editHeaders: [
       { title: "Object Name", key: "objectName" },

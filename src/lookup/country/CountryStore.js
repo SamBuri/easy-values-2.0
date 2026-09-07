@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import countryNav from "./CountryNav";
-import {defineRootStore} from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 
 export const defineCountryStore = defineStore("country", {
 

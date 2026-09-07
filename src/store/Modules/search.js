@@ -1,4 +1,4 @@
-import httpMethods from '../../utils/HttpMethods';
+import { httpMethods } from "saburi-vue-utils";
 export default {
     namespaced: true,
     state: {

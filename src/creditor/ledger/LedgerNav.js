@@ -20,7 +20,7 @@ const ledgerNav = {
     title: "Ledger",
     to: { name: "creditorledger" },
     icon: "mdi-book-open-page-variant",
-    requires: navUtils.allRoles("creditorledger"),
+    requires: navUtils.allRoles("creditor-ledgers"),
   },
 
   headers: [
@@ -39,7 +39,7 @@ const ledgerNav = {
     accountName: "",
     startDate: funcs.formatDate(funcs.addDays(funcs.today(), -30)),
     endDate: funcs.today(),
-    path: `creditorledgers/ledger`,
+    path: `creditor-ledgers/ledger`,
     branches: [],
     setData(data) {
       this.accountId = data.id;

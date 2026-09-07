@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import associatedProfileNav from './AssociatedProfileNav';
+import { httpMethods } from "saburi-vue-utils";import associatedProfileNav from './AssociatedProfileNav';
 export default {
     namespaced: true,
     state: {

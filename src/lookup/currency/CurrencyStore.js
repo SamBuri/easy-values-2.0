@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 
 export const defineCurrencyStore = defineStore("currency", {
   state: () => ({

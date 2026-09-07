@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import engagementNav from './EngagementNav';
+import { httpMethods } from "saburi-vue-utils";import engagementNav from './EngagementNav';
 import storeFuncs from '../../utils/storeFuncs';
 import engagementCriteria from './EngagementCriteria'
 export default {

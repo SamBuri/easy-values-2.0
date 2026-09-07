@@ -45,7 +45,7 @@ data.push({ text: "Loan Bill Details", value: this.loanBill.loanBillDetails.disp
 
 
 },
-path:"loanbills",
+path:"loan-bills",
 rules: {
 loanId:[(v) => !!v || "Loan is required",
  ],billDate:[(v) => !!v || "Bill Date is required",

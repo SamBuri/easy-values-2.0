@@ -13,7 +13,7 @@ const shLedgerNav = {
 
         menu:  { id: "shareholderledger.ledger", title: "Ledger",  to: {name:"shledger"}, 
         icon: "mdi-book-open-page-variant",
-        requires: navUtils.allRoles("shledger") },
+        requires: navUtils.viewRoles("shareholder-ledgers") },
 
         headers: [
         { title: "Tran Date", key: "tranDate", isDate:true },
@@ -29,7 +29,7 @@ const shLedgerNav = {
                ShName: "",
                startDate: funcs.formatDate(funcs.addDays( funcs.today(),-7)),
                endDate: funcs.today(),
-               path: `shareholderledgers/ledger/`,
+               path: `shareholder-ledgers/ledger`,
                branches: [],
         }
 

@@ -17,15 +17,15 @@ const customerGroupItemCategoryNav = {
         //         },
 
         // ],
-        routes: navUtils.allRoutes("customergroupitemcategory", CustomerGroupItemCategory, "customergroupitemcategories", CustomerGroupItemCategories, true),
+        routes: navUtils.allRoutes("customer-group-item-category", CustomerGroupItemCategory, "customer-group-item-categories", CustomerGroupItemCategories, true, "customergroupitemcategory"),
         menu: {
                 id: "sales.customergroupitemcategory",
                 title: "Customer Group Item Categories",
                 component: CustomerGroupItemCategory,
-                path: "customergroupitemcategories",
+                path: "customer-group-item-categories",
                 width: "700px",
                 icon: "mdi-format-list-group",
-                requires: navUtils.allRoles("customergroup"),
+                requires: navUtils.allRoles("customer-group-item-categories"),
                 editHeaders: [{ title: "Name", key: "name" },
                 { title: "Customer Group", key: "customerGroup.id" },
                 { title: "Item Category", key: "itemCategory", isNumeric: true },
@@ -52,7 +52,7 @@ const customerGroupItemCategoryNav = {
                 // { id: "sales.customerGroupItemCategory.edit", title: "Edit", to: { name: "customergroupitemcategory", params: { mode: 1 } }, icon: "mdi-pencil" },
                 // { id: "sales.customerGroupItemCategory.history", title: "History", to: { name: "customergroupitemcategory", params: { mode: 2 } }, icon: "mdi-history" },
                 // ]
-                children: navUtils.allChildren('sales', 'customergroupitemcategory', 'customergroupitemcategories', false),
+                children: navUtils.allChildren("sales", "customer-group-item-categories", "customer-group-item-categories", false, "customergroupitemcategory"),
         }
 }
 export default customerGroupItemCategoryNav;

@@ -5,11 +5,12 @@ FROM node:20-slim as build-stage
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package.json, package-lock.json and libs directory containing local tarballs
 COPY package*.json ./
+COPY libs/ ./libs/
 
 # Install dependencies
-RUN npm install
+RUN rm -f package-lock.json && npm install --legacy-peer-deps
 
 # Copy the rest of the application code
 COPY . .

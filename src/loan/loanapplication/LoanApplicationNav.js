@@ -17,18 +17,19 @@ const loanApplicationNav = {
   //   },
   // ],
   routes: navUtils.allRoutes(
-    "loanapplication",
+    "loan-application",
     LoanApplication,
-    "loanapplications",
+    "loan-applications",
     LoanApplications,
-    true
+    true,
+    "loanapplication"
   ),
   menu: {
     id: "loan.loanapplication",
     title: "Loan Applications",
     component: LoanApplication,
-    path: "loanapplications",
-    requires: navUtils.allRoles("loanapplication"),
+    path: "loan-applications",
+    requires: navUtils.allRoles("loan-applications"),
     icon: "mdi-application-edit",
     width: "1000px",
     miniHeaders: [
@@ -84,7 +85,7 @@ const loanApplicationNav = {
         title: "Guarantors", key: "guarantors",
 
         value: (item) => {
-          if (!item.guarantors || !item.guarantors.length) return 'None';
+          if (!item || !item.guarantors || !item.guarantors.length) return 'None';
           return item.guarantors.map(g => `${g.name} (${g.primaryPhoneNo})`).join(', ');
         }
       },
@@ -129,7 +130,7 @@ const loanApplicationNav = {
     //     icon: "mdi-history",
     //     to: { name: "loanapplication", params: { mode: 2 } },
     //   },
-    // ],
-    children: navUtils.createViewChildren ("loan", "loanapplication", "loanapplications", false),},
+    children: navUtils.createViewChildren("loan", "loan-applications", "loan-applications", false, "loanapplication"),
+  },
 };
 export default loanApplicationNav;

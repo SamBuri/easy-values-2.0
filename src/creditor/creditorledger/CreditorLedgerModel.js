@@ -24,6 +24,6 @@ this.credit="";
 this.balance="";
 }
 },
-path:"creditorledgers"}
+path:"creditor-ledgers"}
 
 export default creditorLedgerModel;

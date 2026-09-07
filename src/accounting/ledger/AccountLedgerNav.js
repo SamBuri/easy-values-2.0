@@ -16,7 +16,7 @@ const accountLedgerNav = {
     title: "Ledger",
     to: { name: "accountledger" },
     icon: "mdi-book-open-variant",
-    requires: navUtils.viewRoles("generalledger"),
+    requires: navUtils.viewRoles("general-ledgers"),
   },
 
   headers: [
@@ -33,7 +33,7 @@ const accountLedgerNav = {
     accountName: "",
     startDate: funcs.addDays(new Date(), -7),
     endDate: new Date(),
-    path: `generalledgers/ledger`,
+    path: `general-ledgers/ledger`,
     branches: [],
 
     clear(){

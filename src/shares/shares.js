@@ -1,5 +1,4 @@
-import httpMethods from '../utils/HttpMethods'
-// import constants from '../utils/constants'
+import { httpMethods } from "saburi-vue-utils";// import constants from '../utils/constants'
 import sharetype from './sharetype/sharetype'
 import shareholder from './shareholder/shareholder'
 import investment from './investment/investment'

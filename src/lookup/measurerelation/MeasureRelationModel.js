@@ -20,7 +20,7 @@ const measureRelationModel = {
       this.defaultUsage = obj.defaultUsage;
     },
   },
-  path: "measurerelations",
+  path: "measure-relations",
 
   rules: {
     measureGroup: [(v) => !!v || "Measure Group is required"],

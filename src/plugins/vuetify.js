@@ -14,4 +14,7 @@ export default createVuetify({
     ...labsComponents,
   },
   directives,
+  theme: {
+    ...saburiVuetifyConfig.theme,
+  }
 })

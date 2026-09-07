@@ -13,7 +13,7 @@ copy(obj){
 
   }
 },
-path:"measuregroups",
+path:"measure-groups",
 rules: {
 measureGroupName:[(v) => !!v || "Measure Group Name is required",
 (v) => v.length < 100 || "Measure Group Name length must be less or equal to 100", ],measureRelation:[(v) => !!v || "Measure Relation is required",

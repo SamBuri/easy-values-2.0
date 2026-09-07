@@ -1,9 +1,7 @@
 import { defineStore } from "pinia";
-import httpMethods from "@/utils/HttpMethods";
+import { defineRootStore, fetchAndPopulate } from "saburi-vue-utils";
 import branchNav from './BranchNav';
-// import { defineTenantStore } from "../tenant/TenantStore";
-// import { useAuthStore } from "@/store/authstore";
-import { defineRootStore } from "@/root/RootStore";
+
 export const defineBranchStore = defineStore("branch", {
   state: () => ({
     path: branchNav.menu.path,
@@ -51,76 +49,79 @@ export const defineBranchStore = defineStore("branch", {
   },
 
   actions: {
+    async setCurrentUserBranches(branches, defaultBranchId = null) {
+      console.log("Setting Current User Branches: ", branches, "defaultBranchId:", defaultBranchId);
+      if (!branches || branches.length === 0) {
+        this.currentUserBranches = [];
+        this.currentBranch = null;
+        this.currentUserCompany = null;
+        this.branchName = 'No Branch';
+        return [];
+      }
 
-    setCurrentUserBranches(branches) {
+      this.currentUserBranchesLoading = true;
+      try {
+        const rootStore = defineRootStore();
+        const res = await rootStore.postNoHeaders(`${this.path}/mini/ids`, branches);
+        console.log("Branch Ids Response: ", res);
+        const branchList = Array.isArray(res) ? res : (res?.entity || res?.data || []);
+        this.currentUserBranches = Array.isArray(branchList) ? branchList : [];
 
-        console.log("Setting Current User Branches: ", branches);
-
-         httpMethods.postNoHeaders(`${this.path}/mini/ids`, branches)
-          .then(res => {
-            console.log("Branch Ids Response: ", res);
-
-            this.currentUserBranches = res.data;
-
-          if (this.currentUserBranches.length > 0) {
-            this.setCurrentBranch(this.currentUserBranches[0])
+        if (this.currentUserBranches.length > 0) {
+          let matched = null;
+          if (defaultBranchId) {
+            matched = this.currentUserBranches.find(b => String(b.id) === String(defaultBranchId));
           }
-          else this.currentUserCompany = null;
-
-          }).catch(error => {
-            console.log("Error fetching branches by ids: ", error);
-          }).finally(() => {
-            this.currentUserBranchesLoading = false;
-          });
-
+          if (!matched && this.currentBranch) {
+            matched = this.currentUserBranches.find(b => String(b.id) === String(this.currentBranch.id));
+          }
+          this.setCurrentBranch(matched || this.currentUserBranches[0]);
+        } else {
+          this.currentBranch = null;
+          this.currentUserCompany = null;
+          this.branchName = 'No Branch';
+        }
+        return this.currentUserBranches;
+      } catch (error) {
+        console.error("Error fetching branches by ids: ", error);
+        return [];
+      } finally {
+        this.currentUserBranchesLoading = false;
+      }
     },
 
     getUserBranchName(branchId) {
-      if(!branchId) return '';
+      if (!branchId) return '';
       let branches = this.currentUserBranches;
-      let branch = branches?.find(b => b.id === branchId.trim());
+      let branch = branches?.find(b => String(b.id) === String(branchId).trim());
       console.log("Branch ID:", branchId, "Found Branch:", branch);
-      return branch ? branch.branchName : 'UnKnown Branch';
+      return branch ? branch.branchName : 'Unknown Branch';
     },
 
     setCurrentBranch(currentBranch) {
-      this.currentBranch = currentBranch;
-      this.currentUserCompany = this.currentBranch?.company;
+      if (!currentBranch) {
+        this.currentBranch = null;
+        this.currentUserCompany = null;
+        this.branchName = 'No Branch';
+        return;
+      }
+      const orgType = currentBranch.organisationType || currentBranch.company?.organisationType || null;
+      this.currentBranch = {
+        ...currentBranch,
+        organisationType: orgType,
+        organisationId: currentBranch.company?.id || currentBranch.organisationId || null,
+        organisationName: currentBranch.company?.companyName || currentBranch.organisationName || null,
+      };
+      this.currentUserCompany = currentBranch.company || null;
+      this.branchName = currentBranch.branchName || 'No Branch';
     },
 
-
-
-    getMini() {
-      // if (this.mini.length > 0) { return }
-      // this.miniLoading = true;
-      // httpMethods.get(`${branchNav.menu.path}/mini`)
-      //   .then(response => {
-      //     this.mini = response.data;
-      //     this.miniLoading = false;
-      //   }).catch(e => {
-      //     this.mini = [];
-      //     console.log(e);
-      //     this.miniLoading = false;
-      //   })
-
-      return this.getCurrentUserBranches;
-
+    async getMini() {
+      return await fetchAndPopulate(this, 'mini', `${this.path}/mini`);
     },
 
-    getBranchByCompanyId(companyId) {
-
-      this.branchByCompanyIdLoading = true
-      httpMethods.get(`${branchNav.menu.path}/companyid/${companyId}`)
-        .then(response => {
-          this.branchByCompanyId = response.data;
-          this.branchByCompanyIdLoading = false;
-          console.log("Branch By Company Id: ", this.branchByCompanyId);
-        }).catch(e => {
-          this.branchByCompanyId = [];
-          console.log(e);
-          this.branchByCompanyIdLoading = false;
-        })
-
+    async getBranchByCompanyId(companyId) {
+      return await fetchAndPopulate(this, 'branchByCompanyId', `${this.path}/companyid/${companyId}`);
     },
 
     clear() {
@@ -129,13 +130,9 @@ export const defineBranchStore = defineStore("branch", {
       this.branchByCompanyId = [];
       this.branchByCompanyIdLoading = false;
       this.currentBranch = null;
+      this.currentUserBranches = [];
+      this.currentUserCompany = null;
+      this.branchName = 'No Branch';
     },
-
-
-
-
   }
-
-
-
 })

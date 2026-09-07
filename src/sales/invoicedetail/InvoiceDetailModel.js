@@ -72,7 +72,7 @@ const invoiceDetailModel = {
 
 
   },
-  path: "invoicedetails",
+  path: "invoice-details",
   rules: {
      itemId: [(v) => !!v || "Item is required",
     ], itemName: [(v) => !!v || "Item Name is required"], 

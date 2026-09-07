@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import bankLedgerNav from './BankLedgerNav';
+import { httpMethods } from "saburi-vue-utils";import bankLedgerNav from './BankLedgerNav';
 export default {
 namespaced: true,
 state: {

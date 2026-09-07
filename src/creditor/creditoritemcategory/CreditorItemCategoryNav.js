@@ -17,19 +17,20 @@ const creditorItemCategoryNav = {
   //   },
   // ],
   routes: navUtils.allRoutes(
-    "creditoritemcategory",
+    "creditor-item-category",
     CreditorItemCategory,
-    "creditoritemcategories",
+    "creditor-item-categories",
     CreditorItemCategories,
-    true
+    true,
+    "creditoritemcategory"
   ),
   menu: {
     id: "creditor.creditoritemcategory",
     title: "Creditor Item Categories",
     component: CreditorItemCategory,
-    path: "creditoritemcategories",
+    path: "creditor-item-categories",
     icon: "mdi-account-cash",
-    requires: navUtils.allRoles("creditoritemcategory"),
+    requires: navUtils.allRoles("creditor-item-categories"),
     width: "700px",
     editHeaders: [
       { title: "Creditor Group", key: "creditorGroup.id", isNumeric: true },
@@ -93,9 +94,10 @@ const creditorItemCategoryNav = {
     // ],
     children: navUtils.createViewChildren(
       "creditor",
-      "creditoritemcategory",
-      "creditoritemcategories",
-      false
+      "creditor-item-categories",
+      "creditor-item-categories",
+      false,
+      "creditoritemcategory"
     ),
   },
 };

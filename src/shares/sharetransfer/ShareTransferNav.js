@@ -17,18 +17,19 @@ const shareTransferNav = {
   //   },
   // ],
   routes: navUtils.allRoutes(
-    "sharetransfer",
+    "share-transfer",
     ShareTransfer,
-    "sharetransfers",
+    "share-transfers",
     ShareTransfers,
-    true
+    true,
+    "sharetransfer"
   ),
   menu: {
     id: "shares.sharetransfer",
     title: "Share Transfers",
     component: ShareTransfer,
-    path: "sharetransfers",
-    requires: navUtils.allRoles("sharetransfer"),
+    path: "share-transfers",
+    requires: navUtils.allRoles("share-transfers"),
     icon: "mdi-account-multiple",
     width: "1000px",
 
@@ -76,28 +77,7 @@ const shareTransferNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "shares.shareTransfer.view",
-        title: "View",
-        to: { name: "sharetransfers" },
-      },
-      {
-        id: "shares.shareTransfer.new",
-        title: "New",
-        to: { name: "sharetransfer", params: { mode: 0 } },
-      },
-      {
-        id: "shares.shareTransfer.edit",
-        title: "Edit",
-        to: { name: "sharetransfer", params: { mode: 1 } },
-      },
-      {
-        id: "shares.shareTransfer.history",
-        title: "History",
-        to: { name: "sharetransfer", params: { mode: 2 } },
-      },
-    ],
+    children: navUtils.allChildren("shares", "share-transfers", "share-transfers", false, "sharetransfer"),
   },
 };
 export default shareTransferNav;

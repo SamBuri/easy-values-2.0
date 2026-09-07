@@ -16,13 +16,13 @@ const paymentBillNav = {
   //     meta: { auth: true },
   //   },
   // ],
-  routes: [navUtils.viewRoute("paymentbills", PaymentBills, true),],
+  routes: navUtils.allRoutes("payment-bill", PaymentBill, "payment-bills", PaymentBills, true, "paymentbill"),
   menu: {
     id: "creditor.paymentbill",
     title: "Payment Bills",
     component: PaymentBill,
-    path: "paymentbills",
-    requires: navUtils.allRoles("payment"),
+    path: "payment-bills",
+    requires: navUtils.allRoles("payment-bills"),
     icon: "mdi-cash-multiple",
     width: "700px",
     editHeaders: [

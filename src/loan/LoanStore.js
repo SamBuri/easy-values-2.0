@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-// import httpMethods from "@/utils/HttpMethods";
-import { defineRootStore } from "@/root/RootStore";
+// import { httpMethods } from "saburi-vue-utils";
+import { defineRootStore } from "saburi-vue-utils";
 
 export const defineLoanStore = defineStore("loanstore", {
   state: () => ({
-    path: "loanenums/",
+    path: "loan-enums",
         interestMethods: [],
         interestMethodsLoading: false,
         determiningMethods: [],
@@ -16,7 +16,7 @@ export const defineLoanStore = defineStore("loanstore", {
   actions: {
     async getInterestMethods() {
       const rootStore = defineRootStore();
-      let data = await rootStore.fetch(`${this.path}interestmethods`,
+      let data = await rootStore.fetch(`${this.path}/interest-methods`,
         () => {
           this.interestMethodsLoading = true;
           this.interestMethods = [];
@@ -31,7 +31,7 @@ export const defineLoanStore = defineStore("loanstore", {
 
     async getLoanStatuses() {
       const rootStore = defineRootStore();
-      let data = await rootStore.fetch(`${this.path}loanstatuses`,
+      let data = await rootStore.fetch(`${this.path}/loan-statuses`,
         () => {
           this.loanStatusesLoading = true;
           this.loanStatuses = [];
@@ -46,7 +46,7 @@ export const defineLoanStore = defineStore("loanstore", {
 
     async getDeterminingMethods() {
       const rootStore = defineRootStore();
-      let data = await rootStore.fetch(`${this.path}determiningmethods`,
+      let data = await rootStore.fetch(`${this.path}/determining-methods`,
         () => {
           this.determiningMethodsLoading = true;
           this.determiningMethods = [];

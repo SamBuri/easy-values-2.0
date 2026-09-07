@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import loanApplicationPhotoNav from './LoanApplicationPhotoNav';
+import { httpMethods } from "saburi-vue-utils";import loanApplicationPhotoNav from './LoanApplicationPhotoNav';
 export default {
 namespaced: true,
 state() {

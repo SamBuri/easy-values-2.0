@@ -16,6 +16,6 @@ this.qtyBalance="";
 this.balance="";
 }
 },
-path:"shareholdershares"}
+path:"shareholder-shares"}
 
 export default shareholderSharesModel;

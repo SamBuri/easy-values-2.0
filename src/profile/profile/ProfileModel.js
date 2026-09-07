@@ -3,6 +3,7 @@ import funcs from "@/utils/funcs";
 const profileModel = {
       model: {
             profileType: "Individual",
+            externalReference: "",
             firstName: "",
             lastName: "",
             otherNames: "",
@@ -36,9 +37,14 @@ const profileModel = {
             idNoVerified: false,
             phoneVerified: false,
             hidden: false,
+            customerGroupId: null,
+            creditorGroupId: null,
+            shareholderAccount: "",
 
             clear() {
+                  this.id = undefined;
                   this.profileType = "Individual";
+                  this.externalReference = "";
                   this.firstName = "";
                   this.lastName = "";
                   this.otherNames = "";
@@ -73,23 +79,27 @@ const profileModel = {
                   this.phoneVerified = false;
                   this.hidden = false;
                   this.saved = false;
+                  this.customerGroupId = null;
+                  this.creditorGroupId = null;
+                  this.shareholderAccount = "";
             },
             copy(obj) {
                   this.id = obj.id;
-                  this.profileType = obj.profileType;
+                  this.profileType = obj.profileType && typeof obj.profileType === "object" ? obj.profileType.name : obj.profileType;
+                  this.externalReference = obj.externalReference;
                   this.photo = obj.photo;
                   this.firstName = obj.firstName;
                   this.lastName = obj.lastName;
                   this.otherNames = obj.otherNames;
                   this.birthDate = obj.birthDate;
                   this.gender = obj.gender;
-                  this.maritalStatus = obj.maritalStatus;
+                  this.maritalStatus = obj.maritalStatus && typeof obj.maritalStatus === 'object' ? obj.maritalStatus.name : obj.maritalStatus;
                   this.countryId = obj.countryId;
                   this.spouseName = obj.spouseName;
                   this.spouseContact = obj.spouseContact;
                   this.nOKin = obj.nOKin;
                   this.nOKinContact = obj.nOKinContact;
-                  this.idType = obj.idType;
+                  this.idType = obj.idType && typeof obj.idType === 'object' ? obj.idType.name : obj.idType;
                   this.idNo = obj.idNo;
                   this.primaryPhoneNo = obj.primaryPhoneNo;
                   this.otherPhoneNos = obj.otherPhoneNos;
@@ -111,8 +121,21 @@ const profileModel = {
                   this.idNoVerified = obj.idNoVerified;
                   this.phoneVerified = obj.phoneVerified;
                   this.hidden = obj.hidden;
+                  this.customerGroupId = obj.customerGroupId;
+                  this.creditorGroupId = obj.creditorGroupId;
+                  this.shareholderAccount = obj.shareholderAccount;
                   this.saved = true;
 
+            },
+            getFormData() {
+                  const data = { ...this };
+                  const enumFields = ["gender", "maritalStatus", "idType", "workType"];
+                  enumFields.forEach(field => {
+                        if (data[field] === "") {
+                              data[field] = null;
+                        }
+                  });
+                  return data;
             },
             printOptions() {
                   let data = [];
@@ -164,8 +187,13 @@ const profileModel = {
       },
       path: "profiles",
       rules: {
+            externalReference: [],
             profileType: [(v) => !!v || "Profile Type is required",
-            ], firstName: [(v) => !!v || "First Name is required",
+            ],
+            customerGroupId: [],
+            creditorGroupId: [],
+            shareholderAccount: [],
+            firstName: [(v) => !!v || "First Name is required",
             (v) => v.length < 20 || "First Name length must be less or equal to 20",],
             lastName: [(v) => !!v || "Last Name is required",
             (v) => v.length < 20 || "Last Name length must be less or equal to 20",],
@@ -185,7 +213,9 @@ const profileModel = {
             primaryPhoneNo: [(v) => !!v || "Primary Phone No is required",
             (v) => v.length < 30 || "Primary Phone No length must be less or equal to 30",],
             otherPhoneNos: [],
-            email: [],
+            email: [
+              (v) => !v || /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v) || "Please enter a valid email address"
+            ],
             homeAddress: [(v) => !!v || "Home Address is required",
             (v) => v.length < 500 || "Home Address length must be less or equal to 500",],
             residentialAddress: [(v) => !!v || "Residential Address is required",

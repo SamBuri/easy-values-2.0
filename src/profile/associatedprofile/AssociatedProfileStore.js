@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import associatedProfileNav from "./AssociatedProfileNav";
-import {defineRootStore} from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
    export const defineAssociatedProfileStore = defineStore("associatedProfile", {
  
 state: () => ({

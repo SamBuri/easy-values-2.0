@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import devConfigNav from "./DevConfigNav";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 export const defineDevConfigStore = defineStore("devConfig", {
 
   state: () => ({

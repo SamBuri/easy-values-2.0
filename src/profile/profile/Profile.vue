@@ -1,10 +1,15 @@
 <script setup>
+import { ref, computed, watch, nextTick } from "vue";
 import profileController from "./ProfileController";
 import ProfilePicture from "../profilepicture/ProfilePicture.vue";
 import rootOptions from '@/root/RootOptions';
+
+const props = defineProps(["dialog"]);
+const emit = defineEmits(["cancel", "saved"]);
+
 const cols = 12;
-const sm = 4;
-const md = 4;
+const sm = 6;
+const md = 6;
 rootOptions.maxWidth = 1000;
 const controller = profileController();
 
@@ -12,22 +17,116 @@ const profilePictures = controller.profilePictures;
 const showPictures = controller.showPictures;
 const isUpdate = controller.isUpdate;
 const photoWidth = 200;
-const addPictureDialog = controller.addPictureDialog
-const pictureDialogWidth= 600;
+const addPictureDialog = controller.addPictureDialog;
+const pictureDialogWidth = 600;
 const maxWidth = 700;
 const menuItems = [
   { title: "Make Profile" },
   { title: "Delete" },
-  { title: "Edit Caption" },];
+  { title: "Edit Caption" },
+];
 const model = controller.model;
 const rules = controller.rules;
+
+const currentStep = ref(1);
+
+const totalSteps = computed(() => {
+  return model.value.profileType === "Organisation" ? 2 : 4;
+});
+
+const stepTitle = computed(() => {
+  if (model.value.profileType === "Organisation") {
+    switch (currentStep.value) {
+      case 1:
+        return "Basic Information";
+      case 2:
+        return "Organisation Details";
+      default:
+        return "";
+    }
+  } else {
+    switch (currentStep.value) {
+      case 1:
+        return "Basic Information";
+      case 2:
+        return "Bio Data & Identification";
+      case 3:
+        return "Addresses & Next of Kin";
+      case 4:
+        return "Employment & Business";
+      default:
+        return "";
+    }
+  }
+});
+
+const triggerValidation = () => {
+  setTimeout(() => {
+    if (controller && typeof controller.validate === 'function') {
+      controller.validate();
+    }
+  }, 150);
+};
+
+const nextStep = () => {
+  currentStep.value++;
+};
+
+const backStep = () => {
+  currentStep.value--;
+};
+
+watch(
+  () => model.value.profileType,
+  () => {
+    currentStep.value = 1;
+    triggerValidation();
+
+  }
+);
+
+watch(
+  () => model.value.id,
+  () => {
+    currentStep.value = 1;
+    triggerValidation();
+  }
+);
+
+watch(currentStep, triggerValidation);
+
+
+
+
+const editClicked = () => {
+  controller.editClicked((res) => {
+    if (res.success) {
+      currentStep.value = 1;
+    }
+    emit("saved", res);
+  });
+};
+
+const deleteClicked = () => {
+  controller.deleteData((res) => {
+    if (res.success) {
+      currentStep.value = 1;
+    }
+    emit("saved", res);
+  });
+};
 </script>
 <template>
 
 
   <crud-form :controller="controller">
 
-    <template #heading> Profile </template>
+    <template #heading>
+      Profile
+      <span class="text-subtitle-2 ml-2 text-white-70" v-if="model.profileType === 'Individual' || totalSteps > 1">
+        - Step {{ currentStep }} of {{ totalSteps }} ({{ stepTitle }})
+      </span>
+    </template>
 
     <template #form-header v-if="isUpdate">
       <v-cols :cols="cols" :sm="cols" :md="cols">
@@ -42,18 +141,55 @@ const rules = controller.rules;
     </template>
 
     <template #form-data>
-
-
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <s-autocomplete id="profileType" label="Profile Type" v-model="model.profileType" :rules="rules.profileType"
-          :items="controller.profileStore.profileTypes"
-          :loading="controller.profileStore.profileTypesLoading"></s-autocomplete>
-      </v-col>
-      <template v-if="model.profileType === 'Individual'">
+      <!-- Step 1 (Shared): Basic Info -->
+      <template v-if="currentStep === 1">
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-text-field id="profileNo" label="Profile No" v-model="model.profileNo" :rules="rules.profileNo"
+          <s-autocomplete id="profileType" label="Profile Type" v-model="model.profileType" :rules="rules.profileType"
+            :items="controller.profileStore.profileTypes"
+            :loading="controller.profileStore.profileTypesLoading"></s-autocomplete>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-autocomplete id="countryId" label="Country" v-model="model.countryId" :rules="rules.countryId"
+            :items="controller.countryStore.mini" :loading="controller.countryStore.miniLoading"
+            item-title="countryName" item-value="id"></s-autocomplete>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-phone-number id="primaryPhoneNo" label="Primary Phone No" v-model="model.primaryPhoneNo"
+            :rules="rules.primaryPhoneNo" :counter="30"></s-phone-number>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-phone-number id="otherPhoneNos" label="Other Phone Nos" v-model="model.otherPhoneNos"
+            :rules="rules.otherPhoneNos" :counter="30"></s-phone-number>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-text-field id="externalReference" label="External Reference" v-model="model.externalReference" :rules="rules.externalReference"
             :counter="20"></s-text-field>
         </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-text-field id="email" label="Email" v-model="model.email" :rules="rules.email"
+            :counter="100"></s-text-field>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-date-picker id="joinDate" label="Join Date" v-model="model.joinDate" :rules="rules.joinDate" /></v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-autocomplete id="customerGroupId" label="Customer Group" v-model="model.customerGroupId" :rules="rules.customerGroupId"
+            :items="controller.customerGroupStore.mini" :loading="controller.customerGroupStore.miniLoading"
+            item-title="customerGroup" item-value="id" clearable></s-autocomplete>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-autocomplete id="creditorGroupId" label="Creditor Group" v-model="model.creditorGroupId" :rules="rules.creditorGroupId"
+            :items="controller.creditorGroupStore.mini" :loading="controller.creditorGroupStore.miniLoading"
+            item-title="name" item-value="id" clearable></s-autocomplete>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-autocomplete id="shareholderAccount" label="Shareholder Account" v-model="model.shareholderAccount" :rules="rules.shareholderAccount"
+            :items="controller.accountStore.equityAccounts" :loading="controller.accountStore.equityAccountsLoading"
+            item-title="accountName" item-value="id" clearable></s-autocomplete>
+        </v-col>
+      </template>
+
+      <!-- Step 2 (Individual Only): Bio Data & Identification -->
+      <template v-if="model.profileType === 'Individual' && currentStep === 2">
         <v-col :cols="cols" :sm="sm" :md="md">
           <s-text-field id="firstName" label="First Name" v-model="model.firstName" :rules="rules.firstName"
             :counter="20"></s-text-field>
@@ -79,9 +215,29 @@ const rules = controller.rules;
             item-value="name"></s-autocomplete>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-autocomplete id="countryId" label="Country" v-model="model.countryId" :rules="rules.countryId"
-            :items="controller.countryStore.mini" :loading="controller.countryStore.miniLoading"
-            item-title="countryName" item-value="id"></s-autocomplete>
+          <s-autocomplete id="idType" label="Id Type" v-model="model.idType" :rules="rules.idType"
+            :items="controller.profileStore.idTypes" :loading="controller.profileStore.idTypesLoading"
+            item-title="display" item-value="name"></s-autocomplete>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-text-field id="idNo" label="Id No" v-model="model.idNo" :rules="rules.idNo" :counter="100"></s-text-field>
+        </v-col>
+      </template>
+
+      <!-- Step 3 (Individual Only): Addresses & Next of Kin -->
+      <template v-if="model.profileType === 'Individual' && currentStep === 3">
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-location-picker id="homeAddress" label="Home Address" v-model:address="model.homeAddress"
+            v-model:coordinates="model.homeCoordinates" :rules="rules.homeAddress"
+            :counter="500"></s-location-picker>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-location-picker id="residentialAddress" label="Residential Address" v-model:address="model.residentialAddress"
+            v-model:coordinates="model.residenceCoordinates" :rules="rules.residentialAddress" :counter="200"></s-location-picker>
+        </v-col>
+        <v-col :cols="cols" :sm="sm" :md="md">
+          <s-textarea id="addressDetails" label="Address Details" v-model="model.addressDetails"
+            :rules="rules.addressDetails" :counter="200" rows="1" auto-grow></s-textarea>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
           <s-text-field id="spouseName" label="Spouse Name" v-model="model.spouseName" :rules="rules.spouseName"
@@ -99,89 +255,121 @@ const rules = controller.rules;
           <s-text-field id="nOKinContact" label="NO Kin Contact" v-model="model.nOKinContact"
             :rules="rules.nOKinContact" :counter="100"></s-text-field>
         </v-col>
+      </template>
+
+      <!-- Step 4 (Individual) / Step 2 (Organisation): Employment & Business Details -->
+      <template v-if="(model.profileType === 'Individual' && currentStep === 4) || (model.profileType === 'Organisation' && currentStep === 2)">
+        <!-- Individual Only Fields -->
+        <template v-if="model.profileType === 'Individual'">
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-autocomplete id="occupationId" label="Occupation" v-model="model.occupationId" :rules="rules.occupationId"
+              :items="controller.lookupDataStore.occupations" :loading="controller.lookupDataStore.occupationsLoading"
+              item-title="lookupDataName" item-value="id"></s-autocomplete>
+          </v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-autocomplete id="workType" label="Work Type" v-model="model.workType" :rules="rules.workType"
+              :items="controller.lookupStore.workTypes"
+              :loading="controller.lookupStore.workTypesLoading"></s-autocomplete>
+          </v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <s-text-field id="designation" label="Designation" v-model="model.designation" :rules="rules.designation"
+              :counter="100"></s-text-field>
+          </v-col>
+        </template>
+
+        <!-- Shared Business Fields -->
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-autocomplete id="idType" label="Id Type" v-model="model.idType" :rules="rules.idType"
-            :items="controller.profileStore.idTypes" :loading="controller.profileStore.idTypesLoading"
-            item-title="display" item-value="name"></s-autocomplete>
+          <s-autocomplete id="businessCategoryId" label="Business Category" v-model="model.businessCategoryId"
+            :rules="rules.businessCategoryId" :items="controller.lookupDataStore.businessCategories"
+            :loading="controller.lookupDataStore.businessCategoriesLoading" item-title="lookupDataName"
+            item-value="id"></s-autocomplete>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-text-field id="idNo" label="Id No" v-model="model.idNo" :rules="rules.idNo" :counter="100"></s-text-field>
+          <s-textarea id="businessDescriptions" label="Business Description" v-model="model.businessDescriptions"
+            :rules="rules.businessDescriptions" :counter="200" rows="1" auto-grow></s-textarea>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-phone-number id="primaryPhoneNo" label="Primary Phone No" v-model="model.primaryPhoneNo"
-            :rules="rules.primaryPhoneNo" :counter="30"></s-phone-number>
-        </v-col>
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <s-phone-number id="otherPhoneNos" label="Other Phone Nos" v-model="model.otherPhoneNos"
-            :rules="rules.otherPhoneNos" :counter="30"></s-phone-number>
-        </v-col>
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <s-text-field id="email" label="Email" v-model="model.email" :rules="rules.email"
+          <s-text-field id="businessName" label="Business Name" v-model="model.businessName" :rules="rules.businessName"
             :counter="100"></s-text-field>
         </v-col>
         <v-col :cols="cols" :sm="sm" :md="md">
-          <s-location-picker id="homeAddress" label="Home Address" v-model:address="model.homeAddress"
-            v-model:coordinates="model.homeCoordinates" :rules="rules.homeAddress"
-            :counter="500"></s-location-picker>
-        </v-col>
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <s-location-picker id="residentialAddress" label="Residential Address" v-model:address="model.residentialAddress"
-            v-model:coordinates="model.residenceCoordinates" :rules="rules.residentialAddress" :counter="200"></s-location-picker>
-        </v-col>
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <s-textarea id="addressDetails" label="Address Details" v-model="model.addressDetails"
-            :rules="rules.addressDetails" :counter="200" rows="1" auto-grow></s-textarea>
-        </v-col>
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <s-date-picker id="joinDate" label="Join Date" v-model="model.joinDate" :rules="rules.joinDate" /></v-col>
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <s-autocomplete id="occupationId" label="Occupation" v-model="model.occupationId" :rules="rules.occupationId"
-            :items="controller.lookupDataStore.occupations" :loading="controller.lookupDataStore.occupationsLoading"
-            item-title="lookupDataName" item-value="id"></s-autocomplete>
-        </v-col>
-        <v-col :cols="cols" :sm="sm" :md="md">
-          <s-autocomplete id="workType" label="Work Type" v-model="model.workType" :rules="rules.workType"
-            :items="controller.lookupStore.workTypes"
-            :loading="controller.lookupStore.workTypesLoading"></s-autocomplete>
+          <s-location-picker id="businessLocation" label="Business Location" v-model:address="model.businessLocation"
+            v-model:coordinates="model.workCoordinates" :rules="rules.businessLocation" :counter="100"></s-location-picker>
         </v-col>
 
+        <!-- Individual Only Verification Checkboxes -->
+        <template v-if="model.profileType === 'Individual'">
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <v-checkbox id="idNoVerified" label="Id No Verified" v-model="model.idNoVerified"></v-checkbox>
+          </v-col>
+          <v-col :cols="cols" :sm="sm" :md="md">
+            <v-checkbox id="phoneVerified" label="Phone Verified" v-model="model.phoneVerified"></v-checkbox>
+          </v-col>
+        </template>
+
+        <!-- Shared Hidden Checkbox -->
+        <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
+          <v-checkbox id="hidden" label="Hidden" v-model="model.hidden"></v-checkbox>
+        </v-col>
       </template>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <s-autocomplete id="businessCategoryId" label="Business Category" v-model="model.businessCategoryId"
-          :rules="rules.businessCategoryId" :items="controller.lookupDataStore.businessCategories"
-          :loading="controller.lookupDataStore.businessCategoriesLoading" item-title="lookupDataName"
-          item-value="id"></s-autocomplete>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <s-textarea id="businessDescriptions" label="Business Description" v-model="model.businessDescriptions"
-          :rules="rules.businessDescriptions" :counter="200" rows="1" auto-grow></s-textarea>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md" v-if="model.profileType === 'Individual'">
-        <s-text-field id="designation" label="Designation" v-model="model.designation" :rules="rules.designation"
-          :counter="100"></s-text-field>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <s-text-field id="businessName" label="Business Name" v-model="model.businessName" :rules="rules.businessName"
-          :counter="100"></s-text-field>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <s-location-picker id="businessLocation" label="Business Location" v-model:address="model.businessLocation"
-          v-model:coordinates="model.workCoordinates" :rules="rules.businessLocation" :counter="100"></s-location-picker>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-checkbox id="idNoVerified" label="Id No Verified" v-model="model.idNoVerified"></v-checkbox>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-checkbox id="phoneVerified" label="Phone Verified" v-model="model.phoneVerified"></v-checkbox>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md" v-if="isUpdate">
-        <v-checkbox id="hidden" label="Hidden" v-model="model.hidden"></v-checkbox>
-      </v-col>
     </template>
+
+    <template #card-actions="{ valid }">
+      <v-btn
+        color="grey-darken-1"
+        variant="text"
+        v-if="props.dialog"
+        @click="emit('cancel')"
+      >
+        Cancel
+      </v-btn>
+      <v-btn
+        color="secondary"
+        variant="outlined"
+        @click="backStep"
+        v-if="currentStep > 1"
+        class="mr-2"
+      >
+        Back
+      </v-btn>
+      <v-btn
+        color="primary"
+        variant="elevated"
+        @click="nextStep"
+        v-if="currentStep < totalSteps"
+        :disabled="!valid"
+        class="mr-2"
+      >
+        Next
+      </v-btn>
+      <v-btn
+        color="primary"
+        variant="elevated"
+        @click="editClicked"
+        v-if="currentStep === totalSteps"
+        :loading="controller.rootStore.loading"
+        :disabled="!valid"
+        class="px-6"
+      >
+        {{ controller.rootState.value.buttonText }}
+      </v-btn>
+      <v-btn
+        v-if="isUpdate && controller.options.showDelete"
+        color="error"
+        variant="outlined"
+        @click="deleteClicked"
+        :disabled="!valid"
+        :loading="controller.rootStore.deleteLoading"
+        class="ml-2"
+      >
+        Delete
+      </v-btn>
+    </template>
+
     <template #after-card>
       <v-dialog v-model="addPictureDialog" :max-width="pictureDialogWidth" persistent>
         <ProfilePicture :dialog="true" @ok="controller.closeAddPictureDialog" @cancel="controller.closeAddPictureDialog"
-          buttonLabel="Save" :retain="true"></ProfilePicture>
+          buttonLabel="Save" :retain="true" :controller="controller.pictureController"></ProfilePicture>
       </v-dialog>
       <v-card flat :max-width="maxWidth">
 

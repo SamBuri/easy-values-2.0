@@ -4,6 +4,7 @@
 
 import { jsPDF } from "jspdf";
 import funcs from "./funcs";
+import { useAuthStore } from "@/store/authstore";
 import 'jspdf-autotable'
 
 export default {
@@ -23,8 +24,7 @@ export default {
     },
 
     currentUser() {
-      let tokenParsed = this.$store.state.security.user.keycloak.tokenParsed;
-      return `${tokenParsed.given_name} ${tokenParsed.family_name}`;
+      return useAuthStore().fullName || "";
     },
 
   },

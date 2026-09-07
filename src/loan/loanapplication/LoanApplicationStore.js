@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import loanApplicationNav from "./LoanApplicationNav";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 export const defineLoanApplicationStore = defineStore("loanApplication", {
   state: () => ({
     path: loanApplicationNav.menu.path,

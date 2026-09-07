@@ -68,7 +68,7 @@ data.push({ text: "Loan Product Name", value: this.loanApproval.loanProductName 
 
 
 },
-path:"loanapprovals",
+path:"loan-approvals",
 rules: {
 loanApplicationId:[(v) => !!v || "Loan Application is required",
  ],approvalDate:[(v) => !!v || "Approval Date is required",

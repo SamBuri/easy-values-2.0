@@ -17,13 +17,13 @@ const financialPeriodNav = {
         //         },
 
         // ],
-        routes:navUtils.allRoutes("financialperiod", FinancialPeriod, "financialperiods", FinancialPeriods, true),
+        routes: navUtils.allRoutes("financial-period", FinancialPeriod, "financial-periods", FinancialPeriods, true, "financialperiod"),
         menu: {
                 id: "accounting.financialperiod",
                 title: "Financial Periods",
                 component: FinancialPeriod,
-                path: "financialperiods",
-                requires: navUtils.allRoles("financialperiod"),
+                path: "financial-periods",
+                requires: navUtils.allRoles("financial-periods"),
                 icon: "mdi-calendar-range",
                 width: "700px",
                 editHeaders: [{ title: "Name", key: "name" },
@@ -45,12 +45,7 @@ const financialPeriodNav = {
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", },
                 { title: "Modified By", key: "modifiedBy", }],
-                // children: [{ id: "accounting.financialPeriod.view", title: "View", to: { name: "financialperiods", } },
-                // { id: "accounting.financialPeriod.new", title: "New", to: { name: "financialperiod", params: { mode: 0 } } },
-                // { id: "accounting.financialPeriod.edit", title: "Edit", to: { name: "financialperiod", params: { mode: 1 } } },
-                // { id: "accounting.financialPeriod.history", title: "History", to: { name: "financialperiod", params: { mode: 2 } } },
-                // ]
-                children: navUtils.allChildren('accounting', 'financialperiod', 'financialperiods', false),
+                children: navUtils.allChildren('accounting', 'financial-periods', 'financial-periods', false, 'financialperiod'),
         }
 }
 export default financialPeriodNav;

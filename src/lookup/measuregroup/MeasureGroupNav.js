@@ -16,15 +16,15 @@ const measureGroupNav = {
   //     meta: { auth: true },
   //   },
   // ],
-  routes: navUtils.allRoutes("measuregroup", MeasureGroup, "measuregroups", MeasureGroups, true),
+  routes: navUtils.allRoutes("measure-group", MeasureGroup, "measure-groups", MeasureGroups, true, "measuregroup"),
   menu: {
     id: "lookup.measuregroup",
     title: "Measure Groups",
     component: MeasureGroup,
-    path: "measuregroups",
+    path: "measure-groups",
     width: "700px",
     icon: "mdi-ruler",
-    requires: navUtils.allRoles("measuregroup"),
+    requires: navUtils.allRoles("measure-groups"),
     editHeaders: [
       { title: "Measure Group Name", key: "measureGroupName" },
       { title: "Measure Relation", key: "measureRelation" },
@@ -81,7 +81,7 @@ const measureGroupNav = {
     //   },
     // ],
 
-    children: navUtils.allChildren("lookup", "measuregroup", "measuregroups", false),
+    children: navUtils.allChildren("lookup", "measure-groups", "measure-groups", false, "measuregroup"),
   },
 };
 export default measureGroupNav;

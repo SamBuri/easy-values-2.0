@@ -25,7 +25,7 @@ const receiptNav = {
                 title: "Receipts",
                 component: Receipt,
                 path: "receipts",
-                requires: navUtils.allRoles("receipt"),
+                requires: navUtils.allRoles("receipts"),
                 icon: "mdi-receipt",
                 width: "1000px",
                 miniHeaders: [
@@ -88,7 +88,7 @@ const receiptNav = {
                 //         { id: "sales.receipt.history", title: "History", route: "receipt", locked: true,  to: {name: 'receipt',params: { mode:3}}, icon: "mdi-history" },
 
                 // ]
-                children: navUtils.createViewChildren('sales', 'receipt', 'receipts', false),
+                children: navUtils.allChildren("sales", "receipts", "receipts", false, "receipt"),
         }
 }
 export default receiptNav;

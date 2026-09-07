@@ -1,26 +1,14 @@
 import CustomerSponsor from './CustomerSponsor.vue'
 import CustomerSponsors from './CustomerSponsors.vue'
+import { navUtils } from 'saburi-vue-utils';
 const customerSponsorNav = {
-        routes: [
-                {
-                        path: '/customersponsor/:mode',
-                        name: 'customersponsor',
-                        component: CustomerSponsor,
-                        meta: { auth: true },
-                },
-                {
-                        path: '/customersponsors',
-                        name: 'customersponsors',
-                        component: CustomerSponsors,
-                        meta: { auth: true },
-                },
-
-        ],
+        routes: navUtils.allRoutes("customer-sponsor", CustomerSponsor, "customer-sponsors", CustomerSponsors, true, "customersponsor"),
         menu: {
                 id: "sales.customersponsor",
                 title: "Customer Sponsors",
                 component: CustomerSponsor,
-                path: "customersponsors",
+                path: "customer-sponsors",
+                requires: navUtils.allRoles("customer-sponsors"),
                 width: "700px",
                 editHeaders: [{ title: "Customer", key: "customer.id" },
                 { title: "Sponsor", key: "sponsor.id" },
@@ -39,11 +27,7 @@ const customerSponsorNav = {
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", },
                 { title: "Modified By", key: "modifiedBy", }],
-                children: [{ id: "sales.customerSponsor.view", title: "View", to: { name: "customersponsors", } },
-                { id: "sales.customerSponsor.new", title: "New", to: { name: "customersponsor", params: { mode: 0 } } },
-                { id: "sales.customerSponsor.edit", title: "Edit", to: { name: "customersponsor", params: { mode: 1 } } },
-                { id: "sales.customerSponsor.history", title: "History", to: { name: "customersponsor", params: { mode: 2 } } },
-                ]
+                children: navUtils.allChildren("sales", "customer-sponsors", "customer-sponsors", false, "customersponsor"),
         }
 }
 export default customerSponsorNav;

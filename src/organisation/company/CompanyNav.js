@@ -22,7 +22,7 @@ const companyNav = {
     title: "Companies",
     component: Company,
     path: "companies",
-    requires: navUtils.allRoles("company"),
+    requires: navUtils.allRoles("companies"),
     icon: "mdi-domain",
     width: "1000px",
     editHeaders: [
@@ -151,8 +151,7 @@ const companyNav = {
     //     title: "History",
     //     to: { name: "company", params: { mode: 2 } },
     //   },
-    // ],
-    children: navUtils.allChildren("organisation", "company", "companies", false),
+    children: navUtils.allChildren("organisation", "companies", "companies", false, "company"),
   },
 };
 export default companyNav;

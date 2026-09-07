@@ -23,7 +23,7 @@ const accountNav = {
     component: Account,
     path: "accounts",
     icon: "mdi-wallet",
-    requires: navUtils.allRoles("account"),
+    requires: navUtils.allRoles("accounts"),
     width: "1000px",
     editHeaders: [
       { title: "Account Type", key: "accountCategory.accountType" },
@@ -101,7 +101,7 @@ const accountNav = {
     //     to: { name: "account", params: { mode: 2 } },
     //   },
     // ],
-    children: navUtils.allChildren("accounting", "account", "accounts", false),
+    children: navUtils.allChildren("accounting", "accounts", "accounts", false, "account"),
   },
 };
 export default accountNav;

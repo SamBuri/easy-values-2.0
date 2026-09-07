@@ -7,6 +7,7 @@ const devConfigModel = {
     dbPort: "",
     dbHost: "",
     dbDriverClassName: "",
+    clientGroupId: null,
     disabled: false,
 
     clear() {
@@ -17,6 +18,7 @@ const devConfigModel = {
       this.dbPort = "";
       this.dbHost = "";
       this.dbDriverClassName = "";
+      this.clientGroupId = null;
       this.disabled = false;
     },
     copy(obj) {
@@ -28,6 +30,7 @@ const devConfigModel = {
       this.dbPort = obj.dbPort;
       this.dbHost = obj.dbHost;
       this.dbDriverClassName = obj.dbDriverClassName;
+      this.clientGroupId = obj?.clientGroupId || null;
       this.disabled = obj.disabled;
 
     },
@@ -40,6 +43,7 @@ const devConfigModel = {
       data.push({ text: "Db Port", value: this.devConfig.dbPort });
       data.push({ text: "Db Host", value: this.devConfig.dbHost });
       data.push({ text: "Db Driver Class Name", value: this.devConfig.dbDriverClassName });
+      data.push({ text: "Client Group", value: this.devConfig.clientGroupId });
 
       return {
         data: data,
@@ -55,7 +59,7 @@ const devConfigModel = {
 
 
   },
-  path: "devconfigs",
+  path: "dev-configs",
   rules: {
     devName: [(v) => !!v || "Dev Name is required",
     (v) => v.length < 10 || "Dev Name length must be less or equal to 10",], dbType: [(v) => !!v || "Db Type is required",
@@ -63,7 +67,7 @@ const devConfigModel = {
     (v) => v.length < 100 || "Db Username length must be less or equal to 100",], dbPassword: [(v) => !!v || "Db Password is required",
     (v) => v.length < 100 || "Db Password length must be less or equal to 100",], dbPort: [(v) => !!v || "Db Port is required",
     ], dbHost: [(v) => !!v || "Db Host is required",
-    (v) => v.length < 100 || "Db Host length must be less or equal to 100",], 
+    (v) => v.length < 100 || "Db Host length must be less or equal to 100",],
     dbDriverClassName: [(v) => v.length < 100 || "Db Driver Class Name length must be less or equal to 100",],
 
   }

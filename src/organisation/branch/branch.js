@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import branchNav from './BranchNav';
+import { httpMethods } from "saburi-vue-utils";import branchNav from './BranchNav';
 export default {
 namespaced: true,
 state() {

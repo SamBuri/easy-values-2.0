@@ -47,7 +47,7 @@ data.push({ text: "Amount", value: this.loanBillDetail.amount });
 
 
 },
-path:"loanbilldetails",
+path:"loan-bill-details",
 rules: {
 itemId:[(v) => !!v || "Item is required",
  ],itemName:[(v) => !!v || "Item Name is required",

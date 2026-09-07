@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import profilePictureNav from "./ProfilePictureNav";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 export const defineProfilePictureStore = defineStore("profilePicture", {
   state: () => ({
     path: profilePictureNav.menu.path,

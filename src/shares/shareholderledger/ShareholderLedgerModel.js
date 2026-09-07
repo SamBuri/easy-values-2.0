@@ -32,6 +32,6 @@ this.qtyBalance="";
 this.balance="";
 }
 },
-path:"shareholderledgers"}
+path:"shareholder-ledgers"}
 
 export default shareholderLedgerModel;

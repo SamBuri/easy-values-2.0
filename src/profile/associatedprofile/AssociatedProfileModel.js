@@ -38,7 +38,7 @@ data.push({ text: "Position", value: this.associatedProfile.position });
 
 
 },
-path:"associatedprofiles",
+path:"associated-profiles",
 rules: {
 profileId:[(v) => !!v || "Profile is required",
  ],associatedProfileId:[(v) => !!v || "Associated Profile is required",

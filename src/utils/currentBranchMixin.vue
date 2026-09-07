@@ -1,6 +1,7 @@
 <!-- <template></template> -->
 
 <script>
+import { useAuthStore } from "@/store/authstore";
 
 
 import funcs from "./funcs";
@@ -96,8 +97,7 @@ export default {
     },
 
     currentUser() {
-    let  tokenParsed = this.$store.state.security.user.keycloak.tokenParsed;
-  return `${tokenParsed.given_name} ${tokenParsed.family_name}`;
+    return useAuthStore().fullName || "";
   },
 
   },

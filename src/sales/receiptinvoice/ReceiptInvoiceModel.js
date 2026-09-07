@@ -22,7 +22,7 @@ const receiptInvoiceModel = {
       this.amountRefunded = obj.amountRefunded;
     },
   },
-  path: "receiptinvoices",
+  path: "receipt-invoices",
   rules: {
     receipt: [(v) => !!v || "Receipt is required"],
     invoice: [(v) => !!v || "Invoice is required"],

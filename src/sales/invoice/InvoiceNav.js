@@ -26,7 +26,7 @@ const invoiceNav = {
                 path: "invoices",
                 width: "1000px",
                 icon: "mdi-receipt-text-clock-outline",
-                requires: navUtils.allRoles("invoice"),
+                requires: navUtils.allRoles("invoices"),
                 editHeaders: [{ title: "Invoice Date", key: "invoiceDate" },
                 { title: "Invoice Type", key: "invoiceType" },
                 { title: "Sell To", key: "sellToId" },
@@ -80,7 +80,7 @@ const invoiceNav = {
                 //   { id: "invoices.invoice.new", title: "New", route: "invoice", mode: 0, to:{name:"invoice", params:{mode:0}}, icon: "mdi-plus-circle" },
                 // { id: "invoices.invoice.history", title: "History", route: "invoice", mode: 2, to:{name:"invoice", params: {mode:2}}, icon: "mdi-history" },
                 // ],
-                children: navUtils.createViewChildren('sales', 'invoice', 'invoices', false),
+                children: navUtils.allChildren("sales", "invoices", "invoices", false, "invoice"),
         }
 }
 export default invoiceNav;

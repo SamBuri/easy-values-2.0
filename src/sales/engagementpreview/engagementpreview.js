@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import engagementPreviewNav from './EngagementPreviewNav';
+import { httpMethods } from "saburi-vue-utils";import engagementPreviewNav from './EngagementPreviewNav';
 export default {
 namespaced: true,
 state: {

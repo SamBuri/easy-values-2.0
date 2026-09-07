@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 
 export const defineLookupStore = defineStore("lookup", {
   state: () => ({
-    path: "enums/",
+    path: "lookup-enums/",
     documentTypes: [],
     documentTypesLoading: false,
     entryModes: [],
@@ -49,7 +49,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getDocumentTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/documenttypes",
+        `${this.path}document-types`,
         () => {
           this.documentTypesLoading = true;
           this.documentTypes = [];
@@ -65,7 +65,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getItemCategoryGroups() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/itemcategorygroups",
+        `${this.path}/item-category-groups`,
         () => {
           this.itemCategoryGroupsLoading = true;
           this.itemCategoryGroups = [];
@@ -82,7 +82,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getEntryModes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/entrymodes",
+        `${this.path}entry-modes`,
         () => {
           this.entryModesLoading = true;
           this.entryModes = [];
@@ -97,7 +97,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getJournalTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/journaltypes",
+        `${this.path}/journal-types`,
         () => {
           this.journalTypesLoading = true;
           this.journalTypes = [];
@@ -112,7 +112,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getAccountTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/accounttypes",
+        `${this.path}account-types`,
         () => {
           this.accountTypesLoading = true;
           this.accountTypes = [];
@@ -127,7 +127,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getAccountActions() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/accountactions",
+        `${this.path}account-actions`,
         () => {
           this.accountActionsLoading = true;
           this.accountActions = [];
@@ -142,7 +142,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getAccountReports() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/accountreports",
+        `${this.path}accountreports`,
         () => {
           this.accountReportsLoading = true;
           this.accountReports = [];
@@ -157,7 +157,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getCustomerTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/customertypes",
+        `${this.path}customertypes`,
         () => {
           this.customerTypesLoading = true;
           this.customerTypes = [];
@@ -172,7 +172,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getPriceGroups() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/pricegroups",
+        `${this.path}price-groups`,
         () => {
           this.priceGroupsLoading = true;
           this.priceGroups = [];
@@ -187,7 +187,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getBusinessGroups() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/businessgroups",
+        `${this.path}business-groups`,
         () => {
           this.businessGroupsLoading = true;
           this.businessGroups = [];
@@ -202,7 +202,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getVatBusinessGroups() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/vatbusinessgroups",
+        `${this.path}vatbusinessgroups`,
         () => {
           this.vatBusinessGroupsLoading = true;
           this.vatBusinessGroups = [];
@@ -217,7 +217,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getVatItemGroups() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/vatitemgroups",
+        `${this.path}vat-item-groups`,
         () => {
           this.vatItemGroupsLoading = true;
           this.vatItemGroups = [];
@@ -232,7 +232,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getAccountGroups() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/accountgroups",
+        `${this.path}account-groups`,
         () => {
           this.accountGroupsLoading = true;
           this.accountGroups = [];
@@ -247,7 +247,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getInvoiceTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/invoicetypes",
+        `${this.path}invoice-types`,
         () => {
           this.invoiceTypesLoading = true;
           this.invoiceTypes = [];
@@ -262,7 +262,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getBankAccountTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/bankAccounttypes",
+        `${this.path}bank-account-types`,
         () => {
           this.bankAccountTypesLoading = true;
           this.bankAccountTypes = [];
@@ -277,7 +277,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getGender() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/gender",
+        `${this.path}gender`,
         () => {
           this.genderLoading = true;
           this.gender = [];
@@ -292,7 +292,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getWorkTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/worktypes",
+        `${this.path}work-types`,
         () => {
           this.workTypesLoading = true;
           this.workTypes = [];
@@ -307,7 +307,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getRequestStatuses() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/requeststatuses",
+        `${this.path}request-statuses`,
         () => {
           this.requestStatusesLoading = true;
           this.requestStatuses = [];
@@ -322,7 +322,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getOpenStatuses() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/openstatuses",
+        `${this.path}open-statuses`,
         () => {
           this.openStatusesLoading = true;
           this.openStatuses = [];
@@ -337,7 +337,7 @@ export const defineLookupStore = defineStore("lookup", {
     async getUnitMeasureUsages() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        "enums/unitmeasureusages",
+        `${this.path}unit-measure-usages`,
         () => {
           this.unitMeasureUsagesLoading = true;
           this.unitMeasureUsages = [];

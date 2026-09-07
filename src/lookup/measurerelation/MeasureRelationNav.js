@@ -1,25 +1,15 @@
 import MeasureRelation from "./MeasureRelation.vue";
 import MeasureRelations from "./MeasureRelations.vue";
+import { navUtils } from "saburi-vue-utils";
+
 const measureRelationNav = {
-  routes: [
-    {
-      path: "/measurerelation/:mode",
-      name: "measurerelation",
-      component: MeasureRelation,
-      meta: { auth: true },
-    },
-    {
-      path: "/measurerelations",
-      name: "measurerelations",
-      component: MeasureRelations,
-      meta: { auth: true },
-    },
-  ],
+  routes: navUtils.allRoutes("measure-relation", MeasureRelation, "measure-relations", MeasureRelations, true, "measurerelation"),
   menu: {
     id: "lookup.measurerelation",
     title: "Measure Relations",
     component: MeasureRelation,
-    path: "measurerelations",
+    path: "measure-relations",
+    requires: navUtils.allRoles("measure-relations"),
     width: "700px",
     editHeaders: [
      { title: "Measure Name", key: "measureName" },
@@ -56,28 +46,7 @@ const measureRelationNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: [
-      {
-        id: "lookup.measureRelation.view",
-        title: "View",
-        to: { name: "measurerelations" },
-      },
-      {
-        id: "lookup.measureRelation.new",
-        title: "New",
-        to: { name: "measurerelation", params: { mode: 0 } },
-      },
-      {
-        id: "lookup.measureRelation.edit",
-        title: "Edit",
-        to: { name: "measurerelation", params: { mode: 1 } },
-      },
-      {
-        id: "lookup.measureRelation.history",
-        title: "History",
-        to: { name: "measurerelation", params: { mode: 2 } },
-      },
-    ],
+    children: navUtils.allChildren("lookup", "measure-relations", "measure-relations", false, "measurerelation"),
   },
 };
 export default measureRelationNav;

@@ -1,5 +1,4 @@
-import httpMethods from "../utils/HttpMethods"
-import country from "./country/country"
+import { httpMethods } from "saburi-vue-utils";import country from "./country/country"
 import district from "./district/district"
 import county from "./county/county"
 import subcounty from "./subcounty/subcounty"

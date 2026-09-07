@@ -43,7 +43,7 @@ data.push({ text: "AmountRefunded", value: this.paymentBill.amountRefunded });
 
 
 },
-path:"paymentbills",
+path:"payment-bills",
 rules: {
 paymentId:[(v) => !!v || "Payment is required",
  ],billId:[(v) => !!v || "Bill is required",

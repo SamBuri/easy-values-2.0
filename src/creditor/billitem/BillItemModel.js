@@ -48,7 +48,7 @@ data.push({ text: "Amount", value: this.billItem.amount });
 
 
 },
-path:"billitems",
+path:"bill-items",
 rules: {
 itemId:[(v) => !!v || "Item Id is required",
  ],itemName:[(v) => !!v || "Item Name is required",

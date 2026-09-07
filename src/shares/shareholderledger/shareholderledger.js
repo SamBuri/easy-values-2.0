@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import shareholderLedgerNav from './ShareholderLedgerNav';
+import { httpMethods } from "saburi-vue-utils";import shareholderLedgerNav from './ShareholderLedgerNav';
 export default {
 namespaced: true,
 state: {

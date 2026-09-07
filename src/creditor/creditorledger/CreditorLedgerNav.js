@@ -21,9 +21,9 @@ const creditorLedgerNav = {
     id: "creditor.creditorledger",
     title: "Creditor Ledgers",
     component: CreditorLedger,
-    path: "creditorledgers",
+    path: "creditor-ledgers",
     icon: "mdi-book-open-page-variant",
-    requires: navUtils.viewRoles("creditorledger"),
+    requires: navUtils.viewRoles("creditor-ledgers"),
     to: { name: "creditorledgers" },
     width: "1000px",
     editHeaders: [

@@ -1,10 +1,13 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
 import { defineBranchStore } from "@/organisation/branch/BranchStore";
+import { useAuthStore } from "@/store/authstore";
+import { authService } from "@/security/auth/AuthService";
 import { Search } from "saburi-vue-utils";
 import lookupNavData from "../lookup/LookupNavData";
 import accountingNavData from "../accounting/AccountingNavData";
 import organisationNavData from "../organisation/OrganisationNavData";
+import onboardingNavData from "../onboarding/OnboardingNavData";
 // import itemsNavData from '../items/ItemsNavData'
 import bankingNavData from "../banking/BankingNavData";
 import salesNavData from "../sales/SalesNavData";
@@ -19,6 +22,7 @@ import expensesNavData from "../expenses/EpensesNavData";
 import sharesNavData from "../shares/SharesNavData";
 
 import creditorNavData from "../creditor/CreditorNavData";
+import { settingsNavGroup } from "saburi-vue-utils";
 
 
 const routes = [
@@ -59,6 +63,12 @@ const routes = [
         component: () => import('../organisation/branch/CurrentBranch.vue')
       },
       {
+        path: "/oauth/callback",
+        name: "oauth-callback",
+        component: () => import("../security/auth/OAuthCallback.vue"),
+        meta: { auth: false },
+      },
+      {
         path: "/",
         name: "dashboard",
         component: Dashboard,
@@ -67,7 +77,13 @@ const routes = [
       {
         path: "/profile",
         name: "user-profile",
-        component: () => import("../security/user/UserProfile.vue"),
+        component: () => import("saburi-vue-utils").then(m => m.UserProfile),
+        meta: { auth: true },
+      },
+      {
+        path: "/organisation-profile",
+        name: "organisation-profile",
+        component: () => import("../organisation/company/OrganisationProfile.vue"),
         meta: { auth: true },
       },
       {
@@ -79,16 +95,19 @@ const routes = [
 
       ...lookupNavData.routes,
       ...organisationNavData.routes,
+      ...onboardingNavData.routes,
       ...accountingNavData.routes,
       ...salesNavData.routes,
       ...bankingNavData.routes,
       ...loanNavData.routes,
       ...securityNavData.routes,
+      ...settingsNavGroup.routes,
       ...profileNavData.routes,
       ...reportsNavData.routes,
       ...expensesNavData.routes,
       ...sharesNavData.routes,
       ...creditorNavData.routes,
+      ...onboardingNavData.routes,
     ],
   },
 ];
@@ -99,20 +118,30 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to) => {
+  if (to.name === "oauth-callback" || to.meta.auth === false) return true;
 
-  const branchStore = defineBranchStore();
-  if (!branchStore.currentBranch && to.name !== 'currentbranch' && from.name !== 'currentbranch') {
-
-    next("/currentbranch");
-
-    return;
-
+  const authStore = useAuthStore();
+  try {
+    if (!authStore.isTokenValid()) {
+      try {
+        await authStore.ensureValidToken();
+      } catch (_) {
+        // The interactive login below is the recovery path.
+      }
+    }
+    if (!authStore.authenticated) {
+      await authService.login(null, to.fullPath);
+      return false;
+    }
+  } catch (error) {
+    console.error("Unable to initialize authentication", error);
+    return false;
   }
 
-
-  next();
-
-})
+  const branchStore = defineBranchStore();
+  if (!branchStore.currentBranch && to.name !== "currentbranch") return { name: "currentbranch" };
+  return true;
+});
 
 export default router;

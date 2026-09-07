@@ -12,7 +12,7 @@ const customerNav = {
               path: "customers",
               width: "1000px",
               icon: "mdi-account-outline",
-              requires: navUtils.allRoles("customer"),
+              requires: navUtils.allRoles("customers"),
               miniHeaders: [{ title: "Profile Id", key: "id" },
               { title: "Customer Name", key: "customerName" },
               { title: "Phone No", key: "phoneNo" },
@@ -71,7 +71,7 @@ const customerNav = {
               // { id: "customer.customer.edit", title: "Edit", to: { name: "customer", params: { mode: 1 } }, icon: "mdi-pencil" },
               // { id: "customer.customer.history", title: "History", to: { name: "customer", params: { mode: 2 } } , icon: "mdi-history" },
               // ]
-              children: navUtils.allChildren('customer', 'customer', 'customers', false),
+              children: navUtils.allChildren("sales", "customers", "customers", false, "customer"),
        }
 }
 export default customerNav;

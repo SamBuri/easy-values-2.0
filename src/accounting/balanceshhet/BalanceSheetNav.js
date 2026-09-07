@@ -59,7 +59,7 @@ const balanceSheetNav = {
   model: {
     startDate: funcs.addDays(new Date(), -365),
     endDate: new Date(),
-    path: `generalledgers/accountbalances`,
+    path: `general-ledgers/accountbalances`,
     branches: [],
     accountTypes: ["Asset", "Liability", "Equity"],
     balanceName: "Balance",

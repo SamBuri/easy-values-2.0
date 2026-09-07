@@ -35,7 +35,7 @@ const lookupDataModel = {
         "Lookup Data Name length must be less or equal to 100",
     ],
   },
-  path: "lookupdata"
+  path: "lookup-data"
 };
 
 export default lookupDataModel;

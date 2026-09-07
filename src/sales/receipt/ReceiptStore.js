@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import receiptNav from "./ReceiptNav";
 import storeFuncs from "@/utils/storeFuncs";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 
 export const defineReceiptStore = defineStore("receipt", {
 

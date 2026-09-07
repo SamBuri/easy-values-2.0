@@ -71,7 +71,7 @@ data.push({ text: "Guarantors", value: this.loanApplication.guarantors.displayKe
 
 
 },
-path:"loanapplications",
+path:"loan-applications",
 rules: {
 applicantId:[(v) => !!v || "Applicant is required",
  ],name:[],

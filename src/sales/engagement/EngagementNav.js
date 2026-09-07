@@ -25,7 +25,7 @@ const engagementNav = {
                 component: Engagement,
                 path: "engagements",
                 icon: "mdi-call-splitter",
-                requires: navUtils.allRoles("engagement"),
+                requires: navUtils.allRoles("engagements"),
                 width: "1000px",
                 editHeaders: [{ title: "Customer", key: "customer.id" },
                         { title: "Customer Name", key: "customer.customerName" },
@@ -93,7 +93,7 @@ const engagementNav = {
                 // { id: "sales.engagement.edit", title: "Edit", icon: "mdi-pencil", to: { name: "engagement", params: { mode: 1 } } },
                 // { id: "sales.engagement.history", title: "History", icon: "mdi-history", to: { name: "engagement", params: { mode: 2 } } },
                 // ]
-                children: navUtils.allChildren('sales', 'engagement', 'engagements', false),
+                children: navUtils.allChildren("sales", "engagements", "engagements", false, "engagement"),
         }
 }
 export default engagementNav;

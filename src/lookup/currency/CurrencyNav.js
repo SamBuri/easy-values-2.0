@@ -10,7 +10,7 @@ const currencyNav = {
     component: Currency,
     path: "currencies",
     icon: "mdi-currency-usd",
-    requires: navUtils.allRoles("currency"),
+    requires: navUtils.allRoles("currencies"),
     width: "700px",
     editHeaders: [
       { title: "Code", key: "currencyCode" },
@@ -37,7 +37,7 @@ const currencyNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    children: navUtils.allChildren("lookup", "currency", "currencies", false),
+    children: navUtils.allChildren("lookup", "currencies", "currencies", false, "currency"),
   },
 };
 export default currencyNav;

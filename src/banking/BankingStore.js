@@ -1,9 +1,7 @@
 import { defineStore } from "pinia";
-import httpMethods from "@/utils/HttpMethods";
-import {defineRootStore} from "@/root/RootStore"
-export const defineBankingStore = defineStore("banking", {
+import { defineRootStore } from "saburi-vue-utils";export const defineBankingStore = defineStore("banking", {
   state: () => ({
-    path: "bankingenums",
+    path: "banking-enums",
     bankAccountTypes: [],
     bankAccountTypesLoading: false,
   }),
@@ -12,7 +10,7 @@ export const defineBankingStore = defineStore("banking", {
     async getBankAccountTypes() {
       const rootStore = defineRootStore();
       let data = await rootStore.fetch(
-        `${this.path}/bankaccounttypes`,
+        `${this.path}/bank-account-types`,
         () => {
           this.bankAccountTypesLoading = true;
           this.bankAccountTypes = [];

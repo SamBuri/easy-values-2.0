@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import refundNav from './RefundNav';
+import { httpMethods } from "saburi-vue-utils";import refundNav from './RefundNav';
 export default {
 namespaced: true,
 state() {

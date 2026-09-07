@@ -5,7 +5,6 @@ principle:"",
 loanDate: new Date(),
 accountId:"",
 bankAccountType:"",
-customerTypeId:"",
 balance:"",
 nextPaymentDate:null,
 loanProduct:"",
@@ -20,7 +19,6 @@ this.principle="";
 this.loanDate=new Date();
 this.accountId="";
 this.bankAccountType="";
-this.customerTypeId="";
 this.balance="";
 this.nextPaymentDate=null;
 this.loanProduct="";
@@ -37,7 +35,6 @@ this.principle = obj.principle;
 this.loanDate = obj.loanDate;
 this.accountId = obj.accountId;
 this.bankAccountType = obj.bankAccountType;
-this.customerTypeId = obj.customerTypeId;
 this.balance = obj.balance;
 this.nextPaymentDate = obj.nextPaymentDate;
 this.loanProduct = obj.loanProduct;
@@ -54,7 +51,6 @@ data.push({ text: "Principle", value: this.principle });
 data.push({ text: "Loan Date", value: this.loanDate });
 data.push({ text: "Account", value: this.loan.accountId });
 data.push({ text: "Bank Account Type", value: this.loan.bankAccountType });
-data.push({ text: "Customer Type", value: this.loan.customerTypeId });
 data.push({ text: "Balance", value: this.loan.balance });
 data.push({ text: "Next Payment Date", value: this.loan.nextPaymentDate });
 data.push({ text: "Loan Product", value: this.loan.loanProduct });
@@ -85,8 +81,7 @@ loanApplicationId:[(v) => !!v || "Loan Application is required",
  ],accountId:[(v) => !!v || "Account is required",
  ],bankAccountType:[(v) => !!v || "Bank Account Type is required",
 (v) => v.length < 100 || "Bank Account Type length must be less or equal to 100", ],
-customerTypeId:[(v) => !!v || "Business Section is required",
- ],balance:[(v) => !!v || "Balance is required",
+balance:[(v) => !!v || "Balance is required",
  ],nextPaymentDate:[(v) => !!v || "Next Payment Date is required",
  ],loanProduct:[(v) => !!v || "Loan Product is required",
 (v) => v.length < 100 || "Loan Product length must be less or equal to 100", ],appliedForAmount:[(v) => !!v || "Applied For Amount is required",

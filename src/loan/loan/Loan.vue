@@ -30,18 +30,6 @@ const isSave = controller.isSave;
       </v-col>
 
       <v-col :cols="cols" :sm="sm" :md="md">
-        <s-autocomplete
-          id="customerTypeId"
-          label="Customer Type"
-          v-model="model.customerTypeId"
-          :rules="rules.customerTypeId"
-          :items="controller.customerGroupStore.mini"
-          :loading="controller.customerGroupStore.miniLoading"
-          item-title="customerGroup"
-          item-value="id"
-        ></s-autocomplete>
-      </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
         <s-date-picker
           id="loanDate"
           label="Loan Date"

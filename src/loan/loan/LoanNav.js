@@ -23,7 +23,7 @@ const loanNav = {
     title: "Loans",
     component: Loan,
     path: "loans",
-    requires: navUtils.allRoles("loan"),
+    requires: navUtils.allRoles("loans"),
     width: "1000px",
 
     miniHeaders: [
@@ -118,7 +118,7 @@ const loanNav = {
       {title: "Guarantors", key: "loanApplication.guarantors",
 
         value: (item) => {
-          if (!item.loanApplication.guarantors || !item.loanApplication.guarantors.length) return 'None';
+          if (!item || !item.loanApplication || !item.loanApplication.guarantors || !item.loanApplication.guarantors.length) return 'None';
           return item.loanApplication.guarantors.map(g => `${g.name} (${g.primaryPhoneNo})`).join(', ');
         }
       },
@@ -161,8 +161,7 @@ const loanNav = {
     //     icon: "mdi-history",
     //     to: { name: "loan", params: { mode: 2 } },
     //   },
-    // ],
-    children:  navUtils.allChildren("loan","loan", "loans", true,)
+    children: navUtils.allChildren("loan", "loans", "loans", true, "loan")
   },
 };
 export default loanNav;

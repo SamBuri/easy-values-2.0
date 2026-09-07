@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import httpMethods from "@/utils/HttpMethods";
+import { httpMethods } from "saburi-vue-utils";
 
 export const defineCentralStore =defineStore ("central", {
     state: () => ({

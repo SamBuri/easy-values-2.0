@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import accountCategoryNav from "./AccountCategoryNav";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 export const defineAccountCategoryStore = defineStore("accountCategory", {
   state: () => ({
     path: accountCategoryNav.menu.path,

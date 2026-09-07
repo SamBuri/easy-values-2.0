@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import httpMethods from "@/utils/HttpMethods";
+import { httpMethods } from "saburi-vue-utils";
 import refundNav from "./RefundNav";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 export const defineRefundStore = defineStore("refund", {
   state: () => ({
     path: refundNav.menu.path,

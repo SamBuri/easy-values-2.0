@@ -17,16 +17,16 @@ const invoiceDetailNav = {
         //         },
 
         // ],
-        routes: [navUtils.viewRoute("invoicedetails", InvoiceDetails, true)],
+        routes: navUtils.allRoutes("invoice-detail", InvoiceDetail, "invoice-details", InvoiceDetails, true, "invoicedetail"),
         menu: {
                 id: "sales.invoicedetail",
                 title: "Invoice Details",
                 component: InvoiceDetail,
-                path: "invoicedetails",
+                path: "invoice-details",
                 width: "1000px",
-                to: { name: "invoicedetails", },
                 icon: "mdi-table",
-                requires: navUtils.viewRoles("invoice"),
+                requires: navUtils.allRoles("invoice-details"),
+                children: navUtils.allChildren("sales", "invoice-details", "invoice-details", false, "invoicedetail"),
                 editHeaders: [
                         { title: "Item Name", key: "itemName" },
                         { title: "Measure", key: "measure" },

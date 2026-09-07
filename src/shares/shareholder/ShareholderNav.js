@@ -28,7 +28,7 @@ const shareholderNav = {
     title: "Shareholders",
     component: Shareholder,
     path: "shareholders",
-    requires: navUtils.allRoles("shareholder"),
+    requires: navUtils.allRoles("shareholders"),
     icon: "mdi-account-multiple",
     width: "700px",
     miniHeaders: [
@@ -96,11 +96,12 @@ const shareholderNav = {
     //     to: { name: "shareholder", params: { mode: 2 } },
     //   },
     // ],
-    children: navUtils.createViewChildren(
+    children: navUtils.allChildren(
       "shares",
-      "shareholder",
       "shareholders",
-      true
+      "shareholders",
+      false,
+      "shareholder"
     ),
   },
 };

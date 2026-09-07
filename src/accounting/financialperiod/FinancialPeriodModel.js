@@ -37,7 +37,7 @@ data.push({ text: "End Date", value: this.financialPeriod.endDate });
 },
 
 },
-path:"financialperiods",
+path:"financial-periods",
 rules: {
 name:[(v) => !!v || "Name is required",
 (v) => v.length < 100 || "Name length must be less or equal to 100", ],startDate:[(v) => !!v || "Start Date is required",

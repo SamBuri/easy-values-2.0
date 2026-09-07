@@ -79,7 +79,7 @@ data.push({ text: "Notes", value: this.bankTransfer.notes });
 },
 
 },
-path:"banktransfers",
+path:"bank-transfers",
 rules: {
 fromAccountType:[(v) => !!v || "From Account Type is required",
  ],fromAccountId:[(v) => !!v || "From Account is required",

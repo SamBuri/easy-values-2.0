@@ -44,7 +44,7 @@ const exchangeRateModel = {
 };
     }
 },
-  path: "exchangerates",
+  path: "exchange-rates",
   rules: {
     currencyId: [(v) => !!v || "Currency is required"],
     buying: [(v) => !!v || "Buying is required"],

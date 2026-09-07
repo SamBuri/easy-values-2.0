@@ -18,16 +18,16 @@ const itemCategoryNav = {
 
         // ], 
 
-        routes: navUtils.allRoutes('itemcategory', ItemCategory, 'itemcategories', ItemCategories, true),
+        routes: navUtils.allRoutes("item-category", ItemCategory, "item-categories", ItemCategories, true, "itemcategory"),
 
         menu: {
                 id: "lookup.itemcategory",
                 title: "Item Categories",
                 component: ItemCategory,
-                path: "itemcategories",
+                path: "item-categories",
                 width: "700px",
                 icon: "mdi-forum",
-                requires: navUtils.allRoles('itemcategory'),
+                requires: navUtils.allRoles("item-categories"),
                 editHeaders: [{ title: "Item Category", key: "itemCategory", label: "Item Category", field: "itemCategory" },
                 { title: "Item Group", key: "itemGroup", label: "Item Group", field: "itemGroup" },
                 { title: "Billable", key: "billable", label: "Billable", field: "billable" },
@@ -56,7 +56,7 @@ const itemCategoryNav = {
                 // { id: "lookup.itemCategory.history", title: "History", to:{ name: "itemcategory", params: {mode:2}}, icon: "mdi-history" },
                 // ]
 
-                children: navUtils.allChildren('lookup', 'itemcategory', 'itemcategories', false),
+                children: navUtils.allChildren('lookup', 'item-categories', 'item-categories', false, 'itemcategory'),
         }
 }
 export default itemCategoryNav;

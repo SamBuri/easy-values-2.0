@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import bSAccountGroupNav from './BSAccountGroupNav';
+import { httpMethods } from "saburi-vue-utils";import bSAccountGroupNav from './BSAccountGroupNav';
 export default {
 namespaced: true,
 state: {

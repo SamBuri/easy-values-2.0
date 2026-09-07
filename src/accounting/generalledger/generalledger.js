@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import generalLedgerNav from './GeneralLedgerNav';
+import { httpMethods } from "saburi-vue-utils";import generalLedgerNav from './GeneralLedgerNav';
 export default {
 namespaced: true,
 state: {

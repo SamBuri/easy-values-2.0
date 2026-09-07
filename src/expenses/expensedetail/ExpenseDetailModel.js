@@ -51,7 +51,7 @@ data.push({ text: "Amount", value: this.expenseDetail.amount });
 
 
 },
-path:"expensedetails",
+path:"expense-details",
 rules: {
 itemId:[(v) => !!v || "Item is required",
  ],itemName:[(v) => !!v || "Item Name is required",

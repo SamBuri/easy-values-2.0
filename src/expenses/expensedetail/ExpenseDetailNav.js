@@ -22,10 +22,10 @@ const expenseDetailNav = {
                 id: "expenses.expensedetail",
                 title: "Expense Details",
                 component: ExpenseDetail,
-                path: "expensedetails",
+                path: "expense-details",
                 to: {name: "expensedetails"},
                 icon: "mdi-format-list-bulleted",
-                requires: navUtils.viewRoles("expense"),
+                requires: navUtils.viewRoles("expense-details"),
                 width: "700px",
                 editHeaders: [
                         { title: "Item Name", key: "itemName" },

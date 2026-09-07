@@ -99,7 +99,7 @@ const loanProductModel = {
       };
     },
   },
-  path: "loanproducts",
+  path: "loan-products",
   rules: {
     productName: [
       (v) => !!v || "Product Name is required",

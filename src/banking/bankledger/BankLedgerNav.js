@@ -21,9 +21,9 @@ const bankLedgerNav = {
     id: "banking.bankledger",
     title: "Bank Ledgers",
     component: BankLedger,
-    path: "bankledgers",
+    path: "bank-ledgers",
     icon: "mdi-book-open-variant",
-    requires: navUtils.viewRoles("bankledger"),
+    requires: navUtils.viewRoles("bank-ledgers"),
     width: "1000px",
     to: { name: "bankledgers" },
     editHeaders: [

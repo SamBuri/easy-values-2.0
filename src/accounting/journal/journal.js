@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import journalNav from './JournalNav';
+import { httpMethods } from "saburi-vue-utils";import journalNav from './JournalNav';
 export default {
 namespaced: true,
 state: {

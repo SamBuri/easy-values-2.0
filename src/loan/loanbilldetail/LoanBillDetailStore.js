@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import loanBillDetailNav from "./LoanBillDetailNav";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 import storeFuncs from "@/utils/storeFuncs";
 export const defineLoanBillDetailStore = defineStore("loanBillDetail", {
 

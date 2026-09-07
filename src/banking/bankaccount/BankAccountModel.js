@@ -84,7 +84,7 @@ const bankAccountModel = {
       };
     },
   },
-  path: "bankaccounts",
+  path: "bank-accounts",
   rules: {
     bankAccountName: [
       (v) => !!v || "Bank Account Name is required",

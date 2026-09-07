@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import billItemNav from './BillItemNav';
+import { httpMethods } from "saburi-vue-utils";import billItemNav from './BillItemNav';
 export default {
 namespaced: true,
 state: {

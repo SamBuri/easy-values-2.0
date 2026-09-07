@@ -38,7 +38,7 @@ const itemPriceGroupModel = {
       };
     },
   },
-  path: "itempricegroups",
+  path: "item-price-groups",
   rules: {
     item: [(v) => !!v || "Item is required"],
     priceGroup: [(v) => !!v || "Price Group is required"],

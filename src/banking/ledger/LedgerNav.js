@@ -32,8 +32,8 @@ const ledgerNav = {
     accountName: "",
     startDate: funcs.formatDate(funcs.addDays(funcs.today(), -7)),
     endDate: funcs.today(),
-    path: `bankledgers/ledger`,
-    requires: navUtils.allRoles('bankledger'),
+    path: `bank-ledgers/ledger`,
+    requires: navUtils.allRoles('bank-ledgers'),
     branches: [],
     setData(data) {
       this.accountId = data.id;

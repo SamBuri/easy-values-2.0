@@ -34,7 +34,7 @@ data.push({ text: "Sponsor", value: this.customerSponsor.sponsor.displayKey });
 
 
 },
-path:"customersponsors",
+path:"customer-sponsors",
 rules: {
 customerId:[(v) => !!v || "Customer is required",
  ],sponsorId:[(v) => !!v || "Sponsor is required",

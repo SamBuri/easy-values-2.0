@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import customerLedgerPreviewNav from './CustomerLedgerPreviewNav';
+import { httpMethods } from "saburi-vue-utils";import customerLedgerPreviewNav from './CustomerLedgerPreviewNav';
 export default {
 namespaced: true,
 state() {

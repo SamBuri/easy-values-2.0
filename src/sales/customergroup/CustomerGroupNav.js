@@ -17,14 +17,14 @@ const customerGroupNav = {
         //         },
 
         // ],
-        routes: navUtils.allRoutes("customergroup", CustomerGroup, "customergroups", CustomerGroups, true),
+        routes: navUtils.allRoutes("customer-group", CustomerGroup, "customer-groups", CustomerGroups, true, "customergroup"),
         menu: {
                 id: "sales.customergroup",
                 title: "Customer Groups",
                 component: CustomerGroup,
                 icon: "mdi-account-group-outline",
-                path: "customergroups",
-                requires: navUtils.allRoles("customergroup"),
+                path: "customer-groups",
+                requires: navUtils.allRoles("customer-groups"),
                 width: "700px",
                 editHeaders: [{ title: "Customer Group", key: "customerGroup" },
                 { title: "Receivable Account", key: "receivableAccountId" },
@@ -54,7 +54,7 @@ const customerGroupNav = {
                 // { id: "sales.customerGroup.edit", title: "Edit", to: { name: "customergroup", params: { mode: 1 } }, icon: "mdi-pencil" },
                 // { id: "sales.customerGroup.history", title: "History", to: { name: "customergroup", params: { mode: 2 } }, icon: "mdi-history" },
                 // ]
-                children: navUtils.allChildren('sales', 'customergroup', 'customergroups', false),
+                children: navUtils.allChildren("sales", "customer-groups", "customer-groups", false, "customergroup"),
         }
 }
 export default customerGroupNav;

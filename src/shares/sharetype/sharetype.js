@@ -1,5 +1,4 @@
-import httpMethods from '../../utils/HttpMethods'
-import shareTypeNav from './ShareTypeNav';
+import { httpMethods } from "saburi-vue-utils";import shareTypeNav from './ShareTypeNav';
 export default {
 namespaced: true,
 state: {

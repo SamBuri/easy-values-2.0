@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import engagementNav from "./EngagementNav";
-import { defineRootStore } from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
 import storeFuncs from "@/utils/storeFuncs";
 import engagementCriteria from "./EngagementCriteria";
 export const defineEngagementStore = defineStore("engagement", {

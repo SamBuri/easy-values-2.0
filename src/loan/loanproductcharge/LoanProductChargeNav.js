@@ -17,18 +17,19 @@ const loanProductChargeNav = {
   //   },
   // ],
   routes: navUtils.allRoutes(
-    "loanproductcharge",
+    "loan-product-charge",
     LoanProductCharge,
-    "loanproductcharges",
+    "loan-product-charges",
     LoanProductCharges,
-    true
+    true,
+    "loanproductcharge"
   ),
   menu: {
     id: "loan.loanproductcharge",
     title: "Loan Product Charges",
     component: LoanProductCharge,
-    path: "loanproductcharges",
-    requires: navUtils.allRoles("loanproduct"),
+    path: "loan-product-charges",
+    requires: navUtils.allRoles("loan-product-charges"),
     width: "700px",
     miniHeaders: [
       { title: "Item", key: "itemName" },
@@ -100,7 +101,7 @@ const loanProductChargeNav = {
     //     to: { name: "loanproductcharge", params: { mode: 2 } },
     //   },
     // ],
-    children: navUtils.allChildren("loan", "loanproductcharge", "loanproductcharges", true),
+    children: navUtils.allChildren("loan", "loan-product-charges", "loan-product-charges", true, "loanproductcharge"),
   },
 };
 export default loanProductChargeNav;

@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-// import httpMethods from "@/utils/HttpMethods";
-import { defineRootStore } from "@/root/RootStore";
+// import { httpMethods } from "saburi-vue-utils";
+import { defineRootStore } from "saburi-vue-utils";
 
-export const defineProfileStore = defineStore("profile", {
+export const defineProfileEnumStore = defineStore("profileEnum", {
   state: () => ({
-    path: "profileenums/",
+    path: "profile-enums",
     imageTypes: [],
     imageTypesLoading: false,
     profileTypes: [],
@@ -18,7 +18,7 @@ export const defineProfileStore = defineStore("profile", {
   actions: {
     /**
      * A generic helper to fetch enums
-     * @param {string} endpoint - The sub-path (e.g., 'idtypes')
+     * @param {string} endpoint - The sub-path (e.g., 'id-types')
      * @param {string} stateKey - The state property to update (e.g., 'idTypes')
      */
     async fetchEnum(endpoint, stateKey) {
@@ -26,7 +26,7 @@ export const defineProfileStore = defineStore("profile", {
       const loadingKey = `${stateKey}Loading`;
 
       return await rootStore.fetch(
-        `${this.path}${endpoint}`,
+        `${this.path}/${endpoint}`,
         () => {
           this[loadingKey] = true;
           this[stateKey] = [];
@@ -36,19 +36,19 @@ export const defineProfileStore = defineStore("profile", {
       );
     },
     async getProfileTypes() {
-      return this.fetchEnum("profiletypes", "profileTypes");
+      return this.fetchEnum("profile-types", "profileTypes");
     },
 
     async getImageTypes() {
-      return this.fetchEnum("imagetypes", "imageTypes");
+      return this.fetchEnum("image-types", "imageTypes");
     },
 
     async getIdTypes() {
-      return this.fetchEnum("idtypes", "idTypes");
+      return this.fetchEnum("id-types", "idTypes");
     },
 
     async getMaritalStatuses() {
-      return this.fetchEnum("maritalstatuses", "maritalStatuses");
+      return this.fetchEnum("marital-statuses", "maritalStatuses");
     },
 
 

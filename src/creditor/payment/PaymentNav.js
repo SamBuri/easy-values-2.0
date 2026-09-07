@@ -22,7 +22,7 @@ const paymentNav = {
     title: "Payments",
     component: Payment,
     path: "payments",
-    requires: navUtils.allRoles("payment"),
+    requires: navUtils.allRoles("payments"),
     icon: "mdi-cash-multiple",
     width: "1000px",
     editHeaders: [
@@ -106,9 +106,10 @@ const paymentNav = {
     // ],
     children: navUtils.createViewChildren(
       "creditor",
-      "payment",
       "payments",
-      true
+      "payments",
+      true,
+      "payment"
     ),
   },
 };

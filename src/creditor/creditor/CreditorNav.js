@@ -29,7 +29,7 @@ const creditorNav = {
     component: Creditor,
     path: "creditors",
     icon: "mdi-account-multiple",
-    requires: navUtils.allRoles("creditor"),
+    requires: navUtils.allRoles("creditors"),
     width: "700px",
     editHeaders: [
       { title: "Id", key: "id" },
@@ -100,9 +100,10 @@ const creditorNav = {
     // ],
     children: navUtils.allChildren(
       "creditor",
-      "creditor",
       "creditors",
-      true
+      "creditors",
+      true,
+      "creditor"
     ),
   },
 };

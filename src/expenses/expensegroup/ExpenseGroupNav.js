@@ -17,14 +17,14 @@ const expenseGroupNav = {
         //         },
 
         // ],
-        routes: navUtils.allRoutes("expensegroup", ExpenseGroup, "expensegroups", ExpenseGroups, true),
+        routes: navUtils.allRoutes("expense-group", ExpenseGroup, "expense-groups", ExpenseGroups, true, "expensegroup"),
         menu: {
                 id: "expenses.expensegroup",
                 title: "Expense Groups",
                 component: ExpenseGroup,
-                path: "expensegroups",
+                path: "expense-groups",
                 icon: "mdi-cash-multiple",
-                requires: navUtils.allRoles("expensegroup"),
+                requires: navUtils.allRoles("expense-groups"),
                 width: "700px",
                 editHeaders: [{ title: "Item Category", key: "itemCategoryId", isNumeric: true },
                 { title: "Gl Account", key: "glAccountId" },
@@ -54,7 +54,7 @@ const expenseGroupNav = {
                 // { id: "expenses.expenseGroup.edit", title: "Edit", to: { name: "expensegroup", params: { mode: 1 } } },
                 // { id: "expenses.expenseGroup.history", title: "History", to: { name: "expensegroup", params: { mode: 2 } } },
                 // ]
-                children:navUtils.allChildren('expenses', 'expensegroup', 'expensegroups', false),
+                children: navUtils.allChildren('expenses', 'expense-groups', 'expense-groups', false, 'expensegroup'),
         }
 }
 export default expenseGroupNav;

@@ -46,7 +46,7 @@ data.push({ text: "Alert Percentage", value: this.creditorItemCategory.alertPerc
 
 
 },
-path:"creditoritemcategories",
+path:"creditor-item-categories",
 rules: {
 creditorGroupId:[(v) => !!v || "Creditor Group is required",
  ],itemCategoryId:[(v) => !!v || "Item Category Id is required",

@@ -2,6 +2,10 @@ const companyModel = {
   model: {
     logo: null,
     companyName: "",
+    organisationType: "",
+    clientGroupId: null,
+    groupCode: "",
+    requestedRoleName: "",
     businessType: "",
     address: "",
     phoneNo: "",
@@ -21,6 +25,10 @@ const companyModel = {
     clear() {
       this.logo = null;
       this.companyName = "";
+      this.organisationType = "";
+      this.clientGroupId = null;
+      this.groupCode = "";
+      this.requestedRoleName = "";
       this.businessType = "";
       this.address = "";
       this.phoneNo = "";
@@ -35,6 +43,10 @@ const companyModel = {
       this.id = obj.id;
       this.logo = obj.logo;
       this.companyName = obj.companyName;
+      this.organisationType = obj.organisationType || "";
+      this.clientGroupId = obj.clientGroupId || null;
+      this.groupCode = obj.groupCode || "";
+      this.requestedRoleName = obj.requestedRoleName || "";
       this.businessType = obj.businessType;
       this.address = obj.address;
       this.phoneNo = obj.phoneNo;
@@ -81,6 +93,10 @@ const companyModel = {
       var data = new FormData();
       data.append("logo", this.logo);
       data.append("companyName", this.companyName);
+      data.append("organisationType", this.organisationType);
+      if (this.clientGroupId) data.append("clientGroupId", this.clientGroupId);
+      if (this.groupCode) data.append("groupCode", this.groupCode);
+      if (this.requestedRoleName) data.append("requestedRoleName", this.requestedRoleName);
       data.append("businessType", this.businessType);
       data.append("address", this.address);
       data.append("phoneNo", this.phoneNo);

@@ -16,14 +16,14 @@ const bankAccountNav = {
     //     meta: { auth: true },
     //   },
     // ],
-    routes: navUtils.allRoutes("bankaccount",BankAccount,"bankaccounts",BankAccounts,true),
+    routes: navUtils.allRoutes("bank-account", BankAccount, "bank-accounts", BankAccounts, true, "bankaccount"),
   menu: {
     id: "banking.bankaccount",
     title: "Bank Accounts",
     icon: "mdi-wallet",
     component: BankAccount,
-    path: "bankaccounts",
-    requires: navUtils.allRoles("bankaccount"),
+    path: "bank-accounts",
+    requires: navUtils.allRoles("bank-accounts"),
     width: "1000px",
     editHeaders: [
       { title: "Bank Account Name", key: "bankAccountName" },
@@ -114,7 +114,7 @@ const bankAccountNav = {
     //     to: { name: "bankaccount",  params: { mode: 2 } },
     //   },
     // ],
-    children: navUtils.allChildren("banking", "bankaccount", "bankaccounts", false),
+    children: navUtils.allChildren("banking", "bank-accounts", "bank-accounts", false, "bankaccount"),
   },
 };
 export default bankAccountNav;

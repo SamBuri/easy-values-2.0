@@ -1,4 +1,4 @@
-import httpMethods from '../../utils/HttpMethods';
+import { httpMethods } from "saburi-vue-utils";
 import { defineCentralStore } from './CentralStore';
 export default {
     namespaced: true,

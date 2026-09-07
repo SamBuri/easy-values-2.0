@@ -17,13 +17,13 @@ const shareTypeNav = {
         //  },
 
         // ],
-        routes: navUtils.allRoutes("sharetype", ShareType, "sharetypes", ShareTypes, true),
+        routes: navUtils.allRoutes("share-type", ShareType, "share-types", ShareTypes, true, "sharetype"),
         menu: {
                 id: "shares.sharetype",
                 title: "Share Types",
                 component: ShareType,
-                path: "sharetypes",
-                requires: navUtils.allRoles("sharetype"),
+                path: "share-types",
+                requires: navUtils.allRoles("share-types"),
                 icon: "mdi-account-multiple",
                 width: "700px",
                 editHeaders: [{ title: "Name", key: "name" },
@@ -50,7 +50,7 @@ const shareTypeNav = {
                 // { id: "shares.shareType.edit", title: "Edit", to: { name: "sharetype", params: { mode: 1 } } },
                 // { id: "shares.shareType.history", title: "History", to: { name: "sharetype", params: { mode: 2 } } },
                 // ]
-                children: navUtils. allChildren("shares", "sharetype", "sharetypes")
+                children: navUtils.allChildren("shares", "share-types", "share-types", false, "sharetype")
         }
 }
 export default shareTypeNav;

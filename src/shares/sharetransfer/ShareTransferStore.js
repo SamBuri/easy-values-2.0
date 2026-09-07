@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import shareTransferNav from "./ShareTransferNav";
-import {defineRootStore} from "@/root/RootStore";
+import { defineRootStore } from "saburi-vue-utils";
    export const defineShareTransferStore = defineStore("shareTransfer", {
  
 state: () => ({

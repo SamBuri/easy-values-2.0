@@ -9,7 +9,7 @@ const branchNav = {
                 component: Branch,
                 icon: "mdi-warehouse",
                 path: "branches",
-                requires: navUtils.allRoles("branch"),
+                requires: navUtils.allRoles("branches"),
                 width: "700px",
                 editHeaders: [
                 { title: "Branch Name", key: "branchName" },
@@ -32,12 +32,7 @@ const branchNav = {
                 { title: "Last Modified Date", key: "lastModifiedDate", isDateTime: true },
                 { title: "Created By", key: "createdBy", },
                 { title: "Modified By", key: "modifiedBy", }],
-                // children: [{ id: "organisation.branch.view", title: "View", icon: "mdi-table", to: { name: "branches", } },
-                // { id: "organisation.branch.new", title: "New", icon: "mdi-plus-circle", to: { name: "branch", params: { mode: 0 } } },
-                // { id: "organisation.branch.edit", title: "Edit", icon: "mdi-pencil", to: { name: "branch", params: { mode: 1 } } },
-                // { id: "organisation.branch.history", title: "History", icon: "mdi-history", to: { name: "branch", params: { mode: 2 } } },
-                // ]
-                children: navUtils.allChildren('organisation', 'branch', 'branches', false),
+                children: navUtils.allChildren('organisation', 'branches', 'branches', false, 'branch'),
         }
 }
 export default branchNav;

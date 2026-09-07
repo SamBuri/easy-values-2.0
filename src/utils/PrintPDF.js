@@ -1,7 +1,7 @@
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable';
 import funcs from "./funcs";
-import { defineTenantStore } from "@/organisation/tenant/TenantStore";
+import { defineBranchStore } from "@/organisation/branch/BranchStore";
 import { useAuthStore } from "@/store/authstore";
 export default function printPDF(options){
 
@@ -24,10 +24,10 @@ export default function printPDF(options){
     doc.setFont("helvetica", "bold");
     doc.setFontSize(20)
     doc.setTextColor(255, 0, 0);
-    const tenantStore = defineTenantStore();
+    const branchStore = defineBranchStore();
 
-     let company =tenantStore.getCurrentCompany;
-     let companyName = company?company.companyName:"";
+     let company = branchStore.currentUserCompany;
+     let companyName = company ? company.companyName : "";
      let titleX = format==='a6'?10:60
     doc.text(companyName, titleX, 10)
     doc.line(0, 12, 500, 12)

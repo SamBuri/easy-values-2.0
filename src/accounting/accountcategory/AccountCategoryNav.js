@@ -16,14 +16,14 @@ const accountCategoryNav = {
   //     meta: { auth: true },
   //   },
   // ],
-  routes: navUtils.allRoutes( "accountcategory", AccountCategory, "accountcategories", AccountCategories, true),
+  routes: navUtils.allRoutes("account-category", AccountCategory, "account-categories", AccountCategories, true, "accountcategory"),
   menu: {
     id: "accounting.accountcategory",
     title: "Account Categories",
     component: AccountCategory,
-    path: "accountcategories",
+    path: "account-categories",
     icon: "mdi-account-multiple",
-    requires: navUtils.allRoles("accountcategory"),
+    requires: navUtils.allRoles("account-categories"),
     width: "700px",
     editHeaders: [
       { title: "Account Type", key: "accountType" },
@@ -83,7 +83,7 @@ const accountCategoryNav = {
     //     to: { name: "accountcategory", params: { mode: 2 } },
     //   },
     // ],
-    children: navUtils.allChildren( "accounting", "accountcategory", "accountcategories", false),
+    children: navUtils.allChildren("accounting", "account-categories", "account-categories", false, "accountcategory"),
   },
 };
 export default accountCategoryNav;

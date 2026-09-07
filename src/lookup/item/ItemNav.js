@@ -24,7 +24,7 @@ const itemNav = {
     path: "items",
     width: "1000px",
     icon: "mdi-microsoft-xbox-controller-menu",
-    requires: navUtils.allRoles("item"),
+    requires: navUtils.allRoles("items"),
     miniHeaders: [
       {
         title: "Id",
@@ -101,7 +101,7 @@ const itemNav = {
     //     to: { name: "item", params: { mode: 2 } , icon: "mdi-history"},
     //   },
     // ],
-    children: navUtils.allChildren("lookup", "item", "items", false),
+    children: navUtils.allChildren("lookup", "items", "items", false, "item"),
   },
 };
 export default itemNav;
