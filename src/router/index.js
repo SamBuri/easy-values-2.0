@@ -1,12 +1,10 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
-import { defineBranchStore } from "@/organisation/branch/BranchStore";
 import { useAuthStore } from "@/store/authstore";
 import { authService } from "@/security/auth/AuthService";
-import { Search } from "saburi-vue-utils";
+import { Search, settingsNavGroup, organisationNavGroup, CurrentBranch, OrganisationProfile, defineBranchStore } from "saburi-vue-utils";
 import lookupNavData from "../lookup/LookupNavData";
 import accountingNavData from "../accounting/AccountingNavData";
-import organisationNavData from "../organisation/OrganisationNavData";
 import onboardingNavData from "../onboarding/OnboardingNavData";
 // import itemsNavData from '../items/ItemsNavData'
 import bankingNavData from "../banking/BankingNavData";
@@ -22,7 +20,6 @@ import expensesNavData from "../expenses/EpensesNavData";
 import sharesNavData from "../shares/SharesNavData";
 
 import creditorNavData from "../creditor/CreditorNavData";
-import { settingsNavGroup } from "saburi-vue-utils";
 
 
 const routes = [
@@ -57,10 +54,7 @@ const routes = [
       {
         path: '/currentbranch',
         name: 'currentbranch',
-        // route level code-splitting
-        // this generates a separate chunk (About.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('../organisation/branch/CurrentBranch.vue')
+        component: CurrentBranch
       },
       {
         path: "/oauth/callback",
@@ -83,7 +77,7 @@ const routes = [
       {
         path: "/organisation-profile",
         name: "organisation-profile",
-        component: () => import("../organisation/company/OrganisationProfile.vue"),
+        component: OrganisationProfile,
         meta: { auth: true },
       },
       {
@@ -92,9 +86,27 @@ const routes = [
         component: Search,
         meta: { auth: true },
       },
+      {
+        path: "/change-password",
+        name: "change-password",
+        component: () => import("saburi-vue-utils").then(m => m.ChangePassword),
+        meta: { auth: true },
+      },
+      {
+        path: "/reset-password",
+        name: "reset-password",
+        component: () => import("saburi-vue-utils").then(m => m.ResetPassword),
+        meta: { auth: false },
+      },
+      {
+        path: "/forgot-password",
+        name: "forgot-password",
+        component: () => import("saburi-vue-utils").then(m => m.ForgotPassword),
+        meta: { auth: false },
+      },
 
       ...lookupNavData.routes,
-      ...organisationNavData.routes,
+      ...organisationNavGroup.routes,
       ...onboardingNavData.routes,
       ...accountingNavData.routes,
       ...salesNavData.routes,
@@ -139,8 +151,12 @@ router.beforeEach(async (to) => {
     return false;
   }
 
+  if (authStore.forcePasswordChange && to.name !== "change-password") {
+    return { name: "change-password" };
+  }
+
   const branchStore = defineBranchStore();
-  if (!branchStore.currentBranch && to.name !== "currentbranch") return { name: "currentbranch" };
+  if (!branchStore.currentBranch && to.name !== "currentbranch" && to.name !== "change-password") return { name: "currentbranch" };
   return true;
 });
 

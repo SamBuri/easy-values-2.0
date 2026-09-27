@@ -14,10 +14,10 @@
       <div v-if="branchStore.currentBranch" class="mx-4 d-flex align-center">
         <v-icon start color="primary" class="mr-2">mdi-office-building-marker</v-icon>
         <span class="text-subtitle-2 font-weight-bold">
-          {{ branchStore.currentUserCompany?.companyName || 'Easy Values' }} - {{ branchStore.getBranchName }}
+          {{ branchStore.currentBranch?.organisationName || 'Easy Values' }} - {{ branchStore.getBranchName }}
         </span>
         <v-btn icon="mdi-chevron-down" variant="text" density="comfortable" @click="currentBranchDialog = true" class="ml-1"></v-btn>
-        
+
         <v-dialog v-model="currentBranchDialog" width="900" persistent>
           <current-branch :dialog="true" @close="closeCurrentBranch" />
         </v-dialog>
@@ -42,11 +42,9 @@
 </template>
 
 <script setup>
-import { SideBarNav, TopRightMenu, useThemeResolver } from 'saburi-vue-utils';
+import { SideBarNav, TopRightMenu, CurrentBranch, defineBranchStore, useThemeResolver } from 'saburi-vue-utils';
 import navData from './nav/NavData';
-import CurrentBranch from './organisation/branch/CurrentBranch.vue';
 import { useAuthStore } from './store/authstore';
-import { defineBranchStore } from './organisation/branch/BranchStore';
 import { ref, onMounted } from 'vue';
 
 const drawer = ref(null);

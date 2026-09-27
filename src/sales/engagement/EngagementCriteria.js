@@ -1,5 +1,5 @@
 
-import { defineBranchStore } from "@/organisation/branch/BranchStore";
+import { defineBranchStore } from "saburi-vue-utils";
 
  const engagementCriteria = {
 

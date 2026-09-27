@@ -8,6 +8,30 @@ import ViteFonts from 'unplugin-fonts/vite'
 // Utilities
 import {defineConfig} from 'vite'
 import {fileURLToPath, URL} from 'node:url'
+import fs from 'node:fs'
+
+const copyToStaticPlugin = () => {
+    return {
+        name: 'copy-to-static',
+        closeBundle() {
+            const distDir = fileURLToPath(new URL('./dist', import.meta.url));
+            const targetResourcesDir = fileURLToPath(new URL('../easy-values-app/src/main/resources/static', import.meta.url));
+            const targetClassesDir = fileURLToPath(new URL('../easy-values-app/target/classes/static', import.meta.url));
+
+            // Copy to src/main/resources/static
+            fs.mkdirSync(targetResourcesDir, { recursive: true });
+            fs.cpSync(distDir, targetResourcesDir, { recursive: true });
+
+            // If target/classes exists, copy directly so running app immediately has latest files
+            const classesDir = fileURLToPath(new URL('../easy-values-app/target/classes', import.meta.url));
+            if (fs.existsSync(classesDir)) {
+                fs.mkdirSync(targetClassesDir, { recursive: true });
+                fs.cpSync(distDir, targetClassesDir, { recursive: true });
+            }
+            console.log('\n[copy-to-static] Successfully copied static files to easy-values-app/src/main/resources/static and target/classes/static');
+        }
+    };
+};
 
 const virtualRootPlugin = () => {
     return {
@@ -49,6 +73,7 @@ const virtualRootPlugin = () => {
 export default defineConfig({
     plugins: [
         virtualRootPlugin(),
+        copyToStaticPlugin(),
         Vue({
             template: {transformAssetUrls}
         }),

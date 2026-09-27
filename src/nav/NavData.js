@@ -1,5 +1,4 @@
 import { reactive } from 'vue';
-import organisationNavData from '../organisation/OrganisationNavData'
 import onboardingNavData from '../onboarding/OnboardingNavData'
 import accountingNavData from '../accounting/AccountingNavData'
 import lookupNavData from '../lookup/LookupNavData'
@@ -14,13 +13,13 @@ import expensesNavData from '../expenses/EpensesNavData'
 import sharesNavData from '../shares/SharesNavData'
 import creditorNavData from '../creditor/CreditorNavData';
 import loanDashboardNav from '../loan/loaddashboard/LoanDashboardNav';
-import { settingsNavGroup } from 'saburi-vue-utils';
+import { settingsNavGroup, organisationNavGroup } from 'saburi-vue-utils';
 
 const navData = reactive({
 
   tree: [
     // Overview Section
-    { header: 'Overview' },
+    // { header: 'Overview' },
     {
       id: 'dashboard',
       title: 'Dashboard',
@@ -50,10 +49,10 @@ const navData = reactive({
     { divider: true },
 
     // System & Setup Section
-    { header: 'System & Setup' },
+    { header: 'System Setup' },
     profileNavData.nav,
     lookupNavData.nav,
-    organisationNavData.nav,
+    organisationNavGroup.nav,
     securityNavData.nav,
     settingsNavGroup.nav,
     onboardingNavData.nav,

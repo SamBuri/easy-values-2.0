@@ -1,4 +1,4 @@
-import { defineBranchStore } from "@/organisation/branch/BranchStore";
+import { defineBranchStore } from "saburi-vue-utils";
 import funcs from "./funcs";
 const storeFuncs = {
 

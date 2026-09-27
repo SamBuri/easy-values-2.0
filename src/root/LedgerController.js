@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { defineBranchStore } from "@/organisation/branch/BranchStore";
+import { defineBranchStore } from "saburi-vue-utils";
 export default function ledgerController(rawModel){
   const model = ref(rawModel.model);
 const branchStore = defineBranchStore();

@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const apiBaseUrl = (import.meta.env.VITE_API_URL || "http://localhost:8181/").replace(/\/$/, "");
+const rawApiUrl = import.meta.env.VITE_API_URL;
+const apiBaseUrl = (rawApiUrl && rawApiUrl !== "EV_APP_API_URL"
+  ? rawApiUrl
+  : (typeof window !== "undefined" ? window.location.origin : "http://localhost:8181")
+).replace(/\/$/, "");
 const verifierKey = "easy-values.pkce.verifier";
 const stateKey = "easy-values.oauth.state";
 let _cachedClientConfig = null;
@@ -39,10 +43,7 @@ export const authService = {
     } catch (error) {
       console.warn("Failed to fetch client config from backend, falling back to defaults", error);
       return {
-        clientGroupId: 48,
-        groupCode: "saburi",
-        groupName: "Saburi Group",
-        issuer: `${apiBaseUrl}/saburi`,
+        issuer: `${apiBaseUrl}`,
         clientId: "saburi-web",
         clientName: "Saburi Main App",
         redirectUri: redirectUri(),
@@ -76,8 +77,6 @@ export const authService = {
       state,
       returnTo: safeReturnTo,
       issuer: config.issuer,
-      groupCode: config.groupCode,
-      clientGroupId: config.clientGroupId,
       clientId: config.clientId
     }));
     const params = new URLSearchParams({
@@ -97,7 +96,7 @@ export const authService = {
     const verifier = sessionStorage.getItem(verifierKey);
     if (!state || state !== stored.state || !verifier) throw new Error("Invalid OAuth callback state");
     
-    const issuer = stored.issuer || `${apiBaseUrl}/${stored.groupCode || "saburi"}`;
+    const issuer = stored.issuer || `${apiBaseUrl}`;
     const body = new URLSearchParams({
       grant_type: "authorization_code",
       client_id: stored.clientId || "saburi-web",
@@ -129,7 +128,7 @@ export const authService = {
 
   logoutUrl(clientConfig, idToken) {
     const postLogoutRedirect = window.location.origin;
-    const issuer = clientConfig?.issuer || `${apiBaseUrl}/${clientConfig?.groupCode || "saburi"}`;
+    const issuer = clientConfig?.issuer || `${apiBaseUrl}`;
     const clientId = clientConfig?.clientId || "saburi-web";
     if (!idToken) {
       return postLogoutRedirect;
@@ -140,5 +139,19 @@ export const authService = {
       id_token_hint: idToken
     });
     return `${issuer}/connect/logout?${params}`;
+  },
+
+  async switchBranch(token, branchId) {
+    try {
+      const response = await axios.post(`${apiBaseUrl}/api/v1/auth/switch-branch`, { branchId }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (err) {
+      const response = await axios.post(`${apiBaseUrl}/auth/switch-branch`, { branchId }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    }
   }
 };

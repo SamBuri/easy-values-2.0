@@ -1,7 +1,7 @@
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable';
 import funcs from "./funcs";
-import { defineBranchStore } from "@/organisation/branch/BranchStore";
+import { defineBranchStore } from "saburi-vue-utils";
 import { useAuthStore } from "@/store/authstore";
 export default function printPDF(options){
 

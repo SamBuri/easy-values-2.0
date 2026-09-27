@@ -42,6 +42,10 @@ onMounted(async () => {
       console.warn("Failed to fetch backend user-context, decoding token directly", e);
     }
     await authStore.setTokens(result.tokens, userContext);
+    if (authStore.forcePasswordChange) {
+      await router.replace("/change-password");
+      return;
+    }
     const destination = (result.returnTo && !result.returnTo.startsWith("/oauth/callback")) ? result.returnTo : "/";
     await router.replace(destination);
   } catch (error) {

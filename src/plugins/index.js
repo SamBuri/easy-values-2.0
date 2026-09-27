@@ -9,11 +9,11 @@ import vuetify from './vuetify'
 import router from '@/router'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import { createPinia } from "pinia";
-import SaburiVueUtils, { useClientGroupStore, useConfigStore } from 'saburi-vue-utils';
+import SaburiVueUtils, { useConfigStore } from 'saburi-vue-utils';
 import 'saburi-vue-utils/dist/style.css';
 
 import { useAuthStore } from "@/store/authstore";
-import { defineBranchStore } from "@/organisation/branch/BranchStore";
+import { defineBranchStore } from "saburi-vue-utils";
 import { defineCountryStore } from "@/lookup/country/CountryStore";
 import { defineBankAccountStore } from "@/banking/bankaccount/BankAccountStore";
 import bankAccountNav from "@/banking/bankaccount/BankAccountNav";
@@ -28,12 +28,16 @@ export function registerPlugins (app) {
   pinia.use(piniaPluginPersistedstate);
   app.use(pinia)
 
+  const rawApiUrl = import.meta.env.VITE_API_URL;
+  const apiBaseUrl = (rawApiUrl && rawApiUrl !== "EV_APP_API_URL"
+    ? rawApiUrl
+    : (typeof window !== "undefined" ? window.location.origin : "http://localhost:8181/"));
+
   app.use(SaburiVueUtils, {
-    apiBaseUrl: import.meta.env.VITE_API_URL || "http://localhost:8181/",
+    apiBaseUrl: apiBaseUrl,
     apiPrefix: import.meta.env.VITE_API_PREFIX || "api",
     apiVersion: import.meta.env.VITE_API_VERSION || "v1",
     authStore: useAuthStore,
-    clientGroupStore: useClientGroupStore,
     branchStore: defineBranchStore,
     configStore: useConfigStore,
     countryStore: defineCountryStore,
@@ -71,7 +75,6 @@ export function registerPlugins (app) {
         console.warn("[auth] Token is expired after refresh attempt, omitting Authorization header");
         return {
           Username: localStorage.getItem(constants.LOCAL_STORAGE_KEYS.USERNAME),
-          ...(authStore.clientGroupId ? { "Client-Group-Id": authStore.clientGroupId } : {}),
           ...(currentBranch?.id ? { "Branch-Id": currentBranch.id, Branch: currentBranch.branchName } : {}),
         };
       }
@@ -79,13 +82,12 @@ export function registerPlugins (app) {
       return {
         Username: localStorage.getItem(constants.LOCAL_STORAGE_KEYS.USERNAME),
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        ...(authStore.clientGroupId ? { "Client-Group-Id": authStore.clientGroupId } : {}),
         ...(currentBranch?.id ? { "Branch-Id": currentBranch.id, Branch: currentBranch.branchName } : {}),
       };
     },
-    refreshToken: async () => {
+    refreshToken: async (force = false) => {
       const authStore = useAuthStore();
-      return await authStore.ensureValidToken();
+      return await authStore.ensureValidToken(null, force);
     },
     onUnauthorized: () => {
       const authStore = useAuthStore();

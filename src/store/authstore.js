@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { defineBranchStore } from "@/organisation/branch/BranchStore";
+import { defineBranchStore } from "saburi-vue-utils";
 import { authService } from "@/security/auth/AuthService";
 
 function decodeJwt(token) {
@@ -32,6 +32,7 @@ export const useAuthStore = defineStore("auth", {
     refreshToken: null,
     idToken: null,
     authenticated: false,
+    forcePasswordChange: false,
     expiresAt: 0,
     fullName: null,
     defaultBranch: null,
@@ -39,9 +40,10 @@ export const useAuthStore = defineStore("auth", {
     roles: [],
     authorities: [],
     user: null,
-    groupCode: null,
-    groupName: null,
-    clientGroupId: null,
+    orgId: null,
+    orgName: null,
+    branchId: null,
+    branch: null,
     issuer: null,
   }),
   persist: true,
@@ -54,6 +56,12 @@ export const useAuthStore = defineStore("auth", {
     },
   },
   actions: {
+    setForcePasswordChange(value) {
+      this.forcePasswordChange = Boolean(value);
+      if (this.user) {
+        this.user.forcePasswordChange = Boolean(value);
+      }
+    },
     async setTokens(tokens, userContext = null) {
       this.token = tokens.access_token || tokens.token || null;
       this.refreshToken = tokens.refresh_token || tokens.refreshToken || this.refreshToken;
@@ -67,7 +75,9 @@ export const useAuthStore = defineStore("auth", {
       }
       this.authenticated = Boolean(this.token && (this.expiresAt > Date.now() || this.expiresAt === 0));
 
+      const tokenBranches = userContext?.branches || claims.branches || [];
       if (userContext) {
+        this.forcePasswordChange = Boolean(userContext.forcePasswordChange);
         this.fullName = userContext.fullName;
         this.roles = Array.from(new Set(userContext.roles || []));
         this.authorities = Array.from(new Set(userContext.authorities || []));
@@ -77,13 +87,17 @@ export const useAuthStore = defineStore("auth", {
           email: userContext.email,
           roles: this.roles,
           authorities: this.authorities,
+          forcePasswordChange: this.forcePasswordChange,
+          branches: tokenBranches,
         };
         this.defaultBranch = userContext.defaultBranch;
         this.otherBranches = userContext.otherBranches || [];
-        this.groupCode = userContext.groupCode;
-        this.groupName = userContext.groupName;
-        this.clientGroupId = userContext.clientGroupId;
+        this.orgId = userContext.orgId;
+        this.orgName = userContext.orgName;
+        this.branchId = userContext.branchId;
+        this.branch = userContext.branch;
       } else {
+        this.forcePasswordChange = Boolean(accessClaims.force_password_change || idClaims.force_password_change);
         this.roles = Array.from(new Set(normalizeClaimValues(claims.roles)));
         this.authorities = Array.from(new Set(normalizeClaimValues(claims.authorities)));
         this.fullName = claims.name || [claims.given_name, claims.family_name].filter(Boolean).join(" ") || claims.preferred_username || null;
@@ -93,16 +107,35 @@ export const useAuthStore = defineStore("auth", {
           email: claims.email || "",
           roles: this.roles,
           authorities: this.authorities,
+          forcePasswordChange: this.forcePasswordChange,
+          branches: tokenBranches,
         };
         this.defaultBranch = Array.isArray(claims.default_branch) ? claims.default_branch[0] : claims.default_branch || claims.defaultBranch || null;
         this.otherBranches = claims.other_branches || claims.otherBranches || [];
-        this.groupCode = accessClaims.group_code || null;
-        this.groupName = accessClaims.group_name || null;
-        this.clientGroupId = accessClaims.client_group_id == null ? null : Number(accessClaims.client_group_id);
+        this.orgId = accessClaims.org_id || null;
+        this.orgName = accessClaims.org_name || null;
+        this.branchId = accessClaims.branch_id || null;
+        this.branch = accessClaims.branch || null;
       }
       this.issuer = accessClaims.iss || null;
-      const branches = Array.from(new Set([this.defaultBranch, ...this.otherBranches].filter(Boolean)));
-      await defineBranchStore().setCurrentUserBranches(branches, this.defaultBranch);
+      if (tokenBranches && tokenBranches.length > 0) {
+        defineBranchStore().currentUserBranches = tokenBranches;
+        const activeBranchId = this.branchId || this.defaultBranch;
+        let matched = tokenBranches.find(b => String(b.id) === String(activeBranchId));
+        defineBranchStore().setCurrentBranch(matched || tokenBranches[0]);
+      } else {
+        const branches = Array.from(new Set([this.defaultBranch, ...this.otherBranches].filter(Boolean)));
+        await defineBranchStore().setCurrentUserBranches(branches, this.defaultBranch);
+      }
+    },
+    async switchBranch(branch) {
+      if (!branch || !branch.id) return;
+      const data = await authService.switchBranch(this.token, branch.id);
+      if (data) {
+        const tokens = data.data || data.entity || data;
+        await this.setTokens(tokens);
+        defineBranchStore().setCurrentBranch(branch);
+      }
     },
     async setAuthData(data) {
       if (!data) return this.clear();
@@ -114,21 +147,17 @@ export const useAuthStore = defineStore("auth", {
       return this.expiresAt > Date.now() + skewSeconds * 1000;
     },
     isTokenForClientGroup(clientGroup) {
-      if (!this.token) return false;
-      if (!clientGroup) return true;
-      const groupCodeMatches = !this.groupCode || !clientGroup.groupCode || this.groupCode === clientGroup.groupCode;
-      const clientGroupMatches = this.clientGroupId == null || clientGroup.clientGroupId == null ||
-        Number(this.clientGroupId) === Number(clientGroup.clientGroupId);
-      return groupCodeMatches && clientGroupMatches;
+      return true;
     },
     isTokenValidForClientGroup(clientGroup, skewSeconds = 30) {
-      return this.isTokenForClientGroup(clientGroup) && this.isTokenValid(skewSeconds);
+      return this.isTokenValid(skewSeconds);
     },
-    async ensureValidToken(selectedConfig = null) {
-      if (this.isTokenValid(30)) {
+    async ensureValidToken(selectedConfig = null, force = false) {
+      if (!force && this.isTokenValid(30)) {
         return this.token;
       }
       if (!this.refreshToken) {
+        this.clear();
         throw new Error("Token expired and no refresh token available");
       }
 
@@ -140,10 +169,11 @@ export const useAuthStore = defineStore("auth", {
         try {
           const config = selectedConfig || await authService.getClientConfig();
           const tokens = await authService.refresh(config, this.refreshToken);
-          this.setTokens(tokens);
+          await this.setTokens(tokens);
           return this.token;
         } catch (error) {
           console.error("Token refresh failed:", error);
+          this.clear();
           throw error;
         } finally {
           _refreshPromise = null;
@@ -151,6 +181,27 @@ export const useAuthStore = defineStore("auth", {
       })();
 
       return _refreshPromise;
+    },
+    async refreshTokens(selectedConfig = null) {
+      if (!this.refreshToken) {
+        return this.token;
+      }
+      try {
+        const config = selectedConfig || await authService.getClientConfig();
+        const tokens = await authService.refresh(config, this.refreshToken);
+        let userContext = null;
+        try {
+          userContext = await authService.getUserContext(tokens.access_token);
+        } catch (e) {
+          console.warn("Failed to refresh user context after password change:", e);
+        }
+        await this.setTokens(tokens, userContext);
+        this.setForcePasswordChange(false);
+        return this.token;
+      } catch (error) {
+        console.error("Token refresh failed:", error);
+        return this.token;
+      }
     },
     clear() {
       this.$reset();

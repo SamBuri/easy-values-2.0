@@ -8,7 +8,7 @@ import Parish from '../address/parish/Parish.vue'
 import LookupData from '../lookup/lookupdata/LookupData.vue'
 import CustomerGroup from '../customer/customergroup/CustomerGroup.vue'
 import Customer from '../customer/customer/Customer.vue'
-import Company from "../organisation/company/Company.vue";
+import { Organisation } from "saburi-vue-utils";
 
 import AccountCategory from '../accounts/accountcategory/AccountCategory.vue'
 import Account from '../accounts/account/Account.vue'
@@ -18,7 +18,8 @@ const components = { ConfirmDialog, Sample ,
     AccountCategory, Account,
     LookupData,
     CustomerGroup, Customer,
-    Company,
+    Organisation,
+    Company: Organisation,
     // FinancialPeriod
 
 }

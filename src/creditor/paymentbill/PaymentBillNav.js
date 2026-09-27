@@ -2,27 +2,15 @@ import PaymentBill from "./PaymentBill.vue";
 import PaymentBills from "./PaymentBills.vue";
 import { navUtils } from 'saburi-vue-utils';
 const paymentBillNav = {
-  // routes: [
-  //   {
-  //     path: "/paymentbill/:mode",
-  //     name: "paymentbill",
-  //     component: PaymentBill,
-  //     meta: { auth: true },
-  //   },
-  //   {
-  //     path: "/paymentbills",
-  //     name: "paymentbills",
-  //     component: PaymentBills,
-  //     meta: { auth: true },
-  //   },
-  // ],
-  routes: navUtils.allRoutes("payment-bill", PaymentBill, "payment-bills", PaymentBills, true, "paymentbill"),
+
+  routes: [navUtils.viewRoute(  "payment-bills", PaymentBills, true )],
   menu: {
     id: "creditor.paymentbill",
     title: "Payment Bills",
     component: PaymentBill,
     path: "payment-bills",
-    requires: navUtils.allRoles("payment-bills"),
+    requires: navUtils.viewRoles("payment-bills"),
+    to: { name:"payment-bills"},
     icon: "mdi-cash-multiple",
     width: "700px",
     editHeaders: [
@@ -59,28 +47,7 @@ const paymentBillNav = {
       { title: "Created By", key: "createdBy" },
       { title: "Modified By", key: "modifiedBy" },
     ],
-    // children: [
-    //   {
-    //     id: "creditor.paymentBill.view",
-    //     title: "View",
-    //     to: { name: "paymentbills" },
-    //   },
-    //   {
-    //     id: "creditor.paymentBill.new",
-    //     title: "New",
-    //     to: { name: "paymentbill", params: { mode: 0 } },
-    //   },
-    //   {
-    //     id: "creditor.paymentBill.edit",
-    //     title: "Edit",
-    //     to: { name: "paymentbill", params: { mode: 1 } },
-    //   },
-    //   {
-    //     id: "creditor.paymentBill.history",
-    //     title: "History",
-    //     to: { name: "paymentbill", params: { mode: 2 } },
-    //   },
-    // ],
+
 
   },
 };

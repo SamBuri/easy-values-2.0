@@ -1,4 +1,4 @@
-import organisationNavData from '../organisation/OrganisationNavData'
+import { organisationNavGroup } from 'saburi-vue-utils';
 import onboardingNavData from '../onboarding/OnboardingNavData'
 import accountingNavData from '../accounting/AccountingNavData'
 import customerNavData from '../customer/CustomerNavData'
@@ -27,7 +27,7 @@ export default [
           accountingNavData.nav,
           lookupNavData.nav,
           itemsNavData.nav,
-          organisationNavData.nav,
+          organisationNavGroup.nav,
           securityNavData.nav,
           expensesNavData.nav,
   

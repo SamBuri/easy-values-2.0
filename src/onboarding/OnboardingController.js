@@ -2,10 +2,8 @@ import rootController from "@/root/RootController";
 import rootOptions from "@/root/RootOptions";
 import onboardingModel from "./OnboardingModel";
 import { onMounted, ref } from "vue";
-import { defineOrganisationStore } from "../organisation/OrganisationStore";
-import { defineDevConfigStore } from "../organisation/devconfig/DevConfigStore";
+import { defineOrganisationStore, defineDevConfigStore, branchNav } from "saburi-vue-utils";
 import { useRouter } from "vue-router";
-import branchNav from "../organisation/branch/BranchNav";
 
 export default function onboardingController() {
   const router = useRouter();
@@ -15,7 +13,6 @@ export default function onboardingController() {
       if (res.success) {
         const company = res.entity || res.data || {};
         router.push({ name: "appuser", query: {
-          clientGroupId: company.clientGroupId || "",
           defaultBranchId: company.branches?.[0]?.id || "",
           companyId: company.id || ""
         }});
