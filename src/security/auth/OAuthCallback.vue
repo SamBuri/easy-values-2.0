@@ -49,6 +49,12 @@ onMounted(async () => {
     const destination = (result.returnTo && !result.returnTo.startsWith("/oauth/callback")) ? result.returnTo : "/";
     await router.replace(destination);
   } catch (error) {
+    if (authStore.authenticated && authStore.isTokenValid()) {
+      // A concurrent/duplicate callback run already completed the login; do not wipe that session.
+      console.warn("Ignoring duplicate OAuth callback run:", error.message);
+      await router.replace("/");
+      return;
+    }
     console.error("OAuth callback failed:", error);
     errorMessage.value = error.message || "Authentication callback failed";
     authStore.clear();

@@ -2,7 +2,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/store/authstore";
 import { authService } from "@/security/auth/AuthService";
-import { Search, settingsNavGroup, organisationNavGroup, CurrentBranch, OrganisationProfile, defineBranchStore } from "saburi-vue-utils";
+import { Search, settingsNavGroup, organisationNavGroup, CurrentBranch, OrganisationProfile } from "saburi-vue-utils";
 import lookupNavData from "../lookup/LookupNavData";
 import accountingNavData from "../accounting/AccountingNavData";
 import onboardingNavData from "../onboarding/OnboardingNavData";
@@ -155,8 +155,7 @@ router.beforeEach(async (to) => {
     return { name: "change-password" };
   }
 
-  const branchStore = defineBranchStore();
-  if (!branchStore.currentBranch && to.name !== "currentbranch" && to.name !== "change-password") return { name: "currentbranch" };
+  if (!authStore.currentBranch && to.name !== "currentbranch" && to.name !== "change-password") return { name: "currentbranch" };
   return true;
 });
 

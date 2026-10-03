@@ -52,13 +52,6 @@ controller.currencyStore.getMini();
           :rules="rules.selling"
         ></s-number-input>
       </v-col>
-      <v-col :cols="cols" :sm="sm" :md="md">
-        <v-checkbox
-          id="baseCurrency"
-          label="Base Currency"
-          v-model="model.baseCurrency"
-        ></v-checkbox>
-      </v-col>
     </template>
   </crud-form>
 </template>

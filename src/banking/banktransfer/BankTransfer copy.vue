@@ -26,7 +26,7 @@
       </v-col>
       <v-col :cols="cols" :sm="sm" :md="md">
         <v-select
-          label="From Account"
+          label="From Account"bank
           v-model="bankTransfer.fromAccount"
           :rules="fromAccountRules"
           :counter="100"
@@ -47,7 +47,7 @@
         ></v-text-field>
       </v-col>
 
-     
+
 
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-number-input
@@ -124,23 +124,23 @@
           disabled
         ></v-text-field>
       </v-col>
-      
-      
-     
+
+
+
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-date-picker
           label="Transfer Date"
           v-model="bankTransfer.transferDate"
           :rules="transferDateRules"
       /></v-col>
-     
+
       <v-col :cols="cols" :sm="sm" :md="md">
         <s-number-input
           label="Transfer Charge"
           v-model="bankTransfer.transferCharge"
         ></s-number-input>
       </v-col>
-      
+
       <v-col :cols="cols" :sm="sm" :md="md">
         <v-textarea
           label="Notes"

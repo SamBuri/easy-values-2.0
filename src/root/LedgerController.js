@@ -1,12 +1,14 @@
 import { ref } from "vue";
-import { defineBranchStore } from "saburi-vue-utils";
-export default function ledgerController(rawModel){
-  const model = ref(rawModel.model);
-const branchStore = defineBranchStore();
-  const setBranch=()=>{
-    model.value.branches = [];
-    model.value.branches=  branches.push(branchStore.currentBranch.id);
-  }
-  return model;
+import { useAuthStore } from "@/store/authstore";
 
+export default function ledgerController(rawModel) {
+  const model = ref(rawModel.model);
+  const authStore = useAuthStore();
+  const setBranch = () => {
+    model.value.branches = [];
+    if (authStore.currentBranch?.id) {
+      model.value.branches.push(authStore.currentBranch.id);
+    }
+  };
+  return model;
 }

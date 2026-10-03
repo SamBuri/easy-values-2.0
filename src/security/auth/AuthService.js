@@ -153,5 +153,20 @@ export const authService = {
       });
       return response.data;
     }
+  },
+
+  async getMyBranches(token) {
+    try {
+      const response = await axios.get(`${apiBaseUrl}/api/v1/auth/my-branches`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (err) {
+      const response = await axios.get(`${apiBaseUrl}/auth/my-branches`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    }
   }
 };
+

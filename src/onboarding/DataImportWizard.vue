@@ -8,10 +8,9 @@ const authStore = useAuthStore();
 
 const hasAnyImportPermission = computed(() => {
   if (!authStore) return true;
-  if (authStore.hasRole?.('dataimport') || authStore.hasAuthority?.('dataimport')) return true;
-  return importActions.some(
-    (action) => authStore.hasRole?.(action) || authStore.hasAuthority?.(action)
-  );
+  if (authStore.hasAuthority?.('dataimport')) return true;
+  if (authStore.hasAnyAuthority) return authStore.hasAnyAuthority(importActions);
+  return importActions.some((action) => authStore.hasAuthority?.(action));
 });
 </script>
 

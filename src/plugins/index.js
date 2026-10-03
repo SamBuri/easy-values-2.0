@@ -22,6 +22,8 @@ import constants from "@/utils/constants";
 
 const pinia = createPinia();
 
+let isRedirecting = false;
+
 export function registerPlugins (app) {
   app.use(vuetify)
   app.use(router)
@@ -43,6 +45,7 @@ export function registerPlugins (app) {
     countryStore: defineCountryStore,
     bankAccountNav: bankAccountNav,
     currencyStore: defineCurrencyStore,
+    bankAccountStore: defineBankAccountStore,
     themeOptions: {
       customThemes: [
         { name: 'Royal Purple', value: 'purple' },
@@ -53,21 +56,25 @@ export function registerPlugins (app) {
     },
     getHeaders: async () => {
       const authStore = useAuthStore();
-      const branchStore = defineBranchStore();
       if (authStore.authenticated) {
         try {
           await authStore.ensureValidToken();
         } catch (e) {
           console.warn("[auth] Token refresh failed, triggering re-login:", e);
-          authStore.clear();
-          import("@/security/auth/AuthService").then(({ authService }) => {
-            authService.login();
-          });
+          if (!isRedirecting) {
+            isRedirecting = true;
+            authStore.clear();
+            import("@/security/auth/AuthService").then(({ authService }) => {
+              authService.login();
+            }).finally(() => {
+              setTimeout(() => { isRedirecting = false; }, 3000);
+            });
+          }
           // Return empty headers — do NOT send an expired token
           return {};
         }
       }
-      let currentBranch = branchStore.currentBranch;
+      let currentBranch = authStore.currentBranch;
       let token = authStore.token;
 
       // Safety guard: never attach an expired token to any request
@@ -90,11 +97,15 @@ export function registerPlugins (app) {
       return await authStore.ensureValidToken(null, force);
     },
     onUnauthorized: () => {
+      if (isRedirecting) return;
       const authStore = useAuthStore();
       if (authStore.authenticated) {
+        isRedirecting = true;
         authStore.clear();
         import("@/security/auth/AuthService").then(({ authService }) => {
           authService.login();
+        }).finally(() => {
+          setTimeout(() => { isRedirecting = false; }, 3000);
         });
       }
     }

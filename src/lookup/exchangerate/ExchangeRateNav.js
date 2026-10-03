@@ -17,7 +17,6 @@ const exchangeRateNav = {
       { title: "Buying", key: "buying", isNumeric: true },
       { title: "Selling", key: "selling", isNumeric: true },
       { title: "Rate Date", key: "rateDate", isDate: true },
-      { title: "Base", key: "baseCurrency" },
       { title: "Actions", key: "actions" },
     ],
     headers: [
@@ -26,7 +25,6 @@ const exchangeRateNav = {
       { title: "Buying", key: "buying", isNumeric: true },
       { title: "Selling", key: "selling", isNumeric: true },
       { title: "Rate Date", key: "rateDate", isDate: true },
-      { title: "Base", key: "baseCurrency" },
       { title: "Branch", key: "branch" },
       {
         title: "Creation Date",

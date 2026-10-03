@@ -1,4 +1,4 @@
-import { defineBranchStore } from "saburi-vue-utils";
+import { useAuthStore } from "@/store/authstore";
 import funcs from "./funcs";
 const storeFuncs = {
 
@@ -34,10 +34,10 @@ const storeFuncs = {
             lessThanTomorrow
         ]
 
-        const branchStore = defineBranchStore();
+        const authStore = useAuthStore();
 
-        if(branchStore.currentBranch){
-            datesCriteria.push(branchStore.getCurrentBranchCriterion);
+        if (authStore.currentBranchCriterion) {
+            datesCriteria.push(authStore.currentBranchCriterion);
         }
 
 

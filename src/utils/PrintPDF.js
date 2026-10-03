@@ -1,7 +1,6 @@
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable';
 import funcs from "./funcs";
-import { defineBranchStore } from "saburi-vue-utils";
 import { useAuthStore } from "@/store/authstore";
 export default function printPDF(options){
 
@@ -24,11 +23,10 @@ export default function printPDF(options){
     doc.setFont("helvetica", "bold");
     doc.setFontSize(20)
     doc.setTextColor(255, 0, 0);
-    const branchStore = defineBranchStore();
+    const authStore = useAuthStore();
 
-     let company = branchStore.currentUserCompany;
-     let companyName = company ? company.companyName : "";
-     let titleX = format==='a6'?10:60
+    let companyName = authStore.currentBranch?.organisation?.organisationName || "";
+    let titleX = format==='a6'?10:60
     doc.text(companyName, titleX, 10)
     doc.line(0, 12, 500, 12)
 

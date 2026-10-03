@@ -25,9 +25,9 @@ export default function receiptController() {
   onMounted(() => {
     customerStore.getMini();
 
-    currencyStore.getMini();
+    // currencyStore.getMini();
 
-    receiptInvoiceStore.getMini();
+    // receiptInvoiceStore.getMini();
   });
 
   //customer selected starts here
@@ -143,11 +143,11 @@ const model=controller.model.value;
     }
   );
 
-  const setDefaultCurrency = () => {
-    if (currencyStore.defaultCurrency)
-      controller.model.value.currencyId = currencyStore.defaultCurrency.id;
-  }
-  
+  // const setDefaultCurrency = () => {
+  //   if (currencyStore.defaultCurrency)
+  //     controller.model.value.currencyId = currencyStore.defaultCurrency.id;
+  // }
+
   const setCustomerId=(customerId)=>{
     controller.model.value.customerId=customerId;
   }
@@ -155,12 +155,12 @@ const model=controller.model.value;
 
 
 
-  watch(() => currencyStore.mini, () => setDefaultCurrency());
+  // watch(() => currencyStore.mini, () => setDefaultCurrency());
 
   currencySelected(model, (currency) => {
     if (currency) {
       model.exchangeRate = currency.buying;
-      model.currency = currency.currency;
+      // model.currency = currency.currency;
     } else {
       model.exchangeRate = 0;
     }

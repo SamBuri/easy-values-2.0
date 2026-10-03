@@ -6,14 +6,12 @@ const exchangeRateModel = {
     buying: "",
     selling: "",
     rateDate: new Date().toISOString().substr(0, 10),
-    baseCurrency: false,
 
     clear() {
       this.currencyId = null;
       this.buying = "";
       this.selling = "";
       this.rateDate = new Date().toISOString().substr(0, 10);
-      this.baseCurrency = false;
     },
     copy(obj) {
       this.id = obj.id;
@@ -21,7 +19,6 @@ const exchangeRateModel = {
       this.buying = obj.buying;
       this.selling = obj.selling;
       this.rateDate = obj.rateDate;
-      this.baseCurrency = obj.baseCurrency;
     },
     printOptions() {
       const currencyStore = defineCurrencyStore();
@@ -31,7 +28,6 @@ const exchangeRateModel = {
       data.push({ text: "Buying", value: this.buying });
       data.push({ text: "Selling", value: this.selling });
       data.push({ text: "Rate Date", value: this.rateDate });
-      data.push({ text: "Base Currency", value: this.baseCurrency });
 
       return {
         data: data,
